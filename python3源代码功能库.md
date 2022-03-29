@@ -424,13 +424,7 @@ if __name__ == '__main__':
     print('Sth error')
 ```
 
-![1648447422850](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\1648447422850.png)
 
-![1648447443658](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\1648447443658.png)
-
-
-
-![1648447405011](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\1648447405011.png)
 
 
 
@@ -510,7 +504,7 @@ SOCKS_VERSION = 5  # socks版本
 
 class DYProxy(Tcp):
     # 用户认证 用户名/密码
-    username = 'dyboy'
+    username = 'pan'
     password = '123456'
 
     def handle(self):
@@ -734,7 +728,7 @@ SOCKS_VERSION = 5                           # socks版本
 
 class DYProxy(Tcp):
     # 用户认证 用户名/密码
-    username = 'panzhongsheng'
+    username = 'pan'
     password = '123456'
 
     def handle(self):
@@ -897,4 +891,3 @@ if __name__ == '__main__':
 
 ```
 
-![1648451697430](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\1648451697430.png)
