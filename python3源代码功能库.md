@@ -425,9 +425,9 @@ if __name__ == '__main__':
 ```
 
 
-https://github.com/pzspsh/Code-management-library/blob/main/images/1648447422850.png
-https://github.com/pzspsh/Code-management-library/blob/main/images/1648447443658.png
-https://github.com/pzspsh/Code-management-library/blob/main/images/1648447405011.png
+![Image text](https://github.com/pzspsh/Code-management-library/blob/main/images/1648447422850.png)
+![Image text](https://github.com/pzspsh/Code-management-library/blob/main/images/1648447443658.png)
+![Image text](https://github.com/pzspsh/Code-management-library/blob/main/images/1648447405011.png)
 
 
 #### 使用socks5代理访问
