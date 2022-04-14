@@ -1,7 +1,7 @@
-####CentOS 以上机器一些命令和低版本CentOS是有些差异的，本文只针对CentOS7 以上版本。
-####CentOS 使用firewalld打开关闭防火墙与端口
+#### CentOS 以上机器一些命令和低版本CentOS是有些差异的，本文只针对CentOS7 以上版本。
+#### CentOS 使用firewalld打开关闭防火墙与端口
 
-####1、firewalld的基本使用
+#### 1、firewalld的基本使用
 ```
 启动： systemctl start firewalld
 
@@ -36,7 +36,7 @@
 查看启动失败的服务列表：systemctl --failed
 ```
 
-####3.配置firewalld-cmd
+#### 3.配置firewalld-cmd
 ```
 
 查看版本： firewall-cmd --version
