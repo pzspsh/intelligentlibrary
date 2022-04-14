@@ -1,8 +1,8 @@
-CentOS 以上机器一些命令和低版本CentOS是有些差异的，本文只针对CentOS7 以上版本。
-CentOS 使用firewalld打开关闭防火墙与端口
+####CentOS 以上机器一些命令和低版本CentOS是有些差异的，本文只针对CentOS7 以上版本。
+####CentOS 使用firewalld打开关闭防火墙与端口
 
-1、firewalld的基本使用
-
+####1、firewalld的基本使用
+```
 启动： systemctl start firewalld
 
 关闭： systemctl stop firewalld
@@ -12,9 +12,11 @@ CentOS 使用firewalld打开关闭防火墙与端口
 开机禁用 ： systemctl disable firewalld
 
 开机启用 ： systemctl enable firewalld
+```
 
-2.systemctl是CentOS7的服务管理工具中主要的工具，它融合之前service和chkconfig的功能于一体。
 
+####2.systemctl是CentOS7的服务管理工具中主要的工具，它融合之前service和chkconfig的功能于一体。
+```
 启动一个服务：systemctl start firewalld.service
 
 关闭一个服务：systemctl stop firewalld.service
@@ -32,8 +34,10 @@ CentOS 使用firewalld打开关闭防火墙与端口
 查看已启动的服务列表：systemctl list-unit-files|grep enabled
 
 查看启动失败的服务列表：systemctl --failed
+```
 
-3.配置firewalld-cmd
+####3.配置firewalld-cmd
+```
 
 查看版本： firewall-cmd --version
 
@@ -68,3 +72,4 @@ firewall-cmd --zone= public --query-port=80/tcp
 
 删除
 firewall-cmd --zone= public --remove-port=80/tcp --permanent
+```
