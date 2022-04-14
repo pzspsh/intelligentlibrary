@@ -501,3 +501,9 @@ docker kill 容器ID
 docker run -it 镜像ID  /bin/bash  
 ```
 
+当我们开发把项目打包好镜像后，可能需要给运维或后端人员进行部署测试，可以使用save -o 命令把镜像导出：
+```
+docker save -o .\保存的路径\镜像文件名 镜像
+比如:
+dicker save -o .\Desktop\hello.tar hello-world
+```
