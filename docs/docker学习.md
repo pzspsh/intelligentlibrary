@@ -507,3 +507,15 @@ docker save -o .\保存的路径\镜像文件名 镜像
 比如:
 dicker save -o .\Desktop\hello.tar hello-world
 ```
+
+vim /etc/docker/daemon.json 添加国内镜像
+```
+{
+    "registry-mirrors": [
+        "https://registry.hub.docker.com",
+        "http://hub-mirror.c.163.com",
+        "https://docker.mirrors.ustc.edu.cn",
+        "https://registry.docker-cn.com"
+    ]
+}
+```
