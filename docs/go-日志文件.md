@@ -1,0 +1,1 @@
+- [ ] [go-slog日志](https://thedevelopercafe.com/articles/logging-in-go-with-slog-a7bb489755c2)|golang.org/x/exp/slog|

@@ -39,6 +39,11 @@ set PKG_CONFIG=pkg-config
 set GOGCCFLAGS=-m64 -mthreads -Wl,--no-gc-sections -fmessage-length=0 -fdebug-prefix-map=C:\Users\admin\AppData\Local\Temp\go-build3924361524=/tmp/go-build -gno-record-gcc-switches
 
 修改：
-go env -w GO111MODULE=on
+go env -w GO111MODULE=on // mod文件需求
+GOPROXY=https://goproxy.cn,direct // go get 下载包需求
 
+```
+#### go 官网下载
+```
+https://golang.google.cn/dl/
 ```
