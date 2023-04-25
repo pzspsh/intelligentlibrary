@@ -1,0 +1,5 @@
+package register
+
+func Register() {
+
+}
