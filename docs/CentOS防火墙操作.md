@@ -73,3 +73,17 @@ firewall-cmd --zone= public --query-port=80/tcp
 删除
 firewall-cmd --zone= public --remove-port=80/tcp --permanent
 ```
+
+```
+https://www.ipaddress.com/ 用该url进行查询
+140.82.112.4   github.com
+151.101.193.194 github.global.ssl.fastly.net
+
+linux版
+vim /etc/hosts # 添加以上内容
+
+windows版
+windows/system32/drivers/etc/hosts
+```
+问题：fatal: 无法访问 'https://github.com/kubernetes/kubernetes/'：OpenSSL SSL_read: error:0A000126:SSL routines::unexpected eof while reading, errno 0
+git config --global http.sslVerify "false"
