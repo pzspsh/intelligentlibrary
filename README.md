@@ -1,4 +1,4 @@
-# ntelligent library
+# intelligent library
 # 智能库 --实现各种功能
 ```
 
