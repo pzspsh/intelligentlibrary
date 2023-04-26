@@ -81,9 +81,16 @@ https://www.ipaddress.com/ 用该url进行查询
 
 linux版
 vim /etc/hosts # 添加以上内容
+centos: nmcli c reload
 
 windows版
 windows/system32/drivers/etc/hosts
+
+ipconfig /flushdns
 ```
 问题：fatal: 无法访问 'https://github.com/kubernetes/kubernetes/'：OpenSSL SSL_read: error:0A000126:SSL routines::unexpected eof while reading, errno 0
 git config --global http.sslVerify "false"
+取消设置
+git config --global --unset http.sslVerify
+git config --global --unset http.proxy
+git config --global --unset https.proxy
