@@ -47,3 +47,8 @@ GOPROXY=https://goproxy.cn,direct // go get 下载包需求
 ```
 https://golang.google.cn/dl/
 ```
+
+#### linux文件下载
+```
+wget https://golang.google.cn/dl/go1.20.3.linux-amd64.tar.gz
+```
