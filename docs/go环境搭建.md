@@ -1,5 +1,13 @@
 ## windows环境
 ```
+1、先下载go文件包 https://golang.google.cn/dl/go1.20.3.windows-amd64.zip
+2、解压go文件包
+3、把解压的go文件包路径：go文件包路径/bin设置到window系统环境变量中
+4、开发环境例如新建文件夹go:该目录下有文件夹bin文件、pkg文件、src文件。
+5、把新建文件夹go文件的bin目录设置到windows的系统环境变量中
+终端执行：go version
+
+go环境设置：
 set GO111MODULE=on
 set GOARCH=amd64
 set GOBIN=
@@ -50,5 +58,17 @@ https://golang.google.cn/dl/
 
 #### linux文件下载
 ```
-wget https://golang.google.cn/dl/go1.20.3.linux-amd64.tar.gz
+以go1.20.3版本为例：
+wget https://golang.google.cn/dl/go1.20.3.linux-amd64.tar.gz # 先下载go文件包
+
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.3.linux-amd64.tar.gz // 如果之前安装库go环境，则直接执行该命令
+# 之前没安装过，直接解压go文件包，把go文件包迁移到/usr/local目录下
+
+
+环境变量配置vim /etc/profile
+export GOROOT=/usr/local/go
+export GOPATH=/home/go #  GOPATH是指你开发的路径
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+$ go version
 ```
