@@ -413,7 +413,6 @@ vim /etc/docker/daemon.json 添加国内镜像
     ]
 }
 ```
-
 docker 进入容器root权限
 ```
 docker exec -it --user=root ID号/容器名称 bash

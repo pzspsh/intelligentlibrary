@@ -1,3 +1,8 @@
+#### go 官网下载
+```
+https://golang.google.cn/dl/
+```
+
 ## windows环境
 ```
 1、先下载go文件包 https://golang.google.cn/dl/go1.20.3.windows-amd64.zip
@@ -50,10 +55,6 @@ set GOGCCFLAGS=-m64 -mthreads -Wl,--no-gc-sections -fmessage-length=0 -fdebug-pr
 go env -w GO111MODULE=on // mod文件需求
 GOPROXY=https://goproxy.cn,direct // go get 下载包需求
 
-```
-#### go 官网下载
-```
-https://golang.google.cn/dl/
 ```
 
 #### linux文件下载
