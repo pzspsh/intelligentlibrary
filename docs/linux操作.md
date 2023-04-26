@@ -64,3 +64,19 @@ git config --global http.sslVerify "false"
 git config --global --unset http.sslVerify
 git config --global --unset http.proxy
 git config --global --unset https.proxy
+
+## linux 操作命令：
+```
+du -sh 文件夹    # 查看文件夹大小
+ls   # 查看可显示文件
+cat  # 查看文件内容
+pwd  # 查看路径
+top  # 查看cpu等使用状况
+ls -alh # 查看文件及权限等
+mv 源文件/文件夹  新文件/文件夹  # 迁移文件
+ps -ef | grep python  # 查看python运行进程id号
+touch 1.txt  # 创建1.txt文件
+mkdir test   # 创建test文件夹
+kill -9 23423 # 关闭进程id号为23423的进程
+nohup python3 main.py > /dev/null 2>&1 &  # 后天运行python3 main.py的程序
+```
