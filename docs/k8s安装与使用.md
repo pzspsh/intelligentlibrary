@@ -29,7 +29,6 @@ cat /tmp/kube-apiserver.log
 可参考：
 http://docs.kubernetes.org.cn/109.html
 https://zhuanlan.zhihu.com/p/332751754
-
 ```
 
 docker环境安装
