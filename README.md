@@ -1,7 +1,7 @@
 # intelligent library
 # 智能库 --实现各种功能
 ```go
-
+go 1.20.3
 
 ```
 
