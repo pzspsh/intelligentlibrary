@@ -19,7 +19,7 @@ https://hub.docker.com/
 docker images			 # 查看所有本地主机上的镜像
 docker search mysql      # 搜索镜像
 docker pull --help 		 # 下载镜像
-docker pull mysql:5.7    # 指定MySQL的版本
+docker pull mysql:8.1    # 指定MySQL的版本
 ```
 
 ##### 2.2、删除镜像
@@ -194,7 +194,7 @@ apt-get install php7.0-mysql
 ```
 # 获取镜像
 docker search mysql
-docker pull mysql:5.7
+docker pull mysql:8.1
 # 运行容器,需要做数据挂载
 # 安装启动mysql，需要配置密码（注意点）
 # 官方测试：docker run -it --network some-network --rm mysql mysql -hsome-mysql -uexample-user -p
@@ -205,7 +205,7 @@ docker pull mysql:5.7
 -v 卷挂载
 -e 环境配置
 --name 容器名字	
-docker run -d -p 3310:3306 -v /home/mysql.conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7
+docker run -d -p 3310:3306 -v /home/mysql.conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:8.1
 
 #  启动成功之后，可以在Windows本地机测试
 ```
@@ -257,7 +257,7 @@ docker build -f /home/docker-test--volume/docekrfile1 -t rich/centos:1.0 .
 ```
 
 启动自己写的容器
-![Image text](https://github.com/pzspsh/Code-management-library/blob/main/images/1649901176056.png)
+![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1649901176056.png)
 这个卷和外部一定有一个同步的目录
 
 四、打包Docker镜像
@@ -291,10 +291,10 @@ if __name__=='__main__':
     app.run(host='0.0.0.0',debug=True,port='7777')
 ```
 本地路径如下图
-![Image text](https://github.com/pzspsh/Code-management-library/blob/main/images/1649902631.png)
+![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1649902631.png)
 可以看到，最外层目录是  mydocker ，内部是bdtools，app.py就放置在最内层。
 首先，requirements.txt的内容如下图，这为了安装python依赖包：
-![Image text](https://github.com/pzspsh/Code-management-library/blob/main/images/1649902727.png)
+![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1649902727.png)
 然后我们开始编写Dockerfile
 
 ```
@@ -325,7 +325,7 @@ Dockerfile编写完成后，我们就可以构建镜像了。
 docker build -t new Dockerfile
 ```
 意思是，使用当前路径下的DockerFile进行构建，镜像名称为new
-![Image text](https://github.com/pzspsh/Code-management-library/blob/main/images/1649902814.png)
+![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1649902814.png)
 如上图，看到最后一行Successfully就表示构建成功了。图中红色部分报错是pip包版本不是最新的告警，不影响构建过程，可以忽略。
 现在，我们可以查看一下镜像情况
 使用命令
@@ -333,7 +333,7 @@ docker build -t new Dockerfile
 ```
 docker images
 ```
-![Image text](https://github.com/pzspsh/Code-management-library/blob/main/images/1649902877.png)
+![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1649902877.png)
 如上图，镜像已经构建出来了。
 那么，开始启动容器。
 执行命令
@@ -349,14 +349,14 @@ docker run -p 3333:7777 -dit d7d7df1b3dd5
 
 2，-dit ，这个参数我们只说-d，就是后台运行的意思。整行命令最后的那一串字符串，其实是上面构建出的镜像ID.
 执行效果如下：
-![Image text](https://github.com/pzspsh/Code-management-library/blob/main/images/1649902938.png)
+![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1649902938.png)
 此刻，容器即已启动了。
 我们可以通过命令查看容器的运行情况
 
 ```
 docker ps -a
 ```
-![Image text](https://github.com/pzspsh/Code-management-library/blob/main/images/1649902986.png)
+![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1649902986.png)
 此处，我们一般关注的是容器ID、STATUS和PORTS，可以看到，容器的端口7777已经映射到宿主机的3333端口。
 那么，我们如何进入到容器内部呢？
 可以使用命令
@@ -366,17 +366,17 @@ docker exec -it 容器ID  /bin/bash
 ```
 
 **需要注意，是容器ID，不是镜像ID**
-![Image text](https://github.com/pzspsh/Code-management-library/blob/main/images/1649903069.png)
+![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1649903069.png)
 执行效果如上图，可以看到，命令行提示符已经到了容器内部。
 
  
 
 那么，我们还需要确认一下，这个python服务到底启动了没有。
 我们首先可以在宿主机查看端口占用情况
-![Image text](https://github.com/pzspsh/Code-management-library/blob/main/images/1649903122.png)
+![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1649903122.png)
 
 此外，也可以在本地PC浏览器，去访问宿主机的3333端口即可。如下图
-![Image text](https://github.com/pzspsh/Code-management-library/blob/main/images/1649903178.png)
+![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1649903178.png)
 
 综上，我们已经完成了从镜像制作到服务部署的全部流程。
 此外，还有个别常用的docker相关的管理命令也一并贴上来
