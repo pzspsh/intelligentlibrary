@@ -1,3 +1,3 @@
-module intelligentlibrary/ai-go/systemdesign/designpatterns
+module designpatterns
 
 go 1.20
