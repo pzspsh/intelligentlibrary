@@ -1,5 +1,5 @@
 # intelligent library
-# 智能库 --实现各种功能
+# 智能库 --各种功能实现
 ```go
 go 1.20.3
 
