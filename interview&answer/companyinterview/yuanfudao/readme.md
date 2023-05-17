@@ -89,12 +89,12 @@
 |41. 缺失的第一个正数|后端|1|https://leetcode-cn.com/problems/first-missing-positive|
 |剑指 Offer 45. 把数组排成最小的数|后端|1|https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof|
 |226. 翻转二叉树|后端|1|https://leetcode-cn.com/problems/invert-binary-tree|
-|补充题12. 二叉树的下一个节点|后端|1|后端|
+|补充题12. 二叉树的下一个节点|后端|1||
 |394. 字符串解码|后端|1|https://leetcode-cn.com/problems/decode-string|
 |24. 两两交换链表中的节点|后端|1|https://leetcode-cn.com/problems/swap-nodes-in-pairs|
 |141. 环形链表|后端|1|https://leetcode-cn.com/problems/linked-list-cycle|
 |442. 数组中重复的数据|后端|1|https://leetcode-cn.com/problems/find-all-duplicates-in-an-array|
-|补充题4. 手撕快速排序|后端|1|后端|
+|补充题4. 手撕快速排序|后端|1||
 |14. 最长公共前缀|后端|1|https://leetcode-cn.com/problems/longest-common-prefix|
 |297. 二叉树的序列化与反序列化|后端|1|https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree|
 |242. 有效的字母异位词|后端|1|https://leetcode-cn.com/problems/valid-anagram|

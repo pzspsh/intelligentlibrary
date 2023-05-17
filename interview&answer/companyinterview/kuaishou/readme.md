@@ -14,14 +14,14 @@
 |202. 快乐数|算法|1|https://leetcode-cn.com/problems/happy-number|
 |268. 缺失数字|算法|1|https://leetcode-cn.com/problems/missing-number|
 |121. 买卖股票的最佳时机|算法|1|https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock|
-|补充题4. 手撕快速排序|算法|1|算法|
+|补充题4. 手撕快速排序|算法|1||
 |102. 二叉树的层序遍历|算法|1|https://leetcode-cn.com/problems/binary-tree-level-order-traversal|
 |236. 二叉树的最近公共祖先|算法|1|https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree|
 |322. 零钱兑换|算法|1|https://leetcode-cn.com/problems/coin-change|
 |226. 翻转二叉树|算法|1|https://leetcode-cn.com/problems/invert-binary-tree|
 |206. 反转链表|后端|15|https://leetcode-cn.com/problems/reverse-linked-list|
 |160. 相交链表|后端|8|https://leetcode-cn.com/problems/intersection-of-two-linked-lists|
-|补充题4. 手撕快速排序|后端|7|后端|
+|补充题4. 手撕快速排序|后端|7||
 |146. LRU缓存机制|后端|7|https://leetcode-cn.com/problems/lru-cache|
 |21. 合并两个有序链表|后端|7|https://leetcode-cn.com/problems/merge-two-sorted-lists|
 |215. 数组中的第K个最大元素|后端|7|https://leetcode-cn.com/problems/kth-largest-element-in-an-array|
@@ -48,7 +48,7 @@
 |128. 最长连续序列|后端|3|https://leetcode-cn.com/problems/longest-consecutive-sequence|
 |补充题8. 计算数组的小和|后端|3|https://mp.weixin.qq.com/s/0ih4W6nawzFUPSj3GOnYTQ|
 |121. 买卖股票的最佳时机|后端|3|https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock|
-|补充题5. 手撕归并排序|后端|3|后端|
+|补充题5. 手撕归并排序|后端|3||
 |69. x 的平方根|后端|3|https://leetcode-cn.com/problems/sqrtx|
 |103. 二叉树的锯齿形层次遍历|后端|3|https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal|
 |102. 二叉树的层序遍历|后端|3|https://leetcode-cn.com/problems/binary-tree-level-order-traversal|
@@ -227,7 +227,7 @@
 |53. 最大子序和|测试|1|https://leetcode-cn.com/problems/maximum-subarray|
 |232. 用栈实现队列|测试|1|https://leetcode-cn.com/problems/implement-queue-using-stacks|
 |15. 三数之和|测试|1|https://leetcode-cn.com/problems/3sum|
-|补充题6. 手撕堆排序|测试|1|测试|
+|补充题6. 手撕堆排序|测试|1||
 |509. 斐波那契数|测试|1|https://leetcode-cn.com/problems/fibonacci-number|
 |206. 反转链表|测试|1|https://leetcode-cn.com/problems/reverse-linked-list|
 |剑指 Offer 48. 最长不含重复字符的子字符串|测试|1|https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof|

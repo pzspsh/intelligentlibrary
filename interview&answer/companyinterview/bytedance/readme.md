@@ -771,7 +771,7 @@
 |221. 最大正方形|数据研发|1|https://leetcode-cn.com/problems/maximal-square|
 |剑指 Offer 51. 数组中的逆序对|数据研发|1|https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof|
 |43. 字符串相乘|数据研发|1|https://leetcode-cn.com/problems/multiply-strings|
-|补充题14. 阿拉伯数字转中文数字|数据研发|1|数据研发|
+|补充题14. 阿拉伯数字转中文数字|数据研发|1||
 |16. 最接近的三数之和|数据研发|1|https://leetcode-cn.com/problems/3sum-closest|
 |102. 二叉树的层序遍历|数据研发|1|https://leetcode-cn.com/problems/binary-tree-level-order-traversal|
 |215. 数组中的第K个最大元素|数据研发|1|https://leetcode-cn.com/problems/kth-largest-element-in-an-array|
@@ -857,7 +857,7 @@
 |56. 合并区间|前端|2|https://leetcode-cn.com/problems/merge-intervals|
 |300. 最长上升子序列|前端|2|https://leetcode-cn.com/problems/longest-increasing-subsequence|
 |剑指 Offer 38. 字符串的排列|前端|2|https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof|
-|补充题14. 阿拉伯数字转中文数字|前端|2|前端|
+|补充题14. 阿拉伯数字转中文数字|前端|2||
 |400. 第N个数字|前端|2|https://leetcode-cn.com/problems/nth-digit|
 |101. 对称二叉树|前端|2|https://leetcode-cn.com/problems/symmetric-tree|
 |剑指 Offer 48. 最长不含重复字符的子字符串|前端|1|https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof|
@@ -971,7 +971,7 @@
 |470. 用 Rand7() 实现 Rand10()|测试|2|https://leetcode-cn.com/problems/implement-rand10-using-rand7|
 |93. 复原IP地址|测试|2|https://leetcode-cn.com/problems/restore-ip-addresses|
 |283. 移动零|测试|2|https://leetcode-cn.com/problems/move-zeroes|
-|补充题11. 翻转URL字符串里的单词|测试|2|测试|
+|补充题11. 翻转URL字符串里的单词|测试|2||
 |350. 两个数组的交集 II|测试|1|https://leetcode-cn.com/problems/intersection-of-two-arrays-ii|
 |51. N皇后|测试|1|https://leetcode-cn.com/problems/n-queens|
 |1201. 丑数 III|测试|1|https://leetcode-cn.com/problems/ugly-number-iii|
@@ -1031,9 +1031,6 @@
 |补充题6. 手撕堆排序|测试|1|https://leetcode-cn.com/problems/sort-an-array|
 |738. 单调递增的数字|测试|1|https://leetcode-cn.com/problems/monotone-increasing-digits|
 |745. 前缀和后缀搜索|测试|1|https://leetcode-cn.com/problems/prefix-and-suffix-search|
-|Software Engineer|测试||测试|
-|题目|测试|出现次数|链接|
-|-|测试|-|-|
 |146. LRU缓存机制|测试|2|https://leetcode-cn.com/problems/lru-cache|
 |80. 删除排序数组中的重复项 II|测试|1|https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii|
 |76. 最小覆盖子串|测试|1|https://leetcode-cn.com/problems/minimum-window-substring|
