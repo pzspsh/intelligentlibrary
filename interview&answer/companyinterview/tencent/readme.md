@@ -153,7 +153,7 @@
 |337. 打家劫舍 III|后端|1|https://leetcode-cn.com/problems/house-robber-iii|
 |226. 翻转二叉树|后端|1|https://leetcode-cn.com/problems/invert-binary-tree|
 |剑指 Offer 51. 数组中的逆序对|后端|1|https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof|
-|补充题17. 两个有序数组第k小的数|后端|1|后端|
+|补充题17. 两个有序数组第k小的数|后端|1||
 |217. 存在重复元素|后端|1|https://leetcode-cn.com/problems/contains-duplicate|
 |242. 有效的字母异位词|后端|1|https://leetcode-cn.com/problems/valid-anagram|
 |63. 不同路径 II|后端|1|https://leetcode-cn.com/problems/unique-paths-ii|
@@ -161,7 +161,7 @@
 |701. 二叉搜索树中的插入操作|后端|1|https://leetcode-cn.com/problems/insert-into-a-binary-search-tree|
 |1047. 删除字符串中的所有相邻重复项|后端|1|https://leetcode-cn.com/problems/remove-all-adjacent-duplicates-in-string|
 |75. 颜色分类|后端|1|https://leetcode-cn.com/problems/sort-colors|
-|补充题14. 阿拉伯数字转中文数字|后端|1|后端|
+|补充题14. 阿拉伯数字转中文数字|后端|1||
 |134. 加油站|后端|1|https://leetcode-cn.com/problems/gas-station|
 |231. 2的幂|后端|1|https://leetcode-cn.com/problems/power-of-two|
 |451. 根据字符出现频率排序|后端|1|https://leetcode-cn.com/problems/sort-characters-by-frequency|

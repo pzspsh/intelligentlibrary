@@ -162,7 +162,7 @@
 |518. 零钱兑换 II|后端|1|https://leetcode-cn.com/problems/coin-change-2|
 |59. 螺旋矩阵 II|后端|1|https://leetcode-cn.com/problems/spiral-matrix-ii|
 |4. 寻找两个正序数组的中位数|后端|1|https://leetcode-cn.com/problems/median-of-two-sorted-arrays|
-|补充题20. 立方根|后端|1|后端|
+|补充题20. 立方根|后端|1||
 |剑指 Offer 65. 不用加减乘除做加法|后端|1|https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof|
 |165. 比较版本号|后端|1|https://leetcode-cn.com/problems/compare-version-numbers|
 |123. 买卖股票的最佳时机 III|后端|1|https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii|
@@ -333,7 +333,7 @@
 |8. 字符串转换整数 (atoi)|测试|4|https://leetcode-cn.com/problems/string-to-integer-atoi|
 |151. 翻转字符串里的单词|测试|3|https://leetcode-cn.com/problems/reverse-words-in-a-string|
 |468. 验证IP地址|测试|3|https://leetcode-cn.com/problems/validate-ip-address|
-|补充题14. 阿拉伯数字转中文数字|测试|3|测试|
+|补充题14. 阿拉伯数字转中文数字|测试|3||
 |剑指 Offer 53 - I. 在排序数组中查找数字 I|测试|3|https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof|
 |169. 多数元素|测试|3|https://leetcode-cn.com/problems/majority-element|
 |补充题4. 手撕快速排序|测试|3|https://leetcode-cn.com/problems/sort-an-array|
