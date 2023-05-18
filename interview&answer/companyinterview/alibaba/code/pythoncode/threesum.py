@@ -35,5 +35,4 @@ def threeSum(nums):
 if __name__ == "__main__":
     l1 = [-1, 0, 1, 2, -1, -4]
     res = threeSum(l1)
-
     print(res)

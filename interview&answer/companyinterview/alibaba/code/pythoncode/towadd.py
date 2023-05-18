@@ -1,18 +1,21 @@
 # -*- encoding: utf-8 -*-
-'''
+"""
 @File   : towadd.py
 @Time   : 2023-05-17 10:07:53
 @Author : pan
-'''
+"""
+
+
 class ListNode:
     def __init__(self, x, next=None):
         self.val = x
         self.next = next  # 让next默认为None,方便后期传值。
 
+
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         f = ListNode(0)  # 定义输出链表的第一个节点
-        p = f   # p类似于指针，代表输出链表的第一个节点
+        p = f  # p类似于指针，代表输出链表的第一个节点
         carry = 0  # 进位
         while l1 or l2:  # 如果l1或者l2为空，则循环结束
             x = l1.val if l1 else 0  # 如果l1不为空则取l1.val否则取0
@@ -28,12 +31,28 @@ class Solution:
         return f.next  # 返回的链表一定要从定义的输出链表f的第二个节点开始
 
 
-if __name__ == '__main__':
-    a = ListNode(2, ListNode(4, ListNode(3, )))  # 链表a
-    b = ListNode(5, ListNode(6, ListNode(4, )))  # 链表b
+if __name__ == "__main__":
+    a = ListNode(
+        2,
+        ListNode(
+            4,
+            ListNode(
+                3,
+            ),
+        ),
+    )  # 链表a
+    b = ListNode(
+        5,
+        ListNode(
+            6,
+            ListNode(
+                4,
+            ),
+        ),
+    )  # 链表b
 
     obj = Solution()
-    Node= obj.addTwoNumbers(a, b)
+    Node = obj.addTwoNumbers(a, b)
     while Node:
         print(Node.val)
         Node = Node.next
