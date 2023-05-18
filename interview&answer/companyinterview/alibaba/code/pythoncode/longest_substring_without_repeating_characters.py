@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
-'''
+"""
 @File   : longest_substring_without_repeating_characters.py
 @Time   : 2023-05-17 10:10:55
 @Author : pan
-'''
+"""
+
+
 def lengthOfLongestSubstring(s):
     charMap = {}
     for i in range(256):
@@ -19,6 +21,7 @@ def lengthOfLongestSubstring(s):
         max_len = max(max_len, j - i + 1)
     return max_len
 
-if __name__ ==  "__main__":
+
+if __name__ == "__main__":
     res = lengthOfLongestSubstring("sdfsdssbdfdsfd")
     print(res)
