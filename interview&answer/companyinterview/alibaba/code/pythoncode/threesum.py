@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
-'''
+"""
 @File   : threesum.py
 @Time   : 2023-05-17 10:17:56
 @Author : pan
-'''
+"""
+
+
 def threeSum(nums):
     res = []
     nums.sort()
@@ -28,3 +30,10 @@ def threeSum(nums):
             else:
                 k -= 1
     return res
+
+
+if __name__ == "__main__":
+    l1 = [-1, 0, 1, 2, -1, -4]
+    res = threeSum(l1)
+
+    print(res)

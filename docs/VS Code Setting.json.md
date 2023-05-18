@@ -5,6 +5,8 @@
     "editor.fontSize": 16,
     "editor.formatOnPaste": true,
     "editor.fontLigatures": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
     "editor.links": false,
     "editor.fontWeight": "normal",
     "editor.codeActionsOnSave": {
@@ -12,14 +14,13 @@
         "source.fixAll": true
     },
     "editor.quickSuggestionsDelay": 0,
+    "editor.rename.enablePreview": false,
+    "editor.unicodeHighlight.nonBasicASCII": false,
     "remote.SSH.showLoginTerminal": true,
     "remote.downloadExtensionsLocally": true,
     "remote.SSH.defaultForwardedPorts": [],
     "remote.SSH.remotePlatform": {
-        "10.0.35.65": "linux",
-        "10.0.35.74": "linux",
-        "10.0.35.66": "linux",
-        "10.0.35.123": "linux"
+        "ip": "linux",
     },
     "remote.SSH.configFile": "C:\\Users\\admin\\.ssh\\config",
     "workbench.colorCustomizations": { //覆盖当前所选颜色主题的颜色
@@ -35,6 +36,9 @@
     "workbench.preferredHighContrastColorTheme": "Abyss",
     "workbench.preferredLightColorTheme": "Monokai",
     "workbench.colorTheme": "Monokai",
+    "workbench.editor.enablePreviewFromQuickOpen": true,
+    "workbench.editor.enablePreview": false,
+    "workbench.startupEditor": "none",
     "window.zoomLevel": 1,
     "window.openFoldersInNewWindow": "on",
     "window.newWindowDimensions": "offset",
@@ -57,27 +61,37 @@
     "go.useLanguageServer": false,
     "[go]": {
         "editor.formatOnSave": true,
+        "editor.formatOnType": true,
         "editor.codeActionsOnSave": {
             "source.organizeImports": true
         },
     },
     "[go.mod]": {
         "editor.formatOnSave": true,
+        "editor.formatOnType": true,
         "editor.codeActionsOnSave": {
             "source.organizeImports": true
         }
     },
     "python.languageServer": "Default",
     "[python]": {
-        "editor.formatOnType": true
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "editor.defaultFormatter": "ms-python.black-formatter"
     },
     "python.linting.flake8Args": [
         "--max--line-length=200"
     ],
+    "python.formatting.yapfArgs": [
+        "--style=pep8",
+        "{column_limit:79}"
+    ],
+    "python.linting.enabled": true,
     "python.linting.flake8Enabled": true,
-    "editor.rename.enablePreview": false,
-    "workbench.editor.enablePreviewFromQuickOpen": true,
-    "editor.unicodeHighlight.nonBasicASCII": false,
-    "workbench.editor.enablePreview": false
+    "python.formatting.provider": "yapf",
+    "git.openRepositoryInParentFolders": "always",
 }
 ```
