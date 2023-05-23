@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/olivere/elastic"
+	"github.com/olivere/elastic/v7"
 )
 
 type Elastic struct {
@@ -41,8 +41,8 @@ type Data struct {
 	Desc string `json:"desc,omitempty"`
 }
 
-func Insert(es *elastic.Client, datainfo []*DataInfo) error {
-	req := es.Bulk().Index("intlligentdemo")
+func Insert(es *elastic.Client, index string, datainfo []*DataInfo) error {
+	req := es.Bulk().Index(index)
 	for _, data := range datainfo {
 		// 如果ID时int则需要转换成string（如：strconv.FormatUint(30, 10)）
 		doc := elastic.NewBulkIndexRequest().Id(data.ID).Doc(data)
@@ -54,7 +54,7 @@ func Insert(es *elastic.Client, datainfo []*DataInfo) error {
 		return err
 	}
 	if !res.Errors {
-		return nil
+		return err
 	}
 	return nil
 }
@@ -69,5 +69,4 @@ func main() {
 		fmt.Println("连接es 失败:", err)
 	}
 	fmt.Println("连接es 成功：", ES)
-
 }

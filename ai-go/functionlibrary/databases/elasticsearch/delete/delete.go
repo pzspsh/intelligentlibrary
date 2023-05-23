@@ -1,10 +1,11 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 
-	"github.com/olivere/elastic"
+	"github.com/olivere/elastic/v7"
 )
 
 type Elastic struct {
@@ -27,7 +28,23 @@ func (e *Elastic) ESConn() (*elastic.Client, error) {
 	return client, nil
 }
 
-func Delete(es *elastic.Client) error {
+func Deleteindex(es *elastic.Client, index string) error {
+	res, err := es.DeleteIndex(index).Do(context.Background())
+	if err != nil {
+		fmt.Printf("delete index err:%v", err)
+		return err
+	}
+	fmt.Printf("delete index successful:%v", res)
+	return nil
+}
+
+func DeleteData(es *elastic.Client, index string, ID string) error {
+	res, err := es.Delete().Index(index).Id(ID).Do(context.Background())
+	if err != nil {
+		fmt.Printf("delete data err:%v", err)
+		return err
+	}
+	fmt.Printf("delete successful:%v", res)
 	return nil
 }
 
@@ -41,5 +58,8 @@ func main() {
 		fmt.Println("连接es 失败:", err)
 	}
 	fmt.Println("连接es 成功：", ES)
-
+	err = Deleteindex(ES, "index")
+	if err != nil {
+		fmt.Printf("delete fail :%v", err)
+	}
 }
