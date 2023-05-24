@@ -91,7 +91,7 @@ func (i *Indexdata) CreateStruct(es *elastic.Client) error {
 	}
 	i.DataInfo = datainfo
 	// 索引不能使用这种了些 intlligent-Demo es创建索引要求都是小写
-	// Type()没有会报错，但是es 8.0.0 以后完全不支持，8.0版本之后去掉Type()试一下
+	// 7.0之前没有Type()会报错，但是es 8.0.0 以后完全不支持，8.0版本之后去掉Type()
 	// 我的版本是7.2.0
 	put, err := es.Index().Index(i.Index).Id(i.Id).BodyJson(i.DataInfo).Do(context.Background())
 	if err != nil {
