@@ -57,9 +57,9 @@ func UpdateBulk(es *elastic.Client, index string, ids []string, docs []interface
 
 func main() {
 	var es = &Elastic{}
-	es.ElasticUrl = "http://10.0.35.74:9200"
-	es.ElasticUser = "elastic"
-	es.ElasticPass = "techtech"
+	es.ElasticUrl = "http://ip:port"
+	es.ElasticUser = "username"
+	es.ElasticPass = "password"
 	ES, err := es.ESConn()
 	if err != nil {
 		fmt.Println("连接es 失败:", err)
