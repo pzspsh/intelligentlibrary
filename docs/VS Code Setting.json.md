@@ -74,24 +74,25 @@
         }
     },
     "python.languageServer": "Default",
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.formatting.provider": "yapf",
     "[python]": {
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
         "editor.codeActionsOnSave": {
             "source.organizeImports": true
         },
-        "editor.defaultFormatter": "ms-python.black-formatter"
+        "editor.defaultFormatter": "ms-python.python"
     },
-    "python.linting.flake8Args": [
-        "--max--line-length=200"
-    ],
     "python.formatting.yapfArgs": [
-        "--style=pep8",
-        "{column_limit:79}"
+        "--style={column_limit=128}"
     ],
-    "python.linting.enabled": true,
-    "python.linting.flake8Enabled": true,
-    "python.formatting.provider": "yapf",
+    "python.linting.flake8Args": [
+        "--max-line-length=248",
+        "--ignore=W191, E266, W504"
+    ],
+    "python.linting.pylintEnabled": false,
     "git.openRepositoryInParentFolders": "always",
 }
 ```
