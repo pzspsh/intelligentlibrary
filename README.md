@@ -1,4 +1,7 @@
-# 智能库(intelligent library) --各种功能实现
+<h1 align="center">智能库(intelligent library) --各种功能实现
+  <br>
+</h1>
+
 ## 一、编程语言(Go 1.20 、Python 3.11)
 ## 二、目录
   - [ai-go](#ai-go)
