@@ -41,29 +41,29 @@ func main() {
 
 ### 面试&解答
 #### 公司
-|公司|链接|
-|---|---|
-|阿里巴巴|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/alibaba)|
-|亚马逊|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/amazon)|
-|百度|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/baidu)|
-|字节跳动|[进行中](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/bytedance)|
-|华为|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/huawei)|
-|快手|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/kuaishou)|
-|美团|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/meituan)|
-|微软|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/microsoft)|
-|腾讯|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/tencent)|
-|启明星辰|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/venus)|
-|猿辅导|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/yuanfudao)|
+|公司|链接|--|--|--|--|
+|---|---|---|---|---|---|
+|阿里巴巴|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/alibaba)|--|--|--|--|
+|亚马逊|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/amazon)|--|--|--|--|
+|百度|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/baidu)|--|--|--|--|
+|字节跳动|[进行中](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/bytedance)|--|--|--|--|
+|华为|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/huawei)|--|--|--|--|
+|快手|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/kuaishou)|--|--|--|--|
+|美团|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/meituan)|--|--|--|--|
+|微软|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/microsoft)|--|--|--|--|
+|腾讯|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/tencent)|--|--|--|--|
+|启明星辰|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/venus)|--|--|--|--|
+|猿辅导|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/yuanfudao)|--|--|--|--|
 
+![Image](https://github.com/pzspsh/intelligentlibrary/blob/main/images/companyinterview.png)
 
-|任务               |                        |
-|-------------------|-----------------------|
-|算法               |部分完成                |
-|深度学生            |未完成                  |
-|Go教程             |整理中                  |
-|Python             |整理中                  |
+|任务              |                 |--|--|--|--|
+|-----------------|----------------|--|--|--|--|
+|算法              |部分完成         |--|--|--|--|
+|深度学生          |未完成          |--|--|--|--|
+|Go教程            |整理中           |--|--|--|--|
+|Python           |整理中           |--|--|--|--|
 
-![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/companyinterview.png)
 
 ##### 作者@更新不定时
 
