@@ -48,6 +48,7 @@ Python 3.11
   - [深度学习](#深度学习)
   - [面试&解答](#面试&解答)
     - [公司](#公司)
+  - [资源](#资源)
 
 
 ### ai-go
@@ -97,6 +98,11 @@ func main() {
 |Go教程            |整理中           |--|--|--|--|
 |Python           |整理中           |--|--|--|--|
 
+# 资源
+|资源|链接|说明|
+|---|---|---|
+|Go资源|   [https://github.com/avelino/awesome-go](https://github.com/avelino/awesome-go)<br> [待更]()     |Go资源|
+|Python资源|   [待更]()    |Python资源|
 
 ##### 作者@更新不定时
 
