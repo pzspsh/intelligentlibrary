@@ -10,18 +10,25 @@ Python 3.11
 ```
 
 ## 目录
-  ### 1、[ai-go](### ai-go)
-  s### 2、[ai-py](### ai-py)
+  - [ai-go](###ai-go)
+  - [ai-py](###ai-py)
 
 
 ### ai-go
 ```go
- 
+package main
+import (
+  "fmt"
+)
+
+func main() {
+  fmt.Println("hello worl")
+}
 ```
 
 ### ai-py
 ```python
-
+  print("hello world")
 ```
 |任务               |                        |
 |-------------------|-----------------------|
