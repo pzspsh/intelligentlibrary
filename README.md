@@ -1,10 +1,18 @@
 <h1 align="center">智能库(intelligent library) --各种功能实现
   <br>
 </h1>
-
-## 一、编程语言(Go 1.20 、Python 3.11)
 <details>
-  <summary><h2>二、目录<h2></summary>
+  <summary><h2>一、编程语言</h2></summary>
+
+  ```go
+  Go 1.20
+  ```
+  ```python
+  Python 3.11
+  ```
+</details>
+<details>
+  <summary><h2>二、目录</h2></summary>
   
   - [ai-go](#ai-go)
     - [算法](#算法)
@@ -95,13 +103,16 @@ func main() {
 |Go 资源|   [https://github.com/avelino/awesome-go](https://github.com/avelino/awesome-go)<br> [待更]()     |Go 资源|
 |Python3 资源|   [待更]()    |Python3 资源|
 
-## 三、任务情况说明
+<details>
+<summary><h2>三、任务情况说明</h2></summary>
+
 |任务    |    情况  |说明|链接|
 |--------|---------|--|--|
 |算法    |部分完成  |--|--|
 |深度学习 |未完成   |--|--|
 |Go教程  |整理中    |--|--|
 |Python  |整理中   |--|--|
+</details>
 
 ##### 作者@更新不定时
 ## 代码持续更新中，很多代码已实现，待上传。
