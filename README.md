@@ -44,7 +44,7 @@ func main() {
 |Go教程             |整理中                  |
 |Python             |整理中                  |
 
-![img](imageUrl)
+![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/companyinterview.png)
 
 ##### 作者@更新不定时
 

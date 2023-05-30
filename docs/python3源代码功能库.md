@@ -382,7 +382,9 @@ if __name__ == '__main__':
 
 
 ![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1648447422850.png)
+
 ![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1648447443658.png)
+
 ![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1648447405011.png)
 
 
