@@ -1,1 +1,1 @@
-# vulscript
+# 漏洞脚本(vulscript)
