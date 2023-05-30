@@ -81,19 +81,19 @@ func main() {
 
 ### 面试&解答
 #### 公司
-|公司|链接|--|--|--|--|
-|---|---|---|---|---|---|
-|阿里巴巴|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/alibaba)|--|--|--|--|
-|亚马逊|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/amazon)|--|--|--|--|
-|百度|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/baidu)|--|--|--|--|
-|字节跳动|[进行中](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/bytedance)|--|--|--|--|
-|华为|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/huawei)|--|--|--|--|
-|快手|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/kuaishou)|--|--|--|--|
-|美团|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/meituan)|--|--|--|--|
-|微软|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/microsoft)|--|--|--|--|
-|腾讯|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/tencent)|--|--|--|--|
-|启明星辰|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/venus)|--|--|--|--|
-|猿辅导|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/yuanfudao)|--|--|--|--|
+|公司|链接|说明|
+|---|---|---|
+|阿里巴巴|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/alibaba)|岗位：(算法、后端、后端、测试、数据研究)|
+|亚马逊|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/amazon)|岗位：(算法、后端、后端、测试、数据研究)|
+|百度|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/baidu)|岗位：(算法、后端、后端、测试、数据研究)|
+|字节跳动|[进行中](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/bytedance)|亚马逊面试|
+|华为|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/huawei)|岗位：(算法、后端、后端、测试、数据研究)|
+|快手|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/kuaishou)|岗位：(算法、后端、后端、测试、数据研究)|
+|美团|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/meituan)|岗位：(算法、后端、后端、测试、数据研究)|
+|微软|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/microsoft)|微软面试|
+|腾讯|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/tencent)|岗位：(算法、后端、后端、测试、数据研究)|
+|启明星辰|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/venus)|岗位：(算法、后端、后端、测试、数据研究)|
+|猿辅导|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/yuanfudao)|岗位：(算法、后端、后端、测试、数据研究)|
 
 ![Image](https://github.com/pzspsh/intelligentlibrary/blob/main/images/companyinterview.png)
 
