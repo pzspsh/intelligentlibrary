@@ -37,9 +37,9 @@ Python 3.11
       - 。。。。
     - [深度学习](#py深度学习)
       - 。。。。
-    - [python3书籍](#Python3书籍)
+    - [Python3书籍](#Python3书籍)
       - 。。。。
-    - [python3教程](#Python3教程)
+    - [Python3教程](#Python3教程)
       - 。。。。
     - [网络安全开发](#py网络安全开发)
       - 。。。。
