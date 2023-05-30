@@ -1,5 +1,4 @@
-# go books
-## Golang 教程书籍
+# Go 教程书籍(go books)
 ```
 
 ```
