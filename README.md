@@ -10,8 +10,8 @@ Python 3.11
 ```
 
 ## 目录
-  ### 1、[Ai-go](###ai-go)
-  ### 2、[Ai-py](###ai-py)
+  ### 1、[ai-go](### ai-go)
+  s### 2、[ai-py](### ai-py)
 
 
 ### ai-go
