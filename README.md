@@ -23,7 +23,7 @@ import (
 )
 
 func main() {
-  fmt.Println("hello worl")
+  fmt.Println("hello world")
 }
 ```
 
