@@ -101,7 +101,7 @@ func main() {
 # 资源
 |资源|链接|说明|
 |---|---|---|
-|Go资源|   [https://github.com/avelino/awesome-go](https://github.com/avelino/awesome-go)<br> [待更]()     |Go 资源|
+|Go 资源|   [https://github.com/avelino/awesome-go](https://github.com/avelino/awesome-go)<br> [待更]()     |Go 资源|
 |Python3 资源|   [待更]()    |Python3 资源|
 
 ##### 作者@更新不定时
