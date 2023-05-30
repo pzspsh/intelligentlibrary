@@ -20,7 +20,7 @@ Python 3.11
       - [POP3](#POP3)
       - [SSH](#SSH)
       - [Telnet](#Telnet)
-      - [VMWare](#VMWare)
+      - [VMware](#VMWare)
       - [SMB](#SMB)
       - [SMTP](#SMTP)
       - 。。。。
@@ -101,8 +101,8 @@ func main() {
 # 资源
 |资源|链接|说明|
 |---|---|---|
-|Go资源|   [https://github.com/avelino/awesome-go](https://github.com/avelino/awesome-go)<br> [待更]()     |Go资源|
-|Python资源|   [待更]()    |Python资源|
+|Go资源|   [https://github.com/avelino/awesome-go](https://github.com/avelino/awesome-go)<br> [待更]()     |Go 资源|
+|Python3 资源|   [待更]()    |Python3 资源|
 
 ##### 作者@更新不定时
 
