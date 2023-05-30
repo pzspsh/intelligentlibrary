@@ -95,7 +95,7 @@ func main() {
 |启明星辰|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/venus)|岗位：(算法、后端、后端、测试、数据研究)|
 |猿辅导|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/yuanfudao)|岗位：(算法、后端、后端、测试、数据研究)|
 
-![Image](https://github.com/pzspsh/intelligentlibrary/blob/main/images/companyinterview.png)
+![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/companyinterview.png)
 
 # 资源
 |资源|链接|说明|
