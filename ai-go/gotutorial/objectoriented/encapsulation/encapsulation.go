@@ -7,6 +7,7 @@ package main
 
 import "fmt"
 
+// 封装
 type person struct {
 	Name string
 	age  int //其它包不能直接访问..
