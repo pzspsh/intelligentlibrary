@@ -10,6 +10,7 @@ import (
 	"strconv"
 )
 
+// 继承
 type Water struct {
 	weight int64
 }
