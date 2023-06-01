@@ -1,4 +1,4 @@
-# commonalgorithms
+# 常见算法(common algorithms)
 ### 六大常用算法
 #### 1、枚举算法
 ```go
