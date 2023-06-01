@@ -26,7 +26,7 @@
       - [Telnet](https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/telnet)
       - [VMware](https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/vmware)
       - [SMB](https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/smb)
-      - [SMTP](#SMTP)
+      - [SMTP](https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/smtp)
       - 。。。。
     - [Go书籍](#Go书籍)
       - 。。。。
