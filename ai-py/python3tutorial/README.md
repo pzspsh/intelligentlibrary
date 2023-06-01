@@ -31,7 +31,8 @@
 
 </details>
 
-```
+```python
+print("hello world")
 
 ```
 
