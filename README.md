@@ -20,12 +20,12 @@
       - 。。。。
     - [功能库](#功能库)
       - [数据库](#数据库)
-      - [FTP](#https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/ftp)
-      - [POP3](#https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/pop3)
-      - [SSH](#https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/ssh)
-      - [Telnet](#https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/telnet)
-      - [VMware](#https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/vmware)
-      - [SMB](#https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/smb)
+      - [FTP](https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/ftp)
+      - [POP3](https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/pop3)
+      - [SSH](https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/ssh)
+      - [Telnet](https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/telnet)
+      - [VMware](https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/vmware)
+      - [SMB](https://github.com/pzspsh/intelligentlibrary/tree/main/ai-go/functionlibrary/smb)
       - [SMTP](#SMTP)
       - 。。。。
     - [Go书籍](#Go书籍)
