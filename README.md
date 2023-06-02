@@ -71,7 +71,7 @@ func main() {
 
 ### ai-py
 ```python
-  print("hello world")
+print("hello world")
 ```
 
 ### 深度学习
