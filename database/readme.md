@@ -1,28 +1,28 @@
 # 数据库教程
-## mysql
+## [mysql](https://github.com/pzspsh/intelligentlibrary/tree/main/database/mysql)
 ```sql
 
 ```
 
-## redis
+## [redis](https://github.com/pzspsh/intelligentlibrary/tree/main/database/redis)
 ```sql
 
 ```
 
-## mongodb
+## [mongodb](https://github.com/pzspsh/intelligentlibrary/tree/main/database/mongodb)
 ```sql
 
 ```
 
-## SQL Server
+## [SQL Server](https://github.com/pzspsh/intelligentlibrary/tree/main/database/sql%20server)
 ```sql
 
 ```
-## Oracle
+## [Oracle](https://github.com/pzspsh/intelligentlibrary/tree/main/database/oracle)
 ```sql
 
 ```
-## sqlite
+## [sqlite](https://github.com/pzspsh/intelligentlibrary/tree/main/database/sqlite)
 ```sql
 
 ```
