@@ -1,1 +1,5 @@
-package search
+package main
+
+func main() {
+
+}

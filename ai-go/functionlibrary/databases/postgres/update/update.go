@@ -1,1 +1,5 @@
-package update
+package main
+
+func main() {
+
+}
