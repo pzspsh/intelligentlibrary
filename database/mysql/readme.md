@@ -32,9 +32,9 @@
 port=3306
 #设置mysql的安装目录 ----------是你的文件路径
 #例如
-basedir=D:\Program Files\mysql-8.0.28-winx64 # 修改成你的文件路径
+basedir=D:\Program Files\mysql-8.0.28-winx64 # 修改成你的文件夹路径
 #设置mysql数据库的数据的存放目录 ---------是你的文件路径data文件夹自行创建
-datadir=D:\Program Files\mysql-8.0.28-winx64\data # 修改成你的文件路径
+datadir=D:\Program Files\mysql-8.0.28-winx64\data # 修改成你的文件夹路径
 #允许最大连接数
 max_connections=200
 #允许连接失败的次数。
