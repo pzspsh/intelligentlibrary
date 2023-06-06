@@ -1,2 +1,2 @@
-# imagescanning
-# 图片扫描
+# 图片扫描(image scanning)
+
