@@ -1,4 +1,4 @@
 # 函数(functions)
-```go
+```python
 
 ```
