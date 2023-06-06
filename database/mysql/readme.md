@@ -77,6 +77,41 @@ mysqld --initialize --user=mysql --console # 回车
 然后执行quit退出来，再执行第九步
 ```
 
+### 11、mysql开启远程访问权限
+```sql
+默认情况下，mysql只允许本地登录，即只能在安装MySQL环境所在的主机下访问。
+1、打开终端进入mysql
+>mysql -u 用户名 -p # 回车然后输入密码
+2、查看数据库
+mysql>show databases;
+3、查看MySQL当前远程访问权限配置
+mysql>use mysql;
+mysql>select  User,authentication_string,Host from user;
+4、开启远程访问权限
+方式一：修改命令如下
+mysql>update user set host='%' where user='用户名' #  
+方式二：授权法
+通过GRANT命令可以授予主机远程访问权限
+--赋予任何主机访问权限：
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
+--允许指定主机(IP地址)访问权限：
+GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'ip' IDENTIFIED BY 'root' WITH GRANT OPTION; # ip是指你允许该ip访问数据库，如：允许 192.168.100.3 的ip就把ip替换成 192.168.100.3
+
+通过GRANT命令赋权后,需要通过FLUSH PRIVILEGES刷新权限表使修改生效：
+flush privileges;
+
+5、再次查看MySQL远程访问权限配置
+select  User,authentication_string,Host from user;
+
+注意:
+出于安全性考虑，尤其是正式环境下
+1.不推荐直接给root开启远程访问权限。
+本案例仅以root用户作为例子做开启远程访问权限的配置,此为演示环境!
+
+2.建议做权限细分和限制
+正式环境中，推荐通过创建Mysql用户并给对应的用户赋权的形式来开放远程服务权限，并指定IP地址，赋权时根据用户需求，在GRANT命令中只开放slect、update等权限，做到权限粒度最小化。
+```
+
 ## 二、数据库操作
 ### 1、创建数据库
 ```sql
