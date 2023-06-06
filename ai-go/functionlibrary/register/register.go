@@ -1,5 +1,0 @@
-package register
-
-func Register() {
-
-}

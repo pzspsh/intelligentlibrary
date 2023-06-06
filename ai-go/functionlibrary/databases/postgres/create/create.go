@@ -30,17 +30,18 @@ func (p *Postgres) PostgresConn() (*sql.DB, error) {
 	return db, nil
 }
 
+// 创建表
 func Create(db *sql.DB) {
 
 }
 
 func main() {
 	p := &Postgres{
-		Host:     "10.0.25.15",
-		Port:     "5432",
-		Username: "postgres",
-		Password: "postgres",
-		DB:       "test",
+		Host:     "ip",
+		Port:     "port",
+		Username: "user",
+		Password: "pass",
+		DB:       "dbname",
 	}
 	db, err := p.PostgresConn()
 	if err != nil {

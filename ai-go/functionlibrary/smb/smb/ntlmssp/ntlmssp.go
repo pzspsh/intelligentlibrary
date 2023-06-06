@@ -12,7 +12,7 @@ import (
 
 	"encoding/hex"
 
-	"vvscan/exploit/crackeds/pkg/smb/smb/encoder"
+	"function/smb/smb/smb/encoder"
 )
 
 const Signature = "NTLMSSP\x00"

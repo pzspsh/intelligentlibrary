@@ -1,4 +1,4 @@
-# 图片识别
+# 图片识别(image recognition)
 ```go
 
 ```

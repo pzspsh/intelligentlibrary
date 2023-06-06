@@ -5,7 +5,7 @@ import (
 	"crypto/md5"
 	"strings"
 
-	"vvscan/exploit/crackeds/pkg/smb/smb/encoder"
+	"function/smb/smb/smb/encoder"
 
 	"golang.org/x/crypto/md4"
 )
