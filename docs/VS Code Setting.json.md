@@ -92,6 +92,9 @@
         "zh-hant": true
     },
     "extensions.ignoreRecommendations": true,
+    "files.exclude": {
+        "**/.*": false,
+    }
 }
 ```
 
