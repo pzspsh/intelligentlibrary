@@ -1,0 +1,14 @@
+{
+    "name": "demo",
+    "hello": {
+        "first": 2,
+        "status": 200
+    },
+    "words": [
+        "first",
+        "second",
+        "three"
+    ],
+    "username": "user",
+    "password": "pass"
+}

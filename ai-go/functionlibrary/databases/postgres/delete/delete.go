@@ -30,22 +30,37 @@ func (p *Postgres) PostgresConn() (*sql.DB, error) {
 	return db, nil
 }
 
-func Delete(db *sql.DB) {
-
+func Delete(db *sql.DB) (sql.Result, error) {
+	stmt, err := db.Prepare("delete from table where column1=$1")
+	if err != nil {
+		return nil, err
+	}
+	result, err := stmt.Exec("column1_value")
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("result = %v", result)
+	return result, err
 }
 
 func main() {
 	p := &Postgres{
-		Host:     "10.0.25.15",
-		Port:     "5432",
-		Username: "postgres",
-		Password: "postgres",
-		DB:       "test",
+		Host:     "",
+		Port:     "",
+		Username: "",
+		Password: "",
+		DB:       "",
 	}
 	db, err := p.PostgresConn()
 	if err != nil {
 		fmt.Println("连接失败：", err)
 	} else {
 		fmt.Println("连接成功：", db)
+	}
+	result, err := Delete(db)
+	if err != nil {
+		fmt.Printf("删除失败：%v", err)
+	} else {
+		fmt.Printf("删除成功：%v", result)
 	}
 }
