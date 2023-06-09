@@ -30,22 +30,57 @@ func (p *Postgres) PostgresConn() (*sql.DB, error) {
 	return db, nil
 }
 
-func Search(db *sql.DB) {
+type Cv struct {
+	column1 string
+	column2 string
+}
 
+func (c *Cv) Search(db *sql.DB) (sql.Result, error) {
+	rows, err := db.Query("select column1, column2 from table where column3=$1", "column3_value")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		err := rows.Scan(&c.column1, &c.column2)
+		if err != nil {
+			return nil, err
+		}
+		fmt.Printf("column1 = %v, column2 = %v", c.column1, c.column2)
+	}
+	return nil, nil
+}
+
+func SearchCount(db *sql.DB) (int64, error) {
+	var count int64
+	err := db.QueryRow("select count(*) from table where column1=$1", "column1_value").Scan(&count)
+	if err != nil || count == 0 {
+		fmt.Printf("count could not query err:%v", err)
+		return count, err
+	}
+	// db.Close()
+	return count, err
 }
 
 func main() {
 	p := &Postgres{
-		Host:     "10.0.25.15",
-		Port:     "5432",
-		Username: "postgres",
-		Password: "postgres",
-		DB:       "test",
+		Host:     "",
+		Port:     "",
+		Username: "",
+		Password: "",
+		DB:       "",
 	}
 	db, err := p.PostgresConn()
 	if err != nil {
 		fmt.Println("连接失败：", err)
 	} else {
 		fmt.Println("连接成功：", db)
+	}
+	cv := Cv{}
+	_, err = cv.Search(db)
+	if err != nil {
+		fmt.Printf("查询失败：%v", err)
+	} else {
+		fmt.Println("查询成功")
 	}
 }

@@ -94,7 +94,9 @@
     "extensions.ignoreRecommendations": true,
     "files.exclude": {
         "**/.*": false,
-    }
+    },
+    "C_Cpp.intelliSenseEngineFallback": "disabled",
+    "C_Cpp.intelliSenseEngine": "Tag Parser"
 }
 ```
 

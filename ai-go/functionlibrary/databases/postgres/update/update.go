@@ -30,22 +30,37 @@ func (p *Postgres) PostgresConn() (*sql.DB, error) {
 	return db, nil
 }
 
-func Update(db *sql.DB) {
-
+func Update(db *sql.DB, table string) (sql.Result, error) {
+	stmt, err := db.Prepare(fmt.Sprintf("update %v set column1=$1 where column2=$2 and column3=$3", table))
+	if err != nil {
+		return nil, err
+	}
+	result, err := stmt.Exec("column1_value", "column2_value", "column3_value")
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("result = %d", result)
+	return result, err
 }
 
 func main() {
 	p := &Postgres{
-		Host:     "10.0.25.15",
-		Port:     "5432",
-		Username: "postgres",
-		Password: "postgres",
-		DB:       "test",
+		Host:     "",
+		Port:     "",
+		Username: "",
+		Password: "",
+		DB:       "",
 	}
 	db, err := p.PostgresConn()
 	if err != nil {
 		fmt.Println("连接失败：", err)
 	} else {
 		fmt.Println("连接成功：", db)
+	}
+	result, err := Update(db, "table")
+	if err != nil {
+		fmt.Println("更新失败")
+	} else {
+		fmt.Printf("更新成功：%d", result)
 	}
 }

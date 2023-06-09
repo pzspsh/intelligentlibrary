@@ -1,0 +1,32 @@
+id: ai-2023-pan
+
+info:
+  name: intellgent library
+  author: pan
+
+requests:
+  - raw:
+    - |
+      asffddddddddfsaf
+      asfasf
+      abdf
+    - |
+      asfsfasfasfasafsd
+      sfdsdfsbsdf
+      asfasfdsf
+  payloads:
+    params:
+      - "sd123"
+      - "sf1234"
+      - "sd12345"
+  matchers: and
+  matchers-con:
+    - type: status
+      conf: or
+      status:
+        - 200
+        - 400
+    - type: regex
+      part: body
+      regex:
+        - "sdfsdf"
