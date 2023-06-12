@@ -586,7 +586,8 @@ func main() {
 	}()
 
 	// 等待中断信号以优雅地关闭服务器（设置 5 秒的超时时间）
-	quit := make(chan os.Signal, 1)
+	// quit := make(chan os.Signal, 1) // 无缓冲
+	quit := make(chan os.Signal, 1) // 必须要用带缓冲的chan
 	signal.Notify(quit, os.Interrupt)
 	<-quit
 	log.Println("Shutdown Server ...")
