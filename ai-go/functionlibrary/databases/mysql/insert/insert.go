@@ -30,7 +30,7 @@ func (m *MysqlConfig) MysqlConn() (*sql.DB, error) {
 }
 
 func Insert(db *sql.DB, insertdata string) (int64, error) {
-	stmt, err := db.Exec(insertdata, "stu001", "man", "stu01@qq.com", "2023-06-12")
+	stmt, err := db.Exec(insertdata, "stu001", "man", "admin@123", "2023-06-12")
 	if err != nil {
 		return -1, err
 	}
