@@ -133,3 +133,14 @@ db.students.find().forEach(printjson)
 在下面的屏幕截图中，您可以看到差异。首先，我们使用普通的find()方法打印文档，然后使用 JSON 格式打印相同集合的文档。 JSON 格式的文档简洁易读。
 
 ```
+
+```bash
+use test;  切换到test库，如果没有则（创建集合时）会自动创建
+db.createCollection("student");  创建collection
+db.createUser({user: "tester",pwd: "123456", roles: [{role: "dbAdmin", db: "test"}]});创建用户
+db.student.createIndex({"name":1});在name上创建索引,不是唯一索引
+db.student.insertOne({name:"张三",city:"北京"});
+db.student.find({name:"张三"});
+db.student.updateOne({name:"张三"},{$set:{name:"张三",city:"上海"}})
+db.student.deleteOne({name:"张三"});
+```
