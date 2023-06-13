@@ -1,7 +1,7 @@
 /*
-@File   : connect.go
+@File   : listoperate.go
 @Author : pan
-@Time   : 2023-06-13 15:02:03
+@Time   : 2023-06-13 16:51:08
 */
 package main
 
@@ -34,34 +34,33 @@ func (r *RedisConfig) RedisConn() (*redis.Client, error) {
 	} else {
 		return client, nil
 	}
-	/*
-					集群：
-					func initClient()(err error){
-					rdb := redis.NewClusterClient(&redis.ClusterOptions{
-						Addrs: []string{":7000", ":7001", ":7002", ":7003", ":7004", ":7005"},
-					})
-					_, err = rdb.Ping().Result()
-					if err != nil {
-						return err
-					}
-					return nil
-				}
-
-				哨兵模式：
-				func initClient()(err error){
-			rdb := redis.NewFailoverClient(&redis.FailoverOptions{
-				MasterName:    "master",
-				SentinelAddrs: []string{"x.x.x.x:26379", "xx.xx.xx.xx:26379", "xxx.xxx.xxx.xxx:26379"},
-			})
-			_, err = rdb.Ping().Result()
-			if err != nil {
-				return err
-			}
-			return nil
-		}
-	*/
 }
 
+// 从左边添加元素
+func LPushOperate(client *redis.Client) error {
+	err := client.LPush("足球", "贝利", "pan").Err
+	if err() != nil {
+		return err()
+	} else {
+		return nil
+	}
+}
+
+// 获取list中的所有元素
+func GetListdata(client *redis.Client) []string {
+	val := client.LRange("足球", 0, -1).Val()
+	return val
+}
+
+// 从list的左边弹出一个元素
+func LpopOperate(client *redis.Client) (string, error) {
+	result, err := client.LPop("足球").Result()
+	if err != nil {
+		return "", err
+	} else {
+		return result, err
+	}
+}
 func main() {
 	r := &RedisConfig{
 		Host:     "ip",
