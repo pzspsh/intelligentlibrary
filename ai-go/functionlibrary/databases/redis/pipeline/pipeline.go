@@ -1,7 +1,7 @@
 /*
-@File   : connect.go
+@File   : pipeline.go
 @Author : pan
-@Time   : 2023-06-13 15:02:03
+@Time   : 2023-06-13 17:14:35
 */
 package main
 
@@ -34,32 +34,19 @@ func (r *RedisConfig) RedisConn() (*redis.Client, error) {
 	} else {
 		return client, nil
 	}
-	/*
-					集群：
-					func initClient()(err error){
-					rdb := redis.NewClusterClient(&redis.ClusterOptions{
-						Addrs: []string{":7000", ":7001", ":7002", ":7003", ":7004", ":7005"},
-					})
-					_, err = rdb.Ping().Result()
-					if err != nil {
-						return err
-					}
-					return nil
-				}
+}
 
-				哨兵模式：
-				func initClient()(err error){
-			rdb := redis.NewFailoverClient(&redis.FailoverOptions{
-				MasterName:    "master",
-				SentinelAddrs: []string{"x.x.x.x:26379", "xx.xx.xx.xx:26379", "xxx.xxx.xxx.xxx:26379"},
-			})
-			_, err = rdb.Ping().Result()
-			if err != nil {
-				return err
-			}
-			return nil
-		}
-	*/
+func PipelineOperate(client *redis.Client) {
+	pipeline := client.Pipeline()
+	pipeline.Set("key1", "val1", time.Hour)
+	pipeline.Set("key2", "val2", time.Hour)
+	pipeline.Set("key3", "val3", time.Hour)
+	pipeline.Set("key4", "val4", time.Hour)
+	pipeline.Set("key5", "val5", time.Hour)
+	_, err := pipeline.Exec()
+	if err != nil {
+		fmt.Println("set success")
+	}
 }
 
 func main() {
