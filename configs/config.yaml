@@ -6,27 +6,32 @@ info:
 
 requests:
   - raw:
-    - |
-      asffddddddddfsaf
-      asfasf
-      abdf
-    - |
-      asfsfasfasfasafsd
-      sfdsdfsbsdf
-      asfasfdsf
-  payloads:
-    params:
-      - "sd123"
-      - "sf1234"
-      - "sd12345"
-  matchers: and
-  matchers-con:
-    - type: status
-      conf: or
-      status:
-        - 200
-        - 400
-    - type: regex
-      part: body
-      regex:
-        - "sdfsdf"
+      - |
+        asffddddddddfsaf
+        asfasf
+        abdf
+      - |
+        asfsfasfasfasafsd
+        sfdsdfsbsdf
+        asfasfdsf
+
+        user=admin&pass=password
+        
+    payloads:
+      params:
+        - "sd123"
+        - "sf1234"
+        - "sd12345"
+        
+    matchers: and
+    matchers-con:
+      - type: status
+        condition: or
+        status:
+          - 200
+          - 400
+      - type: regex
+        part: body
+        regex:
+          - "sdfsdf"
+Http: {port: "8080", host: "127.0.0.1"}
