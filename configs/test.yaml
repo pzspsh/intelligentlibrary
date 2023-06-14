@@ -1,0 +1,36 @@
+id: ai-2023-pan
+info:
+  name: intellgent library
+  author: pan
+requests:
+- matchers: and
+  matchers-con:
+  - type: status
+    condition: or
+    status:
+    - 200
+    - 400
+    regex: []
+  - type: regex
+    part: body
+    regex:
+    - sdfsdf
+  raw:
+  - |
+    asffddddddddfsaf
+    asfasf
+    abdf
+  - |
+    asfsfasfasfasafsd
+    sfdsdfsbsdf
+    asfasfdsf
+
+    user=admin&pass=password
+  payloads:
+    params:
+    - sd123
+    - sf1234
+    - sd12345
+Http:
+  port: "8080"
+  host: 127.0.0.1
