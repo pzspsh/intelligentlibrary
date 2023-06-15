@@ -84,7 +84,7 @@ func main() {
 		fmt.Printf("parse yaml err:%v", err)
 	}
 	fmt.Println(data)
-	err = WriteYaml("../../test.yaml", data)
+	err = WriteYaml("../../writeconfig.yaml", data)
 	if err != nil {
 		fmt.Printf("write yaml err:%v", err)
 	}
