@@ -1,0 +1,55 @@
+id: azure-takeover-detection
+
+info:
+  name: Microsoft Azure Takeover Detection
+  author: pdteam
+  severity: high
+  description: Microsoft Azure is vulnerable to subdomain takeover attacks.
+  reference:
+    - https://godiego.co/posts/STO/
+    - https://docs.microsoft.com/en-us/azure/security/fundamentals/subdomain-takeover
+    - https://cystack.net/research/subdomain-takeover-chapter-two-azure-services/
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N
+    cvss-score: 7.2
+    cwe-id: CWE-404
+  tags: dns,takeover,azure
+  metadata:
+    max-request: 3
+    comments: |
+      Only CNAMEs with region specification are hijackable.
+      You need to claim the CNAME in AWS portal (https://aws.amazon.com/) or via AWS CLI to confirm the takeover.
+      Do not report this without claiming the CNAME.
+      CLI command to verify the availability of the environment:
+
+dns:
+  - name: "{{FQDN}}"
+    type: A
+
+  - name: "{{FQDN}}"
+    type: NS
+  
+  - name: "{{FQDN}}"
+    type: CNAME
+
+    matchers-condition: and # and 或 or
+    matchers:
+      - type: word
+        words:
+          - "azure-api.net"
+          - "azure-mobile.net"
+          - "azurecontainer.io"
+
+      - type: word
+        words:
+          - "NXDOMAIN"
+
+      - type: regex
+        regex:
+          - CNAME\t[a-z0-9_-]*\.(us|af|ap|ca|eu|me|sa)\-(east|west|south|northeast|southeast|central)\-[1-9]+\.elasticbeanstalk\.com
+
+    extractors:
+      - type: regex
+        group: 1
+        regex:
+          - "IN\tCNAME\t(.+)"

@@ -1,0 +1,82 @@
+id: dvwa-headless-automatic-login
+
+info:
+  name: DVWA Headless Automatic Login
+  author: pdteam
+  severity: high
+  description: |
+    An open redirect was detected. An attacker can redirect a user to a malicious
+  reference:
+    - https://github.com/vinothsparrow/iframe-broker/blob/main/static/script.js
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N
+    cvss-score: 6.1
+    cwe-id: CWE-601
+  metadata:
+    verified: true
+  tags: headless,dvwa
+
+
+variables:
+  filename: '{{replace(BaseURL,"/","_")}}'
+  dir: "screenshots"
+
+headless:
+  - steps:
+      - args:
+          url: "{{BaseURL}}/login.php"
+        action: navigate
+      - action: waitload
+
+      - args:
+          by: x
+          xpath: /html/body/div/div[2]/form/fieldset/input
+        action: click
+      - action: waitload
+
+      - args:
+          by: x
+          value: admin
+          xpath: /html/body/div/div[2]/form/fieldset/input
+        action: text
+      - args:
+          by: x
+          xpath: /html/body/div/div[2]/form/fieldset/input[2]
+        action: click
+
+      - action: setheader
+        args:
+          part: request
+          key: "User-Agent"
+          value: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:111.0) Gecko/20100101 Firefox/111.0"
+
+      - action: navigate
+        args:
+          url: "{{BaseURL}}"
+
+      - action: waitload
+      - action: screenshot
+        args:
+          fullpage: "true"
+          mkdir: "true"
+          to: "{{dir}}/{{filename}}"  # dir和filename是variables:的对应值
+
+    stop-at-first-match: true
+    matchers-condition: or # and 或 or
+    matchers:
+      - part: resp
+        type: word
+        words:
+          - "You have logged in as"
+        condition: and  # and 或 or
+      
+      - part: resp
+        type: word
+        words:
+          - "First time using DVWA"
+    
+    extractors:
+      - type: kval
+        part: alerts
+        kval:
+          - alertss

