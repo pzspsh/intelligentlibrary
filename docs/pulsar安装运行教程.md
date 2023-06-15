@@ -59,7 +59,7 @@ import (
 
 func PushResult() {
 	client, err := pulsar.NewClient(pulsar.ClientOptions{
-		URL: "pulsar+ssl://10.0.35.74:6651",
+		URL: "pulsar+ssl://ip:port",
 		OperationTimeout:  30 * time.Second,
 		ConnectionTimeout: 30 * time.Second,
 	})
