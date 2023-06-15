@@ -1,0 +1,8 @@
+[config]
+  host = "127.0.0.1"
+  Port = 6379
+  Timeout = 30
+
+[Auth]
+  username = "username"
+  password = "password"

@@ -80,5 +80,5 @@ func main() {
 		fmt.Printf("parse json err:%v", err)
 	}
 	fmt.Println(data)
-	// WriteJson("../../test.json")
+	// WriteJson("../../writeconfig.json")
 }

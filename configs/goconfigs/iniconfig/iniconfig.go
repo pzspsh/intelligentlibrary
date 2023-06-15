@@ -72,5 +72,5 @@ func WriteIni(filepath string) {
 
 func main() {
 	// LoadConfigfile("../../config.ini")
-	WriteIni("../../config.ini")
+	WriteIni("../../writeconfig.ini")
 }
