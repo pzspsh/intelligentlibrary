@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XmlConfig>
+	<cvrfdoc></cvrfdoc>
+	<Vulnerability>
+		<Title>CVE-2023-0001</Title>
+		<CVE>CVE-2023-0001</CVE>
+		<References>
+			<Reference>
+				<URL>https://security.paloaltonetworks.com/CVE-2023-0001</URL>
+				<Description>MISC:https://security.paloaltonetworks.com/CVE-2023-0001</Description>
+			</Reference>
+			<Reference>
+				<URL>https://www.sap.com/documents/2022/02/fa865ea4-167e-0010-bca6-c68f7e60039b.html</URL>
+				<Description>MISC:https://www.sap.com/documents/2022/02/fa865ea4-167e-0010-bca6-c68f7e60039b.html</Description>
+			</Reference>
+		</References>
+		<Notes>
+			<Note Type="Description">An information exposure vulnerability in the Palo Alto Networks Cortex XDR agent on Windows devices allows a local system administrator to disclose the admin password for the agent in cleartext, which bad actors can then use to execute privileged cytool commands that disable or uninstall the agent.</Note>
+			<Note Type="Other" Title="Published">2023-02-08</Note>
+			<Note Type="Other" Title="Modified">2023-02-08</Note>
+		</Notes>
+	</Vulnerability>
+</XmlConfig>
