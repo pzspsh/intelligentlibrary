@@ -37,7 +37,7 @@ type Notes struct {
 // }
 
 type Note struct {
-	Type  string `xml:"Type,attr,omitempty"`
+	Type  string `xml:"Type,attr,omitempty"` // attr表示xml的属性
 	Title string `xml:"Title,attr,omitempty"`
 	Text  string `xml:",innerxml"`
 }
@@ -83,10 +83,26 @@ func MakeCharsetReader(charset string, input io.Reader) (io.Reader, error) {
 	return nil, fmt.Errorf("unknown charset: %s", charset)
 }
 
+func WriteXml(filename string, config *XmlConfig) error {
+	data, err := xml.MarshalIndent(config, "", "\t")
+	if err != nil {
+		return err
+	}
+	data = append([]byte(xml.Header), data...)
+	err = os.WriteFile(filename, data, 0666)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func main() {
 	config, err := ParseXml("../../config.xml")
 	if err != nil {
 		fmt.Printf("parse xml err:%v", err)
 	}
-	fmt.Println(config)
+	err = WriteXml("../../writeconfig.xml", config)
+	if err != nil {
+		fmt.Printf("write xml data err:%v", err)
+	}
 }

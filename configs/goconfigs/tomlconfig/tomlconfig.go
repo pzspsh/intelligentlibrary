@@ -50,6 +50,10 @@ func ParseToml(filepath string) (*TomlConfig, error) {
 
 func WriteToml(filename string, config *TomlConfig) error {
 	// 判断filename是否存在，不存在则创建再执行一下操作(Check whether filename exists. If no, create a file and perform operations)
+	_, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
 	file, err := os.OpenFile(filename, os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
 		return err

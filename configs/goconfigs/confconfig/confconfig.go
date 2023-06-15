@@ -36,7 +36,7 @@ func ParseConf(filepath string) (*goconfig.ConfigFile, error) {
 	// }
 }
 
-func WriteConf(filepath string) {
+func WriteConf(filename string) {
 
 }
 
