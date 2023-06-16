@@ -4,3 +4,7 @@
 @File   : thinkphp.go
 */
 package thinkphp
+
+func PocExec(...interface{}) {
+
+}
