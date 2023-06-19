@@ -27,6 +27,6 @@ type HttpRuquests struct {
 	MaxSize            int64
 	Unsafe             bool
 	ReadAll            bool
-	Mathers            string
+	Matchers           string
 	Extractors         string
 }
