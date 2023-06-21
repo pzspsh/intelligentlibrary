@@ -1,22 +1,17 @@
 /*
 @File   : filedownload.go
 @Author : pan
-@Time   : 2023-06-06 14:37:21
+@Time   : 2023-06-21 14:48:11
 */
-package filedownload
+package main
 
 import (
 	"crypto/tls"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
 )
-
-/*
-文件下载：
-1、网络请求文件下载
-2、。。。
-*/
 
 func DownloadFile(filepath string, url string) error {
 	tr := &http.Transport{
@@ -35,4 +30,11 @@ func DownloadFile(filepath string, url string) error {
 	defer out.Close()
 	_, err = io.Copy(out, resp.Body)
 	return err
+}
+
+func main() {
+	err := DownloadFile(`../tests/test.zip`, `http://ip:port/path/test.zip`)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
