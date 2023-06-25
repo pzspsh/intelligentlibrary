@@ -83,17 +83,16 @@ print("hello world")
 ```
 
 ### [Ai源码]()
-* [类ChatGPT的开源框架](#类ChatGPT的开源框架)
-* [类ChatGPT的模型评测对比](#类ChatGPT的模型评测对比)
-* [类ChatGPT的资料](#类ChatGPT的资料)
-* [类ChatGPT的文档问答](#类ChatGPT的文档问答)
-* [类ChatGPT的行业应用](#类ChatGPT的行业应用)
-* [类ChatGPT的课程资料](#类ChatGPT的课程资料)
-* [提示工程](#提示工程)
-* [LLM的训练_推理_低资源_高效训练](#LLM的训练_推理_低资源_高效训练 )
-* [LLM的安全问题](#LLM的安全问题)
-* [LLM的数据集](#LLM的数据集)
-* [多模态LLM](#多模态LLM)
+* [类ChatGPT的开源框架](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/%E7%B1%BBChatGPT%E7%9A%84%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6)
+* [类ChatGPT的模型评测对比](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/%E7%B1%BBChatGPT%E7%9A%84%E6%A8%A1%E5%9E%8B%E8%AF%84%E6%B5%8B%E5%AF%B9%E6%AF%94)
+* [类ChatGPT的资料](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/%E7%B1%BBChatGPT%E7%9A%84%E8%B5%84%E6%96%99)
+* [类ChatGPT的文档问答](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/%E7%B1%BBChatGPT%E7%9A%84%E6%96%87%E6%A1%A3%E9%97%AE%E7%AD%94)
+* [类ChatGPT的行业应用](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/%E7%B1%BBChatGPT%E7%9A%84%E8%A1%8C%E4%B8%9A%E5%BA%94%E7%94%A8)
+* [提示工程](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/%E6%8F%90%E7%A4%BA%E5%B7%A5%E7%A8%8B)
+* [LLM的训练_推理_低资源_高效训练](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/LLM%E7%9A%84%E8%AE%AD%E7%BB%83_%E6%8E%A8%E7%90%86_%E4%BD%8E%E8%B5%84%E6%BA%90_%E9%AB%98%E6%95%88%E8%AE%AD%E7%BB%83)
+* [LLM的安全问题](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/LLM%E7%9A%84%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98)
+* [LLM的数据集](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/LLM%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86)
+* [多模态LLM](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/%E5%A4%9A%E6%A8%A1%E6%80%81LLM)
 
 说明：该AI源码资源大都参考《[funNLP](https://github.com/search?q=NLP&type=repositories)》和市面上比较火的开源代码进行收集和整理，需要的同学可直接下载
 
