@@ -11,10 +11,9 @@
   Python 3.11
   ```
 </details>
-
 <details>
   <summary><h2>二、目录</h2></summary>
-
+  
   - [ai-go](#ai-go)
     - [算法](#算法)
     - [深度学习](#Go深度学习)
@@ -51,7 +50,6 @@
     - [系统设计](#py系统设计)
       - 。。。。
   - [深度学习](#深度学习)
-  - [Ai源码](#Ai源码)
   - [面试与解答](#面试与解答)
     - [公司](#公司)
   - [资源](#资源)
@@ -77,26 +75,9 @@ print("hello world")
 ```
 
 ### 深度学习
-
 ```
 
 ```
-
-### [Ai源码]()
-* [类ChatGPT的开源框架](#类ChatGPT的开源框架)
-* [类ChatGPT的模型评测对比](#类ChatGPT的模型评测对比)
-* [类ChatGPT的资料](#类ChatGPT的资料)
-* [类ChatGPT的文档问答](#类ChatGPT的文档问答)
-* [类ChatGPT的行业应用](#类ChatGPT的行业应用)
-* [类ChatGPT的课程资料](#类ChatGPT的课程资料)
-* [提示工程](#提示工程)
-* [LLM的训练_推理_低资源_高效训练](#LLM的训练_推理_低资源_高效训练 )
-* [LLM的安全问题](#LLM的安全问题)
-* [LLM的数据集](#LLM的数据集)
-* [多模态LLM](#多模态LLM)
-
-说明：该AI源码资源大都参考《[funNLP](https://github.com/search?q=NLP&type=repositories)》和市面上比较火的开源代码进行收集和整理，需要的同学可直接下载
-
 
 ### 面试与解答
 #### 公司
