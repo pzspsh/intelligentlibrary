@@ -11,10 +11,9 @@
   Python 3.11
   ```
 </details>
-
 <details>
   <summary><h2>二、目录</h2></summary>
-
+  
   - [ai-go](#ai-go)
     - [算法](#算法)
     - [深度学习](#Go深度学习)
@@ -77,7 +76,6 @@ print("hello world")
 ```
 
 ### 深度学习
-
 ```
 
 ```
