@@ -94,7 +94,7 @@ print("hello world")
 * [LLM的数据集](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/LLM%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86)
 * [多模态LLM](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/%E5%A4%9A%E6%A8%A1%E6%80%81LLM)
 
-说明：该AI源码资源大都参考《[funNLP](https://github.com/search?q=NLP&type=repositories)》和市面上比较火的开源代码进行收集和整理，需要的同学可直接下载
+说明：该AI源码资源大都参考《[funNLP](https://github.com/fighting41love/funNLP)》和市面上比较火的开源代码进行收集和整理，需要的同学可直接下载
 
 
 ### 面试与解答
