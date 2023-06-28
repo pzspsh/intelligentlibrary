@@ -22,6 +22,7 @@ type Quotient struct {
 	Rem int
 }
 
+// \rpc\client> go run client.go localhost
 func main() {
 	if len(os.Args) != 2 {
 		fmt.Println("usage:", os.Args[0], "server")
