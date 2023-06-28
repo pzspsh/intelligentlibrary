@@ -41,6 +41,7 @@ func (t *Arith) Divide(args *Args, quo *Quotient) error {
 	return nil
 }
 
+// \rpc\server> go run server.go
 func main() {
 	arith := new(Arith)
 
