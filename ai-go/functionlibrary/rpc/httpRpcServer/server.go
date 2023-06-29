@@ -45,7 +45,9 @@ func (t *Arith) Divide(args *Args, quo *Quotient) error {
 func main() {
 	arith := new(Arith)
 
-	rpc.Register(arith)
+	rpc.Register(arith) //HandleHTTP将RPC消息的HTTP处理程序注册到Debug服务器
+	//DEFAUTUPCPATH和Debug调试路径上的调试处理程序。
+	//仍然需要调用http.Services（），通常是在GO语句中。
 	rpc.HandleHTTP()
 	err := http.ListenAndServe(":1234", nil)
 	if err != nil {
