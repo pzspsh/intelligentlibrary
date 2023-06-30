@@ -1,73 +1,5 @@
-#### CentOS 以上机器一些命令和低版本CentOS是有些差异的，本文只针对CentOS7 以上版本。
-#### CentOS 使用firewalld打开关闭防火墙与端口
-
-#### 1、firewalld的基本使用
-```
-启动： systemctl start firewalld
-关闭： systemctl stop firewalld
-查看状态： systemctl status firewalld
-开机禁用 ： systemctl disable firewalld
-开机启用 ： systemctl enable firewalld
-```
-
-
-#### 2.systemctl是CentOS7的服务管理工具中主要的工具，它融合之前service和chkconfig的功能于一体。
-```
-启动一个服务：systemctl start firewalld.service
-关闭一个服务：systemctl stop firewalld.service
-重启一个服务：systemctl restart firewalld.service
-显示一个服务的状态：systemctl status firewalld.service
-在开机时启用一个服务：systemctl enable firewalld.service
-在开机时禁用一个服务：systemctl disable firewalld.service
-查看服务是否开机启动：systemctl is-enabled firewalld.service
-查看已启动的服务列表：systemctl list-unit-files|grep enabled
-查看启动失败的服务列表：systemctl --failed
-```
-
-#### 3.配置firewalld-cmd
-```
-查看版本： firewall-cmd --version
-查看帮助： firewall-cmd --help
-显示状态： firewall-cmd --state
-查看所有打开的端口： firewall-cmd --zone=public --list-ports
-更新防火墙规则： firewall-cmd --reload
-查看区域信息: firewall-cmd --get-active-zones
-查看指定接口所属区域： firewall-cmd --get-zone-of-interface=eth0
-拒绝所有包：firewall-cmd --panic-on
-取消拒绝状态： firewall-cmd --panic-off
-查看是否拒绝： firewall-cmd --query-panic
-
-如何开启一个端口
-添加:  firewall-cmd --zone=public --add-port=80/tcp --permanent （–permanent永久生效，没有此参数重启后失效）
-重新载入:  firewall-cmd --reload
-查看:  firewall-cmd --zone= public --query-port=80/tcp
-删除:  firewall-cmd --zone= public --remove-port=80/tcp --permanent
-```
-
-```
-https://www.ipaddress.com/ 用该url进行查询
-140.82.112.4   github.com
-151.101.193.194 github.global.ssl.fastly.net
-
-linux版
-vim /etc/hosts # 添加以上内容
-centos: nmcli c reload
-
-windows版
-windows/system32/drivers/etc/hosts
-
-ipconfig /flushdns
-```
-问题：fatal: 无法访问 'https://github.com/kubernetes/kubernetes/'：OpenSSL SSL_read: error:0A000126:SSL routines::unexpected eof while reading, errno 0
-git config --global http.sslVerify "false"
-取消设置
-git config --global --unset http.sslVerify
-git config --global --unset http.proxy
-git config --global --unset https.proxy
-
 ## linux 操作命令：
-```
-du -sh 文件夹    # 查看文件夹大小
+```shell
 ls   # 查看可显示文件
 cat  # 查看文件内容
 pwd  # 查看路径
@@ -80,4 +12,11 @@ mkdir test   # 创建test文件夹
 kill -9 23423 # 关闭进程id号为23423的进程
 nohup python3 main.py > /dev/null 2>&1 &  # 后台运行python3 main.py的程序
 wget targeturl     # 下载targeturl文件
+df -hl   # 查看磁盘剩余空间
+df -h    # 查看每个根路径的分区大小
+du -sh [目录名]    # 返回该目录的大小，其中[目录名]可缺省，默认输出当前文件夹的总大小
+du -sm [文件夹]    # 返回该文件夹总数
+du -h [目录名]    # 查看指定文件夹下的所有文件大小（包含子文件夹），其中[目录名]可缺省，默认当前文件夹
+du -h –max-depth=1 [目录名]    # 查看当前文件夹内部每个子文件夹的大小。max-depth可自行设置，这个参数定义了你希望看到多深的文件夹结构级别的输出
+clear  # 清屏
 ```
