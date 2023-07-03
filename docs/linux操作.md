@@ -1,4 +1,4 @@
-## linux 操作命令：
+## 1.linux 操作命令：
 ```shell
 ls   # 查看可显示文件
 cat  # 查看文件内容
@@ -19,4 +19,105 @@ du -sm [文件夹]    # 返回该文件夹总数
 du -h [目录名]    # 查看指定文件夹下的所有文件大小（包含子文件夹），其中[目录名]可缺省，默认当前文件夹
 du -h –max-depth=1 [目录名]    # 查看当前文件夹内部每个子文件夹的大小。max-depth可自行设置，这个参数定义了你希望看到多深的文件夹结构级别的输出
 clear  # 清屏
+uname -a # 显示byname 、版本、 硬件架构等信息
+uname -p # 查看当前处理器类型，i686为32，x86_64为64
+cat /etc/issue # 显示操作系统及版本
+cat /etc/redhat-release # 显示redhat版本
+cat /proc/version # 内核版本
+cat /etc/issue # 查看操作系统版本和发行版本
+cat /etc/redhat-release # 查看redhat的版本
+cat /etc/lsb-release # 查看Ubuntu的详细版本
+cat /etc/os-release # 查看操作系统基本版本
+cat /proc/cpuinfo # 查看cpu信息，型号、cpu个数、频率等
+cat /etc/passwd # 查看系统中的用户
+cat /etc/shadow # 查看系统中的用户的口令
+lscpu # 查看cpu范围
+grep ^model name /proc/cpuinfo # 查看cpu型号
+dmidecode -q # 查看Linux 内核版本
+getconf LONG_BIT # 查看32/64位
+hostname # 显示系统本地名称
+dmesg | grep Memory # 显示内存条信息
+ifconfig # 查询主机已经连接的IP地址
+ip addr # 查询本机网卡的IP地址
+fdisk -l # 查看硬盘正在使用的分区情况
+lsblk # 查看本地存储设备的信息
+last # 查看操作系统开机日期
+ps aux # 可以查看当前系统中服务程序
+netstat -anp # 查看服务的运行状态
+netstat -a # 查看本机当前网络全部状态
+netstat -an # 查看本机当前网络连接状态
+netstat -rn # 查看本机路由信息
+netstat -ap # 查看服务器端口的连接情况
+netstat -ntlp # 查看某个服务占用的端口
+ethtool eth0 # 查看网卡的具体设置a
+chkconfig -list # 查看系统自启动服务
+chkconfig --list | grep on # 查看已经开启的自启动服务
+service httpd start # 启动服务
+service httpd restart # 重启服务
+service httpd stop # 关闭服务
+shutdown -r now # 立刻重启
+shutdown -r +10 # 10分钟后重启
+cat /var/log/messages # 查看各种系统日志
+ls /etc/init.d # 查看系统中所有服务脚本
+tail -f log_file_name # 查看自定义的日志信息
+```
+#### 2.远程命令
+```shell
+ssh 用户名@ip地址    # 远程连接
+scp 本地文件 远程服务器用户名@远程服务器ip地址:指定拷贝到远程服务器的路径  # 远程拷贝文件
+scp 远程服务器用户名@远程服务器ip地址:远程服务器文件 指定拷贝到本地电脑的路径  # 远程拷贝文件
+
+scp -r 本地目录 远程服务器用户名@远程服务器ip地址:指定拷贝到远程服务器的路径 # 远程拷贝目标,-r 表示递归拷贝整个目录
+scp -r 远程服务器用户名@远程服务器ip地址:远程服务器目录 指定拷贝到本地电脑的路径 # 远程拷贝目标,-r 表示递归拷贝整个目录
+scp -r /home/<files> <remote-username>@<remote-ip>:<remote-folder> # ssh上传文件
+```
+#### 3.vim使用
+```shell
+编辑模式: i Esc
+末行模式: Esc :
+保存方式：
+    :w  # 保存
+    :wq # 保存退出
+    :x # 保存退出
+    :q! # 强制退出
+
+vim 的常用命令:
+    yy  # 复制光标所在行
+    p  # 粘贴
+    dd  # 删除/剪切当前行
+    V  # 按行选中
+    u  # 撤销
+    ctrl+r  # 反撤销 
+    >>  #  往右缩进
+    <<  # 往左缩进
+    :/搜索的内容  # 搜索指定内容 
+    :%s/要替换的内容/替换后的内容/g  # 全局替换
+    :开始行数，结束行数s/要替换的内容/替换后的内容  # 局部替换
+    .  # 重复上一次命令操作
+    G  # 回到最后一行
+    gg  # 回到第一行
+    数字+G  # 回到指定行
+    shift+6  # 回到当前行的行首
+    shift+4  # 回到当前的行末
+    ctrl+f  # 下一屏
+    ctrl+b  # 上一屏
+```
+#### 4.top命令
+```shell
+-b  # 以批处理模式操作；
+-c  # 显示完整的命令；
+-d  # 屏幕刷新间隔时间；
+-I  # 忽略失效过程；
+-s  # 保密模式；
+-S  # 累积模式；
+-i<时间>  # 设置间隔时间；
+-u<用户名>  # 指定用户名；
+-p<进程号>  # 指定进程；svn
+-n<次数>  # 循环显示的次数。
+```
+#### 5.kill命令
+```shell
+kill  [选项] 进程号 # 杀死进程
+killall 进程名称 #（通过进程名称杀死进程，也支持通配符，这在系统因负载过大而变得很慢时很有用）
+-9 : 表示强迫进程立即停止
 ```
