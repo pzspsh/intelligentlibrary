@@ -91,3 +91,100 @@ func main() {
 -- docker-compose.yml // 配置运行容器需要的命令和参数
 -- main.go  // go 入口文件
 ```
+
+#### docker-compose.yml
+```shell
+version: '3.8'
+services:
+  go-test-20239: # 容器
+    restart: always # Docker 重启时，容器也重启
+    build: # 构建 Docker 镜像
+      context: ./ # Dockerfile 文件的目录
+      dockerfile: Dockerfile # Dockerfile 文件的名称
+    image: go-test/develop:latest # 镜像名称和版本号
+    container_name: go-test-20239 # 容器名称
+    ports: # 宿主机:容器之间映射端口
+      - "20239:6000"
+```
+
+#### Dockerfile 文件
+```shell
+FROM golang:alpine as builder
+# 需要go环境
+MAINTAINER vijay
+WORKDIR /work
+# 源
+RUN go env -w GOPROXY=https://goproxy.cn,direct && go env -w CGO_ENABLED=0
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN go build -o main main.go
+FROM alpine:latest
+# 设置时区
+RUN apk add --no-cache tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" >  /etc/timezone
+WORKDIR /server
+# 复制到工作区
+COPY --from=builder /work/ ./
+# COPY --from=builder /work/config ./config
+# 对外端口
+EXPOSE 6000
+# 执行
+CMD ["./main"]
+```
+
+#### 执行命令
+```shell
+docker-compose up
+```
+#### docker-compose 命令
+```shell
+docker-compose build  # 构建（重新构建）
+docker-compose up  # 启动容器
+docker-compose up -d  # 后台启动并运行
+docker-compose ps  # 查看容器列表
+docker-compose logs  # 查看日志（-f 一直监听）
+docker-compose stop  # 关闭容器
+docker-compose start  # 启动容器
+docker-compose restart  # 重启容器
+docker-compose rm  # 删除容器
+docker-compose exec xxx sh  # 进入容器
+docker-compose 命令说明  # xxx是容器名称
+```
+
+### 访问
+ip+端口 进行访问
+
+### nginx 反向代理
+```shell
+# 反向代理配置
+server
+{
+    listen 80;
+    server_name xxx.choudalao.com;
+    # 其他配置 ....
+    location / {
+         proxy_pass http://127.0.0.1:20009;# http://xxx.com;# 也可以是域名
+    }
+}
+```
+### 反射后访问
+    反射后,可以使用域名访问
+
+## 问题
+1、Docker 启动alpine镜像中可执行程序文件遇到 not found
+```
+原因
+由于alpine镜像使用的是musl libc而不是gnu libc，/lib64/ 是不存在的。但他们是兼容的，可以创建个软连接过去试试!
+这种情况是因为动态链接库位置错误导致的，alpine镜像使用的是musl libc而不是gun libc。因而动态链接库的位置不一致 。
+
+而一般二进制文件在linux系统下编译，动态链接库是到/lib64目录下的，在alpine镜像内无/lib64目录 。
+
+解决方法:
+Dockerfile 文件
+
+FROM alpine:latest
+# 这个是重点
+RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
+# 其他代码
+
+```
