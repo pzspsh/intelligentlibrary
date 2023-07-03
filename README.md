@@ -1,16 +1,9 @@
-<h1 align="center">智能库(intelligent library) --各种功能实现
-  <br>
-</h1>
-<details>
-  <summary><h2>一、编程语言</h2></summary>
+<h1 align="center">智能库(intelligent library) --各种功能实现<br></h1>
+<h2>一、编程语言</h2>
 
-  ```go
-  Go 1.20
-  ```
-  ```python
-  Python 3.11
-  ```
-</details>
+```go
+Go 1.20、Python 3.11
+```
 
 <details>
   <summary><h2>二、目录</h2></summary>
