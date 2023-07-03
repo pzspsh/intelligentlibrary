@@ -23,8 +23,12 @@ sudo apt-get source package  # 下载包源代码
 lsof -i:8888   # 查看端口占用 
 netstat -tulpn  # 查看tcp和udp端口 
 find /home/un/test -mtime +7 -name "*.*" -exec rm -rf {} \;  # 批量删除七天前的文件 
+ln -s [原文件或目录] [软链接名] 
+history -  # 显示所有的历史命令 
+history 10 -  # 显示最近使用过的10个指令
+
 ```
-#### 1.用户常用指令
+#### 2.用户常用指令
 ```shell
 useradd  username  # 创建用户默认在 /home目录下
 useradd -d  /xxxx username  # 创建用户并指定目录
@@ -35,12 +39,79 @@ id username  # 查询用户信息
 whoami  # 查看当前用户
 su - username  # 切换用户
 ```
-#### 2.用户组常用命令
+#### 3.用户组常用命令
 ```shell
 groupadd xxxxx  # 添加用户组
 usermod -g usergroup username  # 修改用户组
 groupdel xxxxx  # 删除用户组
 ```
+#### 4.文件/文件夹管理
+```shell
+ls   # 列出当前目录文件（不包括隐含文件）
+ls -a   # 列出当前目录文件（包括隐含文件）
+ls -l   # 列出当前目录下文件的详细信息
+
+cd ..   # 回当前目录的上一级目录
+cd -   # 回上一次所在的目录
+cd ~   # 或 cd 回当前用户的宿主目录
+mkdir 目录名   # 创建一个目录
+rmdir 空目录名   # 删除一个空目录
+rm 文件名 文件名   # 删除一个文件或多个文件
+rm -rf 非空目录名   # 删除一个非空目录下的一切
+
+mv 路经/文件   # /经/文件移动相对路经下的文件到绝对路经下
+mv 文件名 新名称   # 在当前目录下改名
+find 路经 -name “字符串”   # 查找路经所在范围内满足字符串匹配的文件和目录处
+```
+
+#### 5.系统管理
+```shell
+fdisk -l      # 查看系统分区信息
+fdisk /dev/sdb      # 为一块新的SCSI硬盘进行分区
+chown root /home      # 把/home的属主改成root用户
+chgrp root /home      # 把/home的属组改成root组
+Useradd              # 创建一个新的用户
+Groupadd 组名     # 创建一个新的组
+Passwd 用户名      # 为用户创建密码
+Passwd -d用户名      # 删除用户密码也能登陆
+Passwd -S用户名      # 查询账号密码
+Usermod -l 新用户名 老用户名    # 为用户改名
+uname -a     # 查看内核版本
+
+cat /etc/issue      # 查看ubuntu版本
+lsusb      # 查看usb设备
+sudo ethtool eth0      # 查看网卡状态
+cat /proc/cpuinfo      # 查看cpu信息
+lshw     # 查看当前硬件信息
+sudo fdisk -l      # 查看磁盘信息
+df -h      #查看硬盘剩余空间
+free -m      # 查看当前的内存使用情况
+ps -A      # 查看当前有哪些进程
+kill 进程号(就是ps -A中的第一列的数字)或者 killall 进程名( 杀死一个进程)
+kill -9 进程号      # 强制杀死一个进程
+```
+#### 6.make编译
+```shell
+make # 编译
+make install # 安装编译好的源码包
+```
+#### 7.修改网络配置
+nano /etc/netplan/xxx-netcfg.yaml
+```shell
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    ens33: # ens33 
+      dhcp4: true
+      dhcp6: false
+      addresses: [ip/子网掩码位数]
+      gateway4: 网关IP
+      nameservers:
+              addresses: [223.5.5.5, 223.6.6.6]
+  version: 2
+```
+sudo netplan apply
+ 
 #### 快捷键
 ```shell
 Ctrl+Alt+T   # 启动终端   
