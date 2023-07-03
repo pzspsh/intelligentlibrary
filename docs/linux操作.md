@@ -113,11 +113,95 @@ vim 的常用命令:
 -i<时间>  # 设置间隔时间；
 -u<用户名>  # 指定用户名；
 -p<进程号>  # 指定进程；svn
--n<次数>  # 循环显示的次数。
+-n<次数>  # 循环显示的次数
+
+top -d 10
 ```
 #### 5.kill命令
 ```shell
 kill  [选项] 进程号 # 杀死进程
 killall 进程名称 #（通过进程名称杀死进程，也支持通配符，这在系统因负载过大而变得很慢时很有用）
 -9 : 表示强迫进程立即停止
+```
+####  6.ps -ef 命令
+ps -ef 是以全格式显示当前所有的进程
+-e 显示所有进程。
+-f 全格式
+```shell
+ps -ef|grep xxxx
+显示：
+    UID：用户 ID
+    PID：进程 ID
+    PPID：父进程 ID
+C：CPU 用于计算执行优先级的因子。数值越大，表明进程是 CPU 密集型运算，执行优先级会降低；数值越小，表明进程是 I/O 密集型运算，执行优先级会提高
+STIME：进程启动的时间
+TTY：完整的终端名称
+TIME：CPU 时间
+CMD：启动进程所用的命令和参数 
+```
+
+#### 7.chmod命令
+chmod- 修改权限
+通过chmod指令，可以修改文件或者目录的权限。
+```shell
+第一种修改方式：+ 、-、= 变更权限
+u:所有者
+g:所有组
+o:其他人
+a:所有人(u、g、o 的总和)
+1. chmod u=rwx,g=rx,o=x 文件/目录名
+2. chmod o+w  文件/目录名
+3. chmod a-x  文件/目录名
+
+1.给abc文件的所有者读写执行的权限，给所在组读执行权限，给其它组读执行权限。
+chmod u=rwx,g=rx,o=rx abc
+2.给abc文件的所有者除去执行的权限，增加组写的权限
+chmod u-x,g+w abc
+3.给abc文件的所有用户添加读的权限
+chmod a+r abc
+
+
+第二种修改方式：通过数字变更权限
+r=4 w=2 x=1
+rwx=4+2+1=7
+chmod u=rwx,g=rx,o=x 文件/目录名 相当于 chmod 751 文件/目录名
+
+1.将/home/abc.txt 文件的权限修改成 rwxr-xr-x, 使用给数字的方式实现：
+　 chmod 755 /home/abc.txt
+```
+#### 8.打包和解压缩文件的命令
+```shell
+bunzip2 file1.bz2 # 解压一个叫做 'file1.bz2'的文件
+bzip2 file1 # 压缩一个叫做 'file1' 的文件
+gunzip file1.gz # 解压一个叫做 'file1.gz'的文件
+gzip file1 # 压缩一个叫做 'file1'的文件
+gzip -9 file1 # 最大程度压缩
+rar a file1.rar test_file # 创建一个叫做 'file1.rar' 的包
+rar a file1.rar file1 file2 dir1 # 打包 'file1', 'file2' 以及目录 'dir1'
+rar x file1.rar # 解rar包
+unrar x file1.rar # 解rar包
+tar -cvf archive.tar file1 # 创建一个非压缩的tar包
+tar -cvf archive.tar file1 file2 dir1 # 创建一个包含了 'file1', 'file2' 'dir1'的包
+tar -tf archive.tar # 显示一个包中的内容
+tar -xvf archive.tar # 释放一个包
+tar -xvf archive.tar -C /tmp # 将压缩包释放到 /tmp目录下 （-c是指定目录）
+tar -cvfj archive.tar.bz2 dir1 # 创建一个bzip2格式的压缩包
+tar -xvfj archive.tar.bz2 # 解压一个bzip2格式的压缩包
+tar -cvfz archive.tar.gz dir1 # 创建一个gzip格式的压缩包
+tar -xvfz archive.tar.gz # 解压一个gzip格式的压缩包
+zip file1.zip file1 # 创建一个zip格式的压缩包
+zip -r file1.zip file1 file2 dir1 # 将几个文件和目录同时压缩成一个zip格式的压缩包
+unzip file1.zip # 解压一个zip格式压缩包
+```
+
+#### 9.文件搜索命令
+```shell
+find / -name file1 # 从 '/' 开始进入根文件系统搜索文件和目录
+find / -user user1 # 搜索属于用户 'user1' 的文件和目录
+find  /home/user1  -name  \*.bin # 在目录 '/ home/user1' 中搜索带有'.bin' 结尾的文件
+find /usr/bin -type f -atime +100 # 搜索在过去100天内未被使用过的执行文件
+find /usr/bin -type f -mtime -10 # 搜索在10天内被创建或者修改过的文件
+locate \*.ps  # 寻找以 '.ps' 结尾的文件 - 先运行 'updatedb' 命令
+whereis file # 显示一个二进制文件、源码或man的位置
+which file  # 显示一个二进制文件或可执行文件的完整路径
 ```

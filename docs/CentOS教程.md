@@ -121,7 +121,7 @@ cal 2007 # 显示2007年的日历表
 date 041217002007.00 设置日期和时间 - 月日时分年.秒
 clock -w # 将时间修改保存到 BIOS
 ```
-#### cd /home 进入 '/ home' 目录'
+#### 3.cd /home 进入 '/ home' 目录'
 ```shell
 cd .. # 返回上一级目录
 cd ../.. # 返回上两级目录
@@ -149,18 +149,7 @@ ln -s file1 lnk1 # 创建一个指向文件或目录的软链接
 ln file1 lnk1 # 创建一个指向文件或目录的物理链接
 touch  file1 # 创建一个文件
 ```
-#### 4.文件搜索命令
-```shell
-find / -name file1 # 从 '/' 开始进入根文件系统搜索文件和目录
-find / -user user1 # 搜索属于用户 'user1' 的文件和目录
-find  /home/user1  -name  \*.bin # 在目录 '/ home/user1' 中搜索带有'.bin' 结尾的文件
-find /usr/bin -type f -atime +100 # 搜索在过去100天内未被使用过的执行文件
-find /usr/bin -type f -mtime -10 # 搜索在10天内被创建或者修改过的文件
-locate \*.ps  # 寻找以 '.ps' 结尾的文件 - 先运行 'updatedb' 命令
-whereis file # 显示一个二进制文件、源码或man的位置
-which file  # 显示一个二进制文件或可执行文件的完整路径
-```
-#### 5.查看文件内容
+#### 4.查看文件内容
 ```shell
 cat file1 # 从第一个字节开始正向查看文件的内容
 tac file1 # 从最后一行开始反向查看一个文件的内容
@@ -182,7 +171,7 @@ mount /dev/sda1 /mnt/usbdisk # 挂载一个usb 捷盘或闪存设备
 mount -t smbfs -o username=user,password=pass //WinClient/share /mnt/share # 挂载一个windows网络共享
 
 ```
-#### 6.磁盘空间操作的命令
+#### 5.磁盘空间操作的命令
 ```shell
 free -mh # 查看磁盘以及分区情况
 df -h # 显示已经挂载的分区列表
@@ -197,7 +186,7 @@ du -ch # 看当前文件及文件中包含的子文件夹大小
 du -h test1.txt # 查看某个文件容量大小
 du -h test1.txt test2.txt # 查看多个文件容量大小
 ```
-#### 7.用户和群组相关命令
+#### 6.用户和群组相关命令
 ```shell
 groupadd group_name # 创建一个新用户组
 groupdel group_name # 删除一个用户组
@@ -222,31 +211,7 @@ chmod g-s /home/public # 禁用一个目录的 SGID 位
 chmod o+t /home/public # 设置一个文件的 STIKY 位 - 只允许合法所有人删除文件
 chmod o-t /home/public # 禁用一个目录的 STIKY 位
 ```
-#### 8.打包和解压缩文件的命令
-```shell
-bunzip2 file1.bz2 # 解压一个叫做 'file1.bz2'的文件
-bzip2 file1 # 压缩一个叫做 'file1' 的文件
-gunzip file1.gz # 解压一个叫做 'file1.gz'的文件
-gzip file1 # 压缩一个叫做 'file1'的文件
-gzip -9 file1 # 最大程度压缩
-rar a file1.rar test_file # 创建一个叫做 'file1.rar' 的包
-rar a file1.rar file1 file2 dir1 # 打包 'file1', 'file2' 以及目录 'dir1'
-rar x file1.rar # 解rar包
-unrar x file1.rar # 解rar包
-tar -cvf archive.tar file1 # 创建一个非压缩的tar包
-tar -cvf archive.tar file1 file2 dir1 # 创建一个包含了 'file1', 'file2' 'dir1'的包
-tar -tf archive.tar # 显示一个包中的内容
-tar -xvf archive.tar # 释放一个包
-tar -xvf archive.tar -C /tmp # 将压缩包释放到 /tmp目录下 （-c是指定目录）
-tar -cvfj archive.tar.bz2 dir1 # 创建一个bzip2格式的压缩包
-tar -xvfj archive.tar.bz2 # 解压一个bzip2格式的压缩包
-tar -cvfz archive.tar.gz dir1 # 创建一个gzip格式的压缩包
-tar -xvfz archive.tar.gz # 解压一个gzip格式的压缩包
-zip file1.zip file1 # 创建一个zip格式的压缩包
-zip -r file1.zip file1 file2 dir1 # 将几个文件和目录同时压缩成一个zip格式的压缩包
-unzip file1.zip # 解压一个zip格式压缩包
-```
-#### 9.关于RPM 包的命令
+#### 7.关于RPM 包的命令
 ```shell
 rpm -ivh package.rpm # 安装一个rpm包
 rpm -ivh --nodeeps package.rpm # 安装一个rpm包而忽略依赖关系警告
@@ -274,7 +239,7 @@ rpm2cpio package.rpm | cpio --extract --make-directories *bin* # 从一个rpm包
 rpm -ivh /usr/src/redhat/RPMS/`arch`/package.rpm # 从一个rpm源码安装一个构建好的包
 rpmbuild --rebuild package_name.src.rpm # 从一个rpm源码构建一个 rpm 包
 ```
-#### 10.YUM 软件包升级器 
+#### 8.YUM 软件包升级器 
 ```shell
 yum install package_name # 下载并安装一个rpm包
 yum localinstall package_name.rpm # 将安装一个rpm包，使用你自己的软件仓库为你解决所有依赖关系
@@ -287,7 +252,7 @@ yum clean packages # 清理rpm缓存删除下载的包
 yum clean headers # 删除所有头文件
 yum clean all # 删除所有缓存的包和头文件
 ```
-#### 11.防火墙
+#### 9.防火墙
 ```shell
 service iptables status # 查看防火墙状态
 service iptables start #打开防火墙
