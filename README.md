@@ -6,7 +6,7 @@ Go 1.20、Python 3.11
 ```
 
 <details>
-  <summary><h2>二、目录</h2></summary>
+<summary><h2>二、目录</h2></summary>
 
   - [ai-go](#ai-go)
     - [算法](#算法)
@@ -48,7 +48,7 @@ Go 1.20、Python 3.11
   - [面试与解答](#面试与解答)
     - [公司](#公司)
   - [资源](#资源)
-</details>
+  </details>
 
 
 
