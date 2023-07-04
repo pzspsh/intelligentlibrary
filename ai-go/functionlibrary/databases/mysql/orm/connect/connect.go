@@ -32,10 +32,10 @@ func (m *MysqlConfig) MysqlConn() (*gorm.DB, error) {
 
 func main() {
 	m := &MysqlConfig{
-		Host:     "10.0.25.15",
-		Port:     "3306",
-		Username: "root",
-		Password: "pzspsh246789",
+		Host:     "ip",
+		Port:     "port",
+		Username: "user",
+		Password: "pass",
 		Database: "test",
 	}
 	db, err := m.MysqlConn()
