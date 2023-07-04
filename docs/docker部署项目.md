@@ -72,7 +72,7 @@ func setupRouter() *gin.Engine {
 }
 func main() {
     r := setupRouter()
-    r.Run(":5005")
+    r.Run(":6000")
 }
 ```
 
