@@ -400,9 +400,9 @@ import socks
 import requests
 
 # 设置代理
-# socks.set_default_proxy(socks.SOCKS5, "10.0.36.74", 2019)
+# socks.set_default_proxy(socks.SOCKS5, "ip", port)
 # 如果使用账号密码验证，那么使用下面这行连接方式
-socks.set_default_proxy(socks.SOCKS5, "10.0.36.74", 2019, username='panzhongsheng', password='123456')
+socks.set_default_proxy(socks.SOCKS5, "ip", port, username='user', password='pass')
 socket.socket = socks.socksocket
 
 # 测试访问 重庆大学
