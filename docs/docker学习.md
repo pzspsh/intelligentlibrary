@@ -417,3 +417,15 @@ docker 进入容器root权限
 ```
 docker exec -it --user=root ID号/容器名称 bash
 ```
+
+docker源设置
+vim /etc/docker/daemon.json
+```shell
+{
+"registry-mirrors": [
+"https://7bezldxe.mirror.aliyuncs.com/",
+"https://docker.mirrors.ustc.edu.cn/",
+"https://hub-mirror.c.163.com",
+"https://registry.docker-cn.com"]
+}
+```
