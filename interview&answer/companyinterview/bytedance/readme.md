@@ -49,7 +49,7 @@
 | 字节跳动 | 客户端 | 54\. 螺旋矩阵              | 2  |
 | 字节跳动 | 客户端 | 146\. LRU缓存机制          | 2  | 重合
 | 字节跳动 | 客户端 | 62\. 不同路径              | 2  |
-| 字节跳动 | 客户端 | 236\. 二叉树的最近公共祖先       | 2  | 到这
+| 字节跳动 | 客户端 | 236\. 二叉树的最近公共祖先       | 2  |
 | 字节跳动 | 客户端 | 189\. 旋转数组             | 2  |
 | 字节跳动 | 客户端 | 1\. 两数之和               | 2  |
 | 字节跳动 | 客户端 | 48\. 旋转图像              | 2  |
@@ -122,7 +122,7 @@
 |152. 乘积最大子数组|算法|2|https://leetcode-cn.com/problems/maximum-product-subarray| 重合
 |70. 爬楼梯|算法|2|https://leetcode-cn.com/problems/climbing-stairs| 重合
 |48. 旋转图像|算法|2|https://leetcode-cn.com/problems/rotate-image| 重合
-|剑指 Offer 36. 二叉搜索树与双向链表|算法|2|https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof|
+|剑指 Offer 36. 二叉搜索树与双向链表|算法|2|https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof| 未完成
 |179. 最大数|算法|2|https://leetcode-cn.com/problems/largest-number|
 |剑指 Offer 51. 数组中的逆序对|算法|2|https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof|
 |143. 重排链表|算法|2|https://leetcode-cn.com/problems/reorder-list| 重合
@@ -130,7 +130,7 @@
 |238. 除自身以外数组的乘积|算法|2|https://leetcode-cn.com/problems/product-of-array-except-self|
 |25. K个一组翻转链表|算法|2|https://leetcode-cn.com/problems/reverse-nodes-in-k-group| 重合
 |129. 求根到叶子节点数字之和|算法|2|https://leetcode-cn.com/problems/sum-root-to-leaf-numbers| 重合
-|补充题4. 手撕快速排序|算法|2|https://leetcode-cn.com/problems/sort-an-array|
+|补充题4. 手撕快速排序|算法|2|https://leetcode-cn.com/problems/sort-an-array| 未完成
 |42. 接雨水|算法|2|https://leetcode-cn.com/problems/trapping-rain-water|
 |415. 字符串相加|算法|2|https://leetcode-cn.com/problems/add-strings| 重合
 |221. 最大正方形|算法|2|https://leetcode-cn.com/problems/maximal-square| 重合
@@ -170,8 +170,8 @@
 |718. 最长重复子数组|算法|1|https://leetcode-cn.com/problems/maximum-length-of-repeated-subarray|
 |440. 字典序的第K小数字|算法|1|https://leetcode-cn.com/problems/k-th-smallest-in-lexicographical-order|
 |334. 递增的三元子序列|算法|1|https://leetcode-cn.com/problems/increasing-triplet-subsequence|
-|582. 杀死进程|算法|1|https://leetcode-cn.com/problems/kill-process|
-|面试题 16.03. 交点|算法|1|https://leetcode-cn.com/problems/intersection-lcci|
+|582. 杀死进程|算法|1|https://leetcode-cn.com/problems/kill-process| 未完成
+|面试题 16.03. 交点|算法|1|https://leetcode-cn.com/problems/intersection-lcci| 未完成
 |96. 不同的二叉搜索树|算法|1|https://leetcode-cn.com/problems/unique-binary-search-trees|
 |41. 缺失的第一个正数|算法|1|https://leetcode-cn.com/problems/first-missing-positive|
 |403. 青蛙过河|算法|1|https://leetcode-cn.com/problems/frog-jump|
