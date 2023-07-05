@@ -95,9 +95,9 @@ print("hello world")
 |公司|链接|说明|
 |---|---|---|
 |阿里巴巴|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/alibaba)|岗位：(算法、后端、后端、测试、数据研究)|
-|亚马逊|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/amazon)|岗位：(算法、后端、后端、测试、数据研究)|
+|亚马逊|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/amazon)|亚马逊面试|
 |百度|[完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/baidu)|岗位：(算法、后端、后端、测试、数据研究)|
-|字节跳动|[进行中](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/bytedance)|亚马逊面试|
+|字节跳动|[进行中](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/bytedance)|岗位：(算法、后端、后端、测试、数据研究)|
 |华为|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/huawei)|岗位：(算法、后端、后端、测试、数据研究)|
 |快手|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/kuaishou)|岗位：(算法、后端、后端、测试、数据研究)|
 |美团|[未完成](https://github.com/pzspsh/intelligentlibrary/tree/main/interview%26answer/companyinterview/meituan)|岗位：(算法、后端、后端、测试、数据研究)|
