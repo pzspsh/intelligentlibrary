@@ -53,6 +53,13 @@ go mod tidy
 go build -m go_run main.go
 ```
 
+##### 3.用.sh脚本文件运行，如：go_run.sh文件内容如下
+
+```shell
+#!/bin/sh
+exec go_run路径/go_run
+```
+
 
 
 # [Dockerfile部署]
@@ -97,12 +104,24 @@ ENTRYPOINT ["/dockerProject/go_app"]
 FROM golang
 # 作者
 MAINTAINER pan
+# 配置GOROOT环境变量（感觉安装好就可以用不用配）：
+# ENV GOROOT /usr/local/go
+# ENV PATH=$PATH:$GOROOT/bin
+# 配置GOPATH环境变量：
+RUN mkdir -p /home/GoProjects
+RUN mkdir -p /home/GoProjects/src
+RUN mkdir -p /home/GoProjects/bin
+RUN mkdir -p /home/GoProjects/pkg
+ENV GOPATH /home/GoProjects
+ENV PATH=$PATH:$GOPATH/bin
+# 创建dockerProject
+RUN mkdir -p /home/GoProjects/src/dockerProject
 # 全局工作目录
-WORKDIR $GOPATH/dockerProject
+WORKDIR /home/GoProjects/src/dockerProject
 # 把运行Dockerfile文件的当前目录所有文件复制到目标目录
 # 需要把go.mod、go.sum也复制到目标目录，所以直接用点继续全部复制
 # COPY main.go  $GOPATH/dockerProject/main.go
-COPY . $GOPATH/dockerProject/
+COPY . /home/GoProjects/src/dockerProject/
 # 环境变量的MODULE
 ENV GO111MODULE=on
 # 用于代理下载go项目依赖的包
@@ -110,11 +129,16 @@ ENV GOPROXY=https://goproxy.cn,direct
 # 需暴露的端口
 # RUN go mod init
 # RUN go mod tidy
+# RUN go build -o main main.go
 EXPOSE 8000
 # 可外挂的目录
-VOLUME ["/dockerProject/config","/dockerProject/log"]                                                                                     
+VOLUME ["home/GoProjects/src/dockerProject/config","home/GoProjects/src/dockerProject/log"]                                                                                     
 # docker run命令触发的真实命令(相当于不编译打包，源代码直接运行)
 ENTRYPOINT ["go","run","main.go"]
+# 说明：如果遇到需要依赖的GCC，则需要执行如下命令操作： 
+# 如果是CentOS镜像则用yum,是Ubuntu则用apt-get
+# RUN yum install -y gcc
+# 如：github.com/tomatome/grdp包就需要gcc才能编译，无gcc无法编译
 ```
 
 #### 4.创建继续如下：
@@ -127,7 +151,7 @@ test-go-docker：表示镜像名
 
 说明：如果执行Dockerfile有点问题，可进行调整
 
-我遇到的问题是一些有：空格不对、注释不对
+我遇到的问题有：空格不对、注释不对、配置docker容器的go编译环境不对等
 
 ##### 结果如下：
 
@@ -173,6 +197,285 @@ Successfully tagged test-go-docker:latest
 docker run -d -p 8000:8000 test-go-docker:latest
 ```
 
+##### 5.用.sh文件脚本一键启动如：go_dockerfile.sh
+
+```shell
+#!/bin/bash
+# 构建程序
+config="export GO111MODULE=on && CGO_ENABLED=1 GOOS=linux GOARCH=amd64; go mod tidy; go build  -o 'go_run' main.go;"
+bash -c "$config"
+# 构建docker image
+docker build -t go-test/develop .
+# 构建docker container
+# 删除旧容器1
+docker stop go-test-docker;docker rm go-test-docker
+# 新建容器1 外部8080端口映射到容器内8000端口
+docker run -itd -v :/www/wwwroot/go-run/:/data/log/ -p 8080:8000 --name go-test-docker go-test/develop:latest
+```
+
+**说明**：**go_dockerfile.sh**未完成，大概就是这个格式。俺不需要所以就没进行搞
+
+
+
+## 优化的Dockerfile--镜像占磁盘小
+
+#### 优化1：使用alpine版本的基础镜像,Dockerfile的内容如下：
+
+```shell
+FROM golang:alpine
+# 作者
+MAINTAINER pan
+# 配置docker容器的go环境变量
+RUN mkdir -p /home/GoProjects
+RUN mkdir -p /home/GoProjects/src
+RUN mkdir -p /home/GoProjects/bin
+RUN mkdir -p /home/GoProjects/pkg
+ENV GOPATH /home/GoProjects
+ENV PATH=$PATH:$GOPATH/bin
+# 全局工作目录
+RUN mkdir -p /home/GoProjects/src/dockerProject
+WORKDIR /home/GoProjects/src/dockerProject
+# 把运行Dockerfile文件的当前目录所有文件复制到目标目录
+COPY . /home/GoProjects/src/dockerProject/
+# 环境变量
+#  用于代理下载go项目依赖的包
+ENV GOPROXY https://goproxy.cn,direct
+# 编译
+RUN GOOS=linux GOARCH=amd64 go build main.go
+# 需暴露的端口
+EXPOSE 8000
+# 可外挂的目录
+VOLUME ["home/GoProjects/src/dockerProject/config","home/GoProjects/src/dockerProject/log"]
+# docker run命令触发的真实命令(相当于直接运行编译后的可运行文件)
+ENTRYPOINT ["./main"]
+```
+
+#### 优化2：使用多级构建的镜像 ,Dockerfile的内容如下：
+
+```dockerfile
+# 基础镜像，基于golang的alpine镜像构建--编译阶段
+FROM golang:alpine AS builder
+# 作者
+MAINTAINER pan
+# 配置docker容器的go环境变量
+RUN mkdir -p /home/GoProjects
+RUN mkdir -p /home/GoProjects/src
+RUN mkdir -p /home/GoProjects/bin
+RUN mkdir -p /home/GoProjects/pkg
+ENV GOPATH /home/GoProjects
+ENV PATH=$PATH:$GOPATH/bin
+RUN mkdir -p /home/GoProjects/src/dockerProject
+# 全局工作目录
+WORKDIR /home/GoProjects/src/dockerProject
+# 把运行Dockerfile文件的当前目录所有文件复制到目标目录
+COPY . /home/GoProjects/src/dockerProject/
+# 环境变量
+#  用于代理下载go项目依赖的包
+ENV GOPROXY https://goproxy.cn,direct
+# 编译，关闭CGO，防止编译后的文件有动态链接，而alpine镜像里有些c库没有，直接没有文件的错误
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build main.go
+
+# 使用alpine这个轻量级镜像为基础镜像--运行阶段
+FROM alpine AS runner
+# 全局工作目录
+WORKDIR /go/kingProject
+# 复制编译阶段编译出来的运行文件到目标目录
+COPY --from=builder /home/GoProjects/src/dockerProject/main .
+# 复制编译阶段里的config文件夹到目标目录
+COPY --from=builder /home/GoProjects/src/dockerProject/config ./config
+# 需暴露的端口
+EXPOSE 8000
+# 可外挂的目录
+VOLUME ["/home/GoProjects/src/dockerProject/config","/home/GoProjects/src/dockerProject/log"]
+# docker run命令触发的真实命令(相当于直接运行编译后的可运行文件)
+ENTRYPOINT ["./main"]
+```
+
+#### 优化3：使用多级构建+scratch基础镜像,Dockerfile的内容如下：
+
+```dockerfile
+# 基础镜像，基于golang的alpine镜像构建--编译阶段
+FROM golang:alpine AS builder
+# 作者
+MAINTAINER pan
+# 配置docker容器的go环境变量
+RUN mkdir -p /home/GoProjects
+RUN mkdir -p /home/GoProjects/src
+RUN mkdir -p /home/GoProjects/bin
+RUN mkdir -p /home/GoProjects/pkg
+ENV GOPATH /home/GoProjects
+ENV PATH=$PATH:$GOPATH/bin
+RUN mkdir -p /home/GoProjects/src/dockerProject
+# 全局工作目录
+WORKDIR /home/GoProjects/src/dockerProject
+# 把运行Dockerfile文件的当前目录所有文件复制到目标目录
+COPY . /home/GoProjects/src/dockerProject/
+# 环境变量
+#  用于代理下载go项目依赖的包
+ENV GOPROXY https://goproxy.cn,direct
+# 编译，关闭CGO，防止编译后的文件有动态链接，而alpine镜像里有些c库没有，直接没有文件的错误
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build main.go
+
+
+# 使用scratch这个空镜像为基础镜像--运行阶段
+FROM scratch AS runner
+# 全局工作目录
+WORKDIR /home/GoProjects/src/dockerProject
+# 复制编译阶段编译出来的运行文件到目标目录
+COPY --from=builder /home/GoProjects/src/dockerProject/main .
+# 复制编译阶段里的config文件夹到目标目录
+COPY --from=builder /home/GoProjects/src/dockerProject/config ./config
+# 需暴露的端口
+EXPOSE 8000
+# 可外挂的目录
+VOLUME ["/home/GoProjects/src/dockerProject/config","/home/GoProjects/src/dockerProject/log"]
+# docker run命令触发的真实命令(相当于直接运行编译后的可运行文件)
+ENTRYPOINT ["./main"]
+```
+
+#### 优化4：go编译命令去掉冗余输出,Dockerfile的内容如下：
+
+```dockerfile
+# 基础镜像，基于golang的alpine镜像构建--编译阶段
+FROM golang:alpine AS builder
+# 作者
+MAINTAINER pan
+# 配置docker容器的go环境变量
+RUN mkdir -p /home/GoProjects
+RUN mkdir -p /home/GoProjects/src
+RUN mkdir -p /home/GoProjects/bin
+RUN mkdir -p /home/GoProjects/pkg
+ENV GOPATH /home/GoProjects
+ENV PATH=$PATH:$GOPATH/bin
+RUN mkdir -p /home/GoProjects/src/dockerProject
+# 全局工作目录
+WORKDIR /home/GoProjects/src/dockerProject
+# 把运行Dockerfile文件的当前目录所有文件复制到目标目录
+COPY . /home/GoProjects/src/dockerProject/
+# 环境变量
+#  用于代理下载go项目依赖的包
+ENV GOPROXY https://goproxy.cn,direct
+# 编译，关闭CGO，防止编译后的文件有动态链接，而alpine镜像里有些c库没有，直接没有文件的错误
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-w -s" main.go
+
+
+# 使用scratch这个空镜像为基础镜像--运行阶段
+FROM scratch AS runner
+# 全局工作目录
+WORKDIR /home/GoProjects/src/dockerProject
+# 复制编译阶段编译出来的运行文件到目标目录
+COPY --from=builder /home/GoProjects/src/dockerProject/main .
+# 复制编译阶段里的config文件夹到目标目录
+COPY --from=builder /home/GoProjects/src/dockerProject/config ./config
+# 需暴露的端口
+EXPOSE 8000
+# 可外挂的目录
+VOLUME ["/home/GoProjects/src/dockerProject/config","/home/GoProjects/src/dockerProject/log"]
+# docker run命令触发的真实命令(相当于直接运行编译后的可运行文件)
+ENTRYPOINT ["./main"]
+```
+
+#### 优化5：go编译命令去掉冗余输出，解决时区问题 ,Dockerfile的内容如下：
+
+```dockerfile
+# 基础镜像，基于golang的alpine镜像构建--编译阶段
+FROM golang:alpine AS builder
+# 作者
+MAINTAINER pan
+# 配置docker容器的go环境变量
+RUN mkdir -p /home/GoProjects
+RUN mkdir -p /home/GoProjects/src
+RUN mkdir -p /home/GoProjects/bin
+RUN mkdir -p /home/GoProjects/pkg
+ENV GOPATH /home/GoProjects
+ENV PATH=$PATH:$GOPATH/bin
+RUN mkdir -p /home/GoProjects/src/dockerProject
+# 全局工作目录
+WORKDIR /home/GoProjects/src/dockerProject
+# 把运行Dockerfile文件的当前目录所有文件复制到目标目录
+COPY . /home/GoProjects/src/dockerProject/
+# 环境变量
+#  用于代理下载go项目依赖的包
+ENV GOPROXY https://goproxy.cn,direct
+# 编译，关闭CGO，防止编译后的文件有动态链接，而alpine镜像里有些c库没有，直接没有文件的错误
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-w -s" main.go
+RUN echo "https://mirrors.aliyun.com/alpine/v3.8/main/" > /etc/apk/repositories \
+    && echo "https://mirrors.aliyun.com/alpine/v3.8/community/" >> /etc/apk/repositories \
+    && apk add --no-cache tzdata \
+    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  \
+    && echo Asia/Shanghai > /etc/timezone \
+    && apk del tzdata
+
+# 使用scratch这个空镜像为基础镜像--运行阶段
+FROM scratch AS runner
+# 全局工作目录
+WORKDIR /home/GoProjects/src/dockerProject
+# 复制编译阶段编译出来的运行文件到目标目录
+COPY --from=builder /home/GoProjects/src/dockerProject/main .
+# 复制编译阶段里的config文件夹到目标目录
+COPY --from=builder /home/GoProjects/src/dockerProject/config ./config
+# 复制编译阶段里的时区文件到目标目录
+COPY --from=builder /etc/localtime /etc/localtime
+COPY --from=builder /etc/timezone /etc/timezone
+# 需暴露的端口
+EXPOSE 8888
+# 可外挂的目录
+VOLUME ["/home/GoProjects/src/dockerProject/config","/home/GoProjects/src/dockerProject/log"]
+# docker run命令触发的真实命令(相当于直接运行编译后的可运行文件)
+ENTRYPOINT ["./main"]
+```
+
+#### 优化6：
+
+```dockerfile
+# 基础镜像，基于golang的alpine镜像构建--编译阶段
+FROM golang:alpine AS builder
+# 作者
+MAINTAINER pan
+# 配置docker容器的go环境变量
+RUN mkdir -p /home/GoProjects
+RUN mkdir -p /home/GoProjects/src
+RUN mkdir -p /home/GoProjects/bin
+RUN mkdir -p /home/GoProjects/pkg
+ENV GOPATH /home/GoProjects
+ENV PATH=$PATH:$GOPATH/bin
+RUN mkdir -p /home/GoProjects/src/dockerProject
+# 全局工作目录
+WORKDIR //home/GoProjects/src/dockerProject
+# 把运行Dockerfile文件的当前目录所有文件复制到目标目录
+COPY . /home/GoProjects/src/dockerProject/
+# 环境变量
+#  用于代理下载go项目依赖的包
+ENV GOPROXY https://goproxy.cn,direct
+# 编译，关闭CGO，防止编译后的文件有动态链接，而alpine镜像里有些c库没有，直接没有文件的错误
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-w -s" main.go
+
+
+# 使用alpine这个轻量级镜像为基础镜像--运行阶段
+FROM alpine AS runner
+# 全局工作目录
+WORKDIR /home/GoProjects/src/dockerProject
+# 复制编译阶段编译出来的运行文件到目标目录
+COPY --from=builder /home/GoProjects/src/dockerProject/main .
+# 复制编译阶段里的config文件夹到目标目录
+COPY --from=builder /home/GoProjects/src/dockerProject/config ./config
+# 将时区设置为东八区
+RUN echo "https://mirrors.aliyun.com/alpine/v3.8/main/" > /etc/apk/repositories \
+    && echo "https://mirrors.aliyun.com/alpine/v3.8/community/" >> /etc/apk/repositories \
+    && apk add --no-cache tzdata \
+    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  \
+    && echo Asia/Shanghai > /etc/timezone \
+    && apk del tzdata
+# 需暴露的端口
+EXPOSE 8888
+# 可外挂的目录
+VOLUME ["/home/GoProjects/src/dockerProject/config","/home/GoProjects/src/dockerProject/log"]
+# docker run命令触发的真实命令(相当于直接运行编译后的可运行文件)
+ENTRYPOINT ["./main"]
+```
+
+**说明**：scratch镜像有它的缺陷，是一个真的空镜像，不支持很多命令，比如cp，sh等，如果要进入容器内部查东西，都进不去，不适合真实情况。
+
 
 
 # [docker compose部署]
@@ -198,15 +501,15 @@ touch docker-compose.yml  # 执行命令：vim docker-compose.yml 编辑即可
 ```shell
 version: '3.8'
 services:
-  go-test-20239: # 容器
+  go-test-docker: # 容器
     restart: always # Docker 重启时，容器也重启
     build: # 构建 Docker 镜像
       context: ./ # Dockerfile 文件的目录
       dockerfile: Dockerfile # Dockerfile 文件的名称
     image: go-test/develop:latest # 镜像名称和版本号
-    container_name: go-test-20239 # 容器名称
+    container_name: go-test-docker # 容器名称
     ports: # 宿主机:容器之间映射端口
-      - "20239:8000"
+      - "8080:8000"
 ```
 
 #### Dockerfile 文件
@@ -214,8 +517,8 @@ services:
 ```shell
 FROM golang:alpine as builder
 # 需要go环境
-MAINTAINER vijay
-WORKDIR /work
+MAINTAINER pan
+WORKDIR /workdir
 # 源
 RUN go env -w GOPROXY=https://goproxy.cn,direct && go env -w CGO_ENABLED=0
 COPY go.mod go.sum ./
@@ -230,7 +533,7 @@ WORKDIR /server
 COPY --from=builder /work/ ./
 # COPY --from=builder /work/config ./config
 # 对外端口
-EXPOSE 8000
+EXPOSE 8080
 # 执行
 CMD ["./main"]
 ```
