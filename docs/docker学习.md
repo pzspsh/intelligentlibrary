@@ -4,7 +4,7 @@
 Docker官网：https://www.docker.com/
 
 #### 一、帮助命令
-```dockerfile
+```shell
 docker version 			# 显示docker的版本信息
 docker info 			# 显示docker的系统信息，包括镜像和容器的数量
 docker 命令 --help   	   # 帮助命令
@@ -23,7 +23,7 @@ docker pull mysql:8.1    # 指定MySQL的版本
 ```
 
 ##### 2.2、删除镜像
-```
+```shell
 docker rmi -f id		 # 删除指定的镜像，remove image，加上镜像ID
 docker rmi -f id id id 	 # 删除多个镜像
 docker rmi -f $(docker image -aq)   # 批量删除全部的image(-f表示全部删除，即force,-ap查询命令)
@@ -31,12 +31,12 @@ docker rmi -f $(docker image -aq)   # 批量删除全部的image(-f表示全部�
 
 #### 三、容器命令
 下载CentOS镜像
-```
+```shell
 docker pull centos
 ```
 
 新建容器并启动
-```
+```shell
 docker run --help
 docker run [可选参数] image
 
@@ -52,19 +52,19 @@ docker run [可选参数] image
 ```
 
 启动并进入容器
-```
+```shell
 docker run -it centos /bin/bash
 ```
 
 从容器中退回主机
-```
+```shell
 exit			# 直接停止容器并退出
 Ctrl + P + Q	# 容器不停止退出
 ls
 ```
 
 列出所有的运行容器
-```
+```shell
 docker ps
 -a 			# 列出当前正在运行的容器，带出历史运行过的容器
 -n=? 		# 显示最近创建的容器
@@ -73,14 +73,14 @@ docker ps -a
 ```
 
 删除容器
-```
+```shell
 docker rm 容器id						# 删除指定的容器，不能删除正在运行的容器，如果要强制删除，加采纳数rm -f
 docker rm -f $(docker ps -aq)	 	 # 删除所有的容器	
 docker ps -a -q | xargs docker rm 	 # 删除所有的容器（管道命令）
 ```
 
 启动和停止容器的操作
-```
+```shell
 docker start 容器ID		# 启动容器
 docker restart 容器ID		# 重启容器
 docker stop 容器ID		# 停止正在运行的容器
@@ -89,7 +89,7 @@ docker kill 容器ID		# 强制停止当前容器
 
 #### 四、常见其他命令
 后台启动容器
-```
+```shell
 docker run -d 镜像名
 docker run -d centos
 
@@ -100,7 +100,7 @@ docker run -d centos
 
 
 查看日志
-```
+```shell
 docker logs --help
 docker logs -f -t --tail 容器ID			# 容器如果没有日志
 
@@ -116,21 +116,20 @@ docker logs -ft --tails 10 容器ID（10代表打印的条数）
 ```
 
 查看容器中进程信息ps
-
-```
+```shell
 docker ps 			# 查看容器ID
 docker top 容器ID
 ```
 
 查看镜像的元数据
-```
+```shell
 docker inspect --help
 docker ps -a
 docker inspect 容器ID
 ```
 
 进入当前正在运行的容器
-```
+```shell
 通常情况下，容器都是后台运行的，需要进入容器中，修改一些配置
 
 # 方式一
@@ -148,8 +147,7 @@ docker attach 容器ID
 
 
 从容器内拷贝文件到主机上
-
-```
+```shell
 docker cp 容器ID: 容器内路径 目的主机路径
 docker ps
 docker images
@@ -171,17 +169,17 @@ ls
 ```
 
 安装vim
-```
+```shell
 apt-get install vim
 ```
 
 安装apache2
-```
+```shell
 apt-get install apache2 -y
 ```
 
 安装装php和php插件
-```
+```shell
 apt-get install php -y
 apt-get install libapache2-mod-php -y  --fix-missing
 apt-get install php7.0-mysql
@@ -190,8 +188,7 @@ apt-get install php7.0-mysql
 ## 第二部分
 #### 一、实战：安装MySQL
 思考：MySQL的数据持久化问题
-
-```
+```shell
 # 获取镜像
 docker search mysql
 docker pull mysql:8.1
@@ -211,7 +208,7 @@ docker run -d -p 3310:3306 -v /home/mysql.conf:/etc/mysql/conf.d -v /home/mysql/
 ```
 
 假设我们将容器删除
-```
+```shell
 docker rm -f mysql01
 docker ps
 docker ps -a
@@ -219,8 +216,7 @@ docker ps -a
 
 回到宿主机查看，发现数据都还在！ 我们挂载到本地的数据卷没有丢失，这就实现了容器数据持久化功能。
 #### 二、具名挂载和匿名挂载
-
-```
+```shell
 # 匿名挂载
 -v 容器内路径
 docker run d -P --name nginx01 -v /etc/nginx nginx
@@ -232,8 +228,7 @@ docker volume ls
 #### 三、DockerFile
 
 DockerFile就是用来构建docker镜像的构建文件！命令脚本
-
-```
+```shell
 mkdir docker-test-volume
 ls
 pwd
@@ -297,7 +292,7 @@ if __name__=='__main__':
 ![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1649902727.png)
 然后我们开始编写Dockerfile
 
-```
+```shell
 FROM python:3.8 　　　　
 # 拉取一个基础镜像，基于python3.8
 MAINTAINER BH8ANK　　　　
@@ -321,7 +316,7 @@ ENTRYPOINT ["python3","app.py"]　　
 Dockerfile编写完成后，我们就可以构建镜像了。
 使用命令
 
-```
+```shell
 docker build -t new Dockerfile
 ```
 意思是，使用当前路径下的DockerFile进行构建，镜像名称为new
@@ -330,7 +325,7 @@ docker build -t new Dockerfile
 现在，我们可以查看一下镜像情况
 使用命令
 
-```
+```shell
 docker images
 ```
 ![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1649902877.png)
@@ -338,7 +333,7 @@ docker images
 那么，开始启动容器。
 执行命令
 
-```
+```shell
 docker run -p 3333:7777 -dit d7d7df1b3dd5
 ```
 
@@ -353,7 +348,7 @@ docker run -p 3333:7777 -dit d7d7df1b3dd5
 此刻，容器即已启动了。
 我们可以通过命令查看容器的运行情况
 
-```
+```shell
 docker ps -a
 ```
 ![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1649902986.png)
@@ -361,7 +356,7 @@ docker ps -a
 那么，我们如何进入到容器内部呢？
 可以使用命令
 
-```
+```shell
 docker exec -it 容器ID  /bin/bash
 ```
 
@@ -381,7 +376,7 @@ docker exec -it 容器ID  /bin/bash
 综上，我们已经完成了从镜像制作到服务部署的全部流程。
 此外，还有个别常用的docker相关的管理命令也一并贴上来
 
-```
+```shell
 # 删除镜像
 docker rmi  镜像ID
 
@@ -396,14 +391,14 @@ docker run -it 镜像ID  /bin/bash
 ```
 
 当我们开发把项目打包好镜像后，可能需要给运维或后端人员进行部署测试，可以使用save -o 命令把镜像导出：
-```
+```shell
 docker save -o .\保存的路径\镜像文件名 镜像
 比如:
-dicker save -o .\Desktop\hello.tar hello-world
+docker save -o .\Desktop\hello.tar hello-world
 ```
-
+docker源设置
 vim /etc/docker/daemon.json 添加国内镜像
-```
+```shell
 {
     "registry-mirrors": [
         "https://registry.hub.docker.com",
@@ -414,18 +409,10 @@ vim /etc/docker/daemon.json 添加国内镜像
 }
 ```
 docker 进入容器root权限
-```
+```shell
 docker exec -it --user=root ID号/容器名称 bash
 ```
 
-docker源设置
-vim /etc/docker/daemon.json
 ```shell
-{
-"registry-mirrors": [
-"https://7bezldxe.mirror.aliyuncs.com/",
-"https://docker.mirrors.ustc.edu.cn/",
-"https://hub-mirror.c.163.com",
-"https://registry.docker-cn.com"]
-}
+docker run -d --privileged=true 镜像名  # 管理员权限
 ```
