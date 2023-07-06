@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(reverseWords("the sky is blue"))
 }
 
-// leetcode151_翻转字符串里的单词
+// 翻转字符串里的单词
 func reverseWords(s string) string {
 	arr := strings.Fields(s)
 	for i := 0; i < len(arr)/2; i++ {

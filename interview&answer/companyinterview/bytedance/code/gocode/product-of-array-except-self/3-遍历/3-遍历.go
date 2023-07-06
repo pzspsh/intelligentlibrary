@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(productExceptSelf([]int{1, 2, 3, 4}))
 }
 
-// leetcode238_除自身以外数组的乘积
+// 除自身以外数组的乘积
 func productExceptSelf(nums []int) []int {
 	res := make([]int, len(nums))
 	res[0] = 1

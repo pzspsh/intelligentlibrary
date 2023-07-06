@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(reverse1(120))
 }
 
-// leetcode 7 整数反转
+// 整数反转
 func reverse1(x int) int {
 	result := 0
 	for x != 0 {

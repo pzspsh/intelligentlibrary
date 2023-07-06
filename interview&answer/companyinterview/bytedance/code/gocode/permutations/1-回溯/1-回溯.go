@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(permute([]int{1, 2, 3}))
 }
 
-// leetcode46_全排列
+// 全排列
 var res [][]int
 
 func permute(nums []int) [][]int {

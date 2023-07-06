@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(multiply("123", "456"))
 }
 
-// leetcode43_字符串相乘
+// 字符串相乘
 func multiply(num1 string, num2 string) string {
 	if num1 == "0" || num2 == "0" {
 		return "0"

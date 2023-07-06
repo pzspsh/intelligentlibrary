@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(canCompleteCircuit([]int{1, 2, 3, 4, 5}, []int{3, 4, 5, 1, 2}))
 }
 
-// leetcode134_加油站
+// 加油站
 func canCompleteCircuit(gas []int, cost []int) int {
 	total, sum, start := 0, 0, 0
 	for i := 0; i < len(gas); i++ {

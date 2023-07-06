@@ -17,7 +17,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// leetcode897_单调数列
+// 单调数列
 var prev *TreeNode
 
 func increasingBST(root *TreeNode) *TreeNode {

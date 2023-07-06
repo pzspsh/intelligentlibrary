@@ -35,7 +35,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
-// leetcode23_合并K个排序链表
+// 合并K个排序链表
 func mergeKLists(lists []*ListNode) *ListNode {
 	if len(lists) == 0 {
 		return nil

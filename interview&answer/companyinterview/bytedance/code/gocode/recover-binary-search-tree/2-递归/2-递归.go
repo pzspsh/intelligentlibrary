@@ -15,7 +15,7 @@ type TreeNode1 struct {
 	Right *TreeNode1
 }
 
-// leetcode99_恢复二叉搜索树
+// 恢复二叉搜索树
 var prev, first, second *TreeNode1
 
 func recoverTree1(root *TreeNode1) {

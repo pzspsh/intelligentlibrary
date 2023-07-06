@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(maximumGap([]int{3, 6, 9, 1}))
 }
 
-// leetcode164_最大间距
+// 最大间距
 func maximumGap(nums []int) int {
 	res := 0
 	sort.Ints(nums)

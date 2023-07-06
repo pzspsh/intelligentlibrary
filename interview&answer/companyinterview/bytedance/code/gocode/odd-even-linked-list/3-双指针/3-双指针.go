@@ -28,7 +28,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
-// leetcode328_奇偶链表
+// 奇偶链表
 func oddEvenList(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head

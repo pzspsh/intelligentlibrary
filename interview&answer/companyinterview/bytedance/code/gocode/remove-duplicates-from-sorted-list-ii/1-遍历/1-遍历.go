@@ -24,7 +24,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
-// leetcode82_删除排序链表中的重复元素II
+// 删除排序链表中的重复元素II
 func deleteDuplicates(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head

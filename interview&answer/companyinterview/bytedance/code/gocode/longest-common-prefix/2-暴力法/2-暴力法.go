@@ -9,7 +9,7 @@ func main() {
 	// fmt.Println(longestCommonPrefix([]string{"a"}))
 }
 
-// leetcode 14 最长公共前缀
+// 最长公共前缀
 func longestCommonPrefix1(strs []string) string {
 	if len(strs) == 0 {
 		return ""

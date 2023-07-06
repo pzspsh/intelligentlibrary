@@ -17,7 +17,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// leetcode129_求根到叶子节点数字之和
+// 求根到叶子节点数字之和
 var res int
 
 func sumNumbers(root *TreeNode) int {

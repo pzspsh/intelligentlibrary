@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(myPow(2.00000, 10))
 }
 
-// leetcode50_Pow(x,n)
+// Pow(x,n)
 func myPow(x float64, n int) float64 {
 	if n == 0 {
 		return 1

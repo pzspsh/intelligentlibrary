@@ -24,7 +24,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
-// leetcode86_分隔链表
+// 分隔链表
 func partition(head *ListNode, x int) *ListNode {
 	first := &ListNode{}
 	second := &ListNode{}

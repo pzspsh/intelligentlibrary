@@ -4,7 +4,7 @@ func main() {
 
 }
 
-// leetcode310_最小高度树
+// 最小高度树
 func findMinHeightTrees(n int, edges [][]int) []int {
 	if n == 1 {
 		return []int{0}

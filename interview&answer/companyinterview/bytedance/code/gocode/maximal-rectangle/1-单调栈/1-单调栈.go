@@ -14,7 +14,7 @@ func main() {
 	fmt.Println(maximalRectangle(arr))
 }
 
-// leetcode85_最大矩形
+// 最大矩形
 func maximalRectangle(matrix [][]byte) int {
 	if len(matrix) == 0 || len(matrix[0]) == 0 {
 		return 0

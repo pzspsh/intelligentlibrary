@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(partitionLabels("ababcbacadefegdehijhklij"))
 }
 
-// leetcode763_划分字母区间
+// 划分字母区间
 func partitionLabels(S string) []int {
 	m := make(map[byte]int)
 	for i := 0; i < len(S); i++ {

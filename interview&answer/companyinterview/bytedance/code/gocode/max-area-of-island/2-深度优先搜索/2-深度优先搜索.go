@@ -7,7 +7,7 @@ func main() {
 	fmt.Println(maxAreaOfIsland(arr))
 }
 
-// leetcode695_岛屿的最大面积
+// 岛屿的最大面积
 func maxAreaOfIsland(grid [][]int) int {
 	res := 0
 	for i := 0; i < len(grid); i++ {

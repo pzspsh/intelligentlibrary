@@ -18,7 +18,7 @@ func main() {
 	}
 }
 
-// leetcode31_下一个排列
+// 下一个排列
 func nextPermutation(nums []int) {
 	n := len(nums)
 	left := n - 2

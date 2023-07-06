@@ -13,7 +13,7 @@ func main() {
 	fmt.Println(searchMatrix3(arr, 5))
 }
 
-// leetcode74_搜索二维矩阵
+// 搜索二维矩阵
 func searchMatrix3(matrix [][]int, target int) bool {
 	if len(matrix) == 0 {
 		return false

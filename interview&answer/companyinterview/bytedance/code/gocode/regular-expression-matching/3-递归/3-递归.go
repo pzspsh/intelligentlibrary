@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(isMatch("aa", "a"))
 }
 
-// leetcode10_正则表达式匹配
+// 正则表达式匹配
 func isMatch(s string, p string) bool {
 	if len(s) == 0 && len(p) == 0 {
 		return true

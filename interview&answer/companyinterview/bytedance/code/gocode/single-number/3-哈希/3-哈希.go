@@ -7,7 +7,7 @@ func main() {
 	fmt.Println(singleNumber(arr))
 }
 
-// leetcode 136 只出现一次的数字
+// 只出现一次的数字
 func singleNumber(nums []int) int {
 	m := make(map[int]int)
 

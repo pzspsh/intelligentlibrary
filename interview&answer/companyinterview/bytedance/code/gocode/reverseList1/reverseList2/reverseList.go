@@ -38,7 +38,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
-// leetcode206_反转链表
+// 反转链表
 func reverseList(head *ListNode) *ListNode {
 	result := &ListNode{}
 	arr := make([]*ListNode, 0)

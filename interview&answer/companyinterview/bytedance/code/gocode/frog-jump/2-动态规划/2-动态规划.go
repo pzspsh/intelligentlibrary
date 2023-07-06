@@ -4,7 +4,7 @@ func main() {
 
 }
 
-// leetcode403_青蛙过河
+// 青蛙过河
 func canCross(stones []int) bool {
 	n := len(stones)
 	m := make(map[int]map[int]int)

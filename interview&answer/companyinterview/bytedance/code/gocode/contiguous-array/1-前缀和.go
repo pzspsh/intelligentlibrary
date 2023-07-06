@@ -4,7 +4,7 @@ func main() {
 
 }
 
-// leetcode525_连续数组
+// 连续数组
 func findMaxLength(nums []int) int {
 	res := 0
 	m := make(map[int]int)

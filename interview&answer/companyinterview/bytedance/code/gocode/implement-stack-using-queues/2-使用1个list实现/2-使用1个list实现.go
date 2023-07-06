@@ -18,7 +18,7 @@ func main() {
 	fmt.Println(param_4)
 }
 
-// leetcode225_用队列实现栈
+// 用队列实现栈
 type MyStack struct {
 	*list.List
 }

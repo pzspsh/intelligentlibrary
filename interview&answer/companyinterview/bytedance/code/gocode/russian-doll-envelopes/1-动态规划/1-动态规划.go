@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(maxEnvelopes([][]int{{5, 4}, {6, 4}, {6, 7}, {2, 3}}))
 }
 
-// leetcode354_俄罗斯套娃信封问题
+// 俄罗斯套娃信封问题
 func maxEnvelopes(envelopes [][]int) int {
 	if len(envelopes) <= 1 {
 		return len(envelopes)

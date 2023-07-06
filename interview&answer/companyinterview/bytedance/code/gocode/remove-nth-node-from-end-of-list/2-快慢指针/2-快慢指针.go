@@ -20,7 +20,7 @@ type ListNode1 struct {
 	Next *ListNode1
 }
 
-// leetcode19_删除链表的倒数第N个节点
+// 删除链表的倒数第N个节点
 func removeNthFromEnd1(head *ListNode1, n int) *ListNode1 {
 	temp := &ListNode1{Next: head}
 	fast, slow := temp, temp

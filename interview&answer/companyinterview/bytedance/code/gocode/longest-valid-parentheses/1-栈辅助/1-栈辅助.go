@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(longestValidParentheses("((())"))
 }
 
-// leetcode32_最长有效括号
+// 最长有效括号
 func longestValidParentheses(s string) int {
 	res := 0
 	stack := make([]int, 0)

@@ -8,7 +8,7 @@ func main() {
 	fmt.Println(twoSum(numbers, target))
 }
 
-// leetcode 167 两数之和 II - 输入有序数组
+// 两数之和 II - 输入有序数组
 func twoSum(numbers []int, target int) []int {
 	first := 0
 	last := len(numbers) - 1

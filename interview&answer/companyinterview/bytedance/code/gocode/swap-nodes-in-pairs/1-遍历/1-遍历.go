@@ -20,7 +20,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
-// leetcode24_两两交换链表中的节点
+// 两两交换链表中的节点
 func swapPairs(head *ListNode) *ListNode {
 	temp := &ListNode{Next: head}
 	prev := temp

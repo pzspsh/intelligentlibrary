@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(removeKdigits("1432219", 3))
 }
 
-// leetcode402_移掉K位数字
+// 移掉K位数字
 func removeKdigits(num string, k int) string {
 	stack := make([]byte, 0)
 	res := ""

@@ -2,7 +2,7 @@ package main
 
 import "container/list"
 
-// leetcode460_LFU缓存
+// LFU缓存
 type Node struct {
 	key   int
 	value int

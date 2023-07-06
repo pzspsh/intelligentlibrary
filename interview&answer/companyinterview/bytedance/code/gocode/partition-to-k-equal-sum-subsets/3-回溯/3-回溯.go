@@ -8,7 +8,7 @@ func main() {
 
 }
 
-// leetcode698_划分为k个相等的子集
+// 划分为k个相等的子集
 func canPartitionKSubsets(nums []int, k int) bool {
 	if k == 1 {
 		return true

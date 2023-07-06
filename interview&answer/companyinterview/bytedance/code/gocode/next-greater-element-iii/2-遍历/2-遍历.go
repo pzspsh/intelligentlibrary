@@ -10,7 +10,7 @@ func main() {
 	fmt.Println(nextGreaterElement(12))
 }
 
-// leetcode556_下一个更大元素III
+// 下一个更大元素III
 func nextGreaterElement(n int) int {
 	nums := []byte(strconv.Itoa(n))
 	length := len(nums)

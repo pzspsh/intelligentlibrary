@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(shortestSubarray([]int{2, -1, 2, 3, 4, -5, 1, 2, 3}, 3))
 }
 
-// leetcode862_和至少为K的最短子数组
+// 和至少为K的最短子数组
 func shortestSubarray(nums []int, k int) int {
 	res := math.MaxInt32
 	n := len(nums)

@@ -27,7 +27,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// leetcode572_另一个树的子树
+// 另一个树的子树
 func isSubtree(s *TreeNode, t *TreeNode) bool {
 	sStr := dfs(s, "")
 	tStr := dfs(t, "")

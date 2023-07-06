@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(lengthOfLIS([]int{10, 9, 2, 5, 3, 7, 101, 18}))
 }
 
-// leetcode300_最长上升子序列
+// 最长上升子序列
 /*
 dp[i] = max(dp[j]+1, dp[i]),其中0<=j<i, nums[j]<nums[i])
 */

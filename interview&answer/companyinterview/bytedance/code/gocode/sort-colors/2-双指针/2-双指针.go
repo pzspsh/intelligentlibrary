@@ -11,7 +11,7 @@ func main() {
 
 }
 
-// leetcode75_颜色分类
+// 颜色分类
 func sortColors1(nums []int) {
 	left := 0
 	right := len(nums) - 1

@@ -14,7 +14,7 @@ func main() {
 	fmt.Println(param_4)
 }
 
-// leetcode232_用栈实现队列
+// 用栈实现队列
 type MyQueue struct {
 	a []int
 }

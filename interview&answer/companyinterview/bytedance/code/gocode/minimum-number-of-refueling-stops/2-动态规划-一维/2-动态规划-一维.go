@@ -4,7 +4,7 @@ func main() {
 
 }
 
-// leetcode871_最低加油次数
+// 最低加油次数
 func minRefuelStops(target int, startFuel int, stations [][]int) int {
 	n := len(stations)
 	dp := make([]int, n+1)

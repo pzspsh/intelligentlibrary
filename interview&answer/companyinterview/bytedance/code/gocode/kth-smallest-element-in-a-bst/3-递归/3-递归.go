@@ -18,7 +18,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// leetcode230_二叉搜索树中第K小的元素
+// 二叉搜索树中第K小的元素
 var res []int
 
 func kthSmallest(root *TreeNode, k int) int {

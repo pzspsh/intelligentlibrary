@@ -18,7 +18,7 @@ func main() {
 	fmt.Println(param_4)
 }
 
-// leetcode225_用队列实现栈
+// 用队列实现栈
 /*
 入栈过程：
 1、q1 为空，放入 q2，否则放入 q1

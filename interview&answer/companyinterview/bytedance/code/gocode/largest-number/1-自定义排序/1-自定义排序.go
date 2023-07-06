@@ -11,7 +11,7 @@ func main() {
 	fmt.Println(largestNumber([]int{10, 2}))
 }
 
-// leetcode179_最大数
+// 最大数
 func largestNumber(nums []int) string {
 	arr := make([]string, 0)
 	for i := 0; i < len(nums); i++ {

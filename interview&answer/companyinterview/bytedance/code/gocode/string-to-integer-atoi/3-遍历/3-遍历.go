@@ -10,7 +10,7 @@ func main() {
 	fmt.Println(myAtoi2("42"))
 }
 
-// leetcode8_字符串转换整数 (atoi)
+// 字符串转换整数 (atoi)
 func myAtoi2(str string) int {
 	str = strings.TrimSpace(str)
 	result := 0

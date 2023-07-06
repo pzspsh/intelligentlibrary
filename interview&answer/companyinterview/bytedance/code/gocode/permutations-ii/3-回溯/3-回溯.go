@@ -11,7 +11,7 @@ func main() {
 	fmt.Println(permuteUnique2([]int{0, 1, 0, 0, 9}))
 }
 
-// leetcode47_全排列II
+// 全排列II
 var res2 [][]int
 
 func permuteUnique2(nums []int) [][]int {

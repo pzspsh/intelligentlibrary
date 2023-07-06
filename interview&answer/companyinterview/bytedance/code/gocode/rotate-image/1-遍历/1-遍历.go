@@ -12,7 +12,7 @@ func main() {
 	fmt.Println(arr)
 }
 
-// leetcode48_旋转图像
+// 旋转图像
 func rotate(matrix [][]int) {
 	n := len(matrix)
 	// 同行逆置

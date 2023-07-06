@@ -8,7 +8,7 @@ func main() {
 	fmt.Println(topKFrequent([]int{1, 2}, 2))
 }
 
-// leetcode347_前K个高频元素
+// 前K个高频元素
 func topKFrequent(nums []int, k int) []int {
 	m := make(map[int]int)
 	for i := 0; i < len(nums); i++ {

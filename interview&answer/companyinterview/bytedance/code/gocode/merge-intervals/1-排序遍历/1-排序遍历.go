@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(merge([][]int{{1, 3}, {2, 6}, {8, 10}, {15, 18}}))
 }
 
-// leetcode56_合并区间
+// 合并区间
 func merge(intervals [][]int) [][]int {
 	res := make([][]int, 0)
 	if len(intervals) == 0 {

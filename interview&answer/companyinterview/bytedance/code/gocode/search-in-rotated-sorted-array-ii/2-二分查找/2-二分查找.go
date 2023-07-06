@@ -7,7 +7,7 @@ func main() {
 	fmt.Println(search1([]int{1, 3, 5}, 1))
 }
 
-// leetcode81_搜索旋转排序数组II
+// 搜索旋转排序数组II
 func search1(nums []int, target int) bool {
 	left, right := 0, len(nums)-1
 	for left <= right {

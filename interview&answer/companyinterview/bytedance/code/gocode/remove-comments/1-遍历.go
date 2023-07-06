@@ -4,7 +4,7 @@ func main() {
 
 }
 
-// leetcode722_删除注释
+// 删除注释
 func removeComments(source []string) []string {
 	res := make([]string, 0)
 	flag := false // 判断是否是块注释

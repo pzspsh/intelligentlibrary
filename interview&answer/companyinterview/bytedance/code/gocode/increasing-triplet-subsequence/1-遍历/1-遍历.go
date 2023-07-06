@@ -10,7 +10,7 @@ func main() {
 	fmt.Println(increasingTriplet([]int{3, 4, 2, 6}))
 }
 
-// leetcode334_递增的三元子序列
+// 递增的三元子序列
 func increasingTriplet(nums []int) bool {
 	a, b := math.MaxInt32, math.MaxInt32
 	for i := 0; i < len(nums); i++ {

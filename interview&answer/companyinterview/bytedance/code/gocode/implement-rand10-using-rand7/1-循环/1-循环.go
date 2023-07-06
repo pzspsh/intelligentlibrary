@@ -4,7 +4,7 @@ func main() {
 
 }
 
-// leetcode470_用Rand7()实现 Rand10()
+// 用Rand7()实现 Rand10()
 func rand7() int {
 	for {
 		a := rand7()

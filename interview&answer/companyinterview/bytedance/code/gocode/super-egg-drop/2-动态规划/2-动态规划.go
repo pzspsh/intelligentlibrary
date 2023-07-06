@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(superEggDrop(3, 14))
 }
 
-// leetcode887_鸡蛋掉落
+// 鸡蛋掉落
 func superEggDrop(K int, N int) int {
 	// dp[i][j] 有i次操作，j个鸡蛋时能测出的最高的楼层数
 	dp := make([][]int, K+1)

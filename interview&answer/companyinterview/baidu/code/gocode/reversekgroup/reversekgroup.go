@@ -26,7 +26,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
-// leetcode25_K个一组翻转链表
+// K个一组翻转链表
 func reverseKGroup(head *ListNode, k int) *ListNode {
 	res := &ListNode{Next: head}
 	prev, end := res, res

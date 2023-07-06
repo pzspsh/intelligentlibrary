@@ -12,7 +12,7 @@ func main() {
 	fmt.Println(param_3, param_4)
 }
 
-// leetcode 155 最小栈
+// 最小栈
 type item struct {
 	min, x int
 }

@@ -4,7 +4,7 @@ func main() {
 
 }
 
-// leetcode1909_删除一个元素使数组严格递增
+// 删除一个元素使数组严格递增
 func canBeIncreasing(nums []int) bool {
 	for i := 0; i < len(nums)-1; i++ {
 		if nums[i] >= nums[i+1] {
