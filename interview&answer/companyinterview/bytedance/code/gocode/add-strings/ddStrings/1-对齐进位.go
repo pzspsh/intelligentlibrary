@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(addStrings("1234444", "2222229999999"))
 }
 
-// leetcode415_字符串相加
+// 字符串相加
 func addStrings(num1 string, num2 string) string {
 	if len(num1) > len(num2) {
 		num1, num2 = num2, num1

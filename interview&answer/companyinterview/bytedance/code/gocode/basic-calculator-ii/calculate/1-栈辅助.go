@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(calculate("3+2*2"))
 }
 
-// leetcode227_基本计算器II
+// 基本计算器II
 func calculate(s string) int {
 	stack := make([]int, 0)
 	op := make([]int, 0)
