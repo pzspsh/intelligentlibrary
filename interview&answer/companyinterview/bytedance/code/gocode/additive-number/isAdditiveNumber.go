@@ -8,7 +8,7 @@ func main() {
 	fmt.Println(isAdditiveNumber("121474836472147483648"))
 }
 
-// leetcode306_累加数
+// 累加数
 var res []int
 
 func isAdditiveNumber(num string) bool {
@@ -42,7 +42,7 @@ func dfs(s string, index, sum, prev int, path []int) bool {
 				break
 			}
 		}
-		if dfs(s, i+1, prev+value, value, append(path, value)) == true {
+		if dfs(s, i+1, prev+value, value, append(path, value)) {
 			return true
 		}
 	}

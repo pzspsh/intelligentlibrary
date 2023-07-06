@@ -10,7 +10,7 @@ func main() {
 	fmt.Println(largestMultipleOfThree([]int{1}))
 }
 
-// leetcode1363_形成三的最大倍数
+// 形成三的最大倍数
 func largestMultipleOfThree(digits []int) string {
 	arr, arr3 := [10]int{}, [3]int{}
 	var sum, index, count int // 需要移除的数字和个数

@@ -1,10 +1,10 @@
 package main
 
 func main() {
-
+	find132pattern([]int{3, 4, 6, 6, 7})
 }
 
-// leetcode456_132模式
+// 132模式
 func find132pattern(nums []int) bool {
 	if len(nums) < 3 {
 		return false

@@ -23,7 +23,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
-// leetcode445_两数相加II
+// 两数相加II
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	stack1 := make([]int, 0)
 	stack2 := make([]int, 0)

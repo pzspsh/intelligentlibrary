@@ -24,7 +24,7 @@ func main() {
 	fmt.Println(res)
 }
 
-// leetcode 110 平衡二叉树
+// 平衡二叉树
 func isBalanced(root *TreeNode) bool {
 	_, isBalanced := recur(root)
 	return isBalanced
@@ -36,11 +36,11 @@ func recur(root *TreeNode) (int, bool) {
 	}
 
 	leftDepth, leftIsBalanced := recur(root.Left)
-	if leftIsBalanced == false {
+	if !leftIsBalanced {
 		return 0, false
 	}
 	rightDepth, rightIsBalanced := recur(root.Right)
-	if rightIsBalanced == false {
+	if !rightIsBalanced {
 		return 0, false
 	}
 

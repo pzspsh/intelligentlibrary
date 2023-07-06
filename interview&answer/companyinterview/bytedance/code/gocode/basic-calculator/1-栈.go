@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(calculate("(1+(4+5+2)-3)+(6+8)"))
 }
 
-// leetcode224_基本计算器
+// 基本计算器
 func calculate(s string) int {
 	stack := make([]int, 0)
 	num := 0
