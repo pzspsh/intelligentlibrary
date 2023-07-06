@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(countSubstrings("abc"))
 }
 
-// leetcode647_回文子串
+// 回文子串
 func countSubstrings(s string) int {
 	n := len(s)
 	res := 0

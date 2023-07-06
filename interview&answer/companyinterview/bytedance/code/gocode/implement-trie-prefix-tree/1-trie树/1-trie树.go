@@ -4,7 +4,7 @@ func main() {
 
 }
 
-// leetcode208_实现Trie(前缀树)
+// 实现Trie(前缀树)
 type Trie struct {
 	next   [26]*Trie
 	ending int

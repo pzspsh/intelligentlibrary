@@ -8,7 +8,7 @@ func main() {
 	fmt.Println(groupAnagrams1([]string{"eat", "tea", "tan", "ate", "nat", "bat"}))
 }
 
-// leetcode49_字母异位词分组
+// 字母异位词分组
 func groupAnagrams1(strs []string) [][]string {
 	m := make(map[[26]int]int)
 	res := make([][]string, 0)

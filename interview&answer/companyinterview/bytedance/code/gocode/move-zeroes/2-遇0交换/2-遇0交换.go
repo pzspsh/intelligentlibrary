@@ -8,7 +8,7 @@ func main() {
 	fmt.Println(nums)
 }
 
-// leetcode283_移动零
+// 移动零
 func moveZeroes(nums []int) {
 	length := 0
 	for i := 0; i < len(nums); i++ {

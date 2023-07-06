@@ -10,7 +10,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// leetcode662_二叉树最大宽度
+// 二叉树最大宽度
 func widthOfBinaryTree(root *TreeNode) int {
 	res := 1
 	if root == nil {

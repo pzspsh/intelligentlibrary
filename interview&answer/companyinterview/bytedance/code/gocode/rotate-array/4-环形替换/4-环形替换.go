@@ -18,7 +18,7 @@ func main() {
 	fmt.Println(nums)
 }
 
-// leetcode 189 旋转数组
+// 旋转数组
 func rotate(nums []int, k int) {
 	n := len(nums)
 

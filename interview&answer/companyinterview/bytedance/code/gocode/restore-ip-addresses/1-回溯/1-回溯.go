@@ -10,7 +10,7 @@ func main() {
 	fmt.Println(restoreIpAddresses("25525511135"))
 }
 
-// leetcode93_复原IP地址
+// 复原IP地址
 var res []string
 
 func restoreIpAddresses(s string) []string {

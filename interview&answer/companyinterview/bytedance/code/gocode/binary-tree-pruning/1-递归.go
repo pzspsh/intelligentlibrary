@@ -10,7 +10,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// leetcode814_二叉树剪枝
+// 二叉树剪枝
 func pruneTree(root *TreeNode) *TreeNode {
 	if root == nil {
 		return nil

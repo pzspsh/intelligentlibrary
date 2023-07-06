@@ -8,7 +8,7 @@ func main() {
 	fmt.Println(findNumberOfLIS([]int{1, 3, 5, 4, 7}))
 }
 
-// leetcode673_最长递增子序列的个数
+// 最长递增子序列的个数
 func findNumberOfLIS(nums []int) int {
 	n := len(nums)
 	if n == 0 || nums == nil {

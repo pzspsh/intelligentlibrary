@@ -15,7 +15,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// leetcode297_二叉树的序列化与反序列化
+// 二叉树的序列化与反序列化
 type Codec struct {
 	res []string
 }

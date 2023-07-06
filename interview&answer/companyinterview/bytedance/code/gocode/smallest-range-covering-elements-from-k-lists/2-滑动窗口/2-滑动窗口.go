@@ -6,7 +6,7 @@ func main() {
 
 }
 
-// leetcode632_最小区间
+// 最小区间
 func smallestRange(nums [][]int) []int {
 	n := len(nums)
 	m := make(map[int][]int)

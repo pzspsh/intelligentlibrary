@@ -11,7 +11,7 @@ func main() {
 	fmt.Println(findNthDigit(11))
 }
 
-// leetcode400_第N个数字
+// 第N个数字
 /*
 1-9     9*1 1位
 10-99     90*2 2位

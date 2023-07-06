@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(maximumSwap(2736))
 }
 
-// leetcode670_最大交换
+// 最大交换
 func maximumSwap(num int) int {
 	if num <= 11 {
 		return num

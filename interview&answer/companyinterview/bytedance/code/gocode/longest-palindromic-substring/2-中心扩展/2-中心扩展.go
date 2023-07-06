@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(longestPalindrome1("cbbd"))
 }
 
-// leetcode5_最长回文子串
+// 最长回文子串
 func longestPalindrome1(s string) string {
 	if len(s) <= 1 {
 		return s

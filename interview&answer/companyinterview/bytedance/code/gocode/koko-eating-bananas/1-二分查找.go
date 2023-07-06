@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(minEatingSpeed([]int{3, 6, 7, 11}, 8))
 }
 
-// leetcode875_爱吃香蕉的珂珂
+// 爱吃香蕉的珂珂
 func minEatingSpeed(piles []int, H int) int {
 	maxValue := piles[0]
 	for i := 1; i < len(piles); i++ {

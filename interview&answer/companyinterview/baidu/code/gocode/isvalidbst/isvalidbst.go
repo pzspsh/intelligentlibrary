@@ -24,7 +24,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// leetcode98_验证二叉搜索树
+// 验证二叉搜索树
 var res []int
 
 func isValidBST(root *TreeNode) bool {

@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(nextGreaterElements([]int{1, 2, 1}))
 }
 
-// leetcode503_下一个更大元素II
+// 下一个更大元素II
 func nextGreaterElements(nums []int) []int {
 	res := make([]int, len(nums))
 	if len(nums) == 0 {

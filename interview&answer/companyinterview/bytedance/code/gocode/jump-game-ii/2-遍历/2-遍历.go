@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(jump1([]int{2, 3, 1, 1, 4}))
 }
 
-// leetcode45_跳跃游戏II
+// 跳跃游戏II
 func jump1(nums []int) int {
 	res := 0
 	end := 0

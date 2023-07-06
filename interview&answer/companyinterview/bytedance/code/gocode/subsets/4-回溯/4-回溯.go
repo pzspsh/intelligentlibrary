@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(subsets3([]int{1, 2, 3}))
 }
 
-// leetcode78_子集
+// 子集
 var res3 [][]int
 
 func subsets3(nums []int) [][]int {

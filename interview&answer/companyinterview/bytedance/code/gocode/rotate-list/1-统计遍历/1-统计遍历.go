@@ -16,7 +16,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
-// leetcode61_旋转链表
+// 旋转链表
 func rotateRight(head *ListNode, k int) *ListNode {
 	if head == nil || k == 0 {
 		return head

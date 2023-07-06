@@ -7,7 +7,7 @@ func main() {
 	fmt.Println(largestRectangleArea4([]int{1}))
 }
 
-// leetcode84_柱状图中最大的矩形
+// 柱状图中最大的矩形
 func largestRectangleArea4(heights []int) int {
 	heights = append([]int{0}, heights...)
 	heights = append(heights, 0)

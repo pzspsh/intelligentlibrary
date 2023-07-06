@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(minWindow("ADOBECODEBANCDABC", "ABC"))
 }
 
-// leetcode76_最小覆盖子串
+// 最小覆盖子串
 func minWindow(s string, t string) string {
 	if len(s) < len(t) {
 		return ""

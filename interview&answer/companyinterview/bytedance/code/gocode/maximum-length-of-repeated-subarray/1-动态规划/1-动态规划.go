@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(findLength([]int{1, 2, 3, 2, 1}, []int{3, 2, 1, 4, 7}))
 }
 
-// leetcode718_最长重复子数组
+// 最长重复子数组
 func findLength(A []int, B []int) int {
 	n, m := len(A), len(B)
 	dp := make([][]int, n+1)

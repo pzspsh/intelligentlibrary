@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(minSubArrayLen(7, []int{2, 3, 1, 2, 4, 3}))
 }
 
-// leetcode209_长度最小的子数组
+// 长度最小的子数组
 func minSubArrayLen(target int, nums []int) int {
 	res := math.MaxInt32
 	i, j := 0, 0

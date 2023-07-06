@@ -11,7 +11,7 @@ func main() {
 	fmt.Println(minPathSum1(arr))
 }
 
-// leetcode64_最小路径和
+// 最小路径和
 func minPathSum1(grid [][]int) int {
 	n := len(grid)
 	if n == 0 {

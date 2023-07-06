@@ -6,9 +6,10 @@ func main() {
 	//fmt.Println(getPermutation(8, 45360))
 	fmt.Println(getPermutation(8, 40321))
 }
+
 // 97654321 45360
 // 91234567 40321
-// leetcode60_第k个排列
+// 第k个排列
 func getPermutation(n int, k int) string {
 	res := ""
 	arr := []string{"1", "2", "3", "4", "5", "6", "7", "8", "9"}

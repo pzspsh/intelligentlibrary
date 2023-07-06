@@ -30,7 +30,7 @@ func nextGreaterElement(n int) int {
 	return res
 }
 
-// leetcode31.下一个排列
+// 下一个排列
 func nextPermutation(nums []int) []int {
 	n := len(nums)
 	left := n - 2

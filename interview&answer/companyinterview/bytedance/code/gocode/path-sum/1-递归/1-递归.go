@@ -26,7 +26,7 @@ func main() {
 	fmt.Println(res)
 }
 
-// leetcode 112 路径总和
+// 路径总和
 func hasPathSum(root *TreeNode, sum int) bool {
 	if root == nil {
 		return false

@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(simplifyPath("/home/"))
 }
 
-// leetcode71_简化路径
+// 简化路径
 func simplifyPath(path string) string {
 	stack := make([]string, 0)
 	arr := strings.Split(path, "/")

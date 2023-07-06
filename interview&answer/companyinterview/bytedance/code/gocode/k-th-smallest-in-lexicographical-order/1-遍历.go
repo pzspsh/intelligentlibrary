@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(findKthNumber(10, 3))
 }
 
-// leetcode440_字典序的第K小数字
+// 字典序的第K小数字
 func findKthNumber(n int, k int) int {
 	pre := 1
 	count := 1

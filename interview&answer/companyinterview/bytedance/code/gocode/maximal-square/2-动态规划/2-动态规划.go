@@ -12,7 +12,7 @@ func main() {
 	fmt.Println(maximalSquare(arr))
 }
 
-// leetcode221_最大正方形
+// 最大正方形
 func maximalSquare(matrix [][]byte) int {
 	if len(matrix) == 0 || len(matrix[0]) == 0 {
 		return 0

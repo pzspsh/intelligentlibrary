@@ -11,7 +11,7 @@ func main() {
 	fmt.Println(fractionToDecimal(2, 3))
 }
 
-// leetcode166_分数到小数
+// 分数到小数
 func fractionToDecimal(numerator int, denominator int) string {
 	res := make([]string, 0)
 	if numerator == 0 {
@@ -26,7 +26,7 @@ func fractionToDecimal(numerator int, denominator int) string {
 		flag = !flag
 		denominator = -denominator
 	}
-	if flag == true {
+	if flag {
 		res = append(res, "-")
 	}
 	a, b := numerator/denominator, numerator%denominator

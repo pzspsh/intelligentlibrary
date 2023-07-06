@@ -15,7 +15,7 @@ func main() {
 	fmt.Println(closedIsland(arr))
 }
 
-// leetcode1254_统计封闭岛屿的数目
+// 统计封闭岛屿的数目
 func closedIsland(grid [][]int) int {
 	res := 0
 	for i := 0; i < len(grid); i++ {

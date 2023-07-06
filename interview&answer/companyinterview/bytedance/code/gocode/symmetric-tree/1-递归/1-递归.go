@@ -24,7 +24,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// leetcode 101 递归
+// 递归
 func isSymmetric(root *TreeNode) bool {
 	if root == nil {
 		return true

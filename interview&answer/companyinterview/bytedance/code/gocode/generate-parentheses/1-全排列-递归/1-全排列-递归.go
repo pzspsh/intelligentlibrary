@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(generateParenthesis(3))
 }
 
-// leetcode22_括号生成
+// 括号生成
 var res []string
 
 func generateParenthesis(n int) []string {

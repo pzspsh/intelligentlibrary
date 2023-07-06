@@ -10,7 +10,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// leetcode653_两数之和IV-输入BST
+// 两数之和IV-输入BST
 func findTarget(root *TreeNode, k int) bool {
 	if root == nil {
 		return false

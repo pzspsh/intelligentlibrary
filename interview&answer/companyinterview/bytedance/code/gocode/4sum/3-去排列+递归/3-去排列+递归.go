@@ -13,7 +13,7 @@ func main() {
 	fmt.Println(fourSum2([]int{1, 0, -1, 0, -2, 2}, 0))
 }
 
-// leetcode18_四数之和
+// 四数之和
 var res [][]int
 
 func fourSum2(nums []int, target int) [][]int {

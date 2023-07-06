@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(longestCommonSubsequence("abcde", "ace"))
 }
 
-// leetcode1143_最长公共子序列
+// 最长公共子序列
 func longestCommonSubsequence(text1 string, text2 string) int {
 	n, m := len(text1), len(text2)
 	dp := make([][]int, n+1)

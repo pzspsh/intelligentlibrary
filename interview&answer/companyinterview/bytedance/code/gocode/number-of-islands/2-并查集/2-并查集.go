@@ -12,7 +12,7 @@ func main() {
 	fmt.Println(numIslands(arr))
 }
 
-// leetcode200_岛屿数量
+// 岛屿数量
 func numIslands(grid [][]byte) int {
 	n := len(grid)
 	m := len(grid[0])

@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(trap3([]int{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}))
 }
 
-// leetcode42_接雨水
+// 接雨水
 func trap3(height []int) int {
 	res := 0
 	if len(height) == 0 {

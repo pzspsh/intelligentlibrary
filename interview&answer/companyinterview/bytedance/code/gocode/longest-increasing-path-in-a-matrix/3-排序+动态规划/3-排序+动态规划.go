@@ -8,7 +8,7 @@ func main() {
 
 }
 
-// leetcode329_矩阵中的最长递增路径
+// 矩阵中的最长递增路径
 var dx = []int{0, 1, 0, -1}
 var dy = []int{1, 0, -1, 0}
 

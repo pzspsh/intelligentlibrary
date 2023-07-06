@@ -6,7 +6,7 @@ func main() {
 
 }
 
-// leetcode528_按权重随机选择
+// 按权重随机选择
 type Solution struct {
 	nums  []int
 	total int

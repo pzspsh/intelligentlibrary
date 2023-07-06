@@ -6,7 +6,7 @@ func main() {
 	fmt.Println(findMaximumXOR([]int{3, 10, 5, 25, 2, 8}))
 }
 
-// leetcode421_数组中两个数的最大异或值
+// 数组中两个数的最大异或值
 func findMaximumXOR(nums []int) int {
 	res := 0
 	target := 0
