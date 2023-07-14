@@ -1,6 +1,23 @@
 ### pulsar安装运行教程
-```
+```shell
 docker run -it -p 6650:6650 -p 8080:8080 --mount source=pulsardata,target=/pulsar/data --mount source=pulsarconf,target=/pulsar/conf apachepulsar/pulsar:2.11.1 bin/pulsar standalone
+```
+
+```bash
+docker run --name pulsar  \
+  -p 6650:6650  \
+  -p 8081:8080  \
+  -p 6651:6651  \
+  -p 8443:8443  \
+  -v /root/pulsar/data:/pulsar/data \
+	-e PULSAR_PREFIX_brokerServicePortTls=6651 \
+    -e PULSAR_PREFIX_webServicePortTls=8443 \
+	-e PULSAR_PREFIX_tlsEnabled=true \
+	-e PULSAR_PREFIX_tlsCertificateFilePath=/pulsar/data/my-ca/broker.cert.pem \
+	-e PULSAR_PREFIX_tlsKeyFilePath=/pulsar/data/my-ca/broker.key-pk8.pem \
+	-e PULSAR_PREFIX_tlsTrustCertsFilePath=/pulsar/data/my-ca/certs/ca.cert.pem \
+  apachepulsar/pulsar:2.8.1 \
+  sh -c "bin/apply-config-from-env.py conf/standalone.conf && bin/pulsar standalone"
 ```
 
 ```go
