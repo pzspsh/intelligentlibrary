@@ -84,7 +84,8 @@
         "editor.defaultFormatter": "ms-python.python"
     },
     "python.formatting.yapfArgs": [
-        "--style={column_limit=128}"
+        "--style={column_limit=128}",
+        "max-line-length:120", // 解决python代码自动换行问题
     ],
     "python.linting.pylintEnabled": false,
     "git.openRepositoryInParentFolders": "always",
