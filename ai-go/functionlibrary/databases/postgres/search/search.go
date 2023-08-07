@@ -51,6 +51,11 @@ func (c *Cv) Search(db *sql.DB) (sql.Result, error) {
 	return nil, nil
 }
 
+// select 查询字段为空 rows.Scan()会报错,
+// 解决办法：
+//     1、那个字段会有Null，就将此字段对应的Golang结构体的字段类型改为指针类型
+//     2、 SQL语句格式, 例如：SELECT name, COALESCE(name, '') FROM person 或 SELECT id, IFNULL(id, 0) FROM person
+
 func SearchCount(db *sql.DB) (int64, error) {
 	var count int64
 	err := db.QueryRow("select count(*) from table where column1=$1", "column1_value").Scan(&count)
