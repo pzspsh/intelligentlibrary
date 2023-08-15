@@ -54,7 +54,7 @@ class LOGGER(object):
             # fh = logging.FileHandler(log_path, encoding="utf-8")
             handler = RotatingFileHandler(log_path, "a", 100 * 1024 * 1024, 5, "utf-8")
 
-            time_f = "%Y-%m-%d %H:%M:%S" if log_name == "VVSCAN" else "%H:%M:%S"
+            time_f = "%Y-%m-%d %H:%M:%S" if log_name == "pan" else "%Y-%m-%d %H:%M:%S"
             formatter_fh = logging.Formatter("[%(asctime)s]  %(message)s", time_f)
             handler.setFormatter(formatter_fh)
             # 为handler指定输出格式
@@ -99,4 +99,4 @@ class LOGGER(object):
 
 
 log_path = os.path.join("配置log文件路径", 'vvs.log')
-LOG = LOGGER('VVSCAN', log_path)
+LOG = LOGGER('pan', log_path)
