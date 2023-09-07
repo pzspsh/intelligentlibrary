@@ -17,3 +17,49 @@ psql (14.0)
 
 postgres=#   #这一步就可以你要执行的操作了
 ```
+
+
+# PGSQL 学习之数组字段
+
+PGSQL 支技在字段中存储数组，定义时有三种方法：
+
+1字段名[],2指定 ARRAY 关键字 3 直接输入维度， 如： NAME VARCHAR(20) [] 或 NAME VARCHAR(20) ARRAY,
+
+建表：
+
+```sql
+--数组类型
+create table lr_array1(
+    id integer,
+    array_i integer[], --数字类型数组
+    array_t    text[]);   --text类型数组
+```
+
+插入数据
+
+```sql
+--数组类型的插入方式两种
+--第一种 
+insert into test_array1(id, array_i, array_t) values(1 , '{1,2,3}', '{"abc","def"}');    
+--第二种
+insert into test_array1(id, array_i, array_t) values(2 ,array[4,5,6,7],array['h','d','s']);
+```
+
+　　查询
+
+```sql
+select array_i from test_array1 where id = 1;--查询数组名即可    
+select array_i[1],array_t[1] from test_array1;--通过[]方式获取数据，下标从1开始
+--查询array_i数据组中包含有3的 数据
+```
+
+```sql
+--查询array_i数据组中包含有3的 数据
+select * from lr_array1 WHERE array_i @>'{3}'
+
+insert into lr_array1(id, array_i, array_t) values(1, '{1,2,3}', '{"abc","def"}');   
+insert into lr_array1(id, array_i, array_t) values(2, '{1,2,3}', '{"abc","def"}');   
+insert into lr_array1 values(5,'{3,2,1,0}','{"abc","cde","bef"}')
+insert into lr_array1(id, array_i, array_t) values(3, array[4,5,6,7], array['h','d','s']);
+```
+
