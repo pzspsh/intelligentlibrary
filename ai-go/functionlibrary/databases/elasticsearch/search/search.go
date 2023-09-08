@@ -103,8 +103,8 @@ func main() {
 	if err != nil {
 		fmt.Printf("search fail:%v", err)
 	}
-	// err = SearchQuery(ES, "createdemo", "createdemo")
-	// if err != nil {
-	// 	fmt.Printf("search fail:%v", err)
-	// }
+	err = SearchQuery(ES, "createdemo", "createdemo")
+	if err != nil {
+		fmt.Printf("search fail:%v", err)
+	}
 }
