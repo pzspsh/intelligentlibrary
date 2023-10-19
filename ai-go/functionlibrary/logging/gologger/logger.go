@@ -1,10 +1,16 @@
-package logger
+/*
+@File   : logger.go
+@Author : pan
+@Time   : 2023-10-19 14:53:09
+*/
+package gologger
 
 import (
 	"fmt"
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"strconv"
 	"sync"
@@ -37,8 +43,8 @@ const (
 const (
 	ALL Level = iota
 	SUCCESS
-	DEBUG
 	TRACE
+	DEBUG
 	INFO
 	WARN
 	ERROR
@@ -62,7 +68,7 @@ type (
 var (
 	logLevel        Level = 1
 	maxFileSize     int64
-	maxFileCount    int32
+	maxFileCount    int64
 	dailyRolling    bool = true
 	consoleAppender bool = true
 	RollingFile     bool = true
@@ -81,24 +87,44 @@ type File struct {
 	log      *log.Logger
 }
 
-func init() {
-	path, err := filepath.Abs("../..")
-	if err != nil {
-		fmt.Println("Error initializing log")
-	}
-	dateLog := time.Now().Format("20060102")
-	logpath := path + "/data/log/"
-	logfile := dateLog + ".log"
-	if _, err := os.Stat(logpath); os.IsNotExist(err) {
-		err = os.MkdirAll(logpath, os.ModePerm)
+func Logger(pathfile string, args ...interface{}) {
+	var maxNumber int64
+	var maxSize int64
+	var isrolling bool
+	var grade Unit
+	logpath, logfile := filepath.Split(pathfile)
+	if _, err := os.Stat(pathfile); os.IsNotExist(err) {
+		err = os.MkdirAll(pathfile, os.ModePerm)
 		if err != nil {
-			fmt.Println("create log file err：", err)
+			fmt.Println("create log file error:", err)
 		}
 	}
-	// SetConsole(true) // Set whether to print terminal
-	// SetWriteFile(false) // Sets whether to write files
-	// SetRollingFile(logpath, logfile, 10, 5, KB)
-	SetRollingDaily(logpath, logfile)
+	if len(args) > 0 {
+		for _, arg := range args {
+			switch arg := arg.(type) {
+			case string:
+				if maxsize, gradestr, ok := extract(arg); ok {
+					maxSize = maxsize
+					if gradevalue, ok := insize(gradestr); ok {
+						isrolling = true
+						grade = gradevalue
+
+					}
+				} else if level, ok := inlevel(arg); ok {
+					SetLevel(level)
+				}
+			case float64:
+				maxNumber = int64(arg)
+			default:
+				SetRollingDaily(logpath, logfile)
+			}
+		}
+		if isrolling {
+			SetRollingFile(logpath, logfile, maxNumber, maxSize, grade)
+		}
+	} else {
+		SetRollingDaily(logpath, logfile)
+	}
 }
 
 func SetConsole(isConsole bool) {
@@ -113,7 +139,7 @@ func SetWriteFile(isWrite bool) {
 	WriteFile = isWrite
 }
 
-func SetRollingFile(fileDir, fileName string, maxNumber int32, maxSize int64, _unit Unit) {
+func SetRollingFile(fileDir, fileName string, maxNumber int64, maxSize int64, _unit Unit) {
 	if WriteFile {
 		maxFileCount = maxNumber
 		maxFileSize = maxSize * int64(_unit)
@@ -239,7 +265,6 @@ func fileMonitor() {
 		default:
 			continue
 		}
-
 	}
 }
 
@@ -319,4 +344,53 @@ func Trace(format string, v ...interface{}) {
 
 func setcolor(color uint8, s string) string {
 	return fmt.Sprintf("\x1b[%dm%s\x1b[0m", color, s)
+}
+
+func insize(grade string) (Unit, bool) {
+	switch grade {
+	case "KB", "kb":
+		return KB, true
+	case "MB", "mb":
+		return MB, true
+	case "GB", "gb":
+		return GB, true
+	case "TB", "tb":
+		return TB, true
+	default:
+		return 0, false
+	}
+}
+
+func inlevel(level string) (Level, bool) {
+	switch level {
+	case "SUCCESS", "success":
+		return SUCCESS, true
+	case "TRACE", "trace":
+		return TRACE, true
+	case "DEBUG", "debug":
+		return DEBUG, true
+	case "INFO", "info":
+		return INFO, true
+	case "WARN", "warn":
+		return WARN, true
+	case "ERROR", "error":
+		return ERROR, true
+	case "FATAL", "fatal":
+		return FATAL, true
+	case "OFF", "off":
+		return OFF, true
+	default:
+		return 0, false
+	}
+}
+
+func extract(data string) (int64, string, bool) {
+	re := regexp.MustCompile("([0-9]+)([a-zA-Z]+)")
+	values := re.FindStringSubmatch(data)
+	if len(values) == 3 {
+		if s, err := strconv.Atoi(values[1]); err == nil {
+			return int64(s), values[2], true
+		}
+	}
+	return 0, "", false
 }
