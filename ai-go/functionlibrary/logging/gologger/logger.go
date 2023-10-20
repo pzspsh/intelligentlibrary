@@ -1,9 +1,4 @@
-/*
-@File   : logger.go
-@Author : pan
-@Time   : 2023-10-19 14:53:09
-*/
-package gologger
+package logger
 
 import (
 	"fmt"
@@ -93,10 +88,11 @@ func Logger(pathfile string, args ...interface{}) {
 	var isrolling bool
 	var grade Unit
 	logpath, logfile := filepath.Split(pathfile)
-	if _, err := os.Stat(pathfile); os.IsNotExist(err) {
-		err = os.MkdirAll(pathfile, os.ModePerm)
+	if _, err := os.Stat(logpath); os.IsNotExist(err) {
+		err = os.MkdirAll(logpath, os.ModePerm)
 		if err != nil {
 			fmt.Println("create log file error:", err)
+			return
 		}
 	}
 	if len(args) > 0 {
@@ -108,18 +104,18 @@ func Logger(pathfile string, args ...interface{}) {
 					if gradevalue, ok := insize(gradestr); ok {
 						isrolling = true
 						grade = gradevalue
-
 					}
 				} else if level, ok := inlevel(arg); ok {
 					SetLevel(level)
 				}
-			case float64:
+			case int:
 				maxNumber = int64(arg)
 			default:
 				SetRollingDaily(logpath, logfile)
 			}
 		}
 		if isrolling {
+			fmt.Println(maxNumber, maxSize, grade)
 			SetRollingFile(logpath, logfile, maxNumber, maxSize, grade)
 		}
 	} else {
@@ -213,7 +209,7 @@ func (f *File) coverNextOne() {
 	}
 	os.Rename(f.dir+"/"+f.filename, f.dir+"/"+f.filename+"."+strconv.Itoa(f.suffix))
 	f.logFile, _ = os.Create(f.dir + "/" + f.filename)
-	f.log = log.New(logObj.logFile, "\n", log.Ldate|log.Ltime|log.Llongfile)
+	f.log = log.New(logObj.logFile, "", 0)
 }
 
 func (f *File) rename() {
