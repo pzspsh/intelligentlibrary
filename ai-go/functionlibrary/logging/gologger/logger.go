@@ -117,6 +117,8 @@ func Logger(pathfile string, args ...interface{}) {
 		if isrolling {
 			fmt.Println(maxNumber, maxSize, grade)
 			SetRollingFile(logpath, logfile, maxNumber, maxSize, grade)
+		} else {
+			SetRollingDaily(logpath, logfile)
 		}
 	} else {
 		SetRollingDaily(logpath, logfile)
