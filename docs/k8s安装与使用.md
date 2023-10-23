@@ -1,6 +1,6 @@
 ## k8s安装
 ### 开发环境安装
-```
+```bash
 mkdir -p $GOPATH/src/k8s.io
 cd $GOPATH/src/k8s.io
 git clone https://github.com/kubernetes/kubernetes
@@ -32,8 +32,14 @@ https://zhuanlan.zhihu.com/p/332751754
 ```
 
 docker环境安装
-```
+```bash
 git clone https://github.com/kubernetes/kubernetes
 cd kubernetes
 make quick-release
+```
+
+### k8s + harbor + kubesphere集群使用教程
+#### 1、安装
+```
+
 ```
