@@ -178,13 +178,11 @@ func main() {
 
 
 ```go
-package zck
+package abc
 
 import (
 	"context"
 	"database/sql/driver"
-	logger "dmg/logging"
-	"dmg/pkg/utils"
 	"encoding/json"
 	"fmt"
 	"reflect"
@@ -215,24 +213,24 @@ func (DemoTest) TableName() string {
 	return "demo_test"
 }
 
-func (zc *DemoTest) Insert(db *gorm.DB) error {
+func (dt *DemoTest) Insert(db *gorm.DB) error {
 	err := db.Create(zc)
 	if err.Error != nil {
-		logger.Error("Number:%v, ZckCidr Insert error:%v", zc.Number, err.Error)
+		logger.Error("Number:%v, DemoTest Insert error:%v", dt.Number, err.Error)
 		return err.Error
 	} else {
-		logger.Success("Number:%v, ZckCidr Insert Successful", zc.Number)
+		logger.Success("Number:%v, DemoTest Insert Successful", dt.Number)
 		return nil
 	}
 }
 
-func (zc *DemoTest) Update(obj, objId string, db *gorm.DB) error {
-	err := db.Where(fmt.Sprintf("%v = ?", obj), objId).Updates(zc)
+func (dt *DemoTest) Update(obj, objId string, db *gorm.DB) error {
+	err := db.Where(fmt.Sprintf("%v = ?", obj), objId).Updates(dt)
 	if err.Error != nil {
-		logger.Error("ZckCidr number:%v Update error:%v\n", zc.Number, err.Error)
+		logger.Error("DemoTest number:%v Update error:%v\n", dt.Number, err.Error)
 		return err.Error
 	} else {
-		logger.Success("ZckCidr number:%v Update successfully\n", zc.Number)
+		logger.Success("DemoTest number:%v Update successfully\n", dt.Number)
 		return nil
 	}
 }
@@ -240,28 +238,28 @@ func (zc *DemoTest) Update(obj, objId string, db *gorm.DB) error {
 func (dt *DemoTest) Select(sobj, objId string, db *gorm.DB) (bool, int64) {
 	err := db.Where(fmt.Sprintf("%v=?", sobj), objId).First(dt)
 	if err.Error != nil {
-		logger.Error("ZckCidr Number:%v select Information error:%v", objId, err.Error)
+		logger.Error("DemoTest Number:%v select Information error:%v", objId, err.Error)
 		return false, -1
 	}
 	return true, dt.Id
 }
 
 
-func CidrMigrate(es *elastic.Client, db *gorm.DB) {
-	cidres, err := es.Scroll("index").TrackTotalHits(true).Scroll("10m").Do(context.Background())
+func DemoMigrate(es *elastic.Client, db *gorm.DB) {
+	demo, err := es.Scroll("index").TrackTotalHits(true).Scroll("10m").Do(context.Background())
 	if err != nil {
 		fmt.Println("scroll error:", err)
 	}
-	scrollid := cidres.ScrollId
+	scrollid := demo.ScrollId
 	for {
-		if len(cidres.Hits.Hits) > 0 {
-			cidrdata := make(map[string]interface{})
-			for _, item := range cidres.Each(reflect.TypeOf(cidrdata)) {
+		if len(demo.Hits.Hits) > 0 {
+			demodata := make(map[string]interface{})
+			for _, item := range demo.Each(reflect.TypeOf(demodata)) {
 				demotest := DemoTest{}
 				mapport := []Port{}
 				number, ok := item.(map[string]interface{})["number"]
 				if ok {
-					zckcidr.Number = number.(string)
+					demotest.Number = number.(string)
 					fmt.Println("aaaaaaaaaa", number)
 				} else {
 					continue
@@ -294,7 +292,7 @@ func CidrMigrate(es *elastic.Client, db *gorm.DB) {
 					if ok {
 						switch fingers := fingers.(type) {
 						case []interface{}:
-							port.Fingers = utils.TostringArray(fingers)
+							port.Fingers = TostringArray(fingers)
 						case []string:
 							port.Fingers = fingers
 						default:
@@ -307,17 +305,17 @@ func CidrMigrate(es *elastic.Client, db *gorm.DB) {
 				demotest.Target = target
 				demotest.Port = mapport
 				demotest.Insert(db)
-				fmt.Println(zckcidr)
+				fmt.Println(demotest)
 			}
 		} else {
 			break
 		}
-		if cidres.TotalHits() > int64(len(cidres.Hits.Hits)) {
-			cidres, err = es.Scroll("index").ScrollId(scrollid).Do(context.Background())
+		if demo.TotalHits() > int64(len(demo.Hits.Hits)) {
+			demo, err = es.Scroll("index").ScrollId(scrollid).Do(context.Background())
 			if err != nil {
 				fmt.Println("scrollId error:", err)
 			}
-			scrollid = cidres.ScrollId
+			scrollid = demo.ScrollId
 		} else {
 			break
 		}
@@ -335,5 +333,102 @@ func (ms MapStrings) Value() (driver.Value, error) {
 	b, err := json.Marshal(ms)
 	return string(b), err
 }
+
+func TostringArray(ss []interface{}) []string {
+	var slicestring []string
+	for _, value := range ss {
+		slicestring = append(slicestring, value.(string))
+	}
+	return slicestring
+}
+
 ```
 
+```go
+func SelectDemo(es *elastic.Client, db *gorm.DB, taskdata []map[string]string) {
+	es.CloseIndex("index").Do(context.Background())
+	es.OpenIndex("index").Do(context.Background())
+	logger.Info("SelectDemo taskdata Len:%v", len(taskdata))
+	demoData := []DemoData{}
+	for _, data := range taskdata {
+		number := data["Number"]
+		matchquery := elastic.NewBoolQuery()
+		matchquery.Must(elastic.NewMatchPhraseQuery("Number", number))
+		demotest, err := es.Scroll("index").Query(matchquery).TrackTotalHits(true).Scroll("100m").Do(context.Background())
+		if err != nil {
+			es.CloseIndex("index").Do(context.Background())
+			es.OpenIndex("index").Do(context.Background())
+			logger.Error("Number:%v select demotest es Scroll error:%v", number, err)
+		}
+		scrollid := demotest.ScrollId
+		for {
+			if len(demotest.Hits.Hits) > 0 {
+				demodatas := make(map[string]interface{})
+				for _, item := range demotest.Each(reflect.TypeOf(demodatas)) {
+					demodata := DemoData{}
+					number := item.(map[string]interface{})["number"]
+					logger.Info("taskdata rwNumber:%v, zcNumber:%v", rwnumber, number)
+					name := item.(map[string]interface{})["name"]
+					title := item.(map[string]interface{})["title"]
+					port := item.(map[string]interface{})["port"]
+					alive := item.(map[string]interface{})["alive"]
+					createTime := item.(map[string]interface{})["createTime"]
+					lastTime := item.(map[string]interface{})["lastTime"]
+					createtime, _ := time.ParseInLocation("2006-01-02T15:04:05", createTime.(string), time.Local)
+					lasttime, _ := time.ParseInLocation("2006-01-02T15:04:05", lastTime.(string), time.Local)
+					fingerprint := item.(map[string]interface{})["fingerprint"]
+					waf := item.(map[string]interface{})["waf"]
+					demodata.Number = number.(string)
+					demodata.Name = name.(string)
+					demodata.Tile = title.(string)
+					switch port.(type) {
+					case string:
+						demodata.Port, _ = strconv.Atoi(fmt.Sprintf("%v", port))
+					default:
+						demodata.Port = int(port.(float64))
+					}
+					if alive != "" {
+						demodata.Alive = int(alive.(float64))
+					}
+					demodata.CreatedAt = createtime
+					demodata.UpdatedAt = lasttime
+					if fingerprint != "" {
+						switch fingerprint := fingerprint.(type) {
+						case string:
+							demodata.Fingerprint = []string{fingerprint}
+						default:
+							demodata.Fingerprint = TostringArray(fingerprint.([]interface{}))
+						}
+					}
+					if waf != "" {
+						switch waf := waf.(type) {
+						case string:
+							demodata.Waf = []string{waf}
+						default:
+							demodata.Waf = utils.TostringArray(waf.([]interface{}))
+						}
+					}
+					// demodata.Insert(db)
+					fmt.Println("demoData Data Info:", demodata)
+					demoData = append(demoData, demodata)
+				}
+			} else {
+				break
+			}
+			if demotest.TotalHits() > int64(len(demotest.Hits.Hits)) {
+				demotest, err = es.Scroll("ses-asset").ScrollId(scrollid).Do(context.Background())
+				if err != nil {
+					logger.Error("asset es Scroll ScrollId error:%v", err)
+				}
+				scrollid = demotest.ScrollId
+			} else {
+				break
+			}
+		}
+		es.ClearScroll(scrollid)
+		es.CloseIndex("index").Do(context.Background())
+		es.OpenIndex("index").Do(context.Background())
+	}
+	fmt.Println("DemoTest Len", len(zckAssetData))
+}
+```
