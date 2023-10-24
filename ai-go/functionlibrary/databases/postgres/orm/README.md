@@ -367,7 +367,6 @@ func SelectDemo(es *elastic.Client, db *gorm.DB, taskdata []map[string]string) {
 				for _, item := range demotest.Each(reflect.TypeOf(demodatas)) {
 					demodata := DemoData{}
 					number := item.(map[string]interface{})["number"]
-					logger.Info("taskdata rwNumber:%v, zcNumber:%v", rwnumber, number)
 					name := item.(map[string]interface{})["name"]
 					title := item.(map[string]interface{})["title"]
 					port := item.(map[string]interface{})["port"]
@@ -416,9 +415,9 @@ func SelectDemo(es *elastic.Client, db *gorm.DB, taskdata []map[string]string) {
 				break
 			}
 			if demotest.TotalHits() > int64(len(demotest.Hits.Hits)) {
-				demotest, err = es.Scroll("ses-asset").ScrollId(scrollid).Do(context.Background())
+				demotest, err = es.Scroll("index").ScrollId(scrollid).Do(context.Background())
 				if err != nil {
-					logger.Error("asset es Scroll ScrollId error:%v", err)
+					logger.Error("demoData es Scroll ScrollId error:%v", err)
 				}
 				scrollid = demotest.ScrollId
 			} else {
@@ -429,6 +428,6 @@ func SelectDemo(es *elastic.Client, db *gorm.DB, taskdata []map[string]string) {
 		es.CloseIndex("index").Do(context.Background())
 		es.OpenIndex("index").Do(context.Background())
 	}
-	fmt.Println("DemoTest Len", len(zckAssetData))
+	fmt.Println("DemoTest Len", len(demoData))
 }
 ```
