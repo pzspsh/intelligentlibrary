@@ -1,3 +1,8 @@
+/*
+@File   : logger.go
+@Author : pan
+@Time   : 2023-10-20 15:28:29
+*/
 package logger
 
 import (
@@ -67,7 +72,7 @@ var (
 	dailyRolling    bool = true
 	consoleAppender bool = true
 	RollingFile     bool = true
-	WriteFile       bool = true
+	WriteFile       bool = false
 	logObj          *File
 )
 
@@ -95,6 +100,7 @@ func Logger(pathfile string, args ...interface{}) {
 			return
 		}
 	}
+	SetWriteFile(true)
 	if len(args) > 0 {
 		for _, arg := range args {
 			switch arg := arg.(type) {
@@ -110,6 +116,8 @@ func Logger(pathfile string, args ...interface{}) {
 				}
 			case int:
 				maxNumber = int64(arg)
+			case bool:
+				SetConsole(arg)
 			default:
 				SetRollingDaily(logpath, logfile)
 			}
@@ -122,18 +130,6 @@ func Logger(pathfile string, args ...interface{}) {
 	} else {
 		SetRollingDaily(logpath, logfile)
 	}
-}
-
-func SetConsole(isConsole bool) {
-	consoleAppender = isConsole
-}
-
-func SetLevel(level Level) {
-	logLevel = level
-}
-
-func SetWriteFile(isWrite bool) {
-	WriteFile = isWrite
 }
 
 func SetRollingFile(fileDir, fileName string, maxNumber int64, maxSize int64, _unit Unit) {
@@ -155,6 +151,7 @@ func SetRollingFile(fileDir, fileName string, maxNumber int64, maxSize int64, _u
 		if !logObj.isMustRename() {
 			logObj.logFile, _ = os.OpenFile(fileDir+"/"+fileName, os.O_RDWR|os.O_APPEND|os.O_CREATE, 0644)
 			logObj.log = log.New(logObj.logFile, "", 0)
+
 		} else {
 			logObj.rename()
 		}
@@ -178,6 +175,18 @@ func SetRollingDaily(fileDir, fileName string) {
 			logObj.rename()
 		}
 	}
+}
+
+func SetConsole(isConsole bool) {
+	consoleAppender = isConsole
+}
+
+func SetLevel(level Level) {
+	logLevel = level
+}
+
+func SetWriteFile(isWrite bool) {
+	WriteFile = isWrite
 }
 
 func (f *File) isMustRename() bool {
@@ -278,71 +287,6 @@ func fileCheck() {
 	}
 }
 
-func Write(color uint8, level Level, logType, data string) {
-	if dailyRolling {
-		fileCheck()
-	}
-	if logLevel <= level {
-		_, file, line, _ := runtime.Caller(2)
-		short := file
-		for i := len(file) - 1; i > 0; i-- {
-			if file[i] == '/' {
-				short = file[i+1:]
-			}
-		}
-		file = short
-		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, file+":"+strconv.Itoa(line), data)
-		if WriteFile {
-			defer catchError()
-			logObj.mu.RLock()
-			defer logObj.mu.RUnlock()
-			logObj.log.Output(3, data) // 3 Indicates the path of running files
-			console(color, data)
-		} else {
-			console(color, data)
-		}
-	}
-}
-
-func console(color uint8, data string) {
-	if consoleAppender {
-		data = setcolor(color, data)
-		fmt.Println(data)
-	}
-}
-
-func Debug(format string, v ...interface{}) {
-	Write(color_darkgreen, DEBUG, debug, fmt.Sprintf(format, v...))
-}
-
-func Info(format string, v ...interface{}) {
-	Write(color_white, INFO, info, fmt.Sprintf(format, v...))
-}
-
-func Warning(format string, v ...interface{}) {
-	Write(color_yellow, WARN, warning, fmt.Sprintf(format, v...))
-}
-
-func Error(format string, v ...interface{}) {
-	Write(color_red, ERROR, err, fmt.Sprintf(format, v...))
-}
-
-func Fatal(format string, v ...interface{}) {
-	Write(color_purple, FATAL, fatal, fmt.Sprintf(format, v...))
-}
-
-func Success(format string, v ...interface{}) {
-	Write(color_green, SUCCESS, success, fmt.Sprintf(format, v...))
-}
-
-func Trace(format string, v ...interface{}) {
-	Write(color_blue, TRACE, trace, fmt.Sprintf(format, v...))
-}
-
-func setcolor(color uint8, s string) string {
-	return fmt.Sprintf("\x1b[%dm%s\x1b[0m", color, s)
-}
-
 func insize(grade string) (Unit, bool) {
 	switch grade {
 	case "KB", "kb":
@@ -390,4 +334,69 @@ func extract(data string) (int64, string, bool) {
 		}
 	}
 	return 0, "", false
+}
+
+func Debug(format string, v ...interface{}) {
+	write(color_darkgreen, DEBUG, debug, fmt.Sprintf(format, v...))
+}
+
+func Info(format string, v ...interface{}) {
+	write(color_white, INFO, info, fmt.Sprintf(format, v...))
+}
+
+func Warning(format string, v ...interface{}) {
+	write(color_yellow, WARN, warning, fmt.Sprintf(format, v...))
+}
+
+func Error(format string, v ...interface{}) {
+	write(color_red, ERROR, err, fmt.Sprintf(format, v...))
+}
+
+func Fatal(format string, v ...interface{}) {
+	write(color_purple, FATAL, fatal, fmt.Sprintf(format, v...))
+}
+
+func Success(format string, v ...interface{}) {
+	write(color_green, SUCCESS, success, fmt.Sprintf(format, v...))
+}
+
+func Trace(format string, v ...interface{}) {
+	write(color_blue, TRACE, trace, fmt.Sprintf(format, v...))
+}
+
+func write(color uint8, level Level, logType, data string) {
+	if dailyRolling {
+		fileCheck()
+	}
+	if logLevel <= level {
+		_, file, line, _ := runtime.Caller(2)
+		short := file
+		for i := len(file) - 1; i > 0; i-- {
+			if file[i] == '/' {
+				short = file[i+1:]
+			}
+		}
+		file = short
+		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, file+":"+strconv.Itoa(line), data)
+		if WriteFile {
+			defer catchError()
+			logObj.mu.RLock()
+			defer logObj.mu.RUnlock()
+			logObj.log.Output(3, data) // 3 Indicates the path of running files
+			console(color, data)
+		} else {
+			console(color, data)
+		}
+	}
+}
+
+func setcolor(color uint8, s string) string {
+	return fmt.Sprintf("\x1b[%dm%s\x1b[0m", color, s)
+}
+
+func console(color uint8, data string) {
+	if consoleAppender {
+		data = setcolor(color, data)
+		fmt.Println(data)
+	}
 }
