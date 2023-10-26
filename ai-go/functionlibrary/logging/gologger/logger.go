@@ -364,6 +364,19 @@ func Trace(format string, v ...interface{}) {
 	write(color_blue, TRACE, trace, fmt.Sprintf(format, v...))
 }
 
+func Print(format string, v ...interface{}) {
+	_, file, line, _ := runtime.Caller(1)
+	short := file
+	for i := len(file) - 1; i > 0; i-- {
+		if file[i] == '/' {
+			short = file[i+1:]
+		}
+	}
+	file = short
+	data := fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), trace, file+":"+strconv.Itoa(line), fmt.Sprintf(format, v...))
+	console(color_white, data)
+}
+
 func write(color uint8, level Level, logType, data string) {
 	if dailyRolling {
 		fileCheck()
