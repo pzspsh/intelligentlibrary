@@ -98,5 +98,5 @@ class LOGGER(object):
         self.lock.release()
 
 
-log_path = os.path.join("配置log文件路径", 'vvs.log')
+log_path = os.path.join("配置log文件路径", 'pan.log')
 LOG = LOGGER('pan', log_path)
