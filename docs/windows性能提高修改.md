@@ -8,3 +8,17 @@
 5、去控制面板--> 硬件和声音--> 电源选项 -->点击平衡后面的更改计划进行选择
 6、
 ```
+
+# Windows激活命令
+```bash
+1、运行管理员终端
+2、输入以下任意命令
+    irm https://massgrave.dev/get | iex
+    irm https://massgrave.dev/get.ps1 | iex
+    irm massgrave.dev/get | iex
+    irm massgrave.dev/get.ps1 | iex
+3、等待激活
+4、根据情况输入对应激活数字1、2、3...
+这两个命令都可以
+
+```
