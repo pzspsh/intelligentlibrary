@@ -407,7 +407,11 @@ vim /etc/docker/daemon.json 添加国内镜像
         "https://registry.docker-cn.com"
     ]
 }
+
+添加完源然后重启docker, 命令如下:
+  systemctl restart docker.service
 ```
+
 docker 进入容器root权限
 ```shell
 docker exec -it --user=root ID号/容器名称 bash
