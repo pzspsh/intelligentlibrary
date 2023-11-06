@@ -416,3 +416,19 @@ docker exec -it --user=root ID号/容器名称 bash
 ```shell
 docker run -d --privileged=true 镜像名  # 管理员权限
 ```
+
+docker容器开机自启
+```bash
+version: '3' 
+services:
+  product-ai:
+    hostname: product-ai
+    restart: always # 开机自启
+    container_name: product-ai
+    image: product-ai:1.1
+    ports: 
+      - "8080:8080"
+    networks:
+      - product
+    tty: true // 重要参数，必须加
+```
