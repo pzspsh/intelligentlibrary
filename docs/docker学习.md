@@ -436,3 +436,8 @@ services:
       - product
     tty: true // 重要参数，必须加
 ```
+
+从docker容器中拷贝出文件的方法：
+```bash
+docker cp 你的容器ID:/容器路径/拷贝的文件 /path/拷贝文件的目录
+```
