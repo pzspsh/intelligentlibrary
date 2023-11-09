@@ -8,14 +8,10 @@ package socket5proxy
 import (
 	"encoding/binary"
 	"errors"
-	"flag"
 	"fmt"
 	"io"
 	"net"
-	"strconv"
 )
-
-var port int
 
 func process3(client net.Conn) {
 	if err := Socks5Auth(client); err != nil {
@@ -133,17 +129,14 @@ func Socks5Forward(client, target net.Conn) {
 	go forward(target, client)
 }
 
-func StartProxyServer3() {
-	flag.IntVar(&port, "p", 1080, "端口号")
-	flag.Parse()
-	port_str := strconv.Itoa(port)
-	server, err := net.Listen("tcp", ":"+port_str)
+func StartProxyServer3(proxyip, proxyport string) {
+	server, err := net.Listen("tcp", fmt.Sprintf("%s:%s", proxyip, proxyport))
 	if err != nil {
 		fmt.Printf("Listen failed: %v\n", err)
 		return
 	}
 	fmt.Println("Socks5 create success")
-	fmt.Println("Listen port: " + port_str)
+	fmt.Println("Listen port: " + proxyport)
 
 	for {
 		client, err := server.Accept()

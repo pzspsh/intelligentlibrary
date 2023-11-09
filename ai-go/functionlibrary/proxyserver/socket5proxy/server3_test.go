@@ -10,5 +10,5 @@ import (
 )
 
 func TestProxyServer3(t *testing.T) {
-
+	StartProxyServer3("localhost", "1080")
 }
