@@ -2043,3 +2043,10 @@ false
 ```go
 
 ```
+#### [Go语言教程](https://www.kancloud.cn/gopher_go/go/570005)
+#### [Go语言基础教程](https://www.topgoer.com/go%E5%9F%BA%E7%A1%80/)
+#### [GoFrame v1.13 开发文档](https://www.bookstack.cn/read/GoFrame-1.13)
+#### [Go语言教程](https://geek-docs.com/go-tutorials)
+#### [Go语言入门教程](https://vimsky.com/article/3965.html)
+#### [Go 语言设计与实现](https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-netpoller/#66-%e7%bd%91%e7%bb%9c%e8%bd%ae%e8%af%a2%e5%99%a8)
+#### [高效的Go编程Effective Go](https://learnku.com/docs/effective-go/2020/interface-and-other-types/6246)
