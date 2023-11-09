@@ -10,6 +10,7 @@ import (
 	"io"
 	"net"
 	"os"
+	"strconv"
 )
 
 func handleClientRequest4(client net.Conn) {
@@ -29,15 +30,15 @@ func handleClientRequest4(client net.Conn) {
 	switch b[3] {
 	case 0x01: // IPv4
 		host = net.IPv4(b[4], b[5], b[6], b[7]).String()
-		port = fmt.Sprintf("%d", b[8]<<8|b[9])
+		// port = fmt.Sprintf("%d", b[8]<<8|b[9])
 	case 0x03: // Domain name
 		host = string(b[5 : n-2])
-		port = fmt.Sprintf("%d", b[n-2]<<8|b[n-1])
+		// port = fmt.Sprintf("%d", b[n-2]<<8|b[n-1])
 	case 0x04: // IPv6
 		host = net.IP{b[4], b[5], b[6], b[7], b[8], b[9], b[10], b[11], b[12], b[13], b[14], b[15], b[16], b[17], b[18], b[19]}.String()
-		port = fmt.Sprintf("%d", b[20]<<8|b[21])
+		// port = fmt.Sprintf("%d", b[20]<<8|b[21])
 	}
-
+	port = strconv.Itoa(int(b[n-2])<<8 | int(b[n-1]))
 	server, err := net.Dial("tcp", host+":"+port)
 	if err != nil {
 		fmt.Println(err)
