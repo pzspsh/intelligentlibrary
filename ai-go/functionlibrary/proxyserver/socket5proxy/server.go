@@ -58,9 +58,9 @@ func handleClientRequest(client net.Conn) {
 	}
 }
 
-func StartProxyServer(ip, port string) {
+func StartProxyServer(proxyip, proxyport string) {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-	l, err := net.Listen("tcp", fmt.Sprintf("%s:%s", ip, port))
+	l, err := net.Listen("tcp", fmt.Sprintf("%s:%s", proxyip, proxyport))
 	if err != nil {
 		log.Panic(err)
 	}
