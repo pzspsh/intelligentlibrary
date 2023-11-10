@@ -371,7 +371,6 @@
 #### 漏洞库平台网站
 ```bash
 https://ntelligentexploit.com
-http://www.exploit-db.com/
 http://sec.jetlib.com
 https://http://www.sec-wiki.com/
 https://sebug.net
