@@ -1,0 +1,16 @@
+go 1.20
+
+use (
+	./ai-go/algorithms
+	./ai-go/apve
+	./ai-go/frameworks/projects/pangin
+	./ai-go/functionlibrary
+	./ai-go/functionlibrary/gorequests
+	./ai-go/gotutorial
+	./ai-go/humanfunc
+	./ai-go/systemdesign/designpatterns
+	./configs/goconfigs
+	./interview&answer/companyinterview
+	./templates/vulscript/goscript
+	./vulnerability
+)
