@@ -8,6 +8,7 @@ require (
 	github.com/charmbracelet/glamour v0.6.0
 	github.com/cheggaaa/pb/v3 v3.1.4
 	github.com/ebitengine/purego v0.5.1
+	github.com/elazarl/goproxy v0.0.0-20231117061959-7cc037d33fb5
 	github.com/google/go-github/v30 v30.1.0
 	github.com/gorilla/mux v1.8.1
 	github.com/logrusorgru/aurora v2.0.3+incompatible
