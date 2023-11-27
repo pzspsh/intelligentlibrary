@@ -1,4 +1,4 @@
-package goflags
+package flags
 
 import (
 	"bufio"

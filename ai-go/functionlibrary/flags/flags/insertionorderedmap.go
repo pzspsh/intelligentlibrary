@@ -1,4 +1,4 @@
-package goflags
+package flags
 
 type InsertionOrderedMap struct {
 	values map[string]*FlagData
