@@ -1,4 +1,4 @@
-package goflags
+package flags
 
 // StringSliceOptions represents the default string slice (list of items)
 // Tokenization: None

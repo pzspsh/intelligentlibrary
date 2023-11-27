@@ -1,4 +1,4 @@
-package goflags
+package flags
 
 var (
 	optionMap           map[*StringSlice]Options

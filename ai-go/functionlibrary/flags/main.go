@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"log"
 
-	"function/flags/flags"
+	flags "function/flags/flags"
 )
 
 type Options struct {
@@ -30,11 +30,11 @@ func main() {
 	flagSet := flags.NewFlagSet()
 	flagSet.CreateGroup("info", "Info",
 		flagSet.StringVarP(&testOptions.name, "name", "n", "", "name of the user"),
-		flagSet.StringSliceVarP(&testOptions.Email, "email", "e", nil, "email of the user", goflags.CommaSeparatedStringSliceOptions),
+		flagSet.StringSliceVarP(&testOptions.Email, "email", "e", nil, "email of the user", flags.CommaSeparatedStringSliceOptions),
 	)
 	flagSet.CreateGroup("additional", "Additional",
 		flagSet.StringVarP(&testOptions.Phone, "phone", "ph", "", "phone of the user"),
-		flagSet.StringSliceVarP(&testOptions.Address, "address", "add", nil, "address of the user", goflags.StringSliceOptions),
+		flagSet.StringSliceVarP(&testOptions.Address, "address", "add", nil, "address of the user", flags.StringSliceOptions),
 		flagSet.CallbackVarP(CheckUpdate, "update", "ut", "update this tool to latest version"),
 		flagSet.SizeVarP(&testOptions.fileSize, "max-size", "ms", "", "max file size"),
 	)
