@@ -5,7 +5,9 @@
 */
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	a := []string{"3", "5", "5", "6", "7", "9", "5", "5", "6", "7", "9"}
