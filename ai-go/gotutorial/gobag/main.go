@@ -3,12 +3,12 @@
 @Author : pan
 @Time   : 2023-11-27 14:37:32
 */
-package gobag
+package main
 
 import (
 	"fmt"
 )
 
-func Demo() {
+func main() {
 	fmt.Println("hello world!!!")
 }

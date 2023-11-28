@@ -5,10 +5,6 @@
 */
 package main
 
-import (
-	"gotutorial/gobag"
-)
-
 func main() {
-	gobag.Demo()
+
 }
