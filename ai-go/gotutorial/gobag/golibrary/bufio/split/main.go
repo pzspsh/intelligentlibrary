@@ -17,7 +17,7 @@ func main() {
 	// Comma-separated list; last entry is empty.
 	const input = "1,2,3,4,"
 	scanner := bufio.NewScanner(strings.NewReader(input))
-	// Define a split function that separates on commas.
+	// Define a split function that separates on commas.--> SplitFunc
 	onComma := func(data []byte, atEOF bool) (advance int, token []byte, err error) {
 		for i := 0; i < len(data); i++ {
 			if data[i] == ',' {
