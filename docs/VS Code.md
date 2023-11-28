@@ -1,5 +1,5 @@
 # Setting.json
-```shell
+```json
 {
     "editor.fontSize": 16,
     "editor.formatOnPaste": true,
@@ -12,6 +12,105 @@
         "source.organizeImports": true,
         "source.fixAll": true
     },
+    "editor.quickSuggestionsDelay": 0,
+    "editor.rename.enablePreview": false,
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "remote.SSH.showLoginTerminal": true,
+    "remote.downloadExtensionsLocally": true,
+    "remote.SSH.defaultForwardedPorts": [],
+    "remote.SSH.remotePlatform": {
+        "ip": "linux",
+    },
+    "remote.SSH.configFile": "C:\\Users\\admin\\.ssh\\config",
+    "workbench.colorCustomizations": { //覆盖当前所选颜色主题的颜色
+        "editor.background": "#241d1d", //编辑器背景色
+        "editor.selectionBackground": "#6b5244", //用户选中代码段的颜色 
+        "editor.findMatchBackground": "#ff0000", //当前搜索匹配的颜色
+        "editor.findMatchHighlightBackground": "#ff00ff", //其他搜索匹配项的颜色
+        "editor.findRangeHighlightBackground": "#ff9900", //限制搜索范围的颜色
+        "editor.lineHighlightBackground": "#48314e", //光标所在行高亮内容的背景颜色
+        "editor.lineHighlightBorder": "#704b36" //光标所在行四周边框的背景颜色
+    },
+    "workbench.preferredDarkColorTheme": "Monokai",
+    "workbench.preferredHighContrastColorTheme": "Abyss",
+    "workbench.preferredLightColorTheme": "Monokai",
+    "workbench.editor.enablePreviewFromQuickOpen": true,
+    "workbench.startupEditor": "none",
+    "window.openFoldersInNewWindow": "on",
+    "window.newWindowDimensions": "offset",
+    "security.workspace.trust.untrustedFiles": "open",
+    "[jsonc]": {
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace"
+    },
+    "json.schemaDownload.enable": false,
+    "files.associations": {
+        "*.json": "jsonc"
+    },
+    "files.autoSave": "onFocusChange",
+    "explorer.confirmDelete": false,
+    "search.followSymlinks": false,
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "go.useLanguageServer": true,
+    "go.inferGopath": false,
+    "[go.mod]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "python.languageServer": "Default",
+    "python.linting.enabled": true,
+    "python.formatting.provider": "yapf",
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "python.formatting.yapfArgs": [
+        "--style={column_limit=1024}"
+        // "max-line-length:120", // 解决python代码自动换行问题
+    ],
+    "python.linting.pylintEnabled": false,
+    "git.openRepositoryInParentFolders": "always",
+    "editor.unicodeHighlight.allowedLocales": {
+        "zh-hant": true
+    },
+    "extensions.ignoreRecommendations": true,
+    "C_Cpp.intelliSenseEngineFallback": "disabled",
+    "C_Cpp.intelliSenseEngine": "Tag Parser",
+    "workbench.editor.enablePreview": false,
+    "explorer.openEditors.minVisible": 1,
+    "window.zoomLevel": 1,
+    "editor.tokenColorCustomizations": {
+        // "comments": "#FFE5C365", // 注释的颜色
+        // "keywords": "#D15FEE",   // 关键字的颜色
+        // "variables": "#eff2f3",  // 变量名的颜色
+        // "strings": "#e8c112",    // 字符串的颜色
+        // "functions": "#4A4AFF",  // 函数的颜色
+        // "types": "#FF0000",      // 类型名的颜色
+        // "numbers": "#FF0000",    // 数字的颜色
+        // "textMateRules": [],     // 其它具体的颜色设置
+    },
+    "update.mode": "manual",
+    "workbench.iconTheme": "material-icon-theme"
+}
+```
+```json
+{
+    
     "editor.quickSuggestionsDelay": 0,
     "editor.rename.enablePreview": false,
     "editor.unicodeHighlight.nonBasicASCII": false,
