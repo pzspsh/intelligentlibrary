@@ -1,6 +1,6 @@
 module gorequests
 
-go 1.20
+go 1.21
 
 require (
 	github.com/microcosm-cc/bluemonday v1.0.25

@@ -15,7 +15,7 @@ func main() {
 		},
 	}
 	fmt.Printf("d=%+v\n", d) // d=[{User:map[1:frank 2:lucy] Salary:map[frank:1000 lucy:2000]}]
-	// clear(d) // Go 1.21.0 新增 3 个内置函数详解
+	clear(d)                 // Go 1.21.0 新增 3 个内置函数详解
 	fmt.Printf("d=%+v\n", d) // d=[{User:map[] Salary:map[]}]
 
 	d1 := []Data1{
@@ -25,7 +25,7 @@ func main() {
 		},
 	}
 	fmt.Printf("d1=%+v\n", d1) // d1=[{User:frank Salary:1000}]
-	// clear(d1) Go 1.21.0 新增3个内置函数详解 min、max、clear
+	clear(d1)                  // Go 1.21.0 新增3个内置函数详解 min、max、clear
 	fmt.Printf("d1=%+v\n", d1) // d1=[{User: Salary:0}]
 }
 
