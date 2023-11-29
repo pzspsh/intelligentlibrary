@@ -10,7 +10,16 @@ import (
 	"fmt"
 )
 
+/*
+将片分割成所有用sep分隔的子片，并返回这些分隔符之间的子片的一个片。
+如果sep为空，Split在每个UTF-8序列之后进行分割。它相当于计数为-1的SplitN。
+*/
 func main() {
+	fmt.Printf("%q\n", bytes.Split([]byte("a,b,c"), []byte(",")))
+	fmt.Printf("%q\n", bytes.Split([]byte("a man a plan a canal panama"), []byte("a ")))
+	fmt.Printf("%q\n", bytes.Split([]byte(" xyz "), []byte("")))
+	fmt.Printf("%q\n", bytes.Split([]byte(""), []byte("Bernardo O'Higgins")))
+
 	s := bytes.Split([]byte(" hi 你啊,    is not good, is my boy"), []byte("is"))
 	for _, v := range s {
 		fmt.Print(string(v) + "|") //  |  hi 你啊,    | not good, | my boy|
