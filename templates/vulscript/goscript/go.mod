@@ -1,3 +1,3 @@
-module intelligentlibrary/templates/vulscript/goscript
+module goscript
 
-go 1.20
+go 1.21
