@@ -1,69 +1,62 @@
 /*
 @File   : main.go
 @Author : pan
-@Time   : 2023-11-29 17:41:40
+@Time   : 2023-11-29 17:53:53
 */
 package main
 
 import (
-	"bytes"
-	"crypto/cipher"
-	"crypto/des"
+	"crypto/aes"
+	"encoding/hex"
 	"fmt"
+	"log"
 )
 
-// 填充
-func padding(src []byte, blockSize int) []byte {
-	padNum := blockSize - len(src)%blockSize
-	pad := bytes.Repeat([]byte{byte(padNum)}, padNum)
-	fmt.Println(string(pad))
-	return append(src, pad...)
-}
-
-// 去掉填充
-func unpadding(src []byte) []byte {
-	n := len(src)
-	unPadNum := int(src[n-1])
-	return src[:n-unPadNum]
-}
-
-// 加密
-func encryptDES(src []byte, key []byte) ([]byte, error) {
-	block, err := des.NewCipher(key)
-
+func EncryptAES(key string, plainText string) (string, error) {
+	cipher, err := aes.NewCipher([]byte(key))
 	if err != nil {
-		return nil, err
+		return "", err
 	}
-	src = padding(src, block.BlockSize())
-	blockMode := cipher.NewCBCEncrypter(block, key)
-	blockMode.CryptBlocks(src, src)
-	return src, nil
+
+	out := make([]byte, len(plainText))
+	cipher.Encrypt(out, []byte(plainText))
+	return hex.EncodeToString(out), nil
 }
 
-// 解密
-func decryptDES(src []byte, key []byte) ([]byte, error) {
-	block, err := des.NewCipher(key)
+func DecryptAES(key string, encryptText string) (string, error) {
+	decodeText, _ := hex.DecodeString(encryptText)
+	cipher, err := aes.NewCipher([]byte(key))
 	if err != nil {
-		return nil, err
+		return "", err
 	}
-	blockMode := cipher.NewCBCDecrypter(block, key)
-	blockMode.CryptBlocks(src, src)
-	src = unpadding(src)
-	return src, nil
+
+	out := make([]byte, len(decodeText))
+	cipher.Decrypt(out, decodeText)
+
+	return string(out[:]), nil
 }
 
 func main() {
-	d := []byte("hello world")
-	key := []byte("12345678")
-	fmt.Println("加密前:", string(d))
-	x1, err := encryptDES(d, key)
+	// 加密
+	// cipher key
+	key := "thisisakeymustmorethan16"
+	// plaintext
+	text := "This is a secret"
+	encrypt, err := EncryptAES(key, text)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
-	fmt.Println("加密后:", string(x1))
-	x2, err := decryptDES(x1, key)
+	fmt.Println(encrypt)
+	// db647f5df56904ef3463834abc019c1d
+
+	// 解密
+	// decrypt
+	decrypt := "db647f5df56904ef3463834abc019c1d"
+
+	plaintext, err := DecryptAES(key, decrypt)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
-	fmt.Println("解密后:", string(x2))
+	fmt.Println(plaintext)
+	// This is a secret
 }
