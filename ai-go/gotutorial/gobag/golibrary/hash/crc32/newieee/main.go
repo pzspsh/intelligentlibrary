@@ -20,6 +20,6 @@ func main() {
 	ieee := crc32.NewIEEE()
 	io.WriteString(ieee, check_str)
 	s := ieee.Sum32()
-	fmt.Println("IEEE(%s) = 0x%x", check_str, s)
+	fmt.Printf("IEEE(%s) = 0x%x", check_str, s)
 
 }
