@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>变量使用</title>
+</head>
+<body>
+
+    MSG ：{{ . }}<br>
+    姓名 ：{{ .Name }}<br>
+    性别 : {{ .Sex }}<br>
+{{/*    使用变量  */}}
+    <div>
+    {{ $num := "123" }}
+    年岁 ：{{ $num }}
+    </div>
+</body>
+</html>

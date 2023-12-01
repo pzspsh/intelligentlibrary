@@ -21,5 +21,4 @@ func main() {
 	io.WriteString(ieee, check_str)
 	s := ieee.Sum32()
 	fmt.Printf("IEEE(%s) = 0x%x", check_str, s)
-
 }

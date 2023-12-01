@@ -55,6 +55,10 @@ set GOGCCFLAGS=-m64 -mthreads -Wl,--no-gc-sections -fmessage-length=0 -fdebug-pr
 go env -w GO111MODULE=on // mod文件需求
 GOPROXY=https://goproxy.cn,direct // go get 下载包需求
 
+GO环境下载包代理设置：
+    go env -w GOPROXY=https://goproxy.cn
+    go env -w GOPROXY=https://goproxy.cn,direct
+    go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
 ```
 
 #### linux文件下载
