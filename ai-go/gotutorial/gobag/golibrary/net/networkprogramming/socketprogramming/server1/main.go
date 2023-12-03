@@ -52,7 +52,7 @@ func main() {
 	}
 }
 
-func handleConnection(fd uintptr) {
+func handleConnection(fd syscall.Handle) {
 	// 接收数据
 	buffer := make([]byte, 1024)
 	n, err := syscall.Read(fd, buffer)
