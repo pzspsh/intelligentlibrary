@@ -6,43 +6,42 @@
 package main
 
 import (
-	"fmt"
+	"io"
 	"log"
 	"net"
+	"net/http"
 	"net/rpc"
 	"net/rpc/jsonrpc"
 )
 
-type Student struct {
-	Name   string
-	School string
+type MathService struct {
 }
 
-type RpcServer struct{}
+type Args struct {
+	A, B int
+}
 
-func (r *RpcServer) Introduce(student Student, words *string) error {
-	fmt.Println("student: ", student)
-	*words = fmt.Sprintf("Hello everyone, my name is %s, and I am from %s", student.Name, student.School)
+func (m *MathService) Add(args Args, reply *int) error {
+	*reply = args.A + args.B
 	return nil
 }
 
 func main() {
-	rpcServer := new(RpcServer)
-	// 注册rpc服务
-	_ = rpc.Register(rpcServer)
-	//jsonrpc是基于TCP协议的，现在他还不支持http协议
-	tcpAddr, _ := net.ResolveTCPAddr("tcp", "127.0.0.1:8082")
-	tcpListen, err := net.ListenTCP("tcp", tcpAddr)
-	if err != nil {
-		panic(err)
-	}
-	log.Println("tcp json-rpc service start success addr:8082")
-	for {
-		// 监听客户端请求
-		conn, err3 := tcpListen.Accept()
-		if err3 != nil {
-			continue
+	rpc.RegisterName("MathService", new(MathService))
+	//注册一个path，用于提供基于http的json rpc服务
+	http.HandleFunc(rpc.DefaultRPCPath, func(rw http.ResponseWriter, r *http.Request) {
+		conn, _, err := rw.(http.Hijacker).Hijack()
+		if err != nil {
+			log.Print("rpc hijacking ", r.RemoteAddr, ": ", err.Error())
+			return
 		}
-		go jsonrpc.ServeConn(conn)
+		var connected = "200 Connected to JSON RPC"
+		io.WriteString(conn, "HTTP/1.0 "+connected+"\n\n")
+		jsonrpc.ServeConn(conn)
+	})
+	l, err := net.Listen("tcp", ":8088")
+	if err != nil {
+		log.Fatal("listen error:", err)
 	}
+	http.Serve(l, nil) //换成http的服务
 }
