@@ -49,10 +49,12 @@ require (
 	github.com/liujiawm/graphics-go v0.0.0-20200331105750-879216a3393f // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
+	github.com/mozillazg/go-pinyin v0.20.0 // indirect
 	github.com/philhofer/fwd v1.1.2 // indirect
 	github.com/pierrec/lz4 v2.6.0+incompatible // indirect
 	github.com/robberphex/grpc-in-memory v0.0.0-20211119144331-71a404f799e3 // indirect
 	github.com/robfig/cron/v3 v3.0.0 // indirect
+	github.com/shirou/gopsutil v3.21.11+incompatible // indirect
 	github.com/smallnest/rpcx v1.8.21 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/tinylib/msgp v1.1.8 // indirect
