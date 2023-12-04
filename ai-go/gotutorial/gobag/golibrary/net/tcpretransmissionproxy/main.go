@@ -42,7 +42,7 @@ func server() {
 	for {
 		conn, err := lis.Accept()
 		if err != nil {
-			fmt.Println("建立连接错误:%v\n", err)
+			fmt.Printf("建立连接错误:%v\n", err)
 			continue
 		}
 		fmt.Println(conn.RemoteAddr(), conn.LocalAddr())
