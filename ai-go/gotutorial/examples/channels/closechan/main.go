@@ -7,6 +7,10 @@ package main
 
 import "fmt"
 
+/*
+关闭通道后，通道不再允许发送消息。这时接收方读取完通道中所有消息后，得到结束信号，
+做通信结束的后续操作。
+*/
 func main() {
 	jobs := make(chan int, 5)
 	done := make(chan bool)

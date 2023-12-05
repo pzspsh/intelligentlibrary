@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"time"
 )
-
+/* 周期定时器用于在将来周期性地执行某个任务，直至我们让它停下。 */
 func main() {
 	// 定义了一个周期为500毫秒的周期定时器
 	ticker := time.NewTicker(500 * time.Millisecond)
