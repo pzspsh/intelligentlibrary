@@ -23,6 +23,8 @@ type writeOp struct {
 }
 
 /*
+Go 状态协程 Stateful
+
 比起互斥锁，Go更推荐使用通道通信的方式来实现goroutine之间的同步。以下是一个使用channel通信来实现并发安全的缓存服务
 的例子。缓存服务从reads和writes两个channel中读取读写命令，并依次执行，从而避免了多个goroutine对缓存数据的竞争。两个channel
 在这里起到了消息队列的作用。
