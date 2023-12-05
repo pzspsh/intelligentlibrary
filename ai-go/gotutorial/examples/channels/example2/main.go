@@ -19,7 +19,6 @@ func worker(done chan bool) {
 }
 
 func main() {
-
 	done := make(chan bool, 1)
 	go worker(done)
 	// 主线程阻塞在接收端，直至goroutine发送结束消息
