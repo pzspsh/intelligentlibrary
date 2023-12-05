@@ -24,7 +24,6 @@ func main() {
 		// 设置代理信息
 		r.URL.Host = "www.google.com"
 		r.URL.Scheme = "https"
-
 		// 将请求转发给代理服务器
 		reverseProxy.ServeHTTP(w, r)
 	})

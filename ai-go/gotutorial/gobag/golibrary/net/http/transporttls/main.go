@@ -15,7 +15,6 @@ import (
 )
 
 func GetHttps(url, caCertPath, certFile, keyFile string) ([]byte, error) {
-
 	// 创建证书池及各类对象
 	var pool *x509.CertPool // 我们要把一部分证书存到这个池中
 	var client *http.Client
@@ -63,10 +62,7 @@ func GetHttps(url, caCertPath, certFile, keyFile string) ([]byte, error) {
 }
 
 func main() {
-	resp, err := GetHttps("https://10.10.102.91:2379/metrics",
-		"C:/Users/Liing/Desktop/ca.crt",
-		"C:/Users/Liing/Desktop/healthcheck-client.crt",
-		"C:/Users/Liing/Desktop/healthcheck-client.key")
+	resp, err := GetHttps("https://10.10.102.91:2379/metrics", "path/ca.crt", "path/healthcheck-client.crt", "path/healthcheck-client.key")
 	if err != nil {
 		fmt.Println(err)
 	}

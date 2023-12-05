@@ -14,7 +14,6 @@ import (
 )
 
 func GetHttpsSkip(url, token string) ([]byte, error) {
-
 	// 创建各类对象
 	var client *http.Client
 	var request *http.Request
@@ -54,8 +53,7 @@ func GetHttpsSkip(url, token string) ([]byte, error) {
 }
 
 func main() {
-	resp, err := GetHttpsSkip("https://10.10.102.91:10250/metrics",
-		"Bearer eyxxxxxxxxxxxxxxxxxxxx....xxxxx")
+	resp, err := GetHttpsSkip("https://10.10.102.91:10250/metrics", "Bearer eyxxxxxxxxxxxxxxxxxxxx....xxxxx")
 	if err != nil {
 		fmt.Println(err)
 	}
