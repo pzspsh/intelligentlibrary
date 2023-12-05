@@ -7,8 +7,8 @@ package main
 
 import "fmt"
 
+/* 使用range也可用于从通道接收消息，包括在已关闭的通道上。 */
 func main() {
-
 	queue := make(chan string, 2)
 	queue <- "one"
 	queue <- "two"
