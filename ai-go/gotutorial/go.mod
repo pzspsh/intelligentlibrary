@@ -33,6 +33,7 @@ require (
 	github.com/shirou/gopsutil/v3 v3.23.10
 	github.com/sirupsen/logrus v1.9.0
 	github.com/stretchr/testify v1.8.4
+	github.com/unrolled/secure v1.13.0
 	github.com/vishvananda/netlink v1.1.0
 	github.com/zmap/zcrypto v0.0.0-20231106212110-94c8f62efae4
 	go.uber.org/multierr v1.11.0

@@ -15,7 +15,7 @@ import (
 
 func main() {
 	tlsOptions := sslcert.DefaultOptions
-	tlsOptions.Host = "example.com"
+	tlsOptions.Host = "panzhongsheng.com"
 
 	// Create TLSConfig using options
 	tlsConfig, err := sslcert.NewTLSConfig(tlsOptions)
