@@ -1,19 +1,24 @@
-package speechrecognition
+/*
+@File   : main.go
+@Author : pan
+@Time   : 2023-12-06 14:03:45
+*/
+package main
+
 import (
-	"context"
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/websocket"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/gorilla/websocket"
 )
 
 /**
@@ -25,10 +30,10 @@ import (
  * @author iflytek
  */
 var (
-	hostUrl   = "wss://iat-api.xfyun.cn/v2/iat"
-	apiKey    = "自己的key"
-	apiSecret = "自己的secret"
-	file      = "test.wav" //请填写您的音频文件路径
+	hostUrl   = "wss://tts-api.xfyun.cn/v2/tts"
+	apiKey    = "自己key"
+	apiSecret = "自己secret"
+	file      = "test.pcm" //请填写您的音频文件路径
 	appid     = "自己的appid"
 )
 
@@ -44,100 +49,44 @@ func main() {
 	d := websocket.Dialer{
 		HandshakeTimeout: 5 * time.Second,
 	}
+
+	var srcText string = "你好天下123ABC"
+
 	//握手并建立websocket 连接
 	conn, resp, err := d.Dial(assembleAuthUrl(hostUrl, apiKey, apiSecret), nil)
 	if err != nil {
 		panic(readResp(resp) + err.Error())
-		return
 	} else if resp.StatusCode != 101 {
 		panic(readResp(resp) + err.Error())
 	}
-	//打开音频文件
 
-	var frameSize = 1280                 //每一帧的音频大小
-	var intervel = 40 * time.Millisecond //发送音频间隔
-	//开启协程，发送数据
-	ctx, _ := context.WithCancel(context.Background())
 	defer conn.Close()
-	var status = 0
-	go func() {
-		//	start:
-		audioFile, err := os.Open(file)
-		if err != nil {
-			panic(err)
-		}
-		status = STATUS_FIRST_FRAME //音频的状态信息，标识音频是第一帧，还是中间帧、最后一帧
-		//		time.Sleep(20*time.Second)
-		var buffer = make([]byte, frameSize)
-		for {
-			len, err := audioFile.Read(buffer)
-			if err != nil {
-				if err == io.EOF { //文件读取完了，改变status = STATUS_LAST_FRAME
-					status = STATUS_LAST_FRAME
-				} else {
-					panic(err)
-				}
-			}
-			select {
-			case <-ctx.Done():
-				fmt.Println("session end ---")
-				return
-			default:
-			}
-			switch status {
-			case STATUS_FIRST_FRAME: //发送第一帧音频，带business 参数
-				frameData := map[string]interface{}{
-					"common": map[string]interface{}{
-						"app_id": appid, //appid 必须带上，只需第一帧发送
-					},
-					"business": map[string]interface{}{ //business 参数，只需一帧发送
-						"language": "zh_cn",
-						"domain":   "iat",
-						"accent":   "mandarin",
-					},
-					"data": map[string]interface{}{
-						"status":   STATUS_FIRST_FRAME,
-						"format":   "audio/L16;rate=16000",
-						"audio":    base64.StdEncoding.EncodeToString(buffer[:len]),
-						"encoding": "raw",
-					},
-				}
-				fmt.Println("send first")
-				conn.WriteJSON(frameData)
-				status = STATUS_CONTINUE_FRAME
-			case STATUS_CONTINUE_FRAME:
-				frameData := map[string]interface{}{
-					"data": map[string]interface{}{
-						"status":   STATUS_CONTINUE_FRAME,
-						"format":   "audio/L16;rate=16000",
-						"audio":    base64.StdEncoding.EncodeToString(buffer[:len]),
-						"encoding": "raw",
-					},
-				}
-				conn.WriteJSON(frameData)
-			case STATUS_LAST_FRAME:
-				frameData := map[string]interface{}{
-					"data": map[string]interface{}{
-						"status":   STATUS_LAST_FRAME,
-						"format":   "audio/L16;rate=16000",
-						"audio":    base64.StdEncoding.EncodeToString(buffer[:len]),
-						"encoding": "raw",
-					},
-				}
-				conn.WriteJSON(frameData)
-				fmt.Println("send last")
-				return
-				//	goto start
-			}
 
-			//模拟音频采样间隔
-			time.Sleep(intervel)
-		}
-
-	}()
+	frameData := map[string]interface{}{
+		"common": map[string]interface{}{
+			"app_id": appid, //appid 必须带上，只需第一帧发送
+		},
+		"business": map[string]interface{}{ //business 参数，只需一帧发送
+			"vcn":   "xiaoyan",
+			"aue":   "raw",
+			"speed": 50,
+			"tte":   "UTF8",
+		},
+		"data": map[string]interface{}{
+			"status":   STATUS_LAST_FRAME,
+			"encoding": "UTF8",
+			"text":     base64.StdEncoding.EncodeToString([]byte(srcText)),
+		},
+	}
+	fmt.Println("send first")
+	conn.WriteJSON(frameData)
 
 	//获取返回的数据
 	//var decoder Decoder
+	audioFile, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_TRUNC, os.ModePerm)
+	if err != nil {
+		panic(err)
+	}
 	for {
 		var resp = RespData{}
 		_, msg, err := conn.ReadMessage()
@@ -147,21 +96,33 @@ func main() {
 		}
 		json.Unmarshal(msg, &resp)
 		//fmt.Println(string(msg))
-		fmt.Println(resp.Data.Result.String(), resp.Sid)
+		//fmt.Println(resp.Data.Audio, resp.Sid)
 		if resp.Code != 0 {
 			fmt.Println(resp.Code, resp.Message, time.Since(st))
 			return
 		}
-		//decoder.Decode(&resp.Data.Result)
+		//decoder.Decode(&resp.Data.Audio)
+
+		audiobytes, err := base64.StdEncoding.DecodeString(resp.Data.Audio)
+		if err != nil {
+			panic(err)
+		}
+		_, err = audioFile.Write(audiobytes)
+		if err != nil {
+			panic(err)
+		}
+
 		if resp.Data.Status == 2 {
 			//cf()
 			//fmt.Println("final:",decoder.String())
+
 			fmt.Println(resp.Code, resp.Message, time.Since(st))
 			break
 			//return
 		}
 
 	}
+	audioFile.Close()
 
 	time.Sleep(1 * time.Second)
 }
@@ -174,11 +135,12 @@ type RespData struct {
 }
 
 type Data struct {
-	Result Result `json:"result"`
-	Status int    `json:"status"`
+	Audio  string `json:"audio,omitempty"`
+	Ced    int    `json:"ced,omitempty"`
+	Status int    `json:"status,omitempty"`
 }
 
-//创建鉴权url  apikey 即 hmac username
+// 创建鉴权url  apikey 即 hmac username
 func assembleAuthUrl(hosturl string, apiKey, apiSecret string) string {
 	ul, err := url.Parse(hosturl)
 	if err != nil {
@@ -221,7 +183,7 @@ func readResp(resp *http.Response) string {
 	if resp == nil {
 		return ""
 	}
-	b, err := ioutil.ReadAll(resp.Body)
+	b, err := io.ReadAll(resp.Body)
 	if err != nil {
 		panic(err)
 	}
