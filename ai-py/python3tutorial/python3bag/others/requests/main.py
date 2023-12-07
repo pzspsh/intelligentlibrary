@@ -57,7 +57,7 @@ def pingfan(id: str, page: str):
         res = requests.get(url=urlpic, timeout=10)
         contentdata = res.content.decode("utf-8")
         datasList = re.findall(r"<p>(.*?)</p>", contentdata)
-        dirpath = "D:/GoProjects/src/intelligentlibrary/ai-py/python3tutorial/python3bag/others/requests/"
+        dirpath = "path/others/requests/"
         file = open(os.path.join(dirpath, title + ".txt"), "w", encoding="utf-8")
         for datas in datasList:
             data = html.unescape(datas)
