@@ -30,7 +30,7 @@ def nunusfcrawler(url: str):
         datasList = re.findall(
             r"<p>(.*?)</p><p><strong>(.*?)</strong>(.*?)</p>", contentdata
         )
-        dirpath = "D:/GoProjects/src/intelligentlibrary/ai-py/python3tutorial/python3bag/others/requests/"
+        dirpath = "path/python3tutorial/python3bag/others/requests/"
         file = open(os.path.join(dirpath, title + ".txt"), "w", encoding="utf-8")
         for datas in datasList:
             for data in datas:
