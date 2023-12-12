@@ -58,7 +58,7 @@ GOPROXY=https://goproxy.cn,direct // go get 下载包需求
 GO环境下载包代理设置：
     go env -w GOPROXY=https://goproxy.cn
     go env -w GOPROXY=https://goproxy.cn,direct
-    go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
+    go env -w GOPROXY=https://mirrors.aliyun.com/goproxy,direct
 ```
 
 #### linux文件下载
