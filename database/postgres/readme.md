@@ -61,5 +61,9 @@ insert into lr_array1(id, array_i, array_t) values(1, '{1,2,3}', '{"abc","def"}'
 insert into lr_array1(id, array_i, array_t) values(2, '{1,2,3}', '{"abc","def"}');   
 insert into lr_array1 values(5,'{3,2,1,0}','{"abc","cde","bef"}')
 insert into lr_array1(id, array_i, array_t) values(3, array[4,5,6,7], array['h','d','s']);
+
+
+-- SELECT created_at FROM zck_asset;
+SELECT COUNT(*) FROM zck_asset WHERE created_at BETWEEN '2023-01-01' AND '2023-12-31';
 ```
 
