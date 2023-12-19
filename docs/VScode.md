@@ -10,7 +10,7 @@
     "editor.fontWeight": "normal",
     "editor.codeActionsOnSave": {
         "source.organizeImports": true,
-        "source.fixAll": true
+        // "source.fixAll": true  // 注释掉不然保存很卡
     },
     "editor.quickSuggestionsDelay": 0,
     "editor.rename.enablePreview": false,
@@ -211,7 +211,7 @@
     "editor.fontWeight": "normal",
     "editor.codeActionsOnSave": {
         "source.organizeImports": true,
-        "source.fixAll": true
+        // "source.fixAll": true  // 注释掉不然保存很卡
     },
     "editor.quickSuggestionsDelay": 0,
     "editor.rename.enablePreview": false,
