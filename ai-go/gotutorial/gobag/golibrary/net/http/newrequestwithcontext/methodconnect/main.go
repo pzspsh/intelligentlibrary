@@ -34,11 +34,13 @@ func handleTunneling(w http.ResponseWriter, r *http.Request) {
 	go transfer(dest_conn, client_conn)
 	go transfer(client_conn, dest_conn)
 }
+
 func transfer(destination io.WriteCloser, source io.ReadCloser) {
 	defer destination.Close()
 	defer source.Close()
 	io.Copy(destination, source)
 }
+
 func handleHTTP(w http.ResponseWriter, req *http.Request) {
 	resp, err := http.DefaultTransport.RoundTrip(req)
 	if err != nil {
@@ -50,6 +52,7 @@ func handleHTTP(w http.ResponseWriter, req *http.Request) {
 	w.WriteHeader(resp.StatusCode)
 	io.Copy(w, resp.Body)
 }
+
 func copyHeader(dst, src http.Header) {
 	for k, vv := range src {
 		for _, v := range vv {
