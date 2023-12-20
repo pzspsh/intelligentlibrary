@@ -129,4 +129,6 @@ This private key will be ignored.
 
 
 chmod 600 /root/.ssh/id_ed25519
+
+git config --global http.sslVerify false
 ```
