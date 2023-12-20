@@ -233,10 +233,7 @@
     "remote.downloadExtensionsLocally": true,
     "remote.SSH.defaultForwardedPorts": [],
     "remote.SSH.remotePlatform": {
-        "10.0.35.65": "linux",
-        "10.0.35.74": "linux",
-        "10.0.35.66": "linux",
-        "10.0.35.123": "linux"
+        "ip": "linux",
     },
     "remote.SSH.configFile": "C:\\Users\\admin\\.ssh\\config",
     "workbench.colorCustomizations": { //覆盖当前所选颜色主题的颜色
