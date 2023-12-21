@@ -6,11 +6,19 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 )
 
+/* 创建目录 */
 func main() {
+	if err := os.Mkdir("infodir", os.ModeDir); err != nil {
+		fmt.Println("error")
+	} else {
+		fmt.Println("success")
+	}
+
 	err := os.Mkdir("testdir", 0750)
 	if err != nil && !os.IsExist(err) {
 		log.Fatal(err)
