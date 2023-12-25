@@ -16,10 +16,39 @@ import (
 	"time"
 )
 
+const (
+	_        = iota
+	Kb Units = 1 << (iota * 10)
+	Mb
+	Gb
+	Tb
+)
+
+const (
+	All Levels = iota
+	SUCCESSED
+	TRACEED
+	DEBUGING
+	INFOING
+	WARNING
+	ERRORING
+	FATALED
+	OFFING
+)
+
+type (
+	Units  int64
+	Levels int32
+)
+
 var (
-	dailyRollingSet bool = true
-	RollingFileSet  bool = true
-	WriteFileSet    bool = false
+	logLevels        Levels = 1
+	maxFileSizes     int64
+	maxFileCounts    int64
+	consoleAppenders bool = true
+	dailyRollings    bool = true
+	RollingFiles     bool = true
+	WriteFiles       bool = false
 )
 
 type FileConfig struct {
@@ -37,7 +66,7 @@ func LoggerSet(pathfile string, args ...interface{}) *FileConfig {
 	var maxNumber int64
 	var maxSize int64
 	var isrolling bool
-	var grade Unit
+	var grade Units
 	logpath, logfile := filepath.Split(pathfile)
 	if _, err := os.Stat(logpath); os.IsNotExist(err) {
 		err = os.MkdirAll(logpath, os.ModePerm)
@@ -53,17 +82,17 @@ func LoggerSet(pathfile string, args ...interface{}) *FileConfig {
 			case string:
 				if maxsize, gradestr, ok := extract(arg); ok {
 					maxSize = maxsize
-					if gradevalue, ok := insize(gradestr); ok {
+					if gradevalue, ok := insizealone(gradestr); ok {
 						isrolling = true
 						grade = gradevalue
 					}
-				} else if level, ok := inlevel(arg); ok {
-					SetLevel(level)
+				} else if level, ok := inlevelalone(arg); ok {
+					SetLevelSet(level)
 				}
 			case int:
 				maxNumber = int64(arg)
 			case bool:
-				SetConsole(arg)
+				SetConsoleAlone(arg)
 			default:
 				return SetRolling(logpath, logfile)
 			}
@@ -78,13 +107,13 @@ func LoggerSet(pathfile string, args ...interface{}) *FileConfig {
 	}
 }
 
-func SetRollingFileConfig(fileDir, fileName string, maxNumber int64, maxSize int64, _unit Unit) *FileConfig {
+func SetRollingFileConfig(fileDir, fileName string, maxNumber int64, maxSize int64, _unit Units) *FileConfig {
 	var logObjSet *FileConfig
-	if WriteFileSet {
-		maxFileCount = maxNumber
-		maxFileSize = maxSize * int64(_unit)
-		RollingFileSet = true
-		dailyRollingSet = false
+	if WriteFiles {
+		maxFileCounts = maxNumber
+		maxFileSizes = maxSize * int64(_unit)
+		RollingFiles = true
+		dailyRollings = false
 		logObjSet = &FileConfig{dir: fileDir, filename: fileName, isCover: false, mu: new(sync.RWMutex)}
 		logObjSet.mu.Lock()
 		defer logObjSet.mu.Unlock()
@@ -107,7 +136,7 @@ func SetRollingFileConfig(fileDir, fileName string, maxNumber int64, maxSize int
 }
 
 func IsWriteFileSet(isWrite bool) {
-	WriteFileSet = isWrite
+	WriteFiles = isWrite
 }
 
 func (f *FileConfig) fileMonitorSet() {
@@ -124,9 +153,9 @@ func (f *FileConfig) fileMonitorSet() {
 
 func SetRolling(fileDir, fileName string) *FileConfig {
 	var logObjSet *FileConfig
-	if WriteFileSet {
-		RollingFileSet = false
-		dailyRollingSet = true
+	if WriteFiles {
+		RollingFiles = false
+		dailyRollings = true
 		t, _ := time.Parse(Dateformat, time.Now().Format(Dateformat))
 		logObjSet = &FileConfig{dir: fileDir, filename: fileName, date: &t, isCover: false, mu: new(sync.RWMutex)}
 		logObjSet.mu.Lock()
@@ -142,14 +171,14 @@ func SetRolling(fileDir, fileName string) *FileConfig {
 }
 
 func (f *FileConfig) isMustRename() bool {
-	if dailyRollingSet {
+	if dailyRollings {
 		t, _ := time.Parse(Dateformat, time.Now().Format(Dateformat))
 		if t.After(*f.date) {
 			return true
 		}
 	} else {
-		if maxFileCount > 1 {
-			if fileSize(f.dir+"/"+f.filename) >= maxFileSize {
+		if maxFileCounts > 1 {
+			if fileSize(f.dir+"/"+f.filename) >= maxFileSizes {
 				return true
 			}
 		}
@@ -157,8 +186,16 @@ func (f *FileConfig) isMustRename() bool {
 	return false
 }
 
+func SetLevelSet(level Levels) {
+	logLevels = level
+}
+
+func SetConsoleAlone(isConsole bool) {
+	consoleAppenders = isConsole
+}
+
 func (f *FileConfig) nextSuffix() int {
-	return int(f.suffix%int(maxFileCount) + 1)
+	return int(f.suffix%int(maxFileCounts) + 1)
 }
 
 func (f *FileConfig) coverNextOne() {
@@ -175,7 +212,7 @@ func (f *FileConfig) coverNextOne() {
 }
 
 func (f *FileConfig) rename() {
-	if dailyRollingSet {
+	if dailyRollings {
 		fn := f.dir + "/" + f.filename + "." + f.date.Format(Dateformat)
 		if !isExist(fn) && f.isMustRename() {
 			if f.logFile != nil {
@@ -208,39 +245,77 @@ func (f *FileConfig) fileCheck() {
 	}
 }
 
+func insizealone(grade string) (Units, bool) {
+	switch grade {
+	case "KB", "kb":
+		return Kb, true
+	case "MB", "mb":
+		return Mb, true
+	case "GB", "gb":
+		return Gb, true
+	case "TB", "tb":
+		return Tb, true
+	default:
+		return 0, false
+	}
+}
+
+func inlevelalone(level string) (Levels, bool) {
+	switch level {
+	case "SUCCESS", "success":
+		return SUCCESSED, true
+	case "TRACE", "trace":
+		return TRACEED, true
+	case "DEBUG", "debug":
+		return DEBUGING, true
+	case "INFO", "info":
+		return INFOING, true
+	case "WARN", "warn":
+		return WARNING, true
+	case "ERROR", "error":
+		return ERRORING, true
+	case "FATAL", "fatal":
+		return FATALED, true
+	case "OFF", "off":
+		return OFFING, true
+	default:
+		return 0, false
+	}
+}
+
 func (l *FileConfig) Debug(format string, v ...interface{}) {
-	l.write(color_darkgreen, DEBUG, debug, fmt.Sprintf(format, v...))
+	l.write(color_darkgreen, DEBUGING, debug, fmt.Sprintf(format, v...))
 }
 
 func (l *FileConfig) Info(format string, v ...interface{}) {
-	l.write(color_white, INFO, info, fmt.Sprintf(format, v...))
+	l.write(color_white, INFOING, info, fmt.Sprintf(format, v...))
 }
 
 func (l *FileConfig) Warning(format string, v ...interface{}) {
-	l.write(color_yellow, WARN, warning, fmt.Sprintf(format, v...))
+	l.write(color_yellow, WARNING, warning, fmt.Sprintf(format, v...))
 }
 
 func (l *FileConfig) Error(format string, v ...interface{}) {
-	l.write(color_red, ERROR, err, fmt.Sprintf(format, v...))
+	l.write(color_red, ERRORING, err, fmt.Sprintf(format, v...))
 }
 
 func (l *FileConfig) Fatal(format string, v ...interface{}) {
-	l.write(color_purple, FATAL, fatal, fmt.Sprintf(format, v...))
+	l.write(color_purple, FATALED, fatal, fmt.Sprintf(format, v...))
 }
 
 func (l *FileConfig) Success(format string, v ...interface{}) {
-	l.write(color_green, SUCCESS, success, fmt.Sprintf(format, v...))
+	l.write(color_green, SUCCESSED, success, fmt.Sprintf(format, v...))
 }
 
 func (l *FileConfig) Trace(format string, v ...interface{}) {
-	l.write(color_blue, TRACE, trace, fmt.Sprintf(format, v...))
+	l.write(color_blue, TRACEED, trace, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) write(color uint8, level Level, logType, data string) {
-	if dailyRollingSet {
+func (l *FileConfig) write(color uint8, level Levels, logType, data string) {
+	if dailyRollings {
 		l.fileCheck()
 	}
-	if logLevel <= level {
+	if logLevels <= level {
 		_, file, line, _ := runtime.Caller(2)
 		short := file
 		for i := len(file) - 1; i > 0; i-- {
@@ -250,14 +325,21 @@ func (l *FileConfig) write(color uint8, level Level, logType, data string) {
 		}
 		file = short
 		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, file+":"+strconv.Itoa(line), data)
-		if WriteFileSet {
+		if WriteFiles {
 			defer catchError()
 			l.mu.RLock()
 			defer l.mu.RUnlock()
 			l.log.Output(3, data) // 3 Indicates the path of running files
-			console(color, data)
+			consolealone(color, data)
 		} else {
-			console(color, data)
+			consolealone(color, data)
 		}
+	}
+}
+
+func consolealone(color uint8, data string) {
+	if consoleAppenders {
+		data = setcolor(color, data)
+		fmt.Println(data)
 	}
 }
