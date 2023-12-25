@@ -284,3 +284,14 @@ https://github.com/six2dez/reconftw
 水泽-信息收集自动化工具
 https://github.com/0x727/ShuiZe_0x727
 ```
+
+
+
+- http://cve.mitre.org/ - 常见漏洞和暴露。信息安全漏洞名称标准
+- https://www.exploit-db.com/ - 漏洞数据库-漏洞，Shellcode和安全文件的最终存档。
+- http://0day.today/ - Inj3ct0r是漏洞利用和漏洞的终极数据库，也是漏洞研究人员和安全专业人员的重要资源。
+- http://osvdb.org/ - OSVDB的目标是提供准确、详细、最新和公正的技术安全信息。
+- http://www.securityfocus.com/ - 自1999年成立以来，SecurityFocus一直是安全社区的支柱。
+- http://packetstormsecurity.com/ - 全球安全资源
+- https://wpvulndb.com/ - WPScan漏洞数据库
+- https://snyk.io/vuln/ - 漏洞DB，已知漏洞的详细信息和补救指导。
