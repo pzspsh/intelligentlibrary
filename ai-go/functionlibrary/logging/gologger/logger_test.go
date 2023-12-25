@@ -11,9 +11,10 @@ import (
 )
 
 func TestLogger(t *testing.T) {
-	logger.Logger(`..\data\log\log.txt`, 10, "mb")
+	logger.Logger(`..\data\log\log.txt`, 10, "10mb")
 	log1 := logger.LoggerSet(`..\data\log\log1.txt`, 10, "10mb")
-	log2 := logger.LoggerSet(`..\data\log\log2.txt`, 10, "10mb")
+	log2 := logger.LoggerSet(`..\data\log\log2.txt`, 10, "ERROR", "10mb")
+	// log3 := logger.LoggerSet(`..\data\log\log2.txt`, 10, "success", "10mb") //
 	logger.Info("logger hello world")
 	logger.Info("log hello world")
 	log1.Error("log1 你好！！！！！！！")
