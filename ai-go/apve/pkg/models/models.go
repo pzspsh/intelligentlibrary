@@ -32,3 +32,15 @@ type Metadata struct {
 	GoogleQuery string
 	FofaQuery   string
 }
+
+type UserInfo struct {
+	Username               string // 用户名
+	Password               string // 密码
+	AssetResultPushTopic   string // 资产探测结果topic队列
+	AssetScanReceiveTopic  string // 资产探测任务监听Topic队列
+	FingerResultPushTopic  string // 指纹识别结果topic队列
+	FingerScanReceiveTopic string // 指纹识别任务监听Topic队列
+	VulResultPushTopic     string // 漏洞扫描结果topic队列
+	VulScanReceiveTopic    string // 漏洞扫描任务监听Topic队列
+	Verify                 string
+}
