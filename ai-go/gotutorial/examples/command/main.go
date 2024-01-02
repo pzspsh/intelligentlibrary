@@ -12,9 +12,7 @@ import (
 )
 
 func main() {
-
 	dateCmd := exec.Command("date")
-
 	dateOut, err := dateCmd.Output()
 	if err != nil {
 		panic(err)
