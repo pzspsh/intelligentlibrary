@@ -60,6 +60,8 @@ $ naabu -list sub-list.txt -p - -exclude-ports 80,443,21,22,25 -o ports.txt
 $ cat domain-subs.txt | aquatone -ports xlarge -scan-timeout 300 -out aquatone.txt
 ```
 
+
+
 **子域名爆破工具**
 
 subbrute--子域名爆力枚举
