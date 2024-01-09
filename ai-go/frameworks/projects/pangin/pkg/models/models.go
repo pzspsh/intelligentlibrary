@@ -15,6 +15,10 @@ type PanDemo struct {
 	Status bool   `json:"status"`
 }
 
+func (PanDemo) TableName() string {
+	return "pandemo"
+}
+
 func CreatePanDemo(pandemo *PanDemo) (err error) {
 	if err = database.DB.Create(&pandemo).Error; err != nil {
 		return err

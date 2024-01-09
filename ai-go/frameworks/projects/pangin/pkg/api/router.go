@@ -18,9 +18,9 @@ func SetupRouter() *gin.Engine {
 	}
 	r := gin.Default()
 	// 告诉gin框架模板文件引用的静态文件去哪里找
-	r.Static("/static", "static")
+	r.Static("/static", "../static")
 	// 告诉gin框架去哪里找模板文件
-	r.LoadHTMLGlob("templates/*")
+	r.LoadHTMLGlob("../templates/*")
 	r.GET("/", views.IndexHandler)
 
 	v1Group := r.Group("v1")
