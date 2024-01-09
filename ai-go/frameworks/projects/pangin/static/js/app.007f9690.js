@@ -298,7 +298,7 @@
         (n("99af"),
         n("a434"),
         {
-          name: "TodoList",
+          name: "PandDemoList",
           data: function () {
             return { tableData: [], newTitle: "" };
           },
