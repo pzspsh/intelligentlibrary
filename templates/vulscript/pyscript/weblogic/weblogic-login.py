@@ -1,16 +1,16 @@
 # -*- encoding: utf-8 -*-
-'''
+"""
 @File   : weblogic-login.py
 @Time   : 2023-11-08 13:53:46
 @Author : pan
-'''
+"""
 import requests
 
 
 def WeblogicLogin(target: str):
     url = "/console/j_security_check"
     headers = {
-        "Host": "10.0.35.66:7001",
+        "Host": "127.0.0.1:7001",
         "Content-Type": "application/x-www-form-urlencoded",
     }
     vulUrl = target + url
@@ -23,4 +23,4 @@ def WeblogicLogin(target: str):
 
 
 if __name__ == "__main__":
-    WeblogicLogin("http://10.0.35.66:7001")
+    WeblogicLogin("http://127.0.0.1:7001")

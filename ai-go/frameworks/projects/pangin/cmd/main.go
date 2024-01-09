@@ -14,7 +14,7 @@ import (
 	"pangin/pkg/models"
 )
 
-const defaultconfig = "./conf/configs.ini"
+const defaultconfig = "../configs/configs.ini"
 
 func main() {
 	configfile := defaultconfig
@@ -28,6 +28,7 @@ func main() {
 		fmt.Println("error reading config file:", err)
 		return
 	}
+	fmt.Println(configs.Conf.MySQLConfig)
 	// 创建数据库
 	// sql: CREATE DATABASE pangin;
 	// 连接数据库

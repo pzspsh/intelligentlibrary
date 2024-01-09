@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	proxyAddr := "http://10.0.55.22:8080/" // proxy address
+	proxyAddr := "http://127.0.0.1:8080/" // proxy address
 	url := "http://www.baidu.com/"
 	cli := NewHttpClient(proxyAddr)
 	data, _ := HttpGET(cli, url)

@@ -6,9 +6,12 @@
 package database
 
 import (
+	"fmt"
 	"pangin/configs"
 
-	"github.com/jinzhu/gorm"
+	// "github.com/jinzhu/gorm"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 var (
@@ -16,14 +19,14 @@ var (
 )
 
 func InitMysql(cfg *configs.MySQLConfig) (err error) {
-	dsn := "root:root@(xxx.xxx:3306)/gormDemo?charset=utf8&parseTime=True&loc=Local"
-	DB, err = gorm.Open("mysql", dsn)
+	dsn := fmt.Sprintf("%v:%v@(%v:%v)/%v", cfg.Username, cfg.Password, cfg.Host, cfg.Port, cfg.DB)
+	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
-	return DB.DB().Ping()
+	return
 }
 
 func Close() {
-	DB.Close()
+	// DB.Close()
 }

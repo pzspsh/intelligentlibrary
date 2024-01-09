@@ -1,13 +1,7 @@
 (function (e) {
   function t(t) {
-    for (
-      var o, s, i = t[0], l = t[1], c = t[2], d = 0, f = [];
-      d < i.length;
-      d++
-    )
-      (s = i[d]),
-        Object.prototype.hasOwnProperty.call(r, s) && r[s] && f.push(r[s][0]),
-        (r[s] = 0);
+    for (var o, s, i = t[0], l = t[1], c = t[2], d = 0, f = []; d < i.length; d++)
+      (s = i[d]), Object.prototype.hasOwnProperty.call(r, s) && r[s] && f.push(r[s][0]), (r[s] = 0);
     for (o in l) Object.prototype.hasOwnProperty.call(l, o) && (e[o] = l[o]);
     u && u(t);
     while (f.length) f.shift()();
@@ -28,39 +22,23 @@
     a = [];
   function s(t) {
     if (o[t]) return o[t].exports;
-    var n = (o[t] = {
-      i: t,
-      l: !1,
-      exports: {},
-    });
+    var n = (o[t] = { i: t, l: !1, exports: {} });
     return e[t].call(n.exports, n, n.exports, s), (n.l = !0), n.exports;
   }
   (s.m = e),
     (s.c = o),
     (s.d = function (e, t, n) {
-      s.o(e, t) ||
-        Object.defineProperty(e, t, {
-          enumerable: !0,
-          get: n,
-        });
+      s.o(e, t) || Object.defineProperty(e, t, { enumerable: !0, get: n });
     }),
     (s.r = function (e) {
-      "undefined" !== typeof Symbol &&
-        Symbol.toStringTag &&
-        Object.defineProperty(e, Symbol.toStringTag, {
-          value: "Module",
-        }),
+      "undefined" !== typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }),
         Object.defineProperty(e, "__esModule", { value: !0 });
     }),
     (s.t = function (e, t) {
       if ((1 & t && (e = s(e)), 8 & t)) return e;
       if (4 & t && "object" === typeof e && e && e.__esModule) return e;
       var n = Object.create(null);
-      if (
-        (s.r(n),
-        Object.defineProperty(n, "default", { enumerable: !0, value: e }),
-        2 & t && "string" != typeof e)
-      )
+      if ((s.r(n), Object.defineProperty(n, "default", { enumerable: !0, value: e }), 2 & t && "string" != typeof e))
         for (var o in e)
           s.d(
             n,
@@ -165,42 +143,18 @@
               [
                 n(
                   "el-row",
-                  {
-                    attrs: {
-                      type: "flex",
-                      justify: "center",
-                    },
-                  },
+                  { attrs: { type: "flex", justify: "center" } },
                   [
-                    n(
-                      "el-col",
-                      {
-                        attrs: {
-                          xs: 20,
-                          span: 12,
-                        },
-                      },
-                      [
-                        n(
-                          "div",
-                          {
-                            staticClass: "grid-content",
-                          },
-                          [
-                            n("el-divider", [n("h1", [e._v("bubble清单")])]),
-                            n("TodoList"),
-                          ],
-                          1
-                        ),
-                      ]
-                    ),
+                    n("el-col", { attrs: { xs: 20, span: 12 } }, [
+                      n("div", { staticClass: "grid-content" }, [n("el-divider", [n("h1", [e._v("pangin")])]), n("TodoList")], 1),
+                    ]),
                   ],
                   1
                 ),
               ],
               1
             ),
-            n("el-footer", [e._v("q1mi出品 Go学习交流QQ群：645090316")]),
+            n("el-footer", [e._v("pan hello world：gin框架小练习")]),
           ],
           1
         );
@@ -212,30 +166,18 @@
           n = e._self._c || t;
         return n(
           "el-card",
-          {
-            staticClass: "box-card",
-          },
+          { staticClass: "box-card" },
           [
             n(
               "el-row",
-              {
-                attrs: { gutter: 20 },
-              },
+              { attrs: { gutter: 20 } },
               [
                 n(
                   "el-col",
-                  {
-                    attrs: {
-                      span: 16,
-                      offset: 2,
-                    },
-                  },
+                  { attrs: { span: 16, offset: 2 } },
                   [
                     n("el-input", {
-                      attrs: {
-                        size: "",
-                        placeholder: "请输入待办事项...",
-                      },
+                      attrs: { size: "", placeholder: "请输入待办事项..." },
                       model: {
                         value: e.newTitle,
                         callback: function (t) {
@@ -249,11 +191,7 @@
                 ),
                 n(
                   "el-col",
-                  {
-                    attrs: {
-                      span: 6,
-                    },
-                  },
+                  { attrs: { span: 6 } },
                   [
                     n("el-button", {
                       attrs: {
@@ -261,9 +199,7 @@
                         icon: "el-icon-plus",
                         circle: "",
                       },
-                      on: {
-                        click: e.handleAdd,
-                      },
+                      on: { click: e.handleAdd },
                     }),
                   ],
                   1
@@ -275,33 +211,19 @@
             n(
               "el-table",
               {
-                staticStyle: {
-                  width: "100%",
-                },
+                staticStyle: { width: "100%" },
                 attrs: {
                   data: e.tableData,
                   "row-class-name": e.tableRowClassName,
                 },
               },
               [
+                n("el-table-column", { attrs: { type: "index", width: "50" } }),
                 n("el-table-column", {
-                  attrs: {
-                    type: "index",
-                    width: "50",
-                  },
+                  attrs: { align: "center", label: "待办事项", prop: "title" },
                 }),
                 n("el-table-column", {
-                  attrs: {
-                    align: "center",
-                    label: "待办事项",
-                    prop: "title",
-                  },
-                }),
-                n("el-table-column", {
-                  attrs: {
-                    align: "right",
-                    label: "操作",
-                  },
+                  attrs: { align: "right", label: "操作" },
                   scopedSlots: e._u([
                     {
                       key: "default",
@@ -382,7 +304,7 @@
           },
           mounted: function () {
             var e = this;
-            this.axios.get("/v1/todo").then(function (t) {
+            this.axios.get("/v1/pandemo").then(function (t) {
               return (e.tableData = t.data);
             });
           },
@@ -393,28 +315,26 @@
             },
             getTodoList: function () {
               var e = this;
-              this.axios.get("/v1/todo").then(function (t) {
+              this.axios.get("/v1/pandemo").then(function (t) {
                 return (e.tableData = t.data);
               });
             },
             handleEdit: function (e, t) {
               var n = this,
                 o = t.status ? " 置为未完成" : " 置为已完成";
-              this.axios
-                .put("/v1/todo/" + t.id, { status: !t.status })
-                .then(function () {
-                  (n.tableData[e].status = !t.status),
-                    n.$message({
-                      showClose: !0,
-                      duration: 1500,
-                      message: "<".concat(t.title, "> ").concat(o),
-                      type: "success",
-                    });
-                });
+              this.axios.put("/v1/pandemo/" + t.id, { status: !t.status }).then(function () {
+                (n.tableData[e].status = !t.status),
+                  n.$message({
+                    showClose: !0,
+                    duration: 1500,
+                    message: "<".concat(t.title, "> ").concat(o),
+                    type: "success",
+                  });
+              });
             },
             handleDelete: function (e, t) {
               var n = this;
-              this.axios.delete("/v1/todo/" + t).then(function () {
+              this.axios.delete("/v1/pandemo/" + t).then(function () {
                 n.tableData.splice(e, 1),
                   n.$message({
                     showClose: !0,
@@ -427,19 +347,15 @@
             handleAdd: function () {
               var e = this;
               "" != this.newTitle
-                ? (this.axios
-                    .post("/v1/todo", {
-                      title: this.newTitle,
-                    })
-                    .then(function () {
-                      e.getTodoList(),
-                        e.$message({
-                          showClose: !0,
-                          duration: 1500,
-                          message: "添加待办事项成功",
-                          type: "success",
-                        });
-                    }),
+                ? (this.axios.post("/v1/pandemo", { title: this.newTitle }).then(function () {
+                    e.getTodoList(),
+                      e.$message({
+                        showClose: !0,
+                        duration: 1500,
+                        message: "添加待办事项成功",
+                        type: "success",
+                      });
+                  }),
                   (this.newTitle = ""))
                 : this.$message({
                     showClose: !0,
@@ -454,21 +370,11 @@
       w = (n("ed30"), n("2877")),
       b = Object(w["a"])(v, f, p, !1, null, null, null),
       m = b.exports,
-      g = {
-        name: "Index",
-        components: {
-          TodoList: m,
-        },
-      },
+      g = { name: "Index", components: { TodoList: m } },
       x = g,
       y = (n("8fc1"), Object(w["a"])(x, u, d, !1, null, null, null)),
       j = y.exports,
-      _ = {
-        name: "app",
-        components: {
-          Index: j,
-        },
-      },
+      _ = { name: "app", components: { Index: j } },
       O = _,
       T = (n("034f"), Object(w["a"])(O, l, c, !1, null, null, null)),
       P = T.exports,
@@ -478,13 +384,7 @@
     o["default"].use(k.a);
     var C = n("8c4f");
     o["default"].use(C["a"]);
-    var D = [
-        {
-          path: "/",
-          name: "index",
-          component: j,
-        },
-      ],
+    var D = [{ path: "/", name: "index", component: j }],
       S = new C["a"]({ routes: D }),
       E = S;
     (o["default"].config.productionTip = !0),
