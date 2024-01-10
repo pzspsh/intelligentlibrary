@@ -21,13 +21,11 @@ const (
 
 func main() {
 	fmt.Println("Face Recognition...")
-
 	// 初始化识别器
 	rec, err := face.NewRecognizer(modelDir)
 	if err != nil {
 		fmt.Println("Cannot INItialize recognizer")
 	}
 	defer rec.Close()
-
 	fmt.Println("Recognizer Initialized")
 }

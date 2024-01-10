@@ -22,32 +22,23 @@ const (
 )
 
 func main() {
-	// 特征值
-	var descriptor face.Descriptor
-	// 目标距离
-	matchDistance := 0.1
-	// 创建一个窗口
-	window := gocv.NewWindow("dlib Recognize")
+	var descriptor face.Descriptor             // 特征值
+	matchDistance := 0.1                       // 目标距离
+	window := gocv.NewWindow("dlib Recognize") // 创建一个窗口
 	defer window.Close()
-
-	// 颜色
-	greenColor := color.RGBA{0, 255, 0, 255}
+	greenColor := color.RGBA{0, 255, 0, 255} // 颜色
 	redColor := color.RGBA{255, 0, 0, 255}
-
-	// 加载模型
-	rec, err := face.NewRecognizer(dataDir)
+	rec, err := face.NewRecognizer(dataDir) // 加载模型
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer rec.Close()
 
-	// 单一脸图片
-	faceImagePath := filepath.Join(imageDir, "face.jpg")
+	faceImagePath := filepath.Join(imageDir, "face.jpg") // 单一脸图片
 	img1 := gocv.IMRead(faceImagePath, gocv.IMReadColor)
 	defer img1.Close()
 	fmt.Println("正在读的单一脸图像 = ", faceImagePath)
 
-	//
 	faces, err := rec.RecognizeFile(faceImagePath)
 	if err != nil {
 		log.Fatalf("无法识别: %v", err)
@@ -59,19 +50,14 @@ func main() {
 		descriptor = f.Descriptor
 	}
 
-	// 多人脸图片
-	facesImagePath := filepath.Join(imageDir, "faces.jpg")
+	facesImagePath := filepath.Join(imageDir, "faces.jpg") // 多人脸图片
 	img2 := gocv.IMRead(facesImagePath, gocv.IMReadColor)
 	defer img2.Close()
 
-	// copy bg to draw
-	background := img2.Clone()
+	background := img2.Clone() // copy bg to draw
 	defer background.Close()
-
-	//
 	fmt.Println("正在读的多人脸图像 = ", facesImagePath)
 
-	//
 	faces, err = rec.RecognizeFile(facesImagePath)
 	if err != nil {
 		log.Fatalf("无法识别: %v", err)
@@ -82,20 +68,19 @@ func main() {
 
 	for _, f := range faces {
 		gocv.Rectangle(&background, f.Rectangle, redColor, 3)
-		// 计算特征值之间的欧拉距离
-		dist := face.SquaredEuclideanDistance(f.Descriptor, descriptor)
+
+		dist := face.SquaredEuclideanDistance(f.Descriptor, descriptor) // 计算特征值之间的欧拉距离
 		fmt.Println("欧拉距离 = ", dist)
 		c := redColor
 		if dist < matchDistance {
 			c = greenColor
 		}
-		// 在图片上画人脸框
-		pt := image.Pt(f.Rectangle.Min.X, f.Rectangle.Min.Y-20)
+
+		pt := image.Pt(f.Rectangle.Min.X, f.Rectangle.Min.Y-20) // 在图片上画人脸框
 		gocv.PutText(&background, "jay", pt, gocv.FontHersheyPlain, 2, c, 2)
 	}
 
-	// 显示图片
-	window.IMShow(background)
+	window.IMShow(background) // 显示图片
 	for {
 		if window.WaitKey(1) >= 0 {
 			break
