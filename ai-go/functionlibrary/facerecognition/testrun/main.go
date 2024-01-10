@@ -13,7 +13,7 @@ import (
 
 const dataDir = "testdata"
 
-// testdata 目录下两个对应的文件夹目录
+// data 目录下两个对应的文件夹目录
 const (
 	modelDir  = dataDir + "/models"
 	imagesDir = dataDir + "/images"
@@ -21,8 +21,7 @@ const (
 
 func main() {
 	fmt.Println("Face Recognition...")
-	// 初始化识别器
-	rec, err := face.NewRecognizer(modelDir)
+	rec, err := face.NewRecognizer(modelDir) // 初始化识别器
 	if err != nil {
 		fmt.Println("Cannot INItialize recognizer")
 	}
