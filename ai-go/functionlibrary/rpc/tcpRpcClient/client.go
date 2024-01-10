@@ -22,7 +22,7 @@ func main() {
 
 	// 2. 调用远程函数
 	var reply string // 接受返回值 --- 传出参数
-	err = conn.Call("hello.Hello World", "张三", &reply)
+	err = conn.Call("hello.HelloWorld", "张三", &reply)
 	if err != nil {
 		fmt.Println("Call:", err)
 		return
