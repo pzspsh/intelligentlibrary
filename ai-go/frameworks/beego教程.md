@@ -1,28 +1,33 @@
-# beego教程
+# beego 教程
+
 ```go
-https://github.com/astaxie/beego 
+https://github.com/astaxie/beego
 https://beego.me/docs/install/beego.md
-https://beego.me/docs 
+https://beego.me/docs
 https://github.com/beego/samples
 ```
 
-# 安装bee工具
+# 安装 bee 工具
+
 ```go
 go get github.com/beego/bee
 ```
 
-# 使用bee创建项目
+# 使用 bee 创建项目
+
 ```go
 bee new hello
 ```
 
 # 运行项目
+
 ```go
 cd hello
 bee run
 ```
 
 # 访问项目
+
 ```go
 http://localhost:8080/
 ```
@@ -34,6 +39,7 @@ http://localhost:8080/
 ```
 
 main.go
+
 ```go
 package main
 
@@ -48,6 +54,7 @@ func main() {
 ```
 
 hello.go
+
 ```go
 package controllers
 
@@ -65,6 +72,7 @@ func (c *HelloController) Get() {
 ```
 
 routers.go
+
 ```go
 package routers
 

@@ -1,9 +1,15 @@
-# readi数据库
-### 一、redis数据安装
-#### 1、[官网下载zip包](https://redis.io/download/#redis-downloads)
-#### 2、解压redis zip包
-#### 3、打开cmd终端切换到解压的redis文件夹目录下
-#### 4、执行启动redis服务
+# readi 数据库
+
+### 一、redis 数据安装
+
+#### 1、[官网下载 zip 包](https://redis.io/download/#redis-downloads)
+
+#### 2、解压 redis zip 包
+
+#### 3、打开 cmd 终端切换到解压的 redis 文件夹目录下
+
+#### 4、执行启动 redis 服务
+
 ```
 1、执行启动：
 Redis>redis-server
@@ -14,8 +20,11 @@ Redis>redis-cli
 
 3、执行你要执行的命令
 ```
-#### 5、配置redis.conf配置文件
-#### 6、配置redis进入命名
+
+#### 5、配置 redis.conf 配置文件
+
+#### 6、配置 redis 进入命名
+
 ```
 1、进入配置文件把requirepass的注释去掉
 2、通过命令查看：

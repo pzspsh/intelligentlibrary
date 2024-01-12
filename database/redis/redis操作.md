@@ -1,9 +1,12 @@
-# Redis操作
+# Redis 操作
+
 ```sql
 将字符串值 value 关联到 key,如果 key 已经持有其他值， SET 就覆写旧值， 无视类型。当 SET 命令对一个带有生存时间（TTL）的键进行设置之后， 该键原有的 TTL 将被清除。
 SET key value [EX seconds] [PX milliseconds] [NX|XX]
 ```
-### Redis SET命令
+
+### Redis SET 命令
+
 ```sql
 对不存在的键进行设置：
 redis> SET key "value"
@@ -55,8 +58,11 @@ OK      # 设置新值成功
 redis> GET exists-key
 "new-value"
 ```
-### Redis SETNX命令
+
+### Redis SETNX 命令
+
 命令在设置成功时返回 1 ， 设置失败时返回 0 。
+
 ```sql
 SETNX key value
 只在键 key 不存在的情况下， 将键 key 的值设置为 value 。
@@ -72,7 +78,9 @@ redis> SETNX job "code-farmer"   # 尝试覆盖 job ，失败
 redis> GET job                   # 没有被覆盖
 "programmer"
 ```
-### Redis SETEX命令
+
+### Redis SETEX 命令
+
 ```sql
 SETEX key seconds value
 将键 key 的值设置为 value ， 并将键 key 的生存时间设置为 seconds 秒钟。
@@ -103,8 +111,10 @@ redis> TTL cd
 (integer) 2997
 ```
 
-### Redis PSETEX命令
+### Redis PSETEX 命令
+
 命令在设置成功时返回 OK 。
+
 ```sql
 PSETEX key milliseconds value
 这个命令和 SETEX 命令相似， 但它以毫秒为单位设置 key 的生存时间， 而不是像 SETEX 命令那样以秒为单位进行设置。
@@ -118,7 +128,8 @@ redis> GET mykey
 "Hello"
 ```
 
-### Redis GET命令
+### Redis GET 命令
+
 ```sql
 GET key
 返回与键 key 相关联的字符串值。
@@ -143,7 +154,8 @@ redis> GET db
 (error) ERR Operation against a key holding the wrong kind of value
 ```
 
-### Redis GETSET命令
+### Redis GETSET 命令
+
 ```sql
 GETSET key value
 将键 key 的值设为 value ， 并返回键 key 在被设置之前的旧值。
@@ -162,4 +174,3 @@ redis> GETSET db redis      # 返回旧值 mongodb
 redis> GET db
 "redis"
 ```
-

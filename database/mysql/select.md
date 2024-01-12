@@ -1,5 +1,7 @@
 # 查询数据(select)
-### MySQL数据库中查询数据通用的 SELECT 语法：
+
+### MySQL 数据库中查询数据通用的 SELECT 语法：
+
 ```sql
 SELECT column_name,column_name FROM table_name [WHERE Clause][LIMIT N][ OFFSET M]
 
@@ -10,7 +12,9 @@ SELECT 命令可以读取一条或者多条记录。
 你可以使用 LIMIT 属性来设定返回的记录数。
 你可以通过OFFSET指定SELECT语句开始查询的数据偏移量。默认情况下偏移量为0。
 ```
+
 #### 实例：
+
 ```sql
 select * from demo_table_name;
 
@@ -21,6 +25,7 @@ select * from demo_table_name where binary title='mysql_demo';
 ```
 
 ### 正则查询
+
 ```sql
 查找name字段中以'st'为开头的所有数据：
 SELECT name FROM table_name WHERE name REGEXP '^st';

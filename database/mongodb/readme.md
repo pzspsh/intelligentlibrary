@@ -1,10 +1,17 @@
-# mongodb数据库
-### 一、mongodb数据库安装
-#### 1、[官网下载mongodb数据软件包](https://www.mongodb.com/download-center/community/releases/archive)
-#### 2、解压mongodb数据包
-#### 3、到解压的mongodb文件夹目录下创建data文件夹
-#### 4、打开cmd终端切换到解压的mongodb文件夹的bin目录下
-#### 5、启动mongodb数据库服务
+# mongodb 数据库
+
+### 一、mongodb 数据库安装
+
+#### 1、[官网下载 mongodb 数据软件包](https://www.mongodb.com/download-center/community/releases/archive)
+
+#### 2、解压 mongodb 数据包
+
+#### 3、到解压的 mongodb 文件夹目录下创建 data 文件夹
+
+#### 4、打开 cmd 终端切换到解压的 mongodb 文件夹的 bin 目录下
+
+#### 5、启动 mongodb 数据库服务
+
 ```
 1、前置启动命令为：
 bin>mongod --dbpath 上面第三步创建的data文件夹路径 # 例如：D:\\mongodb-win32-x86_64-windows-5.0.3\data
@@ -12,7 +19,9 @@ bin>mongod --dbpath 上面第三步创建的data文件夹路径 # 例如：D:\\m
 2、后置启动命令为：
 bin>mongod --dbpath data文件夹路径 --logpath mongodb.log文件路径 --fork --logappend
 ```
+
 #### 6、编辑配置文件(进行服务启动)
+
 ```
 编辑配置文件
 mkdir /path/mongodb/etc/ # path路径
@@ -29,14 +38,17 @@ fork=true
 /path/mongodb/bin/mongod -f /path/mongodb/etc/mongodb.conf
 ```
 
-#### 7、打开cmd终端切换到解压的mongodb文件夹的bin目录下执行如下命令
+#### 7、打开 cmd 终端切换到解压的 mongodb 文件夹的 bin 目录下执行如下命令
+
 ```
 1、执行进入数据库命令
 bin>mongo
 
 2、就可操作你要执行的命令
 ```
+
 #### 8、设置密码
+
 ```
 执行如下命令，在 admin 库中创建一个超级用户（对所有数据库都有读写权限）：
 MongoDB 中内置角色说明：
@@ -106,6 +118,7 @@ db.createUser({
 ```
 
 #### 9、常用命令
+
 ```
 show users  // 查看当前库下的用户
 db.dropUser('testadmin')  // 删除用户
