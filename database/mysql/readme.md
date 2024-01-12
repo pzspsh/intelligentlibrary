@@ -1,31 +1,37 @@
-# mysql数据库
+# mysql 数据库
+
 ## 一、安装数据库
-### 1、mysql数据库官网下载：[下载-https://dev.mysql.com/downloads/installer/](https://dev.mysql.com/downloads/installer/)
+
+### 1、mysql 数据库官网下载：[下载-https://dev.mysql.com/downloads/installer/](https://dev.mysql.com/downloads/installer/)
+
 ![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/mysql下载.png)
 
 ![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/mysql下载-1.png)
 
-### 2、把下载的mysql zip包解压
-### 3、解压的zip点击到bin路径下
-### 4、复制mysql包的bin路径
+### 2、把下载的 mysql zip 包解压
+
+### 3、解压的 zip 点击到 bin 路径下
+
+### 4、复制 mysql 包的 bin 路径
+
 ### 5、配置系统环境变量(如下图所示)：
 
 ![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/环境变量.png)
 
 ![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/环境变量-1.png)
 
-
 这是我安装的数据库，和上图下载的版本不是同一个版本，但操作一样。
 
 ![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/环境变量-2.png)
 
-### 6、创建data文件(如下图)：
+### 6、创建 data 文件(如下图)：
 
 ![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/mysqldata.png)
 
-### 7、配置mysql的mysql.ini文件(如果没有mysql.ini文件，直接创建就行，并填上一下的数据对应内容):
+### 7、配置 mysql 的 mysql.ini 文件(如果没有 mysql.ini 文件，直接创建就行，并填上一下的数据对应内容):
 
 ![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/mysqlini.png)
+
 ```
 [mysqld]
 #设置3306端口
@@ -54,30 +60,36 @@ default-character-set=utf8mb4
 port=3306
 default-character-set=utf8mb4
 ```
-### 8、初始化mysql数据库
+
+### 8、初始化 mysql 数据库
+
 ```
 mysqld --initialize --user=mysql --console # 回车
 
 注意得到的数据中有你的初始密码。这个一定要记住，可先复制到文本中保存下来。
 数据中密码出现的形式是：root@localhost:“密码”
 
-然后执行：mysqld --install 
+然后执行：mysqld --install
 然后开启mysql服务：net start mysql
 ```
-### 9、然后就可以登录mysql数据库：
+
+### 9、然后就可以登录 mysql 数据库：
+
 ```
 方式1：mysql -u root -p # 回车然后输入刚刚你保存文本的那个密码
 方式2：mysql -u root -p你的密码
 ```
 
 ### 10、别忘了修改密码：
+
 ```
 1、登录进数据库
 2、set password='你的密码'
 然后执行quit退出来，再执行第九步
 ```
 
-### 11、mysql开启远程访问权限
+### 11、mysql 开启远程访问权限
+
 ```sql
 默认情况下，mysql只允许本地登录，即只能在安装MySQL环境所在的主机下访问。
 1、打开终端进入mysql
@@ -89,7 +101,7 @@ mysql>use mysql;
 mysql>select  User,authentication_string,Host from user;
 4、开启远程访问权限
 方式一：修改命令如下
-mysql>update user set host='%' where user='用户名' #  
+mysql>update user set host='%' where user='用户名' #
 方式二：授权法
 通过GRANT命令可以授予主机远程访问权限
 --赋予任何主机访问权限：
@@ -113,27 +125,39 @@ select  User,authentication_string,Host from user;
 ```
 
 ## 二、数据库操作
+
 ### 1、创建数据库
+
 ```sql
 
 ```
+
 ### 2、创建数据库表
+
 ```sql
 
 ```
+
 ### 3、添加数据
+
 ```sql
 
 ```
+
 ### 4、删除数据
+
 ```sql
 
 ```
+
 ### 5、更新数据
+
 ```sql
 
 ```
+
 ### 6、查询数据
+
 ```sql
 
 ```

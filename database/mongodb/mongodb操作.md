@@ -1,4 +1,5 @@
-# mongodb操作
+# mongodb 操作
+
 ```sql
 1、MongoDB 创建数据库
 键入以下命令在 MongoDB 中创建数据库：
@@ -51,7 +52,9 @@ db.createCollection("teachers", { capped : true, size : 9232768} )
 { "ok" : 1 }
 
 ```
+
 #### 插入文档
+
 ```sql
 将文档插入集合的语法：
 db.collection_name.insert()
@@ -60,13 +63,13 @@ db.collection_name.insert()
 MongoDB 使用insert()插入文档示例
 MongoDB 示例：在集合中插入多个文档
 这里我们将文档插入名为beginnersbook的集合中。下面示例中的字段course是一个包含多个键值对的数组。
-db.beginnersbook.insert(  
-   {  
-     name: "Chaitanya",  
+db.beginnersbook.insert(
+   {
+     name: "Chaitanya",
      age: 30,
      email: "[email protected]",
      course: [ { name: "MongoDB", duration: 7 }, { name: "Java", duration: 30 } ]
-   }  
+   }
 )
 
 您应该看到一条成功的写消息，如下所示：
@@ -81,8 +84,8 @@ db.collection_name.find()
 
 在上面的示例中，我们将文档插入名为beginnersbook的集合中，因此命令应为：
 > db.beginnersbook.find()
-{ "_id" : ObjectId("59bce797668dcce02aaa6fec"), "name" : "Chaitanya", "age" : 30, 
-"email" : "[email protected]", "course" : [ { "name" : "MongoDB", 
+{ "_id" : ObjectId("59bce797668dcce02aaa6fec"), "name" : "Chaitanya", "age" : 30,
+"email" : "[email protected]", "course" : [ { "name" : "MongoDB",
 "duration" : 7 }, { "name" : "Java", "duration" : 30 } ] }
 
 MongoDB 示例：在集合中插入多个文档

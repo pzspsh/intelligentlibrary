@@ -1,4 +1,4 @@
-# Python3标准库及功能示例
+# Python3 标准库及功能示例
 
 # [Python 标准库](https://docs.python.org/zh-cn/3.10/library/#the-python-standard-library)
 
@@ -12,12 +12,10 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
 
 - 概述
   - [可用性注释](https://docs.python.org/zh-cn/3.10/library/intro.html#notes-on-availability)
-  
 - [内置函数](https://docs.python.org/zh-cn/3.10/library/functions.html)
 
 - 内置常量
   - [由 `site` 模块添加的常量](https://docs.python.org/zh-cn/3.10/library/constants.html#constants-added-by-the-site-module)
-  
 - 内置类型
   - [逻辑值检测](https://docs.python.org/zh-cn/3.10/library/stdtypes.html#truth-value-testing)
   - [布尔运算 --- `and`, `or`, `not`](https://docs.python.org/zh-cn/3.10/library/stdtypes.html#boolean-operations-and-or-not)
@@ -34,7 +32,6 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [其他内置类型](https://docs.python.org/zh-cn/3.10/library/stdtypes.html#other-built-in-types)
   - [特殊属性](https://docs.python.org/zh-cn/3.10/library/stdtypes.html#special-attributes)
   - [整数字符串转换长度限制](https://docs.python.org/zh-cn/3.10/library/stdtypes.html#integer-string-conversion-length-limitation)
-  
 - 内置异常
   - [异常上下文](https://docs.python.org/zh-cn/3.10/library/exceptions.html#exception-context)
   - [从内置异常继承](https://docs.python.org/zh-cn/3.10/library/exceptions.html#inheriting-from-built-in-exceptions)
@@ -42,7 +39,6 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [具体异常](https://docs.python.org/zh-cn/3.10/library/exceptions.html#concrete-exceptions)
   - [警告](https://docs.python.org/zh-cn/3.10/library/exceptions.html#warnings)
   - [异常层次结构](https://docs.python.org/zh-cn/3.10/library/exceptions.html#exception-hierarchy)
-  
 - 文本处理服务
   - [`string` --- 常见的字符串操作](https://docs.python.org/zh-cn/3.10/library/string.html)
   - [`re` --- 正则表达式操作](https://docs.python.org/zh-cn/3.10/library/re.html)
@@ -52,11 +48,9 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`stringprep` --- 因特网字符串预备](https://docs.python.org/zh-cn/3.10/library/stringprep.html)
   - [`readline` --- GNU readline 接口](https://docs.python.org/zh-cn/3.10/library/readline.html)
   - [`rlcompleter` --- GNU readline 的补全函数](https://docs.python.org/zh-cn/3.10/library/rlcompleter.html)
-  
 - 二进制数据服务
   - [`struct` --- 将字节串解读为打包的二进制数据](https://docs.python.org/zh-cn/3.10/library/struct.html)
   - [`codecs` --- 编解码器注册和相关基类](https://docs.python.org/zh-cn/3.10/library/codecs.html)
-  
 - 数据类型
   - [`datetime` --- 基本日期和时间类型](https://docs.python.org/zh-cn/3.10/library/datetime.html)
   - [`zoneinfo` --- IANA 时区支持](https://docs.python.org/zh-cn/3.10/library/zoneinfo.html)
@@ -73,7 +67,6 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`reprlib` --- 另一种 `repr()` 实现](https://docs.python.org/zh-cn/3.10/library/reprlib.html)
   - [`enum` --- 对枚举的支持](https://docs.python.org/zh-cn/3.10/library/enum.html)
   - [`graphlib` --- 操作类似图的结构的功能](https://docs.python.org/zh-cn/3.10/library/graphlib.html)
-  
 - 数字和数学模块
   - [`numbers` --- 数字的抽象基类](https://docs.python.org/zh-cn/3.10/library/numbers.html)
   - [`math` --- 数学函数](https://docs.python.org/zh-cn/3.10/library/math.html)
@@ -82,12 +75,10 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`fractions` --- 分数](https://docs.python.org/zh-cn/3.10/library/fractions.html)
   - [`random` --- 生成伪随机数](https://docs.python.org/zh-cn/3.10/library/random.html)
   - [`statistics` --- 数学统计函数](https://docs.python.org/zh-cn/3.10/library/statistics.html)
-  
 - 函数式编程模块
   - [`itertools` --- 为高效循环而创建迭代器的函数](https://docs.python.org/zh-cn/3.10/library/itertools.html)
   - [`functools` --- 高阶函数和可调用对象上的操作](https://docs.python.org/zh-cn/3.10/library/functools.html)
   - [`operator` --- 标准运算符替代函数](https://docs.python.org/zh-cn/3.10/library/operator.html)
-  
 - 文件和目录访问
   - [`pathlib` --- 面向对象的文件系统路径](https://docs.python.org/zh-cn/3.10/library/pathlib.html)
   - [`os.path` --- 常用路径操作](https://docs.python.org/zh-cn/3.10/library/os.path.html)
@@ -99,7 +90,6 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`fnmatch` --- Unix 文件名模式匹配](https://docs.python.org/zh-cn/3.10/library/fnmatch.html)
   - [`linecache` --- 随机读写文本行](https://docs.python.org/zh-cn/3.10/library/linecache.html)
   - [`shutil` --- 高阶文件操作](https://docs.python.org/zh-cn/3.10/library/shutil.html)
-  
 - 数据持久化
   - [`pickle` --- Python 对象序列化](https://docs.python.org/zh-cn/3.10/library/pickle.html)
   - [`copyreg` --- 注册配合 `pickle` 模块使用的函数](https://docs.python.org/zh-cn/3.10/library/copyreg.html)
@@ -107,26 +97,22 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`marshal` --- 内部 Python 对象序列化](https://docs.python.org/zh-cn/3.10/library/marshal.html)
   - [`dbm` --- Unix "数据库" 接口](https://docs.python.org/zh-cn/3.10/library/dbm.html)
   - [`sqlite3` --- SQLite 数据库 DB-API 2.0 接口模块](https://docs.python.org/zh-cn/3.10/library/sqlite3.html)
-  
 - 数据压缩和存档
   - [`zlib` --- 与 **gzip** 兼容的压缩](https://docs.python.org/zh-cn/3.10/library/zlib.html)
   - [`gzip` --- 对 **gzip** 格式的支持](https://docs.python.org/zh-cn/3.10/library/gzip.html)
   - [`bz2` --- 对 **bzip2** 压缩算法的支持](https://docs.python.org/zh-cn/3.10/library/bz2.html)
   - [`lzma` --- 用 LZMA 算法压缩](https://docs.python.org/zh-cn/3.10/library/lzma.html)
-  - [`zipfile` --- 使用ZIP存档](https://docs.python.org/zh-cn/3.10/library/zipfile.html)
-  - [`tarfile` --- 读写tar归档文件](https://docs.python.org/zh-cn/3.10/library/tarfile.html)
-  
+  - [`zipfile` --- 使用 ZIP 存档](https://docs.python.org/zh-cn/3.10/library/zipfile.html)
+  - [`tarfile` --- 读写 tar 归档文件](https://docs.python.org/zh-cn/3.10/library/tarfile.html)
 - 文件格式
   - [`csv` --- CSV 文件读写](https://docs.python.org/zh-cn/3.10/library/csv.html)
   - [`configparser` --- 配置文件解析器](https://docs.python.org/zh-cn/3.10/library/configparser.html)
   - [`netrc` --- netrc 文件处理](https://docs.python.org/zh-cn/3.10/library/netrc.html)
   - [`plistlib` --- 生成与解析 Apple `.plist` 文件](https://docs.python.org/zh-cn/3.10/library/plistlib.html)
-  
 - 加密服务
   - [`hashlib` --- 安全哈希与消息摘要](https://docs.python.org/zh-cn/3.10/library/hashlib.html)
   - [`hmac` --- 基于密钥的消息验证](https://docs.python.org/zh-cn/3.10/library/hmac.html)
   - [`secrets` --- 生成管理密码的安全随机数](https://docs.python.org/zh-cn/3.10/library/secrets.html)
-  
 - 通用操作系统服务
   - [`os` --- 多种操作系统接口](https://docs.python.org/zh-cn/3.10/library/os.html)
   - [`io` --- 处理流的核心工具](https://docs.python.org/zh-cn/3.10/library/io.html)
@@ -144,7 +130,6 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`platform` --- 获取底层平台的标识数据](https://docs.python.org/zh-cn/3.10/library/platform.html)
   - [`errno` --- 标准 errno 系统符号](https://docs.python.org/zh-cn/3.10/library/errno.html)
   - [`ctypes` --- Python 的外部函数库](https://docs.python.org/zh-cn/3.10/library/ctypes.html)
-  
 - 并发执行
   - [`threading` --- 基于线程的并行](https://docs.python.org/zh-cn/3.10/library/threading.html)
   - [`multiprocessing` --- 基于进程的并行](https://docs.python.org/zh-cn/3.10/library/multiprocessing.html)
@@ -156,7 +141,6 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`queue` --- 一个同步的队列类](https://docs.python.org/zh-cn/3.10/library/queue.html)
   - [`contextvars` --- 上下文变量](https://docs.python.org/zh-cn/3.10/library/contextvars.html)
   - [`_thread` --- 底层多线程 API](https://docs.python.org/zh-cn/3.10/library/_thread.html)
-  
 - 网络和进程间通信
   - [`asyncio` --- 异步 I/O](https://docs.python.org/zh-cn/3.10/library/asyncio.html)
   - [`socket` --- 底层网络接口](https://docs.python.org/zh-cn/3.10/library/socket.html)
@@ -165,22 +149,20 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`selectors` --- 高级 I/O 复用库](https://docs.python.org/zh-cn/3.10/library/selectors.html)
   - [`signal` --- 设置异步事件处理程序](https://docs.python.org/zh-cn/3.10/library/signal.html)
   - [`mmap` --- 内存映射文件支持](https://docs.python.org/zh-cn/3.10/library/mmap.html)
-  
 - 互联网数据处理
   - [`email` --- 电子邮件与 MIME 处理包](https://docs.python.org/zh-cn/3.10/library/email.html)
   - [`json` --- JSON 编码和解码器](https://docs.python.org/zh-cn/3.10/library/json.html)
   - [`mailbox` --- 操作多种格式的邮箱](https://docs.python.org/zh-cn/3.10/library/mailbox.html)
   - [`mimetypes` --- 映射文件名到 MIME 类型](https://docs.python.org/zh-cn/3.10/library/mimetypes.html)
   - [`base64` --- Base16, Base32, Base64, Base85 数据编码](https://docs.python.org/zh-cn/3.10/library/base64.html)
-  - [`binhex` --- 对binhex4文件进行编码和解码](https://docs.python.org/zh-cn/3.10/library/binhex.html)
+  - [`binhex` --- 对 binhex4 文件进行编码和解码](https://docs.python.org/zh-cn/3.10/library/binhex.html)
   - [`binascii` --- 二进制和 ASCII 码互转](https://docs.python.org/zh-cn/3.10/library/binascii.html)
   - [`quopri` --- 编码与解码经过 MIME 转码的可打印数据](https://docs.python.org/zh-cn/3.10/library/quopri.html)
-  
 - 结构化标记处理工具
   - [`html` --- 超文本标记语言支持](https://docs.python.org/zh-cn/3.10/library/html.html)
   - [`html.parser` --- 简单的 HTML 和 XHTML 解析器](https://docs.python.org/zh-cn/3.10/library/html.parser.html)
   - [`html.entities` --- HTML 一般实体的定义](https://docs.python.org/zh-cn/3.10/library/html.entities.html)
-  - [XML处理模块](https://docs.python.org/zh-cn/3.10/library/xml.html)
+  - [XML 处理模块](https://docs.python.org/zh-cn/3.10/library/xml.html)
   - [`xml.etree.ElementTree` --- ElementTree XML API](https://docs.python.org/zh-cn/3.10/library/xml.etree.elementtree.html)
   - [`xml.dom` --- 文档对象模型 API](https://docs.python.org/zh-cn/3.10/library/xml.dom.html)
   - [`xml.dom.minidom` --- 最小化的 DOM 实现](https://docs.python.org/zh-cn/3.10/library/xml.dom.minidom.html)
@@ -190,7 +172,6 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`xml.sax.saxutils` --- SAX 工具集](https://docs.python.org/zh-cn/3.10/library/xml.sax.utils.html)
   - [`xml.sax.xmlreader` --- 用于 XML 解析器的接口](https://docs.python.org/zh-cn/3.10/library/xml.sax.reader.html)
   - [`xml.parsers.expat` --- 使用 Expat 的快速 XML 解析](https://docs.python.org/zh-cn/3.10/library/pyexpat.html)
-  
 - 互联网协议和支持
   - [`webbrowser` --- 方便的 Web 浏览器控制工具](https://docs.python.org/zh-cn/3.10/library/webbrowser.html)
   - [`wsgiref` --- WSGI 工具和参考实现](https://docs.python.org/zh-cn/3.10/library/wsgiref.html)
@@ -206,30 +187,26 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`poplib` --- POP3 协议客户端](https://docs.python.org/zh-cn/3.10/library/poplib.html)
   - [`imaplib` --- IMAP4 协议客户端](https://docs.python.org/zh-cn/3.10/library/imaplib.html)
   - [`smtplib` --- SMTP 协议客户端](https://docs.python.org/zh-cn/3.10/library/smtplib.html)
-  - [`uuid` --- **RFC 4122** 定义的UUID对象](https://docs.python.org/zh-cn/3.10/library/uuid.html)
+  - [`uuid` --- **RFC 4122** 定义的 UUID 对象](https://docs.python.org/zh-cn/3.10/library/uuid.html)
   - [`socketserver` --- 用于网络服务器的框架](https://docs.python.org/zh-cn/3.10/library/socketserver.html)
   - [`http.server` --- HTTP 服务器](https://docs.python.org/zh-cn/3.10/library/http.server.html)
-  - [`http.cookies` --- HTTP状态管理](https://docs.python.org/zh-cn/3.10/library/http.cookies.html)
+  - [`http.cookies` --- HTTP 状态管理](https://docs.python.org/zh-cn/3.10/library/http.cookies.html)
   - [`http.cookiejar` —— HTTP 客户端的 Cookie 处理](https://docs.python.org/zh-cn/3.10/library/http.cookiejar.html)
   - [`xmlrpc` --- XMLRPC 服务端与客户端模块](https://docs.python.org/zh-cn/3.10/library/xmlrpc.html)
   - [`xmlrpc.client` --- XML-RPC 客户端访问](https://docs.python.org/zh-cn/3.10/library/xmlrpc.client.html)
   - [`xmlrpc.server` --- 基本 XML-RPC 服务器](https://docs.python.org/zh-cn/3.10/library/xmlrpc.server.html)
   - [`ipaddress` --- IPv4/IPv6 操作库](https://docs.python.org/zh-cn/3.10/library/ipaddress.html)
-  
 - 多媒体服务
-  - [`wave` --- 读写WAV格式文件](https://docs.python.org/zh-cn/3.10/library/wave.html)
+  - [`wave` --- 读写 WAV 格式文件](https://docs.python.org/zh-cn/3.10/library/wave.html)
   - [`colorsys` --- 颜色系统间的转换](https://docs.python.org/zh-cn/3.10/library/colorsys.html)
-  
 - 国际化
   - [`gettext` --- 多语种国际化服务](https://docs.python.org/zh-cn/3.10/library/gettext.html)
   - [`locale` --- 国际化服务](https://docs.python.org/zh-cn/3.10/library/locale.html)
-  
 - 程序框架
   - [`turtle` --- 海龟绘图](https://docs.python.org/zh-cn/3.10/library/turtle.html)
   - [`cmd` --- 支持面向行的命令解释器](https://docs.python.org/zh-cn/3.10/library/cmd.html)
   - [`shlex` —— 简单的词法分析](https://docs.python.org/zh-cn/3.10/library/shlex.html)
-  
-- Tk图形用户界面(GUI)
+- Tk 图形用户界面(GUI)
   - [`tkinter` —— Tcl/Tk 的 Python 接口](https://docs.python.org/zh-cn/3.10/library/tkinter.html)
   - [`tkinter.colorchooser` --- 颜色选择对话框](https://docs.python.org/zh-cn/3.10/library/tkinter.colorchooser.html)
   - [`tkinter.font` --- Tkinter 字体封装](https://docs.python.org/zh-cn/3.10/library/tkinter.font.html)
@@ -238,9 +215,8 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`tkinter.scrolledtext` --- 滚动文字控件](https://docs.python.org/zh-cn/3.10/library/tkinter.scrolledtext.html)
   - [`tkinter.dnd` --- 拖放操作支持](https://docs.python.org/zh-cn/3.10/library/tkinter.dnd.html)
   - [`tkinter.ttk` --- Tk 风格的控件](https://docs.python.org/zh-cn/3.10/library/tkinter.ttk.html)
-  - [`tkinter.tix` --- TK扩展包](https://docs.python.org/zh-cn/3.10/library/tkinter.tix.html)
+  - [`tkinter.tix` --- TK 扩展包](https://docs.python.org/zh-cn/3.10/library/tkinter.tix.html)
   - [IDLE](https://docs.python.org/zh-cn/3.10/library/idle.html)
-  
 - 开发工具
   - [`typing` —— 对类型提示的支持](https://docs.python.org/zh-cn/3.10/library/typing.html)
   - [`pydoc` --- 文档生成器和在线帮助系统](https://docs.python.org/zh-cn/3.10/library/pydoc.html)
@@ -248,7 +224,7 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [Python 开发模式的效果](https://docs.python.org/zh-cn/3.10/library/devmode.html#effects-of-the-python-development-mode)
   - [ResourceWarning 示例](https://docs.python.org/zh-cn/3.10/library/devmode.html#resourcewarning-example)
   - [文件描述符错误示例](https://docs.python.org/zh-cn/3.10/library/devmode.html#bad-file-descriptor-error-example)
-  - [`doctest` --- 测试交互性的Python示例](https://docs.python.org/zh-cn/3.10/library/doctest.html)
+  - [`doctest` --- 测试交互性的 Python 示例](https://docs.python.org/zh-cn/3.10/library/doctest.html)
   - [`unittest` --- 单元测试框架](https://docs.python.org/zh-cn/3.10/library/unittest.html)
   - [`unittest.mock` --- 模拟对象库](https://docs.python.org/zh-cn/3.10/library/unittest.mock.html)
   - [`unittest.mock` --- 上手指南](https://docs.python.org/zh-cn/3.10/library/unittest.mock-examples.html)
@@ -262,7 +238,6 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`test.support.os_helper` --- 用于操作系统测试的工具](https://docs.python.org/zh-cn/3.10/library/test.html#module-test.support.os_helper)
   - [`test.support.import_helper` --- 用于导入测试的工具](https://docs.python.org/zh-cn/3.10/library/test.html#module-test.support.import_helper)
   - [`test.support.warnings_helper` --- 用于警告测试的工具](https://docs.python.org/zh-cn/3.10/library/test.html#module-test.support.warnings_helper)
-  
 - 调试和分析
   - [审计事件表](https://docs.python.org/zh-cn/3.10/library/audit_events.html)
   - [`bdb` --- 调试器框架](https://docs.python.org/zh-cn/3.10/library/bdb.html)
@@ -272,14 +247,12 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`timeit` --- 测量小代码片段的执行时间](https://docs.python.org/zh-cn/3.10/library/timeit.html)
   - [`trace` —— 跟踪 Python 语句的执行](https://docs.python.org/zh-cn/3.10/library/trace.html)
   - [`tracemalloc` --- 跟踪内存分配](https://docs.python.org/zh-cn/3.10/library/tracemalloc.html)
-  
 - 软件打包和分发
   - [`distutils` --- 构建和安装 Python 模块](https://docs.python.org/zh-cn/3.10/library/distutils.html)
   - [`ensurepip` --- 引导 `pip` 安装器](https://docs.python.org/zh-cn/3.10/library/ensurepip.html)
   - [`venv` --- 创建虚拟环境](https://docs.python.org/zh-cn/3.10/library/venv.html)
   - [`zipapp` —— 管理可执行的 Python zip 打包文件](https://docs.python.org/zh-cn/3.10/library/zipapp.html)
-  
-- Python运行时服务
+- Python 运行时服务
   - [`sys` --- 系统相关的形参和函数](https://docs.python.org/zh-cn/3.10/library/sys.html)
   - [`sysconfig` —— 提供对 Python 配置信息的访问支持](https://docs.python.org/zh-cn/3.10/library/sysconfig.html)
   - [`builtins` --- 内建对象](https://docs.python.org/zh-cn/3.10/library/builtins.html)
@@ -294,11 +267,9 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`gc` --- 垃圾回收器接口](https://docs.python.org/zh-cn/3.10/library/gc.html)
   - [`inspect` --- 检查对象](https://docs.python.org/zh-cn/3.10/library/inspect.html)
   - [`site` —— 指定域的配置钩子](https://docs.python.org/zh-cn/3.10/library/site.html)
-  
 - 自定义 Python 解释器
   - [`code` --- 解释器基类](https://docs.python.org/zh-cn/3.10/library/code.html)
-  - [`codeop` --- 编译Python代码](https://docs.python.org/zh-cn/3.10/library/codeop.html)
-  
+  - [`codeop` --- 编译 Python 代码](https://docs.python.org/zh-cn/3.10/library/codeop.html)
 - 导入模块
   - [`zipimport` --- 从 Zip 存档中导入模块](https://docs.python.org/zh-cn/3.10/library/zipimport.html)
   - [`pkgutil` --- 包扩展工具](https://docs.python.org/zh-cn/3.10/library/pkgutil.html)
@@ -306,12 +277,11 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`runpy` ——查找并执行 Python 模块](https://docs.python.org/zh-cn/3.10/library/runpy.html)
   - [`importlib` --- `import` 的实现](https://docs.python.org/zh-cn/3.10/library/importlib.html)
   - [使用 `importlib.metadata`](https://docs.python.org/zh-cn/3.10/library/importlib.metadata.html)
-  
 - Python 语言服务
   - [`ast` --- 抽象语法树](https://docs.python.org/zh-cn/3.10/library/ast.html)
   - [`symtable` ——访问编译器的符号表](https://docs.python.org/zh-cn/3.10/library/symtable.html)
-  - [`token` --- 与Python解析树一起使用的常量](https://docs.python.org/zh-cn/3.10/library/token.html)
-  - [`keyword` --- 检验Python关键字](https://docs.python.org/zh-cn/3.10/library/keyword.html)
+  - [`token` --- 与 Python 解析树一起使用的常量](https://docs.python.org/zh-cn/3.10/library/token.html)
+  - [`keyword` --- 检验 Python 关键字](https://docs.python.org/zh-cn/3.10/library/keyword.html)
   - [`tokenize` --- 对 Python 代码使用的标记解析器](https://docs.python.org/zh-cn/3.10/library/tokenize.html)
   - [`tabnanny` --- 模糊缩进检测](https://docs.python.org/zh-cn/3.10/library/tabnanny.html)
   - [`pyclbr` --- Python 模块浏览器支持](https://docs.python.org/zh-cn/3.10/library/pyclbr.html)
@@ -319,12 +289,10 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`compileall` --- 字节编译 Python 库](https://docs.python.org/zh-cn/3.10/library/compileall.html)
   - [`dis` --- Python 字节码反汇编器](https://docs.python.org/zh-cn/3.10/library/dis.html)
   - [`pickletools` --- pickle 开发者工具集](https://docs.python.org/zh-cn/3.10/library/pickletools.html)
-  
-- Windows系统相关模块
+- Windows 系统相关模块
   - [`msvcrt` --- 来自 MS VC++ 运行时的有用例程](https://docs.python.org/zh-cn/3.10/library/msvcrt.html)
   - [`winreg` --- 访问 Windows 注册表](https://docs.python.org/zh-cn/3.10/library/winreg.html)
   - [`winsound` —— Windows 系统的音频播放接口](https://docs.python.org/zh-cn/3.10/library/winsound.html)
-  
 - Unix 专有服务
   - [`posix` --- 最常见的 POSIX 系统调用](https://docs.python.org/zh-cn/3.10/library/posix.html)
   - [`pwd` --- 用户密码数据库](https://docs.python.org/zh-cn/3.10/library/pwd.html)
@@ -335,7 +303,6 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`fcntl` —— 系统调用 `fcntl` 和 `ioctl`](https://docs.python.org/zh-cn/3.10/library/fcntl.html)
   - [`resource` --- 资源使用信息](https://docs.python.org/zh-cn/3.10/library/resource.html)
   - [Unix syslog 库例程](https://docs.python.org/zh-cn/3.10/library/syslog.html)
-  
 - 被取代的模块
   - [`aifc` --- 读写 AIFF 和 AIFC 文件](https://docs.python.org/zh-cn/3.10/library/aifc.html)
   - [`asynchat` --- 异步套接字指令/响应处理程序](https://docs.python.org/zh-cn/3.10/library/asynchat.html)
@@ -352,7 +319,7 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`nis` --- Sun 的 NIS (黄页) 接口](https://docs.python.org/zh-cn/3.10/library/nis.html)
   - [`nntplib` --- NNTP 协议客户端](https://docs.python.org/zh-cn/3.10/library/nntplib.html)
   - [`optparse` --- 命令行选项的解析器](https://docs.python.org/zh-cn/3.10/library/optparse.html)
-  - [`ossaudiodev` --- 访问兼容OSS的音频设备](https://docs.python.org/zh-cn/3.10/library/ossaudiodev.html)
+  - [`ossaudiodev` --- 访问兼容 OSS 的音频设备](https://docs.python.org/zh-cn/3.10/library/ossaudiodev.html)
   - [`pipes` --- 终端管道接口](https://docs.python.org/zh-cn/3.10/library/pipes.html)
   - [`smtpd` --- SMTP 服务器](https://docs.python.org/zh-cn/3.10/library/smtpd.html)
   - [`sndhdr` --- 推测声音文件的类型](https://docs.python.org/zh-cn/3.10/library/sndhdr.html)
@@ -361,7 +328,6 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`telnetlib` -- Telnet 客户端](https://docs.python.org/zh-cn/3.10/library/telnetlib.html)
   - [`uu` --- 对 uuencode 文件进行编码与解码](https://docs.python.org/zh-cn/3.10/library/uu.html)
   - [`xdrlib` --- 编码与解码 XDR 数据](https://docs.python.org/zh-cn/3.10/library/xdrlib.html)
-  
 - [安全考量](https://docs.python.org/zh-cn/3.10/library/security_warnings.html)
 
   下列模块具有专门的安全事项:
@@ -381,7 +347,5 @@ Windows 版本的 Python 安装程序通常包含整个标准库，往往还包�
   - [`xml`](https://docs.python.org/zh-cn/3.10/library/xml.html#module-xml): [XML 安全缺陷](https://docs.python.org/zh-cn/3.10/library/xml.html#xml-vulnerabilities)
   - [`zipfile`](https://docs.python.org/zh-cn/3.10/library/zipfile.html#module-zipfile): [恶意处理的 .zip 文件可能导致硬盘空间耗尽](https://docs.python.org/zh-cn/3.10/library/zipfile.html#zipfile-resources-limitations)
 
-  
-
-[Python3中文官网](https://docs.python.org/zh-cn/3.6/library/)
-[Python3官方教程](https://docs.python.org/3/tutorial/stdlib2.html)
+[Python3 中文官网](https://docs.python.org/zh-cn/3.6/library/)
+[Python3 官方教程](https://docs.python.org/3/tutorial/stdlib2.html)

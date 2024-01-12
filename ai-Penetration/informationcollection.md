@@ -44,7 +44,7 @@ $ dnsx -silent -d $domain -w ~/wordlist.txt -o ~/dnsbrute.txt
 $ cat domain.txt | dnsgen - | massdns -r ~/resolvers.txt -o S -w alive.txt
 ```
 
-使用httpx过滤子域名
+使用 httpx 过滤子域名
 
 ```
 httpx -l domain.txt -timeout 13 -o domain-probe.txt
@@ -60,8 +60,6 @@ $ naabu -list sub-list.txt -p - -exclude-ports 80,443,21,22,25 -o ports.txt
 $ cat domain-subs.txt | aquatone -ports xlarge -scan-timeout 300 -out aquatone.txt
 ```
 
-
-
 **子域名爆破工具**
 
 subbrute--子域名爆力枚举
@@ -69,8 +67,6 @@ subbrute--子域名爆力枚举
 ```
 https://github.com/TheRook/subbrute
 ```
-
-
 
 altdns--替换域名
 
@@ -83,8 +79,6 @@ https://github.com/infosec-au/altdns
 ```
 ./altdns.py -i subdomains.txt -o data_output -w words.txt -r -s output.txt
 ```
-
-
 
 **网站截图工具**
 
@@ -119,7 +113,7 @@ https://web.archive.org/cdx/search/cdx?url=*.target.com&fl=original&collapse =ur
 
 **小技巧**
 
-收集完url后，curl出url的response，grep以下url：
+收集完 url 后，curl 出 url 的 response，grep 以下 url：
 
 drive.google
 
@@ -133,7 +127,7 @@ docs.google
 $ cat domains.txt | katana -silent | while read url; do cu=$(curl -s $url | grep -E '(drive. google | docs. google | spreadsheet\/d | document.\/d\/)' ;echo -e " ==> $url" "\n"" $cu" ; done
 ```
 
-**使用paramspider和gxss来检测跨站脚本攻击（XSS）。**
+**使用 paramspider 和 gxss 来检测跨站脚本攻击（XSS）。**
 
 命令
 
@@ -149,7 +143,7 @@ $ cat alive.txt | waybackurls | gf xss | uro | httpx -silent | qsreplace '"><svg
 https://github.com/eslam3kl/SQLiDetector
 ```
 
-**shodan搜索技巧**
+**shodan 搜索技巧**
 
 ```
 ssl: “target[.]com” 200 http.title: “dashboard” –unauthenticated dashboard
@@ -164,7 +158,7 @@ ssl:“target.com” http.title:"BIG-IP —F5 BIG-IP using CVE-2020-5902
 
 Censys: https://www.censys.io/
 
-**使用censys查找真实ip**
+**使用 censys 查找真实 ip**
 
 登录到 censys 并转到 censys 搜索页面选择证书，然后在证书中像这样搜索您的目标
 
@@ -176,17 +170,15 @@ Censys: https://www.censys.io/
 
 现在在主机中复制你找到的每个 IP 并尝试在新选项卡中打开它.
 
-**第二种获取ip方法**
+**第二种获取 ip 方法**
 
 登录，这次将您的目标放在主机中。
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/RRrILrELHYibO4yc2fMuibvsB8A6DiaZC3ecGy7KfWdCweCoEsxJkf9R5wYSJ33a91wF8msujJ3ckJ9tQibTJia6rBA/640?wx_fmt=png&tp=wxpic&wxfrom=5&wx_lazy=1&wx_co=1)
 
- 现在选择其他服务系统而不是 Cloudflare 或 Akamai。
+现在选择其他服务系统而不是 Cloudflare 或 Akamai。
 
 ![图片](F:\Images\getip.png)
-
-
 
 尝试新选项卡中的每个 IP 并检查自主 IP，但确保 cert.CN: 必须是 target.com 而不是其他任何东西，并且 target.com 必须在 cert.CN: 中，而不是在 http.body 或其他东西中。
 
@@ -222,7 +214,7 @@ y0gi.hacklido.com/admin/y0gi.zip - hacklido.zip – admin.zip – backup.zip
 
 https://github.com/musana/fuzzuli
 
-**谷歌和GitHub收集**
+**谷歌和 GitHub 收集**
 
 通过 Google Dork 查找云存储中的敏感数据：
 
@@ -242,15 +234,15 @@ Org:“target” pwd/pass/passwd/password
 “Jira.target” pwd/pass/passwd/password
 ```
 
-**js文件收集**
+**js 文件收集**
 
-使用httpx
+使用 httpx
 
 ```
 httpx -content-type | grep 'application/javascript'
 ```
 
-使用nuclei扫描
+使用 nuclei 扫描
 
 ```
 nuclei -t /root/nuclei-templates/exposures/
@@ -272,8 +264,6 @@ https://github.com/KathanP19/JSFScan.sh
 https://github.com/trufflesecurity/trufflehog
 ```
 
-
-
 **其他的自动化框架**
 
 ```
@@ -287,13 +277,11 @@ https://github.com/six2dez/reconftw
 https://github.com/0x727/ShuiZe_0x727
 ```
 
-
-
 - http://cve.mitre.org/ - 常见漏洞和暴露。信息安全漏洞名称标准
-- https://www.exploit-db.com/ - 漏洞数据库-漏洞，Shellcode和安全文件的最终存档。
-- http://0day.today/ - Inj3ct0r是漏洞利用和漏洞的终极数据库，也是漏洞研究人员和安全专业人员的重要资源。
-- http://osvdb.org/ - OSVDB的目标是提供准确、详细、最新和公正的技术安全信息。
-- http://www.securityfocus.com/ - 自1999年成立以来，SecurityFocus一直是安全社区的支柱。
+- https://www.exploit-db.com/ - 漏洞数据库-漏洞，Shellcode 和安全文件的最终存档。
+- http://0day.today/ - Inj3ct0r 是漏洞利用和漏洞的终极数据库，也是漏洞研究人员和安全专业人员的重要资源。
+- http://osvdb.org/ - OSVDB 的目标是提供准确、详细、最新和公正的技术安全信息。
+- http://www.securityfocus.com/ - 自 1999 年成立以来，SecurityFocus 一直是安全社区的支柱。
 - http://packetstormsecurity.com/ - 全球安全资源
-- https://wpvulndb.com/ - WPScan漏洞数据库
-- https://snyk.io/vuln/ - 漏洞DB，已知漏洞的详细信息和补救指导。
+- https://wpvulndb.com/ - WPScan 漏洞数据库
+- https://snyk.io/vuln/ - 漏洞 DB，已知漏洞的详细信息和补救指导。
