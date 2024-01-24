@@ -1,9 +1,11 @@
 #### go 官网下载
+
 ```shell
 https://golang.google.cn/dl/
 ```
 
-## windows环境
+## windows 环境
+
 ```shell
 1、先下载go文件包 https://golang.google.cn/dl/go1.20.3.windows-amd64.zip
 2、解压go文件包
@@ -26,7 +28,7 @@ set GOMODCACHE=D:\go\pkg\mod
 set GONOPROXY=
 set GONOSUMDB=
 set GOOS=windows
-set GOPATH=D:\go
+set GOPATH=D:\GoProjects
 set GOPRIVATE=
 set GOPROXY=https://goproxy.cn,direct
 set GOROOT=C:\Program Files\go
@@ -61,7 +63,8 @@ GO环境下载包代理设置：
     go env -w GOPROXY=https://mirrors.aliyun.com/goproxy,direct
 ```
 
-#### linux文件下载
+#### linux 文件下载
+
 ```shell
 以go1.20.3版本为例：
 wget https://golang.google.cn/dl/go1.20.3.linux-amd64.tar.gz # 先下载go文件包
