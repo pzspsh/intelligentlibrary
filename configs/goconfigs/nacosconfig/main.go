@@ -26,11 +26,11 @@ type NacosConfig struct {
 }
 
 type Config struct {
-	Version   string `json:"version"`
-	Name      string `json:"name"`
-	JwtSecret string `json:"jwtSecret"`
-	PgLink    string `json:"pgLink"`
-	LogPath   string `json:"logPath"`
+	Version  string `json:"version"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	WebUrl   string `json:"weburl"`
+	LogPath  string `json:"logPath"`
 }
 
 func (n NacosConfig) FillNacosEnv() NacosConfig {
@@ -48,11 +48,10 @@ func (n NacosConfig) FillNacosEnv() NacosConfig {
 }
 
 func getNacosClient(nacosConfig NacosConfig) config_client.IConfigClient {
-
 	// get nacos password
 	password := os.Getenv("YJWB_NACOS_PASSWORD")
 	if password == "" {
-		password = "yjwb@lab.co"
+		password = "password"
 	}
 	//create ServerConfig
 	sc := []constant.ServerConfig{
@@ -86,7 +85,6 @@ func getNacosClient(nacosConfig NacosConfig) config_client.IConfigClient {
 }
 
 func (x Config) GetConfig(nacosConfig NacosConfig) Config {
-
 	client := getNacosClient(nacosConfig)
 
 	//get config
@@ -103,7 +101,7 @@ func (x Config) GetConfig(nacosConfig NacosConfig) Config {
 
 func (x Config) LoadConfig() Config {
 	nacos := NacosConfig{
-		Ip:        "ip",
+		Ip:        "ipconfig",
 		Port:      9999,
 		Namespace: "test",
 		DataId:    "configid",
@@ -114,5 +112,7 @@ func (x Config) LoadConfig() Config {
 }
 
 func main() {
-
+	var config Config
+	config = config.LoadConfig()
+	fmt.Printf("%+v\n", config)
 }
