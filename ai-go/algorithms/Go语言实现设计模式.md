@@ -32,116 +32,116 @@ import "fmt"
 
 // BoardingProcessor 登机过程中，各节点统一处理接口
 type BoardingProcessor interface {
-  SetNextProcessor(processor BoardingProcessor)
-  ProcessFor(passenger *Passenger)
+    SetNextProcessor(processor BoardingProcessor)
+    ProcessFor(passenger *Passenger)
 }
 
 // Passenger 旅客
 type Passenger struct {
-  name                  string // 姓名
-  hasBoardingPass       bool   // 是否办理登机牌
-  hasLuggage            bool   // 是否有行李需要托运
-  isPassIdentityCheck   bool   // 是否通过身份校验
-  isPassSecurityCheck   bool   // 是否通过安检
-  isCompleteForBoarding bool   // 是否完成登机
+    name                  string // 姓名
+    hasBoardingPass       bool   // 是否办理登机牌
+    hasLuggage            bool   // 是否有行李需要托运
+    isPassIdentityCheck   bool   // 是否通过身份校验
+    isPassSecurityCheck   bool   // 是否通过安检
+    isCompleteForBoarding bool   // 是否完成登机
 }
 
 // baseBoardingProcessor 登机流程处理器基类
 type baseBoardingProcessor struct {
-  // nextProcessor 下一个登机处理流程
-  nextProcessor BoardingProcessor
+    // nextProcessor 下一个登机处理流程
+    nextProcessor BoardingProcessor
 }
 
 // SetNextProcessor 基类中统一实现设置下一个处理器方法
 func (b *baseBoardingProcessor) SetNextProcessor(processor BoardingProcessor) {
-  b.nextProcessor = processor
+    b.nextProcessor = processor
 }
 
 // ProcessFor 基类中统一实现下一个处理器流转
 func (b *baseBoardingProcessor) ProcessFor(passenger *Passenger) {
-  if b.nextProcessor != nil {
-    b.nextProcessor.ProcessFor(passenger)
-  }
+    if b.nextProcessor != nil {
+        b.nextProcessor.ProcessFor(passenger)
+    }
 }
 
 // boardingPassProcessor 办理登机牌处理器
 type boardingPassProcessor struct {
-  baseBoardingProcessor // 引用基类
+    baseBoardingProcessor // 引用基类
 }
 
 func (b *boardingPassProcessor) ProcessFor(passenger *Passenger) {
-  if !passenger.hasBoardingPass {
-    fmt.Printf("为旅客%s办理登机牌;\n", passenger.name)
-    passenger.hasBoardingPass = true
-  }
-  // 成功办理登机牌后，进入下一个流程处理
-  b.baseBoardingProcessor.ProcessFor(passenger)
+    if !passenger.hasBoardingPass {
+        fmt.Printf("为旅客%s办理登机牌;\n", passenger.name)
+        passenger.hasBoardingPass = true
+    }
+    // 成功办理登机牌后，进入下一个流程处理
+    b.baseBoardingProcessor.ProcessFor(passenger)
 }
 
 // luggageCheckInProcessor 托运行李处理器
 type luggageCheckInProcessor struct {
-  baseBoardingProcessor
+    baseBoardingProcessor
 }
 
 func (l *luggageCheckInProcessor) ProcessFor(passenger *Passenger) {
-  if !passenger.hasBoardingPass {
-    fmt.Printf("旅客%s未办理登机牌，不能托运行李;\n", passenger.name)
-    return
-  }
-  if passenger.hasLuggage {
-    fmt.Printf("为旅客%s办理行李托运;\n", passenger.name)
-  }
-  l.baseBoardingProcessor.ProcessFor(passenger)
+    if !passenger.hasBoardingPass {
+        fmt.Printf("旅客%s未办理登机牌，不能托运行李;\n", passenger.name)
+        return
+    }
+    if passenger.hasLuggage {
+        fmt.Printf("为旅客%s办理行李托运;\n", passenger.name)
+    }
+    l.baseBoardingProcessor.ProcessFor(passenger)
 }
 
 // identityCheckProcessor 校验身份处理器
 type identityCheckProcessor struct {
-  baseBoardingProcessor
+    baseBoardingProcessor
 }
 
 func (i *identityCheckProcessor) ProcessFor(passenger *Passenger) {
-  if !passenger.hasBoardingPass {
-    fmt.Printf("旅客%s未办理登机牌，不能办理身份校验;\n", passenger.name)
-    return
-  }
-  if !passenger.isPassIdentityCheck {
-    fmt.Printf("为旅客%s核实身份信息;\n", passenger.name)
-    passenger.isPassIdentityCheck = true
-  }
-  i.baseBoardingProcessor.ProcessFor(passenger)
+    if !passenger.hasBoardingPass {
+        fmt.Printf("旅客%s未办理登机牌，不能办理身份校验;\n", passenger.name)
+        return
+    }
+    if !passenger.isPassIdentityCheck {
+        fmt.Printf("为旅客%s核实身份信息;\n", passenger.name)
+        passenger.isPassIdentityCheck = true
+    }
+    i.baseBoardingProcessor.ProcessFor(passenger)
 }
 
 // securityCheckProcessor 安检处理器
 type securityCheckProcessor struct {
-  baseBoardingProcessor
+    baseBoardingProcessor
 }
 
 func (s *securityCheckProcessor) ProcessFor(passenger *Passenger) {
-  if !passenger.hasBoardingPass {
-    fmt.Printf("旅客%s未办理登机牌，不能进行安检;\n", passenger.name)
-    return
-  }
-  if !passenger.isPassSecurityCheck {
-    fmt.Printf("为旅客%s进行安检;\n", passenger.name)
-    passenger.isPassSecurityCheck = true
-  }
-  s.baseBoardingProcessor.ProcessFor(passenger)
+    if !passenger.hasBoardingPass {
+        fmt.Printf("旅客%s未办理登机牌，不能进行安检;\n", passenger.name)
+        return
+    }
+    if !passenger.isPassSecurityCheck {
+        fmt.Printf("为旅客%s进行安检;\n", passenger.name)
+        passenger.isPassSecurityCheck = true
+    }
+    s.baseBoardingProcessor.ProcessFor(passenger)
 }
 
 // completeBoardingProcessor 完成登机处理器
 type completeBoardingProcessor struct {
-  baseBoardingProcessor
+    baseBoardingProcessor
 }
 
 func (c *completeBoardingProcessor) ProcessFor(passenger *Passenger) {
-  if !passenger.hasBoardingPass ||
+    if !passenger.hasBoardingPass ||
     !passenger.isPassIdentityCheck ||
     !passenger.isPassSecurityCheck {
-    fmt.Printf("旅客%s登机检查过程未完成，不能登机;\n", passenger.name)
-    return
-  }
-  passenger.isCompleteForBoarding = true
-  fmt.Printf("旅客%s成功登机;\n", passenger.name)
+        fmt.Printf("旅客%s登机检查过程未完成，不能登机;\n", passenger.name)
+        return
+    }
+    passenger.isCompleteForBoarding = true
+    fmt.Printf("旅客%s成功登机;\n", passenger.name)
 }
 ```
 
@@ -153,34 +153,34 @@ package chainofresponsibility
 import "testing"
 
 func TestChainOfResponsibility(t *testing.T) {
-  boardingProcessor := BuildBoardingProcessorChain()
-  passenger := &Passenger{
-    name:                  "李四",
-    hasBoardingPass:       false,
-    hasLuggage:            true,
-    isPassIdentityCheck:   false,
-    isPassSecurityCheck:   false,
-    isCompleteForBoarding: false,
-  }
-  boardingProcessor.ProcessFor(passenger)
+    boardingProcessor := BuildBoardingProcessorChain()
+    passenger := &Passenger{
+        name:                  "李四",
+        hasBoardingPass:       false,
+        hasLuggage:            true,
+        isPassIdentityCheck:   false,
+        isPassSecurityCheck:   false,
+        isCompleteForBoarding: false,
+    }
+    boardingProcessor.ProcessFor(passenger)
 }
 
 // BuildBoardingProcessorChain 构建登机流程处理链
 func BuildBoardingProcessorChain() BoardingProcessor {
-  completeBoardingNode := &completeBoardingProcessor{}
+    completeBoardingNode := &completeBoardingProcessor{}
 
-  securityCheckNode := &securityCheckProcessor{}
-  securityCheckNode.SetNextProcessor(completeBoardingNode)
+    securityCheckNode := &securityCheckProcessor{}
+    securityCheckNode.SetNextProcessor(completeBoardingNode)
 
-  identityCheckNode := &identityCheckProcessor{}
-  identityCheckNode.SetNextProcessor(securityCheckNode)
+    identityCheckNode := &identityCheckProcessor{}
+    identityCheckNode.SetNextProcessor(securityCheckNode)
 
-  luggageCheckInNode := &luggageCheckInProcessor{}
-  luggageCheckInNode.SetNextProcessor(identityCheckNode)
+    luggageCheckInNode := &luggageCheckInProcessor{}
+    luggageCheckInNode.SetNextProcessor(identityCheckNode)
 
-  boardingPassNode := &boardingPassProcessor{}
-  boardingPassNode.SetNextProcessor(luggageCheckInNode)
-  return boardingPassNode
+    boardingPassNode := &boardingPassProcessor{}
+    boardingPassNode.SetNextProcessor(luggageCheckInNode)
+    return boardingPassNode
 }
 ```
 
@@ -222,28 +222,28 @@ import "fmt"
 
 // ElectricCooker 电饭煲
 type ElectricCooker struct {
-  fire     string // 火力
-  pressure string // 压力
+    fire     string // 火力
+    pressure string // 压力
 }
 
 // SetFire 设置火力
 func (e *ElectricCooker) SetFire(fire string) {
-  e.fire = fire
+    e.fire = fire
 }
 
 // SetPressure 设置压力
 func (e *ElectricCooker) SetPressure(pressure string) {
-  e.pressure = pressure
+    e.pressure = pressure
 }
 
 // Run 持续运行指定时间
 func (e *ElectricCooker) Run(duration string) string {
-  return fmt.Sprintf("电饭煲设置火力为%s,压力为%s,持续运行%s;", e.fire, e.pressure, duration)
+    return fmt.Sprintf("电饭煲设置火力为%s,压力为%s,持续运行%s;", e.fire, e.pressure, duration)
 }
 
 // Shutdown 停止
 func (e *ElectricCooker) Shutdown() string {
-  return "电饭煲停止运行。"
+    return "电饭煲停止运行。"
 }
 
 ```
@@ -256,71 +256,71 @@ package command
 
 // CookCommand 做饭指令接口
 type CookCommand interface {
-  Execute() string // 指令执行方法
+    Execute() string // 指令执行方法
 }
 
 // steamRiceCommand 蒸饭指令
 type steamRiceCommand struct {
-  electricCooker *ElectricCooker // 电饭煲
+    electricCooker *ElectricCooker // 电饭煲
 }
 
 func NewSteamRiceCommand(electricCooker *ElectricCooker) *steamRiceCommand {
-  return &steamRiceCommand{
-    electricCooker: electricCooker,
-  }
+    return &steamRiceCommand{
+        electricCooker: electricCooker,
+    }
 }
 
 func (s *steamRiceCommand) Execute() string {
-  s.electricCooker.SetFire("中")
-  s.electricCooker.SetPressure("正常")
-  return "蒸饭:" + s.electricCooker.Run("30分钟")
+    s.electricCooker.SetFire("中")
+    s.electricCooker.SetPressure("正常")
+    return "蒸饭:" + s.electricCooker.Run("30分钟")
 }
 
 // cookCongeeCommand 煮粥指令
 type cookCongeeCommand struct {
-  electricCooker *ElectricCooker
+    electricCooker *ElectricCooker
 }
 
 func NewCookCongeeCommand(electricCooker *ElectricCooker) *cookCongeeCommand {
-  return &cookCongeeCommand{
-    electricCooker: electricCooker,
-  }
+    return &cookCongeeCommand{
+        electricCooker: electricCooker,
+    }
 }
 
 func (c *cookCongeeCommand) Execute() string {
-  c.electricCooker.SetFire("大")
-  c.electricCooker.SetPressure("强")
-  return "煮粥:" + c.electricCooker.Run("45分钟")
+    c.electricCooker.SetFire("大")
+    c.electricCooker.SetPressure("强")
+    return "煮粥:" + c.electricCooker.Run("45分钟")
 }
 
 // shutdownCommand 停止指令
 type shutdownCommand struct {
-  electricCooker *ElectricCooker
+    electricCooker *ElectricCooker
 }
 
 func NewShutdownCommand(electricCooker *ElectricCooker) *shutdownCommand {
-  return &shutdownCommand{
-    electricCooker: electricCooker,
-  }
+    return &shutdownCommand{
+        electricCooker: electricCooker,
+    }
 }
 
 func (s *shutdownCommand) Execute() string {
-  return s.electricCooker.Shutdown()
+    return s.electricCooker.Shutdown()
 }
 
 // ElectricCookerInvoker 电饭煲指令触发器
 type ElectricCookerInvoker struct {
-  cookCommand CookCommand
+    cookCommand CookCommand
 }
 
 // SetCookCommand 设置指令
 func (e *ElectricCookerInvoker) SetCookCommand(cookCommand CookCommand) {
-  e.cookCommand = cookCommand
+    e.cookCommand = cookCommand
 }
 
 // ExecuteCookCommand 执行指令
 func (e *ElectricCookerInvoker) ExecuteCookCommand() string {
-  return e.cookCommand.Execute()
+    return e.cookCommand.Execute()
 }
 ```
 
@@ -330,30 +330,30 @@ func (e *ElectricCookerInvoker) ExecuteCookCommand() string {
 package command
 
 import (
-  "fmt"
-  "testing"
+    "fmt"
+    "testing"
 )
 
 func TestCommand(t *testing.T) {
-  // 创建电饭煲，命令接受者
-  electricCooker := new(ElectricCooker)
-  // 创建电饭煲指令触发器
-  electricCookerInvoker := new(ElectricCookerInvoker)
+    // 创建电饭煲，命令接受者
+    electricCooker := new(ElectricCooker)
+    // 创建电饭煲指令触发器
+    electricCookerInvoker := new(ElectricCookerInvoker)
 
-  // 蒸饭
-  steamRiceCommand := NewSteamRiceCommand(electricCooker)
-  electricCookerInvoker.SetCookCommand(steamRiceCommand)
-  fmt.Println(electricCookerInvoker.ExecuteCookCommand())
+    // 蒸饭
+    steamRiceCommand := NewSteamRiceCommand(electricCooker)
+    electricCookerInvoker.SetCookCommand(steamRiceCommand)
+    fmt.Println(electricCookerInvoker.ExecuteCookCommand())
 
-  // 煮粥
-  cookCongeeCommand := NewCookCongeeCommand(electricCooker)
-  electricCookerInvoker.SetCookCommand(cookCongeeCommand)
-  fmt.Println(electricCookerInvoker.ExecuteCookCommand())
+    // 煮粥
+    cookCongeeCommand := NewCookCongeeCommand(electricCooker)
+    electricCookerInvoker.SetCookCommand(cookCongeeCommand)
+    fmt.Println(electricCookerInvoker.ExecuteCookCommand())
 
-  // 停止
-  shutdownCommand := NewShutdownCommand(electricCooker)
-  electricCookerInvoker.SetCookCommand(shutdownCommand)
-  fmt.Println(electricCookerInvoker.ExecuteCookCommand())
+    // 停止
+    shutdownCommand := NewShutdownCommand(electricCooker)
+    electricCookerInvoker.SetCookCommand(shutdownCommand)
+    fmt.Println(electricCookerInvoker.ExecuteCookCommand())
 }
 ```
 
@@ -389,50 +389,49 @@ PASS
 ### **（三）班级成员**
 
 ```go
-
 package iterator
 
 import "fmt"
 
 // Member 成员接口
 type Member interface {
-  Desc() string // 输出成员描述信息
+    Desc() string // 输出成员描述信息
 }
 
 // Teacher 老师
 type Teacher struct {
-  name    string // 名称
-  subject string // 所教课程
+    name    string // 名称
+    subject string // 所教课程
 }
 
 // NewTeacher 根据姓名、课程创建老师对象
 func NewTeacher(name, subject string) *Teacher {
-  return &Teacher{
-    name:    name,
-    subject: subject,
-  }
+    return &Teacher{
+        name:    name,
+        subject: subject,
+    }
 }
 
 func (t *Teacher) Desc() string {
-  return fmt.Sprintf("%s班主任老师负责教%s", t.name, t.subject)
+    return fmt.Sprintf("%s班主任老师负责教%s", t.name, t.subject)
 }
 
 // Student 学生
 type Student struct {
-  name     string // 姓名
-  sumScore int    // 考试总分数
+    name     string // 姓名
+    sumScore int    // 考试总分数
 }
 
 // NewStudent 创建学生对象
 func NewStudent(name string, sumScore int) *Student {
-  return &Student{
-    name:     name,
-    sumScore: sumScore,
-  }
+    return &Student{
+        name:     name,
+        sumScore: sumScore,
+    }
 }
 
 func (t *Student) Desc() string {
-  return fmt.Sprintf("%s同学考试总分为%d", t.name, t.sumScore)
+    return fmt.Sprintf("%s同学考试总分为%d", t.name, t.sumScore)
 }
 
 ```
@@ -440,71 +439,70 @@ func (t *Student) Desc() string {
 ### **（四）班级成员迭代器**
 
 ```go
-
 package iterator
 
 // Iterator 迭代器接口
 type Iterator interface {
-  Next() Member  // 迭代下一个成员
-  HasMore() bool // 是否还有
+    Next() Member  // 迭代下一个成员
+    HasMore() bool // 是否还有
 }
 
 // memberIterator 班级成员迭代器实现
 type memberIterator struct {
-  class *Class // 需迭代的班级
-  index int    // 迭代索引
+    class *Class // 需迭代的班级
+    index int    // 迭代索引
 }
 
 func (m *memberIterator) Next() Member {
-  // 迭代索引为-1时，返回老师成员，否则遍历学生slice
-  if m.index == -1 {
+    // 迭代索引为-1时，返回老师成员，否则遍历学生slice
+    if m.index == -1 {
+        m.index++
+        return m.class.teacher
+    }
+    student := m.class.students[m.index]
     m.index++
-    return m.class.teacher
-  }
-  student := m.class.students[m.index]
-  m.index++
-  return student
+    return student
 }
 
 func (m *memberIterator) HasMore() bool {
-  return m.index < len(m.class.students)
+    return m.index < len(m.class.students)
 }
 
 // Iterable 可迭代集合接口，实现此接口返回迭代器
 type Iterable interface {
-  CreateIterator() Iterator
+    CreateIterator() Iterator
 }
 
 // Class 班级，包括老师和同学
 type Class struct {
-  name     string
-  teacher  *Teacher
-  students []*Student
+    name     string
+    teacher  *Teacher
+    students []*Student
 }
 
 // NewClass 根据班主任老师名称，授课创建班级
 func NewClass(name, teacherName, teacherSubject string) *Class {
-  return &Class{
-    name:    name,
-    teacher: NewTeacher(teacherName, teacherSubject),
-  }
+    return &Class{
+        name:    name,
+        teacher: NewTeacher(teacherName, teacherSubject),
+    }
 }
 
 // CreateIterator 创建班级迭代器
 func (c *Class) CreateIterator() Iterator {
-  return &memberIterator{
-    class: c,
-    index: -1, // 迭代索引初始化为-1，从老师开始迭代
-  }
+    return &memberIterator{
+        class: c,
+        index: -1, // 迭代索引初始化为-1，从老师开始迭代
+    }
 }
 
 func (c *Class) Name() string {
-  return c.name
+    return c.name
 }
 
 // AddStudent 班级添加同学
 func (c *Class) AddStudent(students ...*Student) {
-  c.students = append(c.students, students...)
+    c.students = append(c.students, students...)
 }
 
 ```
@@ -515,22 +513,22 @@ func (c *Class) AddStudent(students ...*Student) {
 package iterator
 
 import (
-  "fmt"
-  "testing"
+    "fmt"
+    "testing"
 )
 
 func TestIterator(t *testing.T) {
-  class := NewClass("三年级一班", "王明", "数学课")
-  class.AddStudent(NewStudent("张三", 389),
-    NewStudent("李四", 378),
-    NewStudent("王五", 347))
+    class := NewClass("三年级一班", "王明", "数学课")
+    class.AddStudent(NewStudent("张三", 389),
+                     NewStudent("李四", 378),
+                     NewStudent("王五", 347))
 
-  fmt.Printf("%s成员如下:\n", class.Name())
-  classIterator := class.CreateIterator()
-  for classIterator.HasMore() {
-    member := classIterator.Next()
-    fmt.Println(member.Desc())
-  }
+    fmt.Printf("%s成员如下:\n", class.Name())
+    classIterator := class.CreateIterator()
+    for classIterator.HasMore() {
+        member := classIterator.Next()
+        fmt.Println(member.Desc())
+    }
 }
 ```
 
@@ -574,62 +572,62 @@ import "fmt"
 
 // Aircraft 飞机接口
 type Aircraft interface {
-  ApproachAirport() // 抵达机场空域
-  DepartAirport()   // 飞离机场
+    ApproachAirport() // 抵达机场空域
+    DepartAirport()   // 飞离机场
 }
 
 // airliner 客机
 type airliner struct {
-  name            string          // 客机型号
-  airportMediator AirportMediator // 机场调度
+    name            string          // 客机型号
+    airportMediator AirportMediator // 机场调度
 }
 
 // NewAirliner 根据指定型号及机场调度创建客机
 func NewAirliner(name string, mediator AirportMediator) *airliner {
-  return &airliner{
-    name:            name,
-    airportMediator: mediator,
-  }
+    return &airliner{
+        name:            name,
+        airportMediator: mediator,
+    }
 }
 
 func (a *airliner) ApproachAirport() {
-  if !a.airportMediator.CanLandAirport(a) { // 请求塔台是否可以降落
-    fmt.Printf("机场繁忙，客机%s继续等待降落;\n", a.name)
-    return
-  }
-  fmt.Printf("客机%s成功滑翔降落机场;\n", a.name)
+    if !a.airportMediator.CanLandAirport(a) { // 请求塔台是否可以降落
+        fmt.Printf("机场繁忙，客机%s继续等待降落;\n", a.name)
+        return
+    }
+    fmt.Printf("客机%s成功滑翔降落机场;\n", a.name)
 }
 
 func (a *airliner) DepartAirport() {
-  fmt.Printf("客机%s成功滑翔起飞，离开机场;\n", a.name)
-  a.airportMediator.NotifyWaitingAircraft() // 通知等待的其他飞机
+    fmt.Printf("客机%s成功滑翔起飞，离开机场;\n", a.name)
+    a.airportMediator.NotifyWaitingAircraft() // 通知等待的其他飞机
 }
 
 // helicopter 直升机
 type helicopter struct {
-  name            string
-  airportMediator AirportMediator
+    name            string
+    airportMediator AirportMediator
 }
 
 // NewHelicopter 根据指定型号及机场调度创建直升机
 func NewHelicopter(name string, mediator AirportMediator) *helicopter {
-  return &helicopter{
-    name:            name,
-    airportMediator: mediator,
-  }
+    return &helicopter{
+        name:            name,
+        airportMediator: mediator,
+    }
 }
 
 func (h *helicopter) ApproachAirport() {
-  if !h.airportMediator.CanLandAirport(h) { // 请求塔台是否可以降落
-    fmt.Printf("机场繁忙，直升机%s继续等待降落;\n", h.name)
-    return
-  }
-  fmt.Printf("直升机%s成功垂直降落机场;\n", h.name)
+    if !h.airportMediator.CanLandAirport(h) { // 请求塔台是否可以降落
+        fmt.Printf("机场繁忙，直升机%s继续等待降落;\n", h.name)
+        return
+    }
+    fmt.Printf("直升机%s成功垂直降落机场;\n", h.name)
 }
 
 func (h *helicopter) DepartAirport() {
-  fmt.Printf("直升机%s成功垂直起飞，离开机场;\n", h.name)
-  h.airportMediator.NotifyWaitingAircraft() // 通知其他等待降落的飞机
+    fmt.Printf("直升机%s成功垂直起飞，离开机场;\n", h.name)
+    h.airportMediator.NotifyWaitingAircraft() // 通知其他等待降落的飞机
 }
 
 ```
@@ -641,36 +639,36 @@ package mediator
 
 // AirportMediator 机场调度中介者
 type AirportMediator interface {
-  CanLandAirport(aircraft Aircraft) bool // 确认是否可以降落
-  NotifyWaitingAircraft()                // 通知等待降落的其他飞机
+    CanLandAirport(aircraft Aircraft) bool // 确认是否可以降落
+    NotifyWaitingAircraft()                // 通知等待降落的其他飞机
 }
 
 // ApproachTower 机场塔台
 type ApproachTower struct {
-  hasFreeAirstrip bool
-  waitingQueue    []Aircraft // 等待降落的飞机队列
+    hasFreeAirstrip bool
+    waitingQueue    []Aircraft // 等待降落的飞机队列
 }
 
 func (a *ApproachTower) CanLandAirport(aircraft Aircraft) bool {
-  if a.hasFreeAirstrip {
-    a.hasFreeAirstrip = false
-    return true
-  }
-  // 没有空余的跑道，加入等待队列
-  a.waitingQueue = append(a.waitingQueue, aircraft)
-  return false
+    if a.hasFreeAirstrip {
+        a.hasFreeAirstrip = false
+        return true
+    }
+    // 没有空余的跑道，加入等待队列
+    a.waitingQueue = append(a.waitingQueue, aircraft)
+    return false
 }
 
 func (a *ApproachTower) NotifyWaitingAircraft() {
-  if !a.hasFreeAirstrip {
-    a.hasFreeAirstrip = true
-  }
-  if len(a.waitingQueue) > 0 {
-    // 如果存在等待降落的飞机，通知第一个降落
-    first := a.waitingQueue[0]
-    a.waitingQueue = a.waitingQueue[1:]
-    first.ApproachAirport()
-  }
+    if !a.hasFreeAirstrip {
+        a.hasFreeAirstrip = true
+    }
+    if len(a.waitingQueue) > 0 {
+        // 如果存在等待降落的飞机，通知第一个降落
+        first := a.waitingQueue[0]
+        a.waitingQueue = a.waitingQueue[1:]
+        first.ApproachAirport()
+    }
 }
 
 ```
@@ -683,18 +681,18 @@ package mediator
 import "testing"
 
 func TestMediator(t *testing.T) {
-  // 创建机场调度塔台
-  airportMediator := &ApproachTower{hasFreeAirstrip: true}
-  // 创建C919客机
-  c919Airliner := NewAirliner("C919", airportMediator)
-  // 创建米-26重型运输直升机
-  m26Helicopter := NewHelicopter("米-26", airportMediator)
+    // 创建机场调度塔台
+    airportMediator := &ApproachTower{hasFreeAirstrip: true}
+    // 创建C919客机
+    c919Airliner := NewAirliner("C919", airportMediator)
+    // 创建米-26重型运输直升机
+    m26Helicopter := NewHelicopter("米-26", airportMediator)
 
-  c919Airliner.ApproachAirport()  // c919进港降落
-  m26Helicopter.ApproachAirport() // 米-26进港等待
+    c919Airliner.ApproachAirport()  // c919进港降落
+    m26Helicopter.ApproachAirport() // 米-26进港等待
 
-  c919Airliner.DepartAirport()  // c919飞离，等待的米-26进港降落
-  m26Helicopter.DepartAirport() // 最后米-26飞离
+    c919Airliner.DepartAirport()  // c919飞离，等待的米-26进港降落
+    m26Helicopter.DepartAirport() // 最后米-26飞离
 }
 ```
 
@@ -738,41 +736,41 @@ import "fmt"
 
 // Originator 备忘录模式原发器接口
 type Originator interface {
-  Save(tag string) Memento // 当前状态保存备忘录
+    Save(tag string) Memento // 当前状态保存备忘录
 }
 
 // RolesPlayGame 支持存档的RPG游戏
 type RolesPlayGame struct {
-  name          string   // 游戏名称
-  rolesState    []string // 游戏角色状态
-  scenarioState string   // 游戏场景状态
+    name          string   // 游戏名称
+    rolesState    []string // 游戏角色状态
+    scenarioState string   // 游戏场景状态
 }
 
 // NewRolesPlayGame 根据游戏名称和角色名，创建RPG游戏
 func NewRolesPlayGame(name string, roleName string) *RolesPlayGame {
-  return &RolesPlayGame{
-    name:          name,
-    rolesState:    []string{roleName, "血量100"}, // 默认满血
-    scenarioState: "开始通过第一关",                   // 默认第一关开始
-  }
+    return &RolesPlayGame{
+        name:          name,
+        rolesState:    []string{roleName, "血量100"}, // 默认满血
+        scenarioState: "开始通过第一关",                   // 默认第一关开始
+    }
 }
 
 // Save 保存RPG游戏角色状态及场景状态到指定标签归档
 func (r *RolesPlayGame) Save(tag string) Memento {
-  return newRPGArchive(tag, r.rolesState, r.scenarioState, r)
+    return newRPGArchive(tag, r.rolesState, r.scenarioState, r)
 }
 
 func (r *RolesPlayGame) SetRolesState(rolesState []string) {
-  r.rolesState = rolesState
+    r.rolesState = rolesState
 }
 
 func (r *RolesPlayGame) SetScenarioState(scenarioState string) {
-  r.scenarioState = scenarioState
+    r.scenarioState = scenarioState
 }
 
 // String 输出RPG游戏简要信息
 func (r *RolesPlayGame) String() string {
-  return fmt.Sprintf("在%s游戏中，玩家使用%s,%s,%s;", r.name, r.rolesState[0], r.rolesState[1], r.scenarioState)
+    return fmt.Sprintf("在%s游戏中，玩家使用%s,%s,%s;", r.name, r.rolesState[0], r.rolesState[1], r.scenarioState)
 }
 ```
 
@@ -785,60 +783,60 @@ import "fmt"
 
 // Memento 备忘录接口
 type Memento interface {
-  Tag() string // 备忘录标签
-  Restore()    // 根据备忘录存储数据状态恢复原对象
+    Tag() string // 备忘录标签
+    Restore()    // 根据备忘录存储数据状态恢复原对象
 }
 
 // rpgArchive rpg游戏存档，
 type rpgArchive struct {
-  tag           string         // 存档标签
-  rolesState    []string       // 存档的角色状态
-  scenarioState string         // 存档游戏场景状态
-  rpg           *RolesPlayGame // rpg游戏引用
+    tag           string         // 存档标签
+    rolesState    []string       // 存档的角色状态
+    scenarioState string         // 存档游戏场景状态
+    rpg           *RolesPlayGame // rpg游戏引用
 }
 
 // newRPGArchive 根据标签，角色状态，场景状态，rpg游戏引用，创建游戏归档备忘录
 func newRPGArchive(tag string, rolesState []string, scenarioState string, rpg *RolesPlayGame) *rpgArchive {
-  return &rpgArchive{
-    tag:           tag,
-    rolesState:    rolesState,
-    scenarioState: scenarioState,
-    rpg:           rpg,
-  }
+    return &rpgArchive{
+        tag:           tag,
+        rolesState:    rolesState,
+        scenarioState: scenarioState,
+        rpg:           rpg,
+    }
 }
 
 func (r *rpgArchive) Tag() string {
-  return r.tag
+    return r.tag
 }
 
 // Restore 根据归档数据恢复游戏状态
 func (r *rpgArchive) Restore() {
-  r.rpg.SetRolesState(r.rolesState)
-  r.rpg.SetScenarioState(r.scenarioState)
+    r.rpg.SetRolesState(r.rolesState)
+    r.rpg.SetScenarioState(r.scenarioState)
 }
 
 // RPGArchiveManager RPG游戏归档管理器
 type RPGArchiveManager struct {
-  archives map[string]Memento // 存储归档标签对应归档
+    archives map[string]Memento // 存储归档标签对应归档
 }
 
 func NewRPGArchiveManager() *RPGArchiveManager {
-  return &RPGArchiveManager{
-    archives: make(map[string]Memento),
-  }
+    return &RPGArchiveManager{
+        archives: make(map[string]Memento),
+    }
 }
 
 // Reload 根据标签重新加载归档数据
 func (r *RPGArchiveManager) Reload(tag string) {
-  if archive, ok := r.archives[tag]; ok {
-    fmt.Printf("重新加载%s;\n", tag)
-    archive.Restore()
-  }
+    if archive, ok := r.archives[tag]; ok {
+        fmt.Printf("重新加载%s;\n", tag)
+        archive.Restore()
+    }
 }
 
 // Put 保存归档数据
 func (r *RPGArchiveManager) Put(memento Memento) {
-  r.archives[memento.Tag()] = memento
+    r.archives[memento.Tag()] = memento
 }
 ```
 
@@ -848,26 +846,26 @@ func (r *RPGArchiveManager) Put(memento Memento) {
 package memento
 
 import (
-  "fmt"
-  "testing"
+    "fmt"
+    "testing"
 )
 
 func TestMemento(t *testing.T) {
-  // 创建RPG游戏存档管理器
-  rpgManager := NewRPGArchiveManager()
-  // 创建RPG游戏
-  rpg := NewRolesPlayGame("暗黑破坏神2", "野蛮人战士")
-  fmt.Println(rpg)                  // 输出游戏当前状态
-  rpgManager.Put(rpg.Save("第一关存档")) // 游戏存档
+    // 创建RPG游戏存档管理器
+    rpgManager := NewRPGArchiveManager()
+    // 创建RPG游戏
+    rpg := NewRolesPlayGame("暗黑破坏神2", "野蛮人战士")
+    fmt.Println(rpg)                  // 输出游戏当前状态
+    rpgManager.Put(rpg.Save("第一关存档")) // 游戏存档
 
-  // 第一关闯关失败
-  rpg.SetRolesState([]string{"野蛮人战士", "死亡"})
-  rpg.SetScenarioState("第一关闯关失败")
-  fmt.Println(rpg)
+    // 第一关闯关失败
+    rpg.SetRolesState([]string{"野蛮人战士", "死亡"})
+    rpg.SetScenarioState("第一关闯关失败")
+    fmt.Println(rpg)
 
-  // 恢复存档，重新闯关
-  rpgManager.Reload("第一关存档")
-  fmt.Println(rpg)
+    // 恢复存档，重新闯关
+    rpgManager.Reload("第一关存档")
+    fmt.Println(rpg)
 }
 ```
 
@@ -923,41 +921,41 @@ import "fmt"
 
 // Subscriber 订阅者接口
 type Subscriber interface {
-  Name() string          //订阅者名称
-  Update(message string) //订阅更新方法
+    Name() string          //订阅者名称
+    Update(message string) //订阅更新方法
 }
 
 // shortMessage 信用卡消息短信订阅者
 type shortMessage struct{}
 
 func (s *shortMessage) Name() string {
-  return "手机短息"
+    return "手机短息"
 }
 
 func (s *shortMessage) Update(message string) {
-  fmt.Printf("通过【%s】发送消息:%s\n", s.Name(), message)
+    fmt.Printf("通过【%s】发送消息:%s\n", s.Name(), message)
 }
 
 // email 信用卡消息邮箱订阅者
 type email struct{}
 
 func (e *email) Name() string {
-  return "电子邮件"
+    return "电子邮件"
 }
 
 func (e *email) Update(message string) {
-  fmt.Printf("通过【%s】发送消息:%s\n", e.Name(), message)
+    fmt.Printf("通过【%s】发送消息:%s\n", e.Name(), message)
 }
 
 // telephone 信用卡消息电话订阅者
 type telephone struct{}
 
 func (t *telephone) Name() string {
-  return "电话"
+    return "电话"
 }
 
 func (t *telephone) Update(message string) {
-  fmt.Printf("通过【%s】告知:%s\n", t.Name(), message)
+    fmt.Printf("通过【%s】告知:%s\n", t.Name(), message)
 }
 ```
 
@@ -970,72 +968,71 @@ import "fmt"
 
 // Subscriber 订阅者接口
 type Subscriber interface {
-  Name() string          //订阅者名称
-  Update(message string) //订阅更新方法
+    Name() string          //订阅者名称
+    Update(message string) //订阅更新方法
 }
 
 // shortMessage 信用卡消息短信订阅者
 type shortMessage struct{}
 
 func (s *shortMessage) Name() string {
-  return "手机短息"
+    return "手机短息"
 }
 
 func (s *shortMessage) Update(message string) {
-  fmt.Printf("通过【%s】发送消息:%s\n", s.Name(), message)
+    fmt.Printf("通过【%s】发送消息:%s\n", s.Name(), message)
 }
 
 // email 信用卡消息邮箱订阅者
 type email struct{}
 
 func (e *email) Name() string {
-  return "电子邮件"
+    return "电子邮件"
 }
 
 func (e *email) Update(message string) {
-  fmt.Printf("通过【%s】发送消息:%s\n", e.Name(), message)
+    fmt.Printf("通过【%s】发送消息:%s\n", e.Name(), message)
 }
 
 // telephone 信用卡消息电话订阅者
 type telephone struct{}
 
 func (t *telephone) Name() string {
-  return "电话"
+    return "电话"
 }
 
 func (t *telephone) Update(message string) {
-  fmt.Printf("通过【%s】告知:%s\n", t.Name(), message)
+    fmt.Printf("通过【%s】告知:%s\n", t.Name(), message)
 }
 ```
 
 ### **（五）测试程序**
 
 ```go
-
 package observer
 
 import "testing"
 
 func TestObserver(t *testing.T) {
-  // 创建张三的信用卡
-  creditCard := NewCreditCard("张三")
-  // 短信通知订阅信用卡消费及逾期消息
-  creditCard.Subscribe(new(shortMessage), ConsumeType, ExpireType)
-  // 电子邮件通知订阅信用卡账单及逾期消息
-  creditCard.Subscribe(new(email), BillType, ExpireType)
-  // 电话通知订阅信用卡逾期消息，同时逾期消息通过三种方式通知
-  creditCard.Subscribe(new(telephone), ExpireType)
+    // 创建张三的信用卡
+    creditCard := NewCreditCard("张三")
+    // 短信通知订阅信用卡消费及逾期消息
+    creditCard.Subscribe(new(shortMessage), ConsumeType, ExpireType)
+    // 电子邮件通知订阅信用卡账单及逾期消息
+    creditCard.Subscribe(new(email), BillType, ExpireType)
+    // 电话通知订阅信用卡逾期消息，同时逾期消息通过三种方式通知
+    creditCard.Subscribe(new(telephone), ExpireType)
 
-  creditCard.Consume(500.00) // 信用卡消费
-  creditCard.Consume(800.00) // 信用卡消费
-  creditCard.SendBill()      // 信用卡发送账单
-  creditCard.Expire()        // 信用卡逾期
+    creditCard.Consume(500.00) // 信用卡消费
+    creditCard.Consume(800.00) // 信用卡消费
+    creditCard.SendBill()      // 信用卡发送账单
+    creditCard.Expire()        // 信用卡逾期
 
-  // 信用卡逾期消息取消电子邮件及短信通知订阅
-  creditCard.Unsubscribe(new(email), ExpireType)
-  creditCard.Unsubscribe(new(shortMessage), ExpireType)
-  creditCard.Consume(300.00) // 信用卡消费
-  creditCard.Expire()        // 信用卡逾期
+    // 信用卡逾期消息取消电子邮件及短信通知订阅
+    creditCard.Unsubscribe(new(email), ExpireType)
+    creditCard.Unsubscribe(new(shortMessage), ExpireType)
+    creditCard.Consume(300.00) // 信用卡消费
+    creditCard.Expire()        // 信用卡逾期
 }
 ```
 
@@ -1087,64 +1084,63 @@ IPhone 手机充电就是一个手机电池状态的流转，一开始手机处�
 ### **（三）电池状态**
 
 ```go
-
 package state
 
 import "fmt"
 
 // BatteryState 电池状态接口，支持手机充电线插拔事件
 type BatteryState interface {
-  ConnectPlug(iPhone *IPhone) string
-  DisconnectPlug(iPhone *IPhone) string
+    ConnectPlug(iPhone *IPhone) string
+    DisconnectPlug(iPhone *IPhone) string
 }
 
 // fullBatteryState 满电状态
 type fullBatteryState struct{}
 
 func (s *fullBatteryState) String() string {
-  return "满电状态"
+    return "满电状态"
 }
 
 func (s *fullBatteryState) ConnectPlug(iPhone *IPhone) string {
-  return iPhone.pauseCharge()
+    return iPhone.pauseCharge()
 }
 
 func (s *fullBatteryState) DisconnectPlug(iPhone *IPhone) string {
-  iPhone.SetBatteryState(PartBatteryState)
-  return fmt.Sprintf("%s,%s转为%s", iPhone.consume(), s, PartBatteryState)
+    iPhone.SetBatteryState(PartBatteryState)
+    return fmt.Sprintf("%s,%s转为%s", iPhone.consume(), s, PartBatteryState)
 }
 
 // emptyBatteryState 空电状态
 type emptyBatteryState struct{}
 
 func (s *emptyBatteryState) String() string {
-  return "没电状态"
+    return "没电状态"
 }
 
 func (s *emptyBatteryState) ConnectPlug(iPhone *IPhone) string {
-  iPhone.SetBatteryState(PartBatteryState)
-  return fmt.Sprintf("%s,%s转为%s", iPhone.charge(), s, PartBatteryState)
+    iPhone.SetBatteryState(PartBatteryState)
+    return fmt.Sprintf("%s,%s转为%s", iPhone.charge(), s, PartBatteryState)
 }
 
 func (s *emptyBatteryState) DisconnectPlug(iPhone *IPhone) string {
-  return iPhone.shutdown()
+    return iPhone.shutdown()
 }
 
 // partBatteryState 部分电状态
 type partBatteryState struct{}
 
 func (s *partBatteryState) String() string {
-  return "有电状态"
+    return "有电状态"
 }
 
 func (s *partBatteryState) ConnectPlug(iPhone *IPhone) string {
-  iPhone.SetBatteryState(FullBatteryState)
-  return fmt.Sprintf("%s,%s转为%s", iPhone.charge(), s, FullBatteryState)
+    iPhone.SetBatteryState(FullBatteryState)
+    return fmt.Sprintf("%s,%s转为%s", iPhone.charge(), s, FullBatteryState)
 }
 
 func (s *partBatteryState) DisconnectPlug(iPhone *IPhone) string {
-  iPhone.SetBatteryState(EmptyBatteryState)
-  return fmt.Sprintf("%s,%s转为%s", iPhone.consume(), s, EmptyBatteryState)
+    iPhone.SetBatteryState(EmptyBatteryState)
+    return fmt.Sprintf("%s,%s转为%s", iPhone.consume(), s, EmptyBatteryState)
 }
 ```
 
@@ -1157,59 +1153,59 @@ import "fmt"
 
 // 电池状态单例，全局统一使用三个状态的单例，不需要重复创建
 var (
-  FullBatteryState  = new(fullBatteryState)  // 满电
-  EmptyBatteryState = new(emptyBatteryState) // 空电
-  PartBatteryState  = new(partBatteryState)  // 部分电
+    FullBatteryState  = new(fullBatteryState)  // 满电
+    EmptyBatteryState = new(emptyBatteryState) // 空电
+    PartBatteryState  = new(partBatteryState)  // 部分电
 )
 
 // IPhone 已手机充电为例，实现状态模式
 type IPhone struct {
-  model        string       // 手机型号
-  batteryState BatteryState // 电池状态
+    model        string       // 手机型号
+    batteryState BatteryState // 电池状态
 }
 
 // NewIPhone 创建指定型号手机
 func NewIPhone(model string) *IPhone {
-  return &IPhone{
-    model:        model,
-    batteryState: PartBatteryState,
-  }
+    return &IPhone{
+        model:        model,
+        batteryState: PartBatteryState,
+    }
 }
 
 // BatteryState 输出电池当前状态
 func (i *IPhone) BatteryState() string {
-  return fmt.Sprintf("iPhone %s 当前为%s", i.model, i.batteryState)
+    return fmt.Sprintf("iPhone %s 当前为%s", i.model, i.batteryState)
 }
 
 // ConnectPlug 连接充电线
 func (i *IPhone) ConnectPlug() string {
-  return fmt.Sprintf("iPhone %s 连接电源线,%s", i.model, i.batteryState.ConnectPlug(i))
+    return fmt.Sprintf("iPhone %s 连接电源线,%s", i.model, i.batteryState.ConnectPlug(i))
 }
 
 // DisconnectPlug 断开充电线
 func (i *IPhone) DisconnectPlug() string {
-  return fmt.Sprintf("iPhone %s 断开电源线,%s", i.model, i.batteryState.DisconnectPlug(i))
+    return fmt.Sprintf("iPhone %s 断开电源线,%s", i.model, i.batteryState.DisconnectPlug(i))
 }
 
 // SetBatteryState 设置电池状态
 func (i *IPhone) SetBatteryState(state BatteryState) {
-  i.batteryState = state
+    i.batteryState = state
 }
 
 func (i *IPhone) charge() string {
-  return "正在充电"
+    return "正在充电"
 }
 
 func (i *IPhone) pauseCharge() string {
-  return "电已满,暂停充电"
+    return "电已满,暂停充电"
 }
 
 func (i *IPhone) shutdown() string {
-  return "手机关闭"
+    return "手机关闭"
 }
 
 func (i *IPhone) consume() string {
-  return "使用中,消耗电量"
+    return "使用中,消耗电量"
 }
 ```
 
@@ -1219,22 +1215,22 @@ func (i *IPhone) consume() string {
 package state
 
 import (
-  "fmt"
-  "testing"
+    "fmt"
+    "testing"
 )
 
 func TestState(t *testing.T) {
-  iPhone13Pro := NewIPhone("13 pro") // 刚创建的手机有部分电
+    iPhone13Pro := NewIPhone("13 pro") // 刚创建的手机有部分电
 
-  fmt.Println(iPhone13Pro.BatteryState()) // 打印部分电状态
-  fmt.Println(iPhone13Pro.ConnectPlug())  // 插上电源插头，继续充满电
-  fmt.Println(iPhone13Pro.ConnectPlug())  // 满电后再充电，会触发满电保护
+    fmt.Println(iPhone13Pro.BatteryState()) // 打印部分电状态
+    fmt.Println(iPhone13Pro.ConnectPlug())  // 插上电源插头，继续充满电
+    fmt.Println(iPhone13Pro.ConnectPlug())  // 满电后再充电，会触发满电保护
 
-  fmt.Println(iPhone13Pro.DisconnectPlug()) // 拔掉电源，使用手机消耗电量，变为有部分电
-  fmt.Println(iPhone13Pro.DisconnectPlug()) // 一直使用手机，直到没电
-  fmt.Println(iPhone13Pro.DisconnectPlug()) // 没电后会关机
+    fmt.Println(iPhone13Pro.DisconnectPlug()) // 拔掉电源，使用手机消耗电量，变为有部分电
+    fmt.Println(iPhone13Pro.DisconnectPlug()) // 一直使用手机，直到没电
+    fmt.Println(iPhone13Pro.DisconnectPlug()) // 没电后会关机
 
-  fmt.Println(iPhone13Pro.ConnectPlug()) // 再次插上电源一会，变为有电状态
+    fmt.Println(iPhone13Pro.ConnectPlug()) // 再次插上电源一会，变为有电状态
 }
 ```
 
@@ -1280,99 +1276,98 @@ import "fmt"
 
 // Season 季节的策略接口，不同季节表现得天气不同
 type Season interface {
-  ShowWeather(city string) string // 显示指定城市的天气情况
+    ShowWeather(city string) string // 显示指定城市的天气情况
 }
 
 type spring struct {
-  weathers map[string]string // 存储不同城市春天气候
+    weathers map[string]string // 存储不同城市春天气候
 }
 
 func NewSpring() *spring {
-  return &spring{
-    weathers: map[string]string{"北京": "干燥多风", "昆明": "清凉舒适"},
-  }
+    return &spring{
+        weathers: map[string]string{"北京": "干燥多风", "昆明": "清凉舒适"},
+    }
 }
 
 func (s *spring) ShowWeather(city string) string {
-  return fmt.Sprintf("%s的春天，%s;", city, s.weathers[city])
+    return fmt.Sprintf("%s的春天，%s;", city, s.weathers[city])
 }
 
 type summer struct {
-  weathers map[string]string // 存储不同城市夏天气候
+    weathers map[string]string // 存储不同城市夏天气候
 }
 
 func NewSummer() *summer {
-  return &summer{
-    weathers: map[string]string{"北京": "高温多雨", "昆明": "清凉舒适"},
-  }
+    return &summer{
+        weathers: map[string]string{"北京": "高温多雨", "昆明": "清凉舒适"},
+    }
 }
 
 func (s *summer) ShowWeather(city string) string {
-  return fmt.Sprintf("%s的夏天，%s;", city, s.weathers[city])
+    return fmt.Sprintf("%s的夏天，%s;", city, s.weathers[city])
 }
 
 type autumn struct {
-  weathers map[string]string // 存储不同城市秋天气候
+    weathers map[string]string // 存储不同城市秋天气候
 }
 
 func NewAutumn() *autumn {
-  return &autumn{
-    weathers: map[string]string{"北京": "凉爽舒适", "昆明": "清凉舒适"},
-  }
+    return &autumn{
+        weathers: map[string]string{"北京": "凉爽舒适", "昆明": "清凉舒适"},
+    }
 }
 
 func (a *autumn) ShowWeather(city string) string {
-  return fmt.Sprintf("%s的秋天，%s;", city, a.weathers[city])
+    return fmt.Sprintf("%s的秋天，%s;", city, a.weathers[city])
 }
 
 type winter struct {
-  weathers map[string]string // 存储不同城市冬天气候
+    weathers map[string]string // 存储不同城市冬天气候
 }
 
 func NewWinter() *winter {
-  return &winter{
-    weathers: map[string]string{"北京": "干燥寒冷", "昆明": "清凉舒适"},
-  }
+    return &winter{
+        weathers: map[string]string{"北京": "干燥寒冷", "昆明": "清凉舒适"},
+    }
 }
 
 func (w *winter) ShowWeather(city string) string {
-  return fmt.Sprintf("%s的冬天，%s;", city, w.weathers[city])
+    return fmt.Sprintf("%s的冬天，%s;", city, w.weathers[city])
 }
 ```
 
 ### **（四）城市气候**
 
 ```go
-
 package strategy
 
 import (
-  "fmt"
+    "fmt"
 )
 
 // City 城市
 type City struct {
-  name    string
-  feature string
-  season  Season
+    name    string
+    feature string
+    season  Season
 }
 
 // NewCity 根据名称及季候特征创建城市
 func NewCity(name, feature string) *City {
-  return &City{
-    name:    name,
-    feature: feature,
-  }
+    return &City{
+        name:    name,
+        feature: feature,
+    }
 }
 
 // SetSeason 设置不同季节，类似天气在不同季节的不同策略
 func (c *City) SetSeason(season Season) {
-  c.season = season
+    c.season = season
 }
 
 // String 显示城市的气候信息
 func (c *City) String() string {
-  return fmt.Sprintf("%s%s，%s", c.name, c.feature, c.season.ShowWeather(c.name))
+    return fmt.Sprintf("%s%s，%s", c.name, c.feature, c.season.ShowWeather(c.name))
 }
 ```
 
@@ -1382,24 +1377,24 @@ func (c *City) String() string {
 package strategy
 
 import (
-  "fmt"
-  "testing"
+    "fmt"
+    "testing"
 )
 
 func TestStrategy(t *testing.T) {
-  Beijing := NewCity("北京", "四季分明")
+    Beijing := NewCity("北京", "四季分明")
 
-  Beijing.SetSeason(NewSpring())
-  fmt.Println(Beijing)
+    Beijing.SetSeason(NewSpring())
+    fmt.Println(Beijing)
 
-  Beijing.SetSeason(NewSummer())
-  fmt.Println(Beijing)
+    Beijing.SetSeason(NewSummer())
+    fmt.Println(Beijing)
 
-  Beijing.SetSeason(NewAutumn())
-  fmt.Println(Beijing)
+    Beijing.SetSeason(NewAutumn())
+    fmt.Println(Beijing)
 
-  Beijing.SetSeason(NewWinter())
-  fmt.Println(Beijing)
+    Beijing.SetSeason(NewWinter())
+    fmt.Println(Beijing)
 }
 ```
 
@@ -1447,36 +1442,36 @@ PASS
 package templatemethod
 
 import (
-  "bytes"
-  "fmt"
+    "bytes"
+    "fmt"
 )
 
 // IActor 演员接口
 type IActor interface {
-  DressUp() string // 装扮
+    DressUp() string // 装扮
 }
 
 // dressBehavior 装扮的多个行为，这里多个行为是私有的，通过DressUp模版方法调用
 type dressBehavior interface {
-  makeUp() string // 化妆
-  clothe() string // 穿衣
-  wear() string   // 配饰
+    makeUp() string // 化妆
+    clothe() string // 穿衣
+    wear() string   // 配饰
 }
 
 // BaseActor 演员基类
 type BaseActor struct {
-  roleName      string // 扮演角色
-  dressBehavior        // 装扮行为
+    roleName      string // 扮演角色
+    dressBehavior        // 装扮行为
 }
 
 // DressUp 统一实现演员接口的DressUp模版方法，装扮过程通过不同装扮行为进行扩展
 func (b *BaseActor) DressUp() string {
-  buf := bytes.Buffer{}
-  buf.WriteString(fmt.Sprintf("扮演%s的", b.roleName))
-  buf.WriteString(b.makeUp())
-  buf.WriteString(b.clothe())
-  buf.WriteString(b.wear())
-  return buf.String()
+    buf := bytes.Buffer{}
+    buf.WriteString(fmt.Sprintf("扮演%s的", b.roleName))
+    buf.WriteString(b.makeUp())
+    buf.WriteString(b.clothe())
+    buf.WriteString(b.wear())
+    return buf.String()
 }
 ```
 
@@ -1487,78 +1482,78 @@ package templatemethod
 
 // womanActor 扩展装扮行为的女演员
 type womanActor struct {
-  BaseActor
+    BaseActor
 }
 
 // NewWomanActor 指定角色创建女演员
 func NewWomanActor(roleName string) *womanActor {
-  actor := new(womanActor)    // 创建女演员
-  actor.roleName = roleName   // 设置角色
-  actor.dressBehavior = actor // 将女演员实现的扩展装扮行为，设置给自己的装扮行为接口
-  return actor
+    actor := new(womanActor)    // 创建女演员
+    actor.roleName = roleName   // 设置角色
+    actor.dressBehavior = actor // 将女演员实现的扩展装扮行为，设置给自己的装扮行为接口
+    return actor
 }
 
 // 化妆
 func (w *womanActor) makeUp() string {
-  return "女演员涂着口红，画着眉毛；"
+    return "女演员涂着口红，画着眉毛；"
 }
 
 // 穿衣
 func (w *womanActor) clothe() string {
-  return "穿着连衣裙；"
+    return "穿着连衣裙；"
 }
 
 // 配饰
 func (w *womanActor) wear() string {
-  return "带着耳环，手拎着包；"
+    return "带着耳环，手拎着包；"
 }
 
 // manActor 扩展装扮行为的男演员
 type manActor struct {
-  BaseActor
+    BaseActor
 }
 
 func NewManActor(roleName string) *manActor {
-  actor := new(manActor)
-  actor.roleName = roleName
-  actor.dressBehavior = actor // 将男演员实现的扩展装扮行为，设置给自己的装扮行为接口
-  return actor
+    actor := new(manActor)
+    actor.roleName = roleName
+    actor.dressBehavior = actor // 将男演员实现的扩展装扮行为，设置给自己的装扮行为接口
+    return actor
 }
 
 func (m *manActor) makeUp() string {
-  return "男演员刮净胡子，抹上发胶；"
+    return "男演员刮净胡子，抹上发胶；"
 }
 
 func (m *manActor) clothe() string {
-  return "穿着一身西装；"
+    return "穿着一身西装；"
 }
 
 func (m *manActor) wear() string {
-  return "带上手表，抽着烟；"
+    return "带上手表，抽着烟；"
 }
 
 // NewChildActor 扩展装扮行为的儿童演员
 type childActor struct {
-  BaseActor
+    BaseActor
 }
 
 func NewChildActor(roleName string) *childActor {
-  actor := new(childActor)
-  actor.roleName = roleName
-  actor.dressBehavior = actor // 将儿童演员实现的扩展装扮行为，设置给自己的装扮行为接口
-  return actor
+    actor := new(childActor)
+    actor.roleName = roleName
+    actor.dressBehavior = actor // 将儿童演员实现的扩展装扮行为，设置给自己的装扮行为接口
+    return actor
 }
 
 func (c *childActor) makeUp() string {
-  return "儿童演员抹上红脸蛋；"
+    return "儿童演员抹上红脸蛋；"
 }
 
 func (c *childActor) clothe() string {
-  return "穿着一身童装；"
+    return "穿着一身童装；"
 }
 
 func (c *childActor) wear() string {
-  return "手里拿着一串糖葫芦；"
+    return "手里拿着一串糖葫芦；"
 }
 ```
 
@@ -1568,19 +1563,19 @@ func (c *childActor) wear() string {
 package templatemethod
 
 import (
-  "fmt"
-  "testing"
+    "fmt"
+    "testing"
 )
 
 func TestTemplateMethod(t *testing.T) {
-  showActors(NewWomanActor("妈妈"), NewManActor("爸爸"), NewChildActor("儿子"))
+    showActors(NewWomanActor("妈妈"), NewManActor("爸爸"), NewChildActor("儿子"))
 }
 
 // showActors 显示演员的装扮信息
 func showActors(actors ...IActor) {
-  for _, actor := range actors {
-    fmt.Println(actor.DressUp())
-  }
+    for _, actor := range actors {
+        fmt.Println(actor.DressUp())
+    }
 }
 ```
 
@@ -1620,75 +1615,75 @@ import "fmt"
 
 // Employee 员工接口
 type Employee interface {
-  KPI() string                    // 完成kpi信息
-  Accept(visitor EmployeeVisitor) // 接受访问者对象
+    KPI() string                    // 完成kpi信息
+    Accept(visitor EmployeeVisitor) // 接受访问者对象
 }
 
 // productManager 产品经理
 type productManager struct {
-  name         string // 名称
-  productNum   int    // 上线产品数
-  satisfaction int    // 平均满意度
+    name         string // 名称
+    productNum   int    // 上线产品数
+    satisfaction int    // 平均满意度
 }
 
 func NewProductManager(name string, productNum int, satisfaction int) *productManager {
-  return &productManager{
-    name:         name,
-    productNum:   productNum,
-    satisfaction: satisfaction,
-  }
+    return &productManager{
+        name:         name,
+        productNum:   productNum,
+        satisfaction: satisfaction,
+    }
 }
 
 func (p *productManager) KPI() string {
-  return fmt.Sprintf("产品经理%s，上线%d个产品，平均满意度为%d", p.name, p.productNum, p.satisfaction)
+    return fmt.Sprintf("产品经理%s，上线%d个产品，平均满意度为%d", p.name, p.productNum, p.satisfaction)
 }
 
 func (p *productManager) Accept(visitor EmployeeVisitor) {
-  visitor.VisitProductManager(p)
+    visitor.VisitProductManager(p)
 }
 
 // softwareEngineer 软件工程师
 type softwareEngineer struct {
-  name           string // 姓名
-  requirementNum int    // 完成需求数
-  bugNum         int    // 修复问题数
+    name           string // 姓名
+    requirementNum int    // 完成需求数
+    bugNum         int    // 修复问题数
 }
 
 func NewSoftwareEngineer(name string, requirementNum int, bugNum int) *softwareEngineer {
-  return &softwareEngineer{
-    name:           name,
-    requirementNum: requirementNum,
-    bugNum:         bugNum,
-  }
+    return &softwareEngineer{
+        name:           name,
+        requirementNum: requirementNum,
+        bugNum:         bugNum,
+    }
 }
 
 func (s *softwareEngineer) KPI() string {
-  return fmt.Sprintf("软件工程师%s，完成%d个需求，修复%d个问题", s.name, s.requirementNum, s.bugNum)
+    return fmt.Sprintf("软件工程师%s，完成%d个需求，修复%d个问题", s.name, s.requirementNum, s.bugNum)
 }
 
 func (s *softwareEngineer) Accept(visitor EmployeeVisitor) {
-  visitor.VisitSoftwareEngineer(s)
+    visitor.VisitSoftwareEngineer(s)
 }
 
 // hr 人力资源
 type hr struct {
-  name       string // 姓名
-  recruitNum int    // 招聘人数
+    name       string // 姓名
+    recruitNum int    // 招聘人数
 }
 
 func NewHR(name string, recruitNum int) *hr {
-  return &hr{
-    name:       name,
-    recruitNum: recruitNum,
-  }
+    return &hr{
+        name:       name,
+        recruitNum: recruitNum,
+    }
 }
 
 func (h *hr) KPI() string {
-  return fmt.Sprintf("人力资源%s，招聘%d名员工", h.name, h.recruitNum)
+    return fmt.Sprintf("人力资源%s，招聘%d名员工", h.name, h.recruitNum)
 }
 
 func (h *hr) Accept(visitor EmployeeVisitor) {
-  visitor.VisitHR(h)
+    visitor.VisitHR(h)
 }
 ```
 
@@ -1698,75 +1693,75 @@ func (h *hr) Accept(visitor EmployeeVisitor) {
 package visitor
 
 import (
-  "fmt"
-  "sort"
+    "fmt"
+    "sort"
 )
 
 // EmployeeVisitor 员工访问者接口
 type EmployeeVisitor interface {
-  VisitProductManager(pm *productManager)     // 访问产品经理
-  VisitSoftwareEngineer(se *softwareEngineer) // 访问软件工程师
-  VisitHR(hr *hr)                             // 访问人力资源
+    VisitProductManager(pm *productManager)     // 访问产品经理
+    VisitSoftwareEngineer(se *softwareEngineer) // 访问软件工程师
+    VisitHR(hr *hr)                             // 访问人力资源
 }
 
 // kpi kpi对象
 type kpi struct {
-  name string // 完成kpi姓名
-  sum  int    // 完成kpi总数量
+    name string // 完成kpi姓名
+    sum  int    // 完成kpi总数量
 }
 
 // kpiTopVisitor 员工kpi排名访问者
 type kpiTopVisitor struct {
-  top []*kpi
+    top []*kpi
 }
 
 func (k *kpiTopVisitor) VisitProductManager(pm *productManager) {
-  k.top = append(k.top, &kpi{
-    name: pm.name,
-    sum:  pm.productNum + pm.satisfaction,
-  })
+    k.top = append(k.top, &kpi{
+        name: pm.name,
+        sum:  pm.productNum + pm.satisfaction,
+    })
 }
 
 func (k *kpiTopVisitor) VisitSoftwareEngineer(se *softwareEngineer) {
-  k.top = append(k.top, &kpi{
-    name: se.name,
-    sum:  se.requirementNum + se.bugNum,
-  })
+    k.top = append(k.top, &kpi{
+        name: se.name,
+        sum:  se.requirementNum + se.bugNum,
+    })
 }
 
 func (k *kpiTopVisitor) VisitHR(hr *hr) {
-  k.top = append(k.top, &kpi{
-    name: hr.name,
-    sum:  hr.recruitNum,
-  })
+    k.top = append(k.top, &kpi{
+        name: hr.name,
+        sum:  hr.recruitNum,
+    })
 }
 
 // Publish 发布KPI排行榜
 func (k *kpiTopVisitor) Publish() {
-  sort.Slice(k.top, func(i, j int) bool {
-    return k.top[i].sum > k.top[j].sum
-  })
-  for i, curKPI := range k.top {
-    fmt.Printf("第%d名%s：完成KPI总数%d\n", i+1, curKPI.name, curKPI.sum)
-  }
+    sort.Slice(k.top, func(i, j int) bool {
+        return k.top[i].sum > k.top[j].sum
+    })
+    for i, curKPI := range k.top {
+        fmt.Printf("第%d名%s：完成KPI总数%d\n", i+1, curKPI.name, curKPI.sum)
+    }
 }
 
 // salaryVisitor 薪酬访问者
 type salaryVisitor struct{}
 
 func (s *salaryVisitor) VisitProductManager(pm *productManager) {
-  fmt.Printf("产品经理基本薪资：1000元，KPI单位薪资：100元，")
-  fmt.Printf("%s，总工资为%d元\n", pm.KPI(), (pm.productNum+pm.satisfaction)*100+1000)
+    fmt.Printf("产品经理基本薪资：1000元，KPI单位薪资：100元，")
+    fmt.Printf("%s，总工资为%d元\n", pm.KPI(), (pm.productNum+pm.satisfaction)*100+1000)
 }
 
 func (s *salaryVisitor) VisitSoftwareEngineer(se *softwareEngineer) {
-  fmt.Printf("软件工程师基本薪资：1500元，KPI单位薪资：80元，")
-  fmt.Printf("%s，总工资为%d元\n", se.KPI(), (se.requirementNum+se.bugNum)*80+1500)
+    fmt.Printf("软件工程师基本薪资：1500元，KPI单位薪资：80元，")
+    fmt.Printf("%s，总工资为%d元\n", se.KPI(), (se.requirementNum+se.bugNum)*80+1500)
 }
 
 func (s *salaryVisitor) VisitHR(hr *hr) {
-  fmt.Printf("人力资源基本薪资：800元，KPI单位薪资：120元，")
-  fmt.Printf("%s，总工资为%d元\n", hr.KPI(), hr.recruitNum*120+800)
+    fmt.Printf("人力资源基本薪资：800元，KPI单位薪资：120元，")
+    fmt.Printf("%s，总工资为%d元\n", hr.KPI(), hr.recruitNum*120+800)
 }
 ```
 
@@ -1778,31 +1773,31 @@ package visitor
 import "testing"
 
 func TestVisitor(t *testing.T) {
-  allEmployees := AllEmployees() // 获取所有员工
-  kpiTop := new(kpiTopVisitor)   // 创建KPI排行访问者
-  VisitAllEmployees(kpiTop, allEmployees)
-  kpiTop.Publish() // 发布排行榜
+    allEmployees := AllEmployees() // 获取所有员工
+    kpiTop := new(kpiTopVisitor)   // 创建KPI排行访问者
+    VisitAllEmployees(kpiTop, allEmployees)
+    kpiTop.Publish() // 发布排行榜
 
-  salary := new(salaryVisitor) // 创建薪酬访问者
-  VisitAllEmployees(salary, allEmployees)
+    salary := new(salaryVisitor) // 创建薪酬访问者
+    VisitAllEmployees(salary, allEmployees)
 }
 
 // VisitAllEmployees 遍历所有员工调用访问者
 func VisitAllEmployees(visitor EmployeeVisitor, allEmployees []Employee) {
-  for _, employee := range allEmployees {
-    employee.Accept(visitor)
-  }
+    for _, employee := range allEmployees {
+        employee.Accept(visitor)
+    }
 }
 
 // AllEmployees 获得所有公司员工
 func AllEmployees() []Employee {
-  var employees []Employee
-  employees = append(employees, NewHR("小明", 10))
-  employees = append(employees, NewProductManager("小红", 4, 7))
-  employees = append(employees, NewSoftwareEngineer("张三", 10, 5))
-  employees = append(employees, NewSoftwareEngineer("李四", 3, 6))
-  employees = append(employees, NewSoftwareEngineer("王五", 7, 1))
-  return employees
+    var employees []Employee
+    employees = append(employees, NewHR("小明", 10))
+    employees = append(employees, NewProductManager("小红", 4, 7))
+    employees = append(employees, NewSoftwareEngineer("张三", 10, 5))
+    employees = append(employees, NewSoftwareEngineer("李四", 3, 6))
+    employees = append(employees, NewSoftwareEngineer("王五", 7, 1))
+    return employees
 }
 ```
 
@@ -1840,63 +1835,62 @@ func AllEmployees() []Employee {
 ### **（三）特征值解释器**
 
 ```go
-
 package interpreter
 
 import "strings"
 
 // Expression 表达式接口，包含一个解释方法
 type Expression interface {
-  Interpret(context string) bool
+    Interpret(context string) bool
 }
 
 // terminalExpression 终结符表达式，判断表达式中是否包含匹配数据
 type terminalExpression struct {
-  matchData string
+    matchData string
 }
 
 func NewTerminalExpression(matchData string) *terminalExpression {
-  return &terminalExpression{matchData: matchData}
+    return &terminalExpression{matchData: matchData}
 }
 
 // Interpret 判断是否包含匹配字符
 func (t *terminalExpression) Interpret(context string) bool {
-  if strings.Contains(context, t.matchData) {
-    return true
-  }
-  return false
+    if strings.Contains(context, t.matchData) {
+        return true
+    }
+    return false
 }
 
 // orExpression 或表达式
 type orExpression struct {
-  left, right Expression
+    left, right Expression
 }
 
 func NewOrExpression(left, right Expression) *orExpression {
-  return &orExpression{
-    left:  left,
-    right: right,
-  }
+    return &orExpression{
+        left:  left,
+        right: right,
+    }
 }
 
 func (o *orExpression) Interpret(context string) bool {
-  return o.left.Interpret(context) || o.right.Interpret(context)
+    return o.left.Interpret(context) || o.right.Interpret(context)
 }
 
 // andExpression 与表达式
 type andExpression struct {
-  left, right Expression
+    left, right Expression
 }
 
 func NewAndExpression(left, right Expression) *andExpression {
-  return &andExpression{
-    left:  left,
-    right: right,
-  }
+    return &andExpression{
+        left:  left,
+        right: right,
+    }
 }
 
 func (o *andExpression) Interpret(context string) bool {
-  return o.left.Interpret(context) && o.right.Interpret(context)
+    return o.left.Interpret(context) && o.right.Interpret(context)
 }
 ```
 
@@ -1906,51 +1900,51 @@ func (o *andExpression) Interpret(context string) bool {
 package interpreter
 
 import (
-  "fmt"
-  "testing"
+    "fmt"
+    "testing"
 )
 
 func TestInterpreter(t *testing.T) {
-  isAntarcticaExpression := generateCheckAntarcticaExpression()
-  // 大洲描述1
-  continentDescription1 := "此大洲生活着大量企鹅，全年低温，并且伴随着有暴风雪"
-  fmt.Printf("%s，是否是南极洲？%t\n", continentDescription1, isAntarcticaExpression.Interpret(continentDescription1))
-  // 大洲描述2
-  continentDescription2 := "此大洲生活着狮子，全年高温多雨"
-  fmt.Printf("%s，是否是南极洲？%t\n", continentDescription2, isAntarcticaExpression.Interpret(continentDescription2))
+    isAntarcticaExpression := generateCheckAntarcticaExpression()
+    // 大洲描述1
+    continentDescription1 := "此大洲生活着大量企鹅，全年低温，并且伴随着有暴风雪"
+    fmt.Printf("%s，是否是南极洲？%t\n", continentDescription1, isAntarcticaExpression.Interpret(continentDescription1))
+    // 大洲描述2
+    continentDescription2 := "此大洲生活着狮子，全年高温多雨"
+    fmt.Printf("%s，是否是南极洲？%t\n", continentDescription2, isAntarcticaExpression.Interpret(continentDescription2))
 
-  isAmericanExpression := generateCheckAmericanExpression()
-  peopleDescription1 := "此人生活在北美洲的黑人，说着英语，持有美国绿卡"
-  fmt.Printf("%s，是否是美国人？%t\n", peopleDescription1, isAmericanExpression.Interpret(peopleDescription1))
+    isAmericanExpression := generateCheckAmericanExpression()
+    peopleDescription1 := "此人生活在北美洲的黑人，说着英语，持有美国绿卡"
+    fmt.Printf("%s，是否是美国人？%t\n", peopleDescription1, isAmericanExpression.Interpret(peopleDescription1))
 
-  peopleDescription2 := "此人生活在欧洲，说着英语，是欧洲议会议员"
-  fmt.Printf("%s，是否是南极洲？%t\n", peopleDescription2, isAmericanExpression.Interpret(peopleDescription2))
+    peopleDescription2 := "此人生活在欧洲，说着英语，是欧洲议会议员"
+    fmt.Printf("%s，是否是南极洲？%t\n", peopleDescription2, isAmericanExpression.Interpret(peopleDescription2))
 
 }
 
 // generateCheckAntarcticaExpression 生成校验是否是南极洲表达式
 func generateCheckAntarcticaExpression() Expression {
-  // 判断南极洲的动物，或关系
-  animalExpression := NewOrExpression(NewTerminalExpression("企鹅"),
-    NewTerminalExpression("蓝鲸"))
-  // 判断南极洲的天气，与关系
-  weatherExpression := NewAndExpression(NewTerminalExpression("低温"),
-    NewTerminalExpression("暴风雪"))
-  // 最终返回动物与天气的与关系
-  return NewAndExpression(animalExpression, weatherExpression)
+    // 判断南极洲的动物，或关系
+    animalExpression := NewOrExpression(NewTerminalExpression("企鹅"),
+                                        NewTerminalExpression("蓝鲸"))
+    // 判断南极洲的天气，与关系
+    weatherExpression := NewAndExpression(NewTerminalExpression("低温"),
+                                          NewTerminalExpression("暴风雪"))
+    // 最终返回动物与天气的与关系
+    return NewAndExpression(animalExpression, weatherExpression)
 }
 
 // generateCheckAmericanExpression 生成检查美国人表达式
 func generateCheckAmericanExpression() Expression {
-  // 人种判断，或关系
-  raceExpression := NewOrExpression(NewTerminalExpression("白人"),
-    NewTerminalExpression("黑人"))
-  // 生活方式，与关系
-  lifeStyleExpression := NewAndExpression(NewTerminalExpression("英语"),
-    NewTerminalExpression("北美洲"))
-  // 身份，与关系
-  identityExpression := NewAndExpression(lifeStyleExpression, NewTerminalExpression("美国绿卡"))
-  return NewAndExpression(raceExpression, identityExpression)
+    // 人种判断，或关系
+    raceExpression := NewOrExpression(NewTerminalExpression("白人"),
+                                      NewTerminalExpression("黑人"))
+    // 生活方式，与关系
+    lifeStyleExpression := NewAndExpression(NewTerminalExpression("英语"),
+                                            NewTerminalExpression("北美洲"))
+    // 身份，与关系
+    identityExpression := NewAndExpression(lifeStyleExpression, NewTerminalExpression("美国绿卡"))
+    return NewAndExpression(raceExpression, identityExpression)
 }
 ```
 
@@ -1991,46 +1985,46 @@ import "fmt"
 
 // HuaweiPlug 华为手机充电插槽接口
 type HuaweiPlug interface {
-  ConnectTypeC() string
+    ConnectTypeC() string
 }
 
 // HuaweiPhone 华为系列手机
 type HuaweiPhone struct {
-  model string
+    model string
 }
 
 // NewHuaweiPhone 华为手机创建方法
 func NewHuaweiPhone(model string) *HuaweiPhone {
-  return &HuaweiPhone{
-    model: model,
-  }
+    return &HuaweiPhone{
+        model: model,
+    }
 }
 
 // ConnectTypeC 华为手机TypeC充电插槽
 func (h *HuaweiPhone) ConnectTypeC() string {
-  return fmt.Sprintf("%v connect typeC plug", h.model)
+    return fmt.Sprintf("%v connect typeC plug", h.model)
 }
 
 // ApplePlug 苹果手机充电插槽
 type ApplePlug interface {
-  ConnectLightning() string
+    ConnectLightning() string
 }
 
 // IPhone 苹果系列手机
 type IPhone struct {
-  model string
+    model string
 }
 
 // NewIPhone 苹果手机创建方法
 func NewIPhone(model string) *IPhone {
-  return &IPhone{
-    model: model,
-  }
+    return &IPhone{
+        model: model,
+    }
 }
 
 // ConnectLightning 苹果手机Lightning充电插槽
 func (i *IPhone) ConnectLightning() string {
-  return fmt.Sprintf("%v connect lightning plug", i.model)
+    return fmt.Sprintf("%v connect lightning plug", i.model)
 }
 ```
 
@@ -2044,51 +2038,51 @@ import "fmt"
 
 // CommonPlug 通用的USB电源插槽
 type CommonPlug interface {
-  ConnectUSB() string
+    ConnectUSB() string
 }
 
 // HuaweiPhonePlugAdapter 华为TypeC充电插槽适配通用USB充电插槽
 type HuaweiPhonePlugAdapter struct {
-  huaweiPhone HuaweiPlug
+    huaweiPhone HuaweiPlug
 }
 
 // NewHuaweiPhonePlugAdapter 创建华为手机适配USB充电插槽适配器
 func NewHuaweiPhonePlugAdapter(huaweiPhone HuaweiPlug) *HuaweiPhonePlugAdapter {
-  return &HuaweiPhonePlugAdapter{
-    huaweiPhone: huaweiPhone,
-  }
+    return &HuaweiPhonePlugAdapter{
+        huaweiPhone: huaweiPhone,
+    }
 }
 
 // ConnectUSB 链接USB
 func (h *HuaweiPhonePlugAdapter) ConnectUSB() string {
-  return fmt.Sprintf("%v adapt to usb ", h.huaweiPhone.ConnectTypeC())
+    return fmt.Sprintf("%v adapt to usb ", h.huaweiPhone.ConnectTypeC())
 }
 
 // ApplePhonePlugAdapter 苹果Lightning充电插槽适配通用USB充电插槽
 type ApplePhonePlugAdapter struct {
-  iPhone ApplePlug
+    iPhone ApplePlug
 }
 
 // NewApplePhonePlugAdapter 创建苹果手机适配USB充电插槽适配器
 func NewApplePhonePlugAdapter(iPhone ApplePlug) *ApplePhonePlugAdapter {
-  return &ApplePhonePlugAdapter{
-    iPhone: iPhone,
-  }
+    return &ApplePhonePlugAdapter{
+        iPhone: iPhone,
+    }
 }
 
 // ConnectUSB 链接USB
 func (a *ApplePhonePlugAdapter) ConnectUSB() string {
-  return fmt.Sprintf("%v adapt to usb ", a.iPhone.ConnectLightning())
+    return fmt.Sprintf("%v adapt to usb ", a.iPhone.ConnectLightning())
 }
 
 // PowerBank 充电宝
 type PowerBank struct {
-  brand string
+    brand string
 }
 
 // Charge 支持通用USB接口充电
 func (p *PowerBank) Charge(plug CommonPlug) string {
-  return fmt.Sprintf("%v power bank connect usb plug, start charge for %v", p.brand, plug.ConnectUSB())
+    return fmt.Sprintf("%v power bank connect usb plug, start charge for %v", p.brand, plug.ConnectUSB())
 }
 ```
 
@@ -2098,17 +2092,17 @@ func (p *PowerBank) Charge(plug CommonPlug) string {
 package adapter
 
 import (
-  "fmt"
-  "testing"
+    "fmt"
+    "testing"
 )
 
 func TestAdapter (t *testing.T) {
-  huaweiMate40Pro := NewHuaweiPhone("华为 mate40 pro")
-  iphone13MaxPro := NewIPhone("苹果 iphone13 pro max")
+    huaweiMate40Pro := NewHuaweiPhone("华为 mate40 pro")
+    iphone13MaxPro := NewIPhone("苹果 iphone13 pro max")
 
-  powerBank := &PowerBank{"飞利浦"}
-  fmt.Println(powerBank.Charge(NewHuaweiPhonePlugAdapter(huaweiMate40Pro)))
-  fmt.Println(powerBank.Charge(NewApplePhonePlugAdapter(iphone13MaxPro)))
+    powerBank := &PowerBank{"飞利浦"}
+    fmt.Println(powerBank.Charge(NewHuaweiPhonePlugAdapter(huaweiMate40Pro)))
+    fmt.Println(powerBank.Charge(NewApplePhonePlugAdapter(iphone13MaxPro)))
 }
 ```
 
@@ -2159,7 +2153,7 @@ package bridge
 
 // Traffic 交通工具
 type Traffic interface {
-   Transport() string
+    Transport() string
 }
 
 // airplane 飞机
@@ -2167,7 +2161,7 @@ type airplane struct{}
 
 // Transport 坐飞机
 func (a *airplane) Transport() string {
-   return "by airplane"
+    return "by airplane"
 }
 
 // car 汽车
@@ -2175,7 +2169,7 @@ type car struct{}
 
 // Transport 坐汽车
 func (t *car) Transport() string {
-   return "by car"
+    return "by car"
 }
 ```
 
@@ -2188,129 +2182,128 @@ import "fmt"
 
 // Location 地点
 type Location interface {
-  Name() string // 地点名称
-  PlaySports() string // 参与运动
+    Name() string // 地点名称
+    PlaySports() string // 参与运动
 }
 
 // namedLocation 被命名的地点，统一引用此类型，声明名字字段及获取方法
 type namedLocation struct {
-  name string
+    name string
 }
 
 // Name 获取地点名称
 func (n namedLocation) Name() string {
-  return n.name
+    return n.name
 }
 
 // seaside 海边
 type seaside struct {
-  namedLocation
+    namedLocation
 }
 
 // NewSeaside 创建指定名字的海边，比如三亚湾
 func NewSeaside(name string) *seaside {
-  return &seaside{
-    namedLocation: namedLocation{
-      name: name,
-    },
-  }
+    return &seaside{
+        namedLocation: namedLocation{
+            name: name,
+        },
+    }
 }
 
 // PlaySports 海边可以冲浪
 func (s *seaside) PlaySports() string {
-  return fmt.Sprintf("surfing")
+    return fmt.Sprintf("surfing")
 }
 
 // mountain 山
 type mountain struct {
-  namedLocation
+    namedLocation
 }
 
 // NewMountain 创建指定名字的山，比如泰山
 func NewMountain(name string) *mountain {
-  return &mountain{
-    namedLocation: namedLocation{
-      name: name,
-    },
-  }
+    return &mountain{
+        namedLocation: namedLocation{
+            name: name,
+        },
+    }
 }
 
 // PlaySports 可以爬山
 func (m *mountain) PlaySports() string {
-  return fmt.Sprintf("climbing")
+    return fmt.Sprintf("climbing")
 }
 
 // desert 荒漠
 type desert struct {
-  namedLocation
+    namedLocation
 }
 
 // NewDesert 创建指定名字的荒漠，比如罗布泊
 func NewDesert(name string) *desert {
-  return &desert{
-    namedLocation: namedLocation{
-      name: name,
-    },
-  }
+    return &desert{
+        namedLocation: namedLocation{
+            name: name,
+        },
+    }
 }
 
 // PlaySports 荒漠可以徒步穿越
 func (d *desert) PlaySports() string {
-  return fmt.Sprintf("trekking")
+    return fmt.Sprintf("trekking")
 }
 ```
 
 ### **（五）经历描述**
 
 ```go
-
 package bridge
 
 import "fmt"
 
 // Experience 经历
 type Experience interface {
-  Describe() string // 描述经历
+    Describe() string // 描述经历
 }
 
 // travelExperience 旅游经历
 type travelExperience struct {
-  subject  string
-  traffic  Traffic
-  location Location
+    subject  string
+    traffic  Traffic
+    location Location
 }
 
 // NewTravelExperience 创建旅游经历，包括主题、交通方式、地点
 func NewTravelExperience(subject string, traffic Traffic, location Location) *travelExperience {
-  return &travelExperience{
-    subject:  subject,
-    traffic:  traffic,
-    location: location,
-  }
+    return &travelExperience{
+        subject:  subject,
+        traffic:  traffic,
+        location: location,
+    }
 }
 
 // Describe 描述旅游经历
 func (t *travelExperience) Describe() string {
-  return fmt.Sprintf("%s is to %s %s and %s", t.subject, t.location.Name(), t.traffic.Transport(), t.location.PlaySports())
+    return fmt.Sprintf("%s is to %s %s and %s", t.subject, t.location.Name(), t.traffic.Transport(), t.location.PlaySports())
 }
 
 // adventureExperience 探险经历
 type adventureExperience struct {
-  survivalTraining string
-  travelExperience
+    survivalTraining string
+    travelExperience
 }
 
 // NewAdventureExperience 创建探险经历，包括探险需要的培训，其他的与路由参数类似
 func NewAdventureExperience(training string, subject string, traffic Traffic, location Location) *adventureExperience {
-  return &adventureExperience{
-    survivalTraining: training,
-    travelExperience: *NewTravelExperience(subject, traffic, location),
-  }
+    return &adventureExperience{
+        survivalTraining: training,
+        travelExperience: *NewTravelExperience(subject, traffic, location),
+    }
 }
 
 // Describe 描述探险经历
 func (a *adventureExperience) Describe() string {
-  return fmt.Sprintf("after %s, %s", a.survivalTraining, a.travelExperience.Describe())
+    return fmt.Sprintf("after %s, %s", a.survivalTraining, a.travelExperience.Describe())
 }
 ```
 
@@ -2320,21 +2313,21 @@ func (a *adventureExperience) Describe() string {
 package bridge
 
 import (
-   "fmt"
-   "testing"
+    "fmt"
+    "testing"
 )
 
 func TestBridge(t *testing.T) {
-   // 坐飞机去三亚度蜜月
-   honeymoonTravel := NewTravelExperience("honeymoon", new(airplane), NewSeaside("SanyaYalongBay"))
-   fmt.Println(honeymoonTravel.Describe())
-   // 坐车去泰山毕业旅游
-   graduationTrip := NewTravelExperience("graduationTrip", new(car), NewMountain("Tarzan"))
-   fmt.Println(graduationTrip.Describe())
+    // 坐飞机去三亚度蜜月
+    honeymoonTravel := NewTravelExperience("honeymoon", new(airplane), NewSeaside("SanyaYalongBay"))
+    fmt.Println(honeymoonTravel.Describe())
+    // 坐车去泰山毕业旅游
+    graduationTrip := NewTravelExperience("graduationTrip", new(car), NewMountain("Tarzan"))
+    fmt.Println(graduationTrip.Describe())
 
-   // 野外生存培训后，坐车去罗布泊，徒步穿越
-   desertAdventure := NewAdventureExperience("wilderness survival training", "adventure", new(car), NewDesert("Lop Nor"))
-   fmt.Println(desertAdventure.Describe())
+    // 野外生存培训后，坐车去罗布泊，徒步穿越
+    desertAdventure := NewAdventureExperience("wilderness survival training", "adventure", new(car), NewDesert("Lop Nor"))
+    fmt.Println(desertAdventure.Describe())
 }
 ```
 
@@ -2372,9 +2365,9 @@ package composite
 
 // Region 行政区，作为组合模式component接口
 type Region interface {
-   Name() string    // 名称
-   Population() int //人口
-   GDP() float64    // gdp
+    Name() string    // 名称
+    Population() int //人口
+    GDP() float64    // gdp
 }
 ```
 
@@ -2385,137 +2378,135 @@ package composite
 
 // town 区镇，组合模式中相当于叶子节点
 type town struct {
-  name       string
-  population int
-  gdp        float64
+    name       string
+    population int
+    gdp        float64
 }
 
 // NewTown 创建区镇，根据名称、人口、GDP
 func NewTown(name string, population int, gdp float64) *town {
-  return &town{
-    name:       name,
-    population: population,
-    gdp:        gdp,
-  }
+    return &town{
+        name:       name,
+        population: population,
+        gdp:        gdp,
+    }
 }
 
 func (c *town) Name() string {
-  return c.name
+    return c.name
 }
 
 func (c *town) Population() int {
-  return c.population
+    return c.population
 }
 
 func (c *town) GDP() float64 {
-  return c.gdp
+    return c.gdp
 }
 ```
 
 ### **（五）县市地市实现**
 
 ```go
-
 package composite
 
 // cities 市，包括县市或者地市，组合模式中相当于composite
 type cities struct {
-  name    string
-  regions map[string]Region
+    name    string
+    regions map[string]Region
 }
 
 // NewCities 创建一个市
 func NewCities(name string) *cities {
-  return &cities{
-    name:    name,
-    regions: make(map[string]Region),
-  }
+    return &cities{
+        name:    name,
+        regions: make(map[string]Region),
+    }
 }
 
 func (c *cities) Name() string {
-  return c.name
+    return c.name
 }
 
 func (c *cities) Population() int {
-  sum := 0
-  for _, r := range c.regions {
-    sum += r.Population()
-  }
-  return sum
+    sum := 0
+    for _, r := range c.regions {
+        sum += r.Population()
+    }
+    return sum
 }
 
 func (c *cities) GDP() float64 {
-  sum := 0.0
-  for _, r := range c.regions {
-    sum += r.GDP()
-  }
-  return sum
+    sum := 0.0
+    for _, r := range c.regions {
+        sum += r.GDP()
+    }
+    return sum
 }
 
 // Add 添加多个行政区
 func (c *cities) Add(regions ...Region) {
-  for _, r := range regions {
-    c.regions[r.Name()] = r
-  }
+    for _, r := range regions {
+        c.regions[r.Name()] = r
+    }
 }
 
 // Remove 递归删除行政区
 func (c *cities) Remove(name string) {
-  for n, r := range c.regions {
-    if n == name {
-      delete(c.regions, name)
-      return
+    for n, r := range c.regions {
+        if n == name {
+            delete(c.regions, name)
+            return
+        }
+        if city, ok := r.(*cities); ok {
+            city.Remove(name)
+        }
     }
-    if city, ok := r.(*cities); ok {
-      city.Remove(name)
-    }
-  }
 }
 
 func (c *cities) Regions() map[string]Region {
-  return c.regions
+    return c.regions
 }
 ```
 
 ### **（六）测试程序**
 
 ```go
-
 package composite
 
 import (
-   "fmt"
-   "testing"
+    "fmt"
+    "testing"
 )
 
 func TestComposite(t *testing.T) {
-   gusu := NewTown("姑苏区", 100, 2000.00)
-   fmt.Println(ShowRegionInfo(gusu))
-   wuzhong := NewTown("吴中区", 150, 2600.00)
-   fmt.Println(ShowRegionInfo(wuzhong))
-   huqiu := NewTown("虎丘区", 80, 1800.00)
-   fmt.Println(ShowRegionInfo(huqiu))
+    gusu := NewTown("姑苏区", 100, 2000.00)
+    fmt.Println(ShowRegionInfo(gusu))
+    wuzhong := NewTown("吴中区", 150, 2600.00)
+    fmt.Println(ShowRegionInfo(wuzhong))
+    huqiu := NewTown("虎丘区", 80, 1800.00)
+    fmt.Println(ShowRegionInfo(huqiu))
 
-   kunshan := NewCities("昆山市")
-   kunshan.Add(NewTown("玉山镇", 60, 1200.00),
-      NewTown("周庄镇", 68, 1900.00),
-      NewTown("花桥镇", 78, 2200.00))
-   fmt.Println(ShowRegionInfo(kunshan))
+    kunshan := NewCities("昆山市")
+    kunshan.Add(NewTown("玉山镇", 60, 1200.00),
+                NewTown("周庄镇", 68, 1900.00),
+                NewTown("花桥镇", 78, 2200.00))
+    fmt.Println(ShowRegionInfo(kunshan))
 
-   changshu := NewCities("常熟市")
-   changshu.Add(NewTown("沙家浜镇", 55, 1100.00),
-      NewTown("古里镇", 59, 1300.00),
-      NewTown("辛庄镇", 68, 2100.00))
-   fmt.Println(ShowRegionInfo(changshu))
+    changshu := NewCities("常熟市")
+    changshu.Add(NewTown("沙家浜镇", 55, 1100.00),
+                 NewTown("古里镇", 59, 1300.00),
+                 NewTown("辛庄镇", 68, 2100.00))
+    fmt.Println(ShowRegionInfo(changshu))
 
-   suzhou := NewCities("苏州市")
-   suzhou.Add(gusu, wuzhong, huqiu, kunshan, changshu)
-   fmt.Println(ShowRegionInfo(suzhou))
+    suzhou := NewCities("苏州市")
+    suzhou.Add(gusu, wuzhong, huqiu, kunshan, changshu)
+    fmt.Println(ShowRegionInfo(suzhou))
 
 }
 
 func ShowRegionInfo(region Region) string {
-   return fmt.Sprintf("%s, 人口:%d万, GDP:%.2f亿", region.Name(), region.Population(), region.GDP())
+    return fmt.Sprintf("%s, 人口:%d万, GDP:%.2f亿", region.Name(), region.Population(), region.GDP())
 }
 ```
 
@@ -2558,54 +2549,54 @@ import "fmt"
 
 // Station 车站，修饰器模式统一接口
 type Station interface {
-  Enter() string // 进站
+    Enter() string // 进站
 }
 
 // subwayStation 地铁站
 type subwayStation struct {
-  name string
+    name string
 }
 
 // NewSubwayStation 创建指定站名地铁站
 func NewSubwayStation(name string) *subwayStation {
-  return &subwayStation{
-    name: name,
-  }
+    return &subwayStation{
+        name: name,
+    }
 }
 
 // Enter 进地铁站
 func (s *subwayStation) Enter() string {
-  return fmt.Sprintf("买票进入%s地铁站。", s.name)
+    return fmt.Sprintf("买票进入%s地铁站。", s.name)
 }
 
 // securityCheckDecorator 进站安检修饰器
 type securityCheckDecorator struct {
-  station Station
+    station Station
 }
 
 func NewSecurityCheckDecorator(station Station) *securityCheckDecorator {
-  return &securityCheckDecorator{
-    station: station,
-  }
+    return &securityCheckDecorator{
+        station: station,
+    }
 }
 
 func (s *securityCheckDecorator) Enter() string {
-  return "行李通过安检；" + s.station.Enter()
+    return "行李通过安检；" + s.station.Enter()
 }
 
 // epidemicProtectionDecorator 进站疫情防护修饰器
 type epidemicProtectionDecorator struct {
-  station Station
+    station Station
 }
 
 func NewEpidemicProtectionDecorator(station Station) *epidemicProtectionDecorator {
-  return &epidemicProtectionDecorator{
-    station: station,
-  }
+    return &epidemicProtectionDecorator{
+        station: station,
+    }
 }
 
 func (e *epidemicProtectionDecorator) Enter() string {
-  return "测量体温，佩戴口罩；" + e.station.Enter()
+    return "测量体温，佩戴口罩；" + e.station.Enter()
 }
 ```
 
@@ -2615,26 +2606,26 @@ func (e *epidemicProtectionDecorator) Enter() string {
 package decorator
 
 import (
-   "fmt"
-   "testing"
+    "fmt"
+    "testing"
 )
 
 func TestDecorator(t *testing.T) {
-   xierqiStation := NewSubwayStation("西二旗")
-   fmt.Println(EnhanceEnterStationProcess(xierqiStation, false, false).Enter())
-   fmt.Println(EnhanceEnterStationProcess(xierqiStation, true, false).Enter())
-   fmt.Println(EnhanceEnterStationProcess(xierqiStation, true, true).Enter())
+    xierqiStation := NewSubwayStation("西二旗")
+    fmt.Println(EnhanceEnterStationProcess(xierqiStation, false, false).Enter())
+    fmt.Println(EnhanceEnterStationProcess(xierqiStation, true, false).Enter())
+    fmt.Println(EnhanceEnterStationProcess(xierqiStation, true, true).Enter())
 }
 
 // EnhanceEnterStationProcess 根据是否有行李，是否处于疫情，增加进站流程
 func EnhanceEnterStationProcess(station Station, hasLuggage bool, hasEpidemic bool) Station {
-   if hasLuggage {
-      station = NewSecurityCheckDecorator(station)
-   }
-   if hasEpidemic {
-      station = NewEpidemicProtectionDecorator(station)
-   }
-   return station
+    if hasLuggage {
+        station = NewSecurityCheckDecorator(station)
+    }
+    if hasEpidemic {
+        station = NewEpidemicProtectionDecorator(station)
+    }
+    return station
 }
 ```
 
@@ -2668,82 +2659,81 @@ PASS
 ### **（三）淘宝电商系统**
 
 ```go
-
 package facade
 
 import "fmt"
 
 // TaobaoFacade 淘宝网站门面，在淘宝网站下单涉及到多个系统配合调用，包括用户系统，商品系统，优惠券系统，库存系统，支付系统，最终生成订单
 type TaobaoFacade struct {
-  userService    *UserService
-  productService *ProductService
-  couponService  *CouponService
-  stockService   *StockService
-  paymentService *PaymentService
+    userService    *UserService
+    productService *ProductService
+    couponService  *CouponService
+    stockService   *StockService
+    paymentService *PaymentService
 }
 
 // NewTaobaoFacade 创建淘宝网站
 func NewTaobaoFacade() *TaobaoFacade {
-  return &TaobaoFacade{
-    userService: &UserService{},
-    productService: &ProductService{
-      products: map[string]float64{"笔记本电脑": 6666.66},
-    },
-    couponService:  &CouponService{},
-    stockService:   &StockService{},
-    paymentService: &PaymentService{},
-  }
+    return &TaobaoFacade{
+        userService: &UserService{},
+        productService: &ProductService{
+            products: map[string]float64{"笔记本电脑": 6666.66},
+        },
+        couponService:  &CouponService{},
+        stockService:   &StockService{},
+        paymentService: &PaymentService{},
+    }
 }
 
 // CreateOrder 根据用户名，商品名，商品数量生成购买订单
 func (t *TaobaoFacade) CreateOrder(userName string, productName string, count int) string {
-  // 使用优惠券
-  couponInfo := t.couponService.useCoupon()
-  // 扣减库存
-  stockInfo := t.stockService.decreaseFor(productName, count)
-  // 计算商品总价
-  sumPrice := t.productService.getProductPrice(productName) * float64(count)
-  // 支付价格
-  payInfo := t.paymentService.pay(sumPrice)
-  return fmt.Sprintf("用户%s,购买了%d件%s商品,%s,%s,%s,送货到%s", userName, count, productName, couponInfo,
-    stockInfo, payInfo, t.userService.getUserAddress(userName))
+    // 使用优惠券
+    couponInfo := t.couponService.useCoupon()
+    // 扣减库存
+    stockInfo := t.stockService.decreaseFor(productName, count)
+    // 计算商品总价
+    sumPrice := t.productService.getProductPrice(productName) * float64(count)
+    // 支付价格
+    payInfo := t.paymentService.pay(sumPrice)
+    return fmt.Sprintf("用户%s,购买了%d件%s商品,%s,%s,%s,送货到%s", userName, count, productName, couponInfo,
+                       stockInfo, payInfo, t.userService.getUserAddress(userName))
 }
 
 // UserService 用户系统
 type UserService struct{}
 
 func (u *UserService) getUserAddress(userName string) string {
-  return fmt.Sprintf("%s地址是:北京市海淀区中关村大街，1号院2号楼3单元402", userName)
+    return fmt.Sprintf("%s地址是:北京市海淀区中关村大街，1号院2号楼3单元402", userName)
 }
 
 // ProductService 商品系统
 type ProductService struct {
-  products map[string]float64
+    products map[string]float64
 }
 
 func (p *ProductService) getProductPrice(productName string) float64 {
-  return p.products[productName]
+    return p.products[productName]
 }
 
 // CouponService 优惠券系统
 type CouponService struct{}
 
 func (c *CouponService) useCoupon() string {
-  return "使用满100减20优惠券"
+    return "使用满100减20优惠券"
 }
 
 // StockService 库存系统
 type StockService struct{}
 
 func (s *StockService) decreaseFor(productName string, count int) string {
-  return fmt.Sprintf("扣减%d件%s商品库存", count, productName)
+    return fmt.Sprintf("扣减%d件%s商品库存", count, productName)
 }
 
 // PaymentService 支付系统
 type PaymentService struct{}
 
 func (p *PaymentService) pay(amount float64) string {
-  return fmt.Sprintf("支付金额%.2f", amount)
+    return fmt.Sprintf("支付金额%.2f", amount)
 }
 ```
 
@@ -2753,14 +2743,14 @@ func (p *PaymentService) pay(amount float64) string {
 package facade
 
 import (
-   "fmt"
-   "testing"
+    "fmt"
+    "testing"
 )
 
 func TestFacade(t *testing.T) {
-   // 通过门面模式，隐藏下单过程中，后端多个系统的复杂交互
-   taobao := NewTaobaoFacade()
-   fmt.Println(taobao.CreateOrder("张三", "笔记本电脑", 1))
+    // 通过门面模式，隐藏下单过程中，后端多个系统的复杂交互
+    taobao := NewTaobaoFacade()
+    fmt.Println(taobao.CreateOrder("张三", "笔记本电脑", 1))
 }
 ```
 
@@ -2795,49 +2785,49 @@ PASS
 package flyweight
 
 import (
-  "fmt"
+    "fmt"
 )
 
 // Taxi 出租车，享元对象，保存不变的内在属性信息
 type Taxi struct {
-  licensePlate string // 车牌
-  color        string // 颜色
-  brand        string // 汽车品牌
-  company      string // 所属公司
+    licensePlate string // 车牌
+    color        string // 颜色
+    brand        string // 汽车品牌
+    company      string // 所属公司
 }
 
 // LocateFor 获取定位信息
 func (t *Taxi) LocateFor(monitorMap string, x, y int) string {
-  return fmt.Sprintf("%s,对于车牌号%s,%s,%s品牌,所属%s公司,定位(%d,%d)", monitorMap,
-    t.licensePlate, t.color, t.brand, t.company, x, y)
+    return fmt.Sprintf("%s,对于车牌号%s,%s,%s品牌,所属%s公司,定位(%d,%d)", monitorMap,
+                       t.licensePlate, t.color, t.brand, t.company, x, y)
 }
 
 // taxiFactoryInstance 出租车工厂单例
 var taxiFactoryInstance = &TaxiFactory{
-  taxis: make(map[string]*Taxi),
+    taxis: make(map[string]*Taxi),
 }
 
 // GetTaxiFactory 获取出租车工厂单例
 func GetTaxiFactory() *TaxiFactory {
-  return taxiFactoryInstance
+    return taxiFactoryInstance
 }
 
 // TaxiFactory 出租车工厂类
 type TaxiFactory struct {
-  taxis map[string]*Taxi // key为车牌号
+    taxis map[string]*Taxi // key为车牌号
 }
 
 // getTaxi 获取出租车
 func (f *TaxiFactory) getTaxi(licensePlate, color, brand, company string) *Taxi {
-  if _, ok := f.taxis[licensePlate]; !ok {
-    f.taxis[licensePlate] = &Taxi{
-      licensePlate: licensePlate,
-      color:        color,
-      brand:        brand,
-      company:      company,
+    if _, ok := f.taxis[licensePlate]; !ok {
+        f.taxis[licensePlate] = &Taxi{
+            licensePlate: licensePlate,
+            color:        color,
+            brand:        brand,
+            company:      company,
+        }
     }
-  }
-  return f.taxis[licensePlate]
+    return f.taxis[licensePlate]
 }
 ```
 
@@ -2850,51 +2840,51 @@ import "bytes"
 
 // TaxiPosition 出租车位置信息 x,y为外在数据信息，taxi为内在数据信息（享元对象）
 type TaxiPosition struct {
-  x    int
-  y    int
-  taxi *Taxi
+    x    int
+    y    int
+    taxi *Taxi
 }
 
 func NewTaxiPosition(taxi *Taxi, x, y int) *TaxiPosition {
-  return &TaxiPosition{
-    taxi: taxi,
-    x:    x,
-    y:    y,
-  }
+    return &TaxiPosition{
+        taxi: taxi,
+        x:    x,
+        y:    y,
+    }
 }
 
 // LocateFor 定位信息
 func (p *TaxiPosition) LocateFor(monitorMap string) string {
-  return p.taxi.LocateFor(monitorMap, p.x, p.y)
+    return p.taxi.LocateFor(monitorMap, p.x, p.y)
 }
 
 // TaxiDispatcher 出租车调度系统
 type TaxiDispatcher struct {
-  name   string
-  traces map[string][]*TaxiPosition // 存储出租车当天轨迹信息，key为车牌号
+    name   string
+    traces map[string][]*TaxiPosition // 存储出租车当天轨迹信息，key为车牌号
 }
 
 func NewTaxiDispatcher(name string) *TaxiDispatcher {
-  return &TaxiDispatcher{
-    name:   name,
-    traces: make(map[string][]*TaxiPosition),
-  }
+    return &TaxiDispatcher{
+        name:   name,
+        traces: make(map[string][]*TaxiPosition),
+    }
 }
 
 // AddTrace 添加轨迹
 func (t *TaxiDispatcher) AddTrace(licensePlate, color, brand, company string, x, y int) {
-  taxi := GetTaxiFactory().getTaxi(licensePlate, color, brand, company)
-  t.traces[licensePlate] = append(t.traces[licensePlate], NewTaxiPosition(taxi, x, y))
+    taxi := GetTaxiFactory().getTaxi(licensePlate, color, brand, company)
+    t.traces[licensePlate] = append(t.traces[licensePlate], NewTaxiPosition(taxi, x, y))
 }
 
 // ShowTraces 显示轨迹
 func (t *TaxiDispatcher) ShowTraces(licensePlate string) string {
-  bytesBuf := bytes.Buffer{}
-  for _, trace := range t.traces[licensePlate] {
-    bytesBuf.WriteString(trace.LocateFor(t.name))
-    bytesBuf.WriteByte('\n')
-  }
-  return bytesBuf.String()
+    bytesBuf := bytes.Buffer{}
+    for _, trace := range t.traces[licensePlate] {
+        bytesBuf.WriteString(trace.LocateFor(t.name))
+        bytesBuf.WriteByte('\n')
+    }
+    return bytesBuf.String()
 }
 ```
 
@@ -2904,22 +2894,22 @@ func (t *TaxiDispatcher) ShowTraces(licensePlate string) string {
 package flyweight
 
 import (
-   "fmt"
-   "testing"
+    "fmt"
+    "testing"
 )
 
 func TestFlyweight(t *testing.T) {
-   dispatcher := NewTaxiDispatcher("北京市出租车调度系统")
-   dispatcher.AddTrace("京B.123456", "黄色", "北京现代", "北汽", 10, 20)
-   dispatcher.AddTrace("京B.123456", "黄色", "北京现代", "北汽", 20, 30)
-   dispatcher.AddTrace("京B.123456", "黄色", "北京现代", "北汽", 30, 40)
-   dispatcher.AddTrace("京B.123456", "黄色", "北京现代", "北汽", 40, 50)
+    dispatcher := NewTaxiDispatcher("北京市出租车调度系统")
+    dispatcher.AddTrace("京B.123456", "黄色", "北京现代", "北汽", 10, 20)
+    dispatcher.AddTrace("京B.123456", "黄色", "北京现代", "北汽", 20, 30)
+    dispatcher.AddTrace("京B.123456", "黄色", "北京现代", "北汽", 30, 40)
+    dispatcher.AddTrace("京B.123456", "黄色", "北京现代", "北汽", 40, 50)
 
-   dispatcher.AddTrace("京B.567890", "红色", "一汽大众", "首汽", 20, 40)
-   dispatcher.AddTrace("京B.567890", "红色", "一汽大众", "首汽", 50, 50)
+    dispatcher.AddTrace("京B.567890", "红色", "一汽大众", "首汽", 20, 40)
+    dispatcher.AddTrace("京B.567890", "红色", "一汽大众", "首汽", 50, 50)
 
-   fmt.Println(dispatcher.ShowTraces("京B.123456"))
-   fmt.Println(dispatcher.ShowTraces("京B.567890"))
+    fmt.Println(dispatcher.ShowTraces("京B.123456"))
+    fmt.Println(dispatcher.ShowTraces("京B.567890"))
 }
 ```
 
@@ -2962,43 +2952,43 @@ PASS
 package proxy
 
 import (
-  "bytes"
-  "fmt"
+    "bytes"
+    "fmt"
 )
 
 // HouseSeller 房屋出售者
 type HouseSeller interface {
-  SellHouse(address string, buyer string) string
+    SellHouse(address string, buyer string) string
 }
 
 // houseProxy 房产中介代理
 type houseProxy struct {
-  houseSeller HouseSeller
+    houseSeller HouseSeller
 }
 
 func NewHouseProxy(houseSeller HouseSeller) *houseProxy {
-  return &houseProxy{
-    houseSeller: houseSeller,
-  }
+    return &houseProxy{
+        houseSeller: houseSeller,
+    }
 }
 
 // SellHouse 中介卖房，看房->初步谈价->最终和房东签协议
 func (h *houseProxy) SellHouse(address string, buyer string) string {
-  buf := bytes.Buffer{}
-  buf.WriteString(h.viewHouse(address, buyer) + "\n")
-  buf.WriteString(h.preBargain(address, buyer) + "\n")
-  buf.WriteString(h.houseSeller.SellHouse(address, buyer))
-  return buf.String()
+    buf := bytes.Buffer{}
+    buf.WriteString(h.viewHouse(address, buyer) + "\n")
+    buf.WriteString(h.preBargain(address, buyer) + "\n")
+    buf.WriteString(h.houseSeller.SellHouse(address, buyer))
+    return buf.String()
 }
 
 // viewHouse 看房介绍基本情况
 func (h *houseProxy) viewHouse(address string, buyer string) string {
-  return fmt.Sprintf("带买家%s看位于%s的房屋，并介绍基本情况", buyer, address)
+    return fmt.Sprintf("带买家%s看位于%s的房屋，并介绍基本情况", buyer, address)
 }
 
 // preBargain 初步沟通价格
 func (h *houseProxy) preBargain(address string, buyer string) string {
-  return fmt.Sprintf("讨价还价后，初步达成购买意向")
+    return fmt.Sprintf("讨价还价后，初步达成购买意向")
 }
 
 // houseOwner 房东
@@ -3006,7 +2996,7 @@ type houseOwner struct{}
 
 // SellHouse 房东卖房，商讨价格，签署购房协议
 func (h *houseOwner) SellHouse(address string, buyer string) string {
-  return fmt.Sprintf("最终商讨价格后，与%s签署购买地址为%s的购房协议。", buyer, address)
+    return fmt.Sprintf("最终商讨价格后，与%s签署购买地址为%s的购房协议。", buyer, address)
 }
 ```
 
@@ -3016,13 +3006,13 @@ func (h *houseOwner) SellHouse(address string, buyer string) string {
 package proxy
 
 import (
-  "fmt"
-  "testing"
+    "fmt"
+    "testing"
 )
 
 func TestProxy(t *testing.T) {
-  proxy := NewHouseProxy(&houseOwner{})
-  fmt.Println(proxy.SellHouse("北京市海淀区中关村大街，2号院1号楼4单元502室", "李四"))
+    proxy := NewHouseProxy(&houseOwner{})
+    fmt.Println(proxy.SellHouse("北京市海淀区中关村大街，2号院1号楼4单元502室", "李四"))
 }
 ```
 
@@ -3058,33 +3048,33 @@ package factorymethod
 
 // Pancake 煎饼
 type Pancake interface {
-  // ShowFlour 煎饼使用的面粉
-  ShowFlour() string
-  // Value 煎饼价格
-  Value() float32
+    // ShowFlour 煎饼使用的面粉
+    ShowFlour() string
+    // Value 煎饼价格
+    Value() float32
 }
 
 // PancakeCook 煎饼厨师
 type PancakeCook interface {
-  // MakePancake 摊煎饼
-  MakePancake() Pancake
+    // MakePancake 摊煎饼
+    MakePancake() Pancake
 }
 
 // PancakeVendor 煎饼小贩
 type PancakeVendor struct {
-  PancakeCook
+    PancakeCook
 }
 
 // NewPancakeVendor ...
 func NewPancakeVendor(cook PancakeCook) *PancakeVendor {
-  return &PancakeVendor{
-    PancakeCook: cook,
-  }
+    return &PancakeVendor{
+        PancakeCook: cook,
+    }
 }
 
 // SellPancake 卖煎饼，先摊煎饼，再卖
 func (vendor *PancakeVendor) SellPancake() (money float32) {
-  return vendor.MakePancake().Value()
+    return vendor.MakePancake().Value()
 }
 ```
 
@@ -3100,30 +3090,30 @@ type cornPancake struct{}
 
 // NewCornPancake ...
 func NewCornPancake() *cornPancake {
-  return &cornPancake{}
+    return &cornPancake{}
 }
 
 func (cake *cornPancake) ShowFlour() string {
-  return "玉米面"
+    return "玉米面"
 }
 
 func (cake *cornPancake) Value() float32 {
-  return 5.0
+    return 5.0
 }
 
 // milletPancake 小米面煎饼
 type milletPancake struct{}
 
 func NewMilletPancake() *milletPancake {
-  return &milletPancake{}
+    return &milletPancake{}
 }
 
 func (cake *milletPancake) ShowFlour() string {
-  return "小米面"
+    return "小米面"
 }
 
 func (cake *milletPancake) Value() float32 {
-  return 8.0
+    return 8.0
 }
 ```
 
@@ -3136,22 +3126,22 @@ package factorymethod
 type cornPancakeCook struct{}
 
 func NewCornPancakeCook() *cornPancakeCook {
-  return &cornPancakeCook{}
+    return &cornPancakeCook{}
 }
 
 func (cook *cornPancakeCook) MakePancake() Pancake {
-  return NewCornPancake()
+    return NewCornPancake()
 }
 
 // milletPancakeCook 制作小米面煎饼厨师
 type milletPancakeCook struct{}
 
 func NewMilletPancakeCook() *milletPancakeCook {
-  return &milletPancakeCook{}
+    return &milletPancakeCook{}
 }
 
 func (cook *milletPancakeCook) MakePancake() Pancake {
-  return NewMilletPancake()
+    return NewMilletPancake()
 }
 ```
 
@@ -3161,16 +3151,16 @@ func (cook *milletPancakeCook) MakePancake() Pancake {
 package factorymethod
 
 import (
-  "fmt"
-  "testing"
+    "fmt"
+    "testing"
 )
 
 func TestFactoryMethod(t *testing.T) {
-  pancakeVendor := NewPancakeVendor(NewCornPancakeCook())
-  fmt.Printf("Corn pancake value is %v\n", pancakeVendor.SellPancake())
+    pancakeVendor := NewPancakeVendor(NewCornPancakeCook())
+    fmt.Printf("Corn pancake value is %v\n", pancakeVendor.SellPancake())
 
-  pancakeVendor = NewPancakeVendor(NewMilletPancakeCook())
-  fmt.Printf("Millet pancake value is %v\n", pancakeVendor.SellPancake())
+    pancakeVendor = NewPancakeVendor(NewMilletPancakeCook())
+    fmt.Printf("Millet pancake value is %v\n", pancakeVendor.SellPancake())
 }
 ```
 
@@ -3210,22 +3200,22 @@ PASS
 package abstractfactory
 // Cook 厨师接口，抽象工厂
 type Cook interface {
-  // MakeFood 制作主食
-  MakeFood() Food
-  // MakeDrink 制作饮品
-  MakeDrink() Drink
+    // MakeFood 制作主食
+    MakeFood() Food
+    // MakeDrink 制作饮品
+    MakeDrink() Drink
 }
 
 // Food 主食接口
 type Food interface {
-  // Eaten 被吃
-  Eaten() string
+    // Eaten 被吃
+    Eaten() string
 }
 
 // Drink 饮品接口
 type Drink interface {
-  // Drunk 被喝
-  Drunk() string
+    // Drunk 被喝
+    Drunk() string
 }
 ```
 
@@ -3240,81 +3230,80 @@ package abstractfactory
 type breakfastCook struct{}
 
 func NewBreakfastCook() *breakfastCook {
-  return &breakfastCook{}
+    return &breakfastCook{}
 }
 
 func (b *breakfastCook) MakeFood() Food {
-  return &cakeFood{"切片面包"}
+    return &cakeFood{"切片面包"}
 }
 
 func (b *breakfastCook) MakeDrink() Drink {
-  return &gruelDrink{"小米粥"}
+    return &gruelDrink{"小米粥"}
 }
 
 // lunchCook 午餐厨师
 type lunchCook struct{}
 
 func NewLunchCook() *lunchCook {
-  return &lunchCook{}
+    return &lunchCook{}
 }
 
 func (l *lunchCook) MakeFood() Food {
-  return &dishFood{"烤全羊"}
+    return &dishFood{"烤全羊"}
 }
 
 func (l *lunchCook) MakeDrink() Drink {
-  return &sodaDrink{"冰镇可口可乐"}
+    return &sodaDrink{"冰镇可口可乐"}
 }
 
 // dinnerCook 晚餐厨师
 type dinnerCook struct{}
 
 func NewDinnerCook() *dinnerCook {
-  return &dinnerCook{}
+    return &dinnerCook{}
 }
 
 func (d *dinnerCook) MakeFood() Food {
-  return &noodleFood{"大盘鸡拌面"}
+    return &noodleFood{"大盘鸡拌面"}
 }
 
 func (d *dinnerCook) MakeDrink() Drink {
-  return &soupDrink{"西红柿鸡蛋汤"}
+    return &soupDrink{"西红柿鸡蛋汤"}
 }
 ```
 
 不同吃的
 
 ```go
-
 package abstractfactory
 
 import "fmt"
 
 // cakeFood 蛋糕
 type cakeFood struct {
-  cakeName string
+    cakeName string
 }
 
 func (c *cakeFood) Eaten() string {
-  return fmt.Sprintf("%v被吃", c.cakeName)
+    return fmt.Sprintf("%v被吃", c.cakeName)
 }
 
 // dishFood 菜肴
 type dishFood struct {
-  dishName string
+    dishName string
 }
 
 func (d *dishFood) Eaten() string {
-  return fmt.Sprintf("%v被吃", d.dishName)
+    return fmt.Sprintf("%v被吃", d.dishName)
 }
 
 // noodleFood 面条
 type noodleFood struct {
-  noodleName string
+    noodleName string
 }
 
 func (n *noodleFood) Eaten() string {
-  return fmt.Sprintf("%v被吃", n.noodleName)
+    return fmt.Sprintf("%v被吃", n.noodleName)
 }
 ```
 
@@ -3327,29 +3316,29 @@ import "fmt"
 
 // gruelDrink 粥
 type gruelDrink struct {
-  gruelName string
+    gruelName string
 }
 
 func (g *gruelDrink) Drunk() string {
-  return fmt.Sprintf("%v被喝", g.gruelName)
+    return fmt.Sprintf("%v被喝", g.gruelName)
 }
 
 // sodaDrink 汽水
 type sodaDrink struct {
-  sodaName string
+    sodaName string
 }
 
 func (s *sodaDrink) Drunk() string {
-  return fmt.Sprintf("%v被喝", s.sodaName)
+    return fmt.Sprintf("%v被喝", s.sodaName)
 }
 
 // soupDrink 汤
 type soupDrink struct {
-  soupName string
+    soupName string
 }
 
 func (s *soupDrink) Drunk() string {
-  return fmt.Sprintf("%v被喝", s.soupName)
+    return fmt.Sprintf("%v被喝", s.soupName)
 }
 ```
 
@@ -3359,19 +3348,19 @@ func (s *soupDrink) Drunk() string {
 package abstractfactory
 
 import (
-  "fmt"
-  "testing"
+    "fmt"
+    "testing"
 )
 
 func TestAbstractFactory(t *testing.T) {
-  fmt.Printf("breakfast: %v\n", HaveMeal(NewBreakfastCook()))
-  fmt.Printf("lunch: %v\n", HaveMeal(NewLunchCook()))
-  fmt.Printf("dinner: %v\n", HaveMeal(NewDinnerCook()))
+    fmt.Printf("breakfast: %v\n", HaveMeal(NewBreakfastCook()))
+    fmt.Printf("lunch: %v\n", HaveMeal(NewLunchCook()))
+    fmt.Printf("dinner: %v\n", HaveMeal(NewDinnerCook()))
 }
 
 // HaveMeal 吃饭
 func HaveMeal(cook Cook) string {
-  return fmt.Sprintf("%s %s", cook.MakeFood().Eaten(), cook.MakeDrink().Drunk())
+    return fmt.Sprintf("%s %s", cook.MakeFood().Eaten(), cook.MakeDrink().Drunk())
 }
 ```
 
@@ -3413,32 +3402,32 @@ package builder
 type Quantity int
 
 const (
-  Small  Quantity = 1
-  Middle Quantity = 5
-  Large  Quantity = 10
+    Small  Quantity = 1
+    Middle Quantity = 5
+    Large  Quantity = 10
 )
 
 type PancakeBuilder interface {
-  // PutPaste 放面糊
-  PutPaste(quantity Quantity)
-  // PutEgg 放鸡蛋
-  PutEgg(num int)
-  // PutWafer 放薄脆
-  PutWafer()
-  // PutFlavour 放调料 Coriander香菜，Shallot葱 Sauce酱
-  PutFlavour(hasCoriander, hasShallot, hasSauce bool)
-  // Build 摊煎饼
-  Build() *Pancake
+    // PutPaste 放面糊
+    PutPaste(quantity Quantity)
+    // PutEgg 放鸡蛋
+    PutEgg(num int)
+    // PutWafer 放薄脆
+    PutWafer()
+    // PutFlavour 放调料 Coriander香菜，Shallot葱 Sauce酱
+    PutFlavour(hasCoriander, hasShallot, hasSauce bool)
+    // Build 摊煎饼
+    Build() *Pancake
 }
 
 // Pancake  煎饼
 type Pancake struct {
-  pasteQuantity Quantity // 面糊分量
-  eggNum        int      // 鸡蛋数量
-  wafer         string   // 薄脆
-  hasCoriander  bool     // 是否放香菜
-  hasShallot    bool     // 是否放葱
-  hasSauce      bool     // 是否放酱
+    pasteQuantity Quantity // 面糊分量
+    eggNum        int      // 鸡蛋数量
+    wafer         string   // 薄脆
+    hasCoriander  bool     // 是否放香菜
+    hasShallot    bool     // 是否放葱
+    hasSauce      bool     // 是否放酱
 }
 
 ```
@@ -3451,142 +3440,140 @@ type Pancake struct {
 package builder
 
 type normalPancakeBuilder struct {
-  pasteQuantity Quantity // 面糊量
-  eggNum        int      // 鸡蛋数量
-  friedWafer    string   // 油炸薄脆
-  hasCoriander  bool     // 是否放香菜
-  hasShallot    bool     // 是否放葱
-  hasHotSauce   bool     // 是否放辣味酱
+    pasteQuantity Quantity // 面糊量
+    eggNum        int      // 鸡蛋数量
+    friedWafer    string   // 油炸薄脆
+    hasCoriander  bool     // 是否放香菜
+    hasShallot    bool     // 是否放葱
+    hasHotSauce   bool     // 是否放辣味酱
 }
 
 func NewNormalPancakeBuilder() *normalPancakeBuilder {
-  return &normalPancakeBuilder{}
+    return &normalPancakeBuilder{}
 }
 
 func (n *normalPancakeBuilder) PutPaste(quantity Quantity) {
-  n.pasteQuantity = quantity
+    n.pasteQuantity = quantity
 }
 
 func (n *normalPancakeBuilder) PutEgg(num int) {
-  n.eggNum = num
+    n.eggNum = num
 }
 
 func (n *normalPancakeBuilder) PutWafer() {
-  n.friedWafer = "油炸的薄脆"
+    n.friedWafer = "油炸的薄脆"
 }
 
 func (n *normalPancakeBuilder) PutFlavour(hasCoriander, hasShallot, hasSauce bool) {
-  n.hasCoriander = hasCoriander
-  n.hasShallot = hasShallot
-  n.hasHotSauce = hasSauce
+    n.hasCoriander = hasCoriander
+    n.hasShallot = hasShallot
+    n.hasHotSauce = hasSauce
 }
 
 func (n *normalPancakeBuilder) Build() *Pancake {
-  return &Pancake{
-    pasteQuantity: n.pasteQuantity,
-    eggNum:        n.eggNum,
-    wafer:         n.friedWafer,
-    hasCoriander:  n.hasCoriander,
-    hasShallot:    n.hasShallot,
-    hasSauce:      n.hasHotSauce,
-  }
+    return &Pancake{
+        pasteQuantity: n.pasteQuantity,
+        eggNum:        n.eggNum,
+        wafer:         n.friedWafer,
+        hasCoriander:  n.hasCoriander,
+        hasShallot:    n.hasShallot,
+        hasSauce:      n.hasHotSauce,
+    }
 }
 ```
 
 健康煎饼创建器
 
 ```go
-
 package builder
 
 type healthyPancakeBuilder struct {
-  milletPasteQuantity Quantity // 小米面糊量
-  chaiEggNum          int      // 柴鸡蛋数量
-  nonFriedWafer       string   // 非油炸薄脆
-  hasCoriander        bool     // 是否放香菜
-  hasShallot          bool     // 是否放葱
+    milletPasteQuantity Quantity // 小米面糊量
+    chaiEggNum          int      // 柴鸡蛋数量
+    nonFriedWafer       string   // 非油炸薄脆
+    hasCoriander        bool     // 是否放香菜
+    hasShallot          bool     // 是否放葱
 }
 
 func NewHealthyPancakeBuilder() *healthyPancakeBuilder {
-  return &healthyPancakeBuilder{}
+    return &healthyPancakeBuilder{}
 }
 
 func (n *healthyPancakeBuilder) PutPaste(quantity Quantity) {
-  n.milletPasteQuantity = quantity
+    n.milletPasteQuantity = quantity
 }
 
 func (n *healthyPancakeBuilder) PutEgg(num int) {
-  n.chaiEggNum = num
+    n.chaiEggNum = num
 }
 
 func (n *healthyPancakeBuilder) PutWafer() {
-  n.nonFriedWafer = "非油炸的薄脆"
+    n.nonFriedWafer = "非油炸的薄脆"
 }
 
 func (n *healthyPancakeBuilder) PutFlavour(hasCoriander, hasShallot, _ bool) {
-  n.hasCoriander = hasCoriander
-  n.hasShallot = hasShallot
+    n.hasCoriander = hasCoriander
+    n.hasShallot = hasShallot
 }
 
 func (n *healthyPancakeBuilder) Build() *Pancake {
-  return &Pancake{
-    pasteQuantity: n.milletPasteQuantity,
-    eggNum:        n.chaiEggNum,
-    wafer:         n.nonFriedWafer,
-    hasCoriander:  n.hasCoriander,
-    hasShallot:    n.hasShallot,
-    hasSauce:      false,
-  }
+    return &Pancake{
+        pasteQuantity: n.milletPasteQuantity,
+        eggNum:        n.chaiEggNum,
+        wafer:         n.nonFriedWafer,
+        hasCoriander:  n.hasCoriander,
+        hasShallot:    n.hasShallot,
+        hasSauce:      false,
+    }
 }
 ```
 
 煎饼生成器的封装类-厨师
 
 ```go
-
 package builder
 
 // PancakeCook 摊煎饼师傅
 type PancakeCook struct {
-  builder PancakeBuilder
+    builder PancakeBuilder
 }
 
 func NewPancakeCook(builder PancakeBuilder) *PancakeCook {
-  return &PancakeCook{
-    builder: builder,
-  }
+    return &PancakeCook{
+        builder: builder,
+    }
 }
 
 // SetPancakeBuilder 重新设置煎饼构造器
 func (p *PancakeCook) SetPancakeBuilder(builder PancakeBuilder) {
-  p.builder = builder
+    p.builder = builder
 }
 
 // MakePancake 摊一个一般煎饼
 func (p *PancakeCook) MakePancake() *Pancake {
-  p.builder.PutPaste(Middle)
-  p.builder.PutEgg(1)
-  p.builder.PutWafer()
-  p.builder.PutFlavour(true, true, true)
-  return p.builder.Build()
+    p.builder.PutPaste(Middle)
+    p.builder.PutEgg(1)
+    p.builder.PutWafer()
+    p.builder.PutFlavour(true, true, true)
+    return p.builder.Build()
 }
 
 // MakeBigPancake 摊一个巨无霸煎饼
 func (p *PancakeCook) MakeBigPancake() *Pancake {
-  p.builder.PutPaste(Large)
-  p.builder.PutEgg(3)
-  p.builder.PutWafer()
-  p.builder.PutFlavour(true, true, true)
-  return p.builder.Build()
+    p.builder.PutPaste(Large)
+    p.builder.PutEgg(3)
+    p.builder.PutWafer()
+    p.builder.PutFlavour(true, true, true)
+    return p.builder.Build()
 }
 
 // MakePancakeForFlavour 摊一个自选调料霸煎饼
 func (p *PancakeCook) MakePancakeForFlavour(hasCoriander, hasShallot, hasSauce bool) *Pancake {
-  p.builder.PutPaste(Large)
-  p.builder.PutEgg(3)
-  p.builder.PutWafer()
-  p.builder.PutFlavour(hasCoriander, hasShallot, hasSauce)
-  return p.builder.Build()
+    p.builder.PutPaste(Large)
+    p.builder.PutEgg(3)
+    p.builder.PutWafer()
+    p.builder.PutFlavour(hasCoriander, hasShallot, hasSauce)
+    return p.builder.Build()
 }
 ```
 
@@ -3596,16 +3583,16 @@ func (p *PancakeCook) MakePancakeForFlavour(hasCoriander, hasShallot, hasSauce b
 package builder
 
 import (
-  "fmt"
-  "testing"
+    "fmt"
+    "testing"
 )
 
 func TestBuilder(t *testing.T) {
-  pancakeCook := NewPancakeCook(NewNormalPancakeBuilder())
-  fmt.Printf("摊一个普通煎饼 %#v\n", pancakeCook.MakePancake())
+    pancakeCook := NewPancakeCook(NewNormalPancakeBuilder())
+    fmt.Printf("摊一个普通煎饼 %#v\n", pancakeCook.MakePancake())
 
-  pancakeCook.SetPancakeBuilder(NewHealthyPancakeBuilder())
-  fmt.Printf("摊一个健康的加量煎饼 %#v\n", pancakeCook.MakeBigPancake())
+    pancakeCook.SetPancakeBuilder(NewHealthyPancakeBuilder())
+    fmt.Printf("摊一个健康的加量煎饼 %#v\n", pancakeCook.MakeBigPancake())
 }
 ```
 
@@ -3638,72 +3625,71 @@ PASS
 ### **（三）接口实现**
 
 ```go
-
 package prototype
 
 import (
-  "bytes"
-  "fmt"
-  "io"
+    "bytes"
+    "fmt"
+    "io"
 )
 
 // Paper 纸张，包含读取内容的方法，拷贝纸张的方法，作为原型模式接口
 type Paper interface {
-  io.Reader
-  Clone() Paper
+    io.Reader
+    Clone() Paper
 }
 
 // Newspaper 报纸 实现原型接口
 type Newspaper struct {
-  headline string
-  content  string
+    headline string
+    content  string
 }
 
 func NewNewspaper(headline string, content string) *Newspaper {
-  return &Newspaper{
-    headline: headline,
-    content:  content,
-  }
+    return &Newspaper{
+        headline: headline,
+        content:  content,
+    }
 }
 
 func (np *Newspaper) Read(p []byte) (n int, err error) {
-  buf := bytes.NewBufferString(fmt.Sprintf("headline:%s,content:%s", np.headline, np.content))
-  return buf.Read(p)
+    buf := bytes.NewBufferString(fmt.Sprintf("headline:%s,content:%s", np.headline, np.content))
+    return buf.Read(p)
 }
 
 func (np *Newspaper) Clone() Paper {
-  return &Newspaper{
-    headline: np.headline + "_copied",
-    content:  np.content,
-  }
+    return &Newspaper{
+        headline: np.headline + "_copied",
+        content:  np.content,
+    }
 }
 
 // Resume 简历 实现原型接口
 type Resume struct {
-  name       string
-  age        int
-  experience string
+    name       string
+    age        int
+    experience string
 }
 
 func NewResume(name string, age int, experience string) *Resume {
-  return &Resume{
-    name:       name,
-    age:        age,
-    experience: experience,
-  }
+    return &Resume{
+        name:       name,
+        age:        age,
+        experience: experience,
+    }
 }
 
 func (r *Resume) Read(p []byte) (n int, err error) {
-  buf := bytes.NewBufferString(fmt.Sprintf("name:%s,age:%d,experience:%s", r.name, r.age, r.experience))
-  return buf.Read(p)
+    buf := bytes.NewBufferString(fmt.Sprintf("name:%s,age:%d,experience:%s", r.name, r.age, r.experience))
+    return buf.Read(p)
 }
 
 func (r *Resume) Clone() Paper {
-  return &Resume{
-    name:       r.name + "_copied",
-    age:        r.age,
-    experience: r.experience,
-  }
+    return &Resume{
+        name:       r.name + "_copied",
+        age:        r.age,
+        experience: r.experience,
+    }
 }
 ```
 
@@ -3713,39 +3699,39 @@ func (r *Resume) Clone() Paper {
 package prototype
 
 import (
-  "fmt"
-  "reflect"
-  "testing"
+    "fmt"
+    "reflect"
+    "testing"
 )
 
 func TestPrototype(t *testing.T) {
-  copier := NewCopier("云打印机")
-  oneNewspaper := NewNewspaper("Go是最好的编程语言", "Go语言十大优势")
-  oneResume := NewResume("小明", 29, "5年码农")
+    copier := NewCopier("云打印机")
+    oneNewspaper := NewNewspaper("Go是最好的编程语言", "Go语言十大优势")
+    oneResume := NewResume("小明", 29, "5年码农")
 
-  otherNewspaper := copier.copy(oneNewspaper)
-  copyNewspaperMsg := make([]byte, 100)
-  byteSize, _ := otherNewspaper.Read(copyNewspaperMsg)
-  fmt.Println("copyNewspaperMsg:" + string(copyNewspaperMsg[:byteSize]))
+    otherNewspaper := copier.copy(oneNewspaper)
+    copyNewspaperMsg := make([]byte, 100)
+    byteSize, _ := otherNewspaper.Read(copyNewspaperMsg)
+    fmt.Println("copyNewspaperMsg:" + string(copyNewspaperMsg[:byteSize]))
 
-  otherResume := copier.copy(oneResume)
-  copyResumeMsg := make([]byte, 100)
-  byteSize, _ = otherResume.Read(copyResumeMsg)
-  fmt.Println("copyResumeMsg:" + string(copyResumeMsg[:byteSize]))
+    otherResume := copier.copy(oneResume)
+    copyResumeMsg := make([]byte, 100)
+    byteSize, _ = otherResume.Read(copyResumeMsg)
+    fmt.Println("copyResumeMsg:" + string(copyResumeMsg[:byteSize]))
 }
 
 // Copier 复印机
 type Copier struct {
-  name string
+    name string
 }
 
 func NewCopier(n string) *Copier {
-  return &Copier{name: n}
+    return &Copier{name: n}
 }
 
 func (c *Copier) copy(paper Paper) Paper {
-  fmt.Printf("copier name:%v is copying:%v ", c.name, reflect.TypeOf(paper).String())
-  return paper.Clone()
+    fmt.Printf("copier name:%v is copying:%v ", c.name, reflect.TypeOf(paper).String())
+    return paper.Clone()
 }
 ```
 
@@ -3786,11 +3772,11 @@ var once sync.Once
 
 // 不可导出对象
 type earth struct {
-  desc string
+    desc string
 }
 
 func (e *earth) String() string {
-  return e.desc
+    return e.desc
 }
 
 // theEarth 地球单实例
@@ -3798,14 +3784,14 @@ var theEarth *earth
 
 // TheEarth 获取地球单实例
 func TheEarth() *earth {
-  if theEarth == nil {
-    once.Do(func() {
-      theEarth = &earth{
-        desc: "美丽的地球，孕育了生命。",
-      }
-    })
-  }
-  return theEarth
+    if theEarth == nil {
+        once.Do(func() {
+            theEarth = &earth{
+                desc: "美丽的地球，孕育了生命。",
+            }
+        })
+    }
+    return theEarth
 }
 ```
 
@@ -3815,12 +3801,12 @@ func TheEarth() *earth {
 package singleton
 
 import (
-  "fmt"
-  "testing"
+    "fmt"
+    "testing"
 )
 
 func TestSingleton(t *testing.T) {
-  fmt.Println(TheEarth().String())
+    fmt.Println(TheEarth().String())
 }
 ```
 
