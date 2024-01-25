@@ -197,7 +197,9 @@ func BuildBoardingProcessorChain() BoardingProcessor {
 PASS
 ```
 
-![图片](F:\Images\命令行模式.png)
+
+
+![图片](../../images/命令行模式.png)
 
 # 2、**命令模式**
 
@@ -366,7 +368,11 @@ func TestCommand(t *testing.T) {
 PASS
 ```
 
-# ![图片](F:\Images\迭代器模式.png) 3、**迭代器模式**
+
+
+![图片](../../images/迭代器模式.png)
+
+# 3、**迭代器模式**
 
 ## **（一）概念**
 
@@ -541,7 +547,11 @@ func TestIterator(t *testing.T) {
 PASS
 ```
 
-# ![图片](F:\Images\中介者模式.png) 4、**中介者模式**
+
+
+![图片](../../images/中介者模式.png)
+
+# 4、**中介者模式**
 
 ## **（一）概念**
 
@@ -701,7 +711,11 @@ func TestMediator(t *testing.T) {
 PASS
 ```
 
-# ![图片](F:\Images\备忘录模式.png) 5、**备忘录模式**
+
+
+![图片](../../images/备忘录模式.png)
+
+# 5、**备忘录模式**
 
 ## **（一）概念**
 
@@ -869,7 +883,11 @@ func TestMemento(t *testing.T) {
 PASS
 ```
 
-# ![图片](F:\Images\观察者模式.png) 6、**观察者模式**
+
+
+![图片](../../images/观察者模式.png)
+
+# 6、**观察者模式**
 
 ## **（一）概念**
 
@@ -1037,7 +1055,11 @@ func TestObserver(t *testing.T) {
 PASS
 ```
 
-# ![图片](F:\Images\状态模式.png) 7、**状态模式**
+
+
+![图片](../../images/状态模式.png)
+
+# 7、**状态模式**
 
 # **（一）概念**
 
@@ -1231,7 +1253,11 @@ iPhone 13 pro 连接电源线,正在充电,没电状态转为有电状态
 PASS
 ```
 
-# ![图片](F:\Images\策略模式.png) 8、**策略模式**
+
+
+![图片](../../images/策略模式.png)
+
+# 8、**策略模式**
 
 ## **（一）概念**
 
@@ -1389,7 +1415,9 @@ func TestStrategy(t *testing.T) {
 PASS
 ```
 
-![图片](F:\Images\模板方法模式.png)
+
+
+![图片](../../images/模板方法模式.png)
 
 # 9、**模板方法模式**
 
@@ -1567,9 +1595,11 @@ func showActors(actors ...IActor) {
 PASS
 ```
 
-![图片](F:\Images\访问者模式.png)
 
-# **访问者模式**
+
+![图片](../../images/访问者模式.png)
+
+# 10、**访问者模式**
 
 ## **（一）概念**
 
@@ -1793,7 +1823,11 @@ func AllEmployees() []Employee {
 --- PASS: TestVisitor (0.00s)
 ```
 
-# ![图片](F:\Images\解释器模式.png) **解释器模式**
+
+
+![图片](../../images/解释器模式.png)
+
+# 11、**解释器模式**
 
 ## **（一）概念**
 
@@ -1932,7 +1966,11 @@ func generateCheckAmericanExpression() Expression {
 PASS
 ```
 
-# ![图片](F:\Images\适配器模式.png) **适配器模式**
+
+
+![图片](../../images/适配器模式.png)
+
+# 12、**适配器模式**
 
 ### **（一）概念**
 
@@ -2084,7 +2122,11 @@ func TestAdapter (t *testing.T) {
 PASS
 ```
 
-# ![图片](F:\Images\桥接模式.png) **桥接模式**
+
+
+![图片](../../images/桥接模式.png)
+
+# 13、**桥接模式**
 
 ## **（一）概念**
 
@@ -2307,7 +2349,11 @@ after wilderness survival training, adventure is to Lop Nor by car and trekking
 PASS
 ```
 
-# ![图片](F:\Images\组合模式.png) **组合模式**
+
+
+![图片](../../images/组合模式.png)
+
+# 14、**组合模式**
 
 ## **（一）概念**
 
@@ -2487,7 +2533,11 @@ func ShowRegionInfo(region Region) string {
 PASS
 ```
 
-# ![图片](F:\Images\装饰模式.png) **装饰模式**
+
+
+![图片](../../images/装饰模式.png)
+
+# 15、**装饰模式**
 
 ## **（一）概念**
 
@@ -2599,7 +2649,11 @@ func EnhanceEnterStationProcess(station Station, hasLuggage bool, hasEpidemic bo
 PASS
 ```
 
-# ![图片](F:\Images\外观模式.png) **外观模式**
+
+
+![图片](../../images/外观模式.png) 
+
+# 16、**外观模式**
 
 ## **（一）概念**
 
@@ -2719,7 +2773,11 @@ func TestFacade(t *testing.T) {
 PASS
 ```
 
-# ![图片](F:\Images\享元模式.png) **享元模式**
+
+
+![图片](../../images/享元模式.png) 
+
+# 17、**享元模式**
 
 ## **（一）概念**
 
@@ -2880,7 +2938,11 @@ func TestFlyweight(t *testing.T) {
 PASS
 ```
 
-# ![图片](F:\Images\代理模式.png) **代理模式**
+
+
+![图片](../../images/代理模式.png) 
+
+# 18、**代理模式**
 
 ## **（一）概念**
 
@@ -2975,7 +3037,11 @@ func TestProxy(t *testing.T) {
 PASS
 ```
 
-# ![图片](F:\Images\工厂方法模式.png) **工厂方法模式**
+
+
+![图片](../../images/工厂方法模式.png) 
+
+# 19、**工厂方法模式**
 
 ## **（一）概念**
 
@@ -3118,7 +3184,11 @@ Millet pancake value is 8
 PASS
 ```
 
-# ![图片](F:\Images\抽象工厂模式.png) **抽象工厂模式**
+
+
+![图片](../../images/抽象工厂模式.png) 
+
+# 20、**抽象工厂模式**
 
 ## **（一）概念**
 
@@ -3316,7 +3386,11 @@ dinner: 大盘鸡拌面被吃 西红柿鸡蛋汤被喝
 PASS
 ```
 
-# ![图片](F:\Images\生成器模式.png) **生成器模式**
+
+
+![图片](../../images/生成器模式.png) 
+
+# 21、**生成器模式**
 
 ## **（一）概念**
 
@@ -3545,7 +3619,11 @@ func TestBuilder(t *testing.T) {
 PASS
 ```
 
-# ![图片](F:\Images\原型模式.png) **原型模式**
+
+
+![图片](../../images/原型模式.png) 
+
+# 22、**原型模式**
 
 ## **（一）概念**
 
@@ -3681,7 +3759,11 @@ copier name:云打印机 is copying:*prototype.Resume copyResumeMsg:name:小明_
 PASS
 ```
 
-# ![图片](F:\Images\单例模式.png) **单例模式**
+
+
+![图片](../../images/单例模式.png) 
+
+# 23、**单例模式**
 
 ### **（一）概念**
 
