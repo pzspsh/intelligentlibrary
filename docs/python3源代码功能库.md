@@ -1,51 +1,49 @@
-# [python实现调用摄像头或打开视频文件](https://www.cnblogs.com/april0315/p/13702425.html)
+# [python 实现调用摄像头或打开视频文件](https://www.cnblogs.com/april0315/p/13702425.html)
 
 目录：
 （一）调用摄像头或打开视频文件代码实现
 （二）说明和补充
 （一）调用摄像头或打开视频文件代码实现
+
 ```
- 1 # -*- coding=GBK -*-
- 2 import cv2 as cv
- 3  
- 4  
- 5 #打开摄像头获取图片
- 6 def video_demo():
- 7     capture = cv.VideoCapture(0)#打开摄像头，0代表的是设备id，如果有多个摄像头，可以设置其他数值
- 8     while True:
- 9         ret, frame = capture.read() #读取摄像头,它能返回两个参数，第一个参数是bool型的ret，其值为True或False，代表有没有读到图片；第二个参数是frame，是当前截取一帧的图片
-10         frame = cv.flip(frame, 1)#翻转 等于0:逆时针180度旋转， 大于0:正常 ，小于0上下颠倒
-11         cv.imshow("video", frame)
-12         if cv.waitKey(10) & 0xFF == ord('q'): #键盘输入q退出窗口，不按q点击关闭会一直关不掉 也可以设置成其他键。
-13             break
-14  
-15  
-16 video_demo()
-17 cv.destroyAllWindows()
+# -*- coding=GBK -*-
+import cv2 as cv
+
+
+#打开摄像头获取图片
+def video_demo():
+    capture = cv.VideoCapture(0)#打开摄像头，0代表的是设备id，如果有多个摄像头，可以设置其他数值
+    while True:
+        ret, frame = capture.read() #读取摄像头,它能返回两个参数，第一个参数是bool型的ret，其值为True或False，代表有没有读到图片；第二个参数是frame，是当前截取一帧的图片
+        frame = cv.flip(frame, 1)#翻转 等于0:逆时针180度旋转， 大于0:正常 ，小于0上下颠倒
+        cv.imshow("video", frame)
+        if cv.waitKey(10) & 0xFF == ord('q'): #键盘输入q退出窗口，不按q点击关闭会一直关不掉 也可以设置成其他键。
+            break
+
+
+video_demo()
+cv.destroyAllWindows()
 ```
 
 （二）代码实现说明和补充
 
-### 1. c = cv.waitKey(40)  if c == 27 和cv.waitKey(10) & 0xFF == ord('q')  两者之一是必须要否则会报错，c == 27 时是用esc关闭的 ，点窗口的×是不能关闭视频窗口的。
+### 1. c = cv.waitKey(40) if c == 27 和 cv.waitKey(10) & 0xFF == ord('q') 两者之一是必须要否则会报错，c == 27 时是用 esc 关闭的 ，点窗口的 × 是不能关闭视频窗口的。
 
 2.函数：VideoCapture(0)
-​          打开摄像头，0代表的是设备id，如果有多个摄像头，可以设置其他数值
-​          也可以是视频文件地址，调用视频文件，如果要播放要设置帧的循环
+​ 打开摄像头，0 代表的是设备 id，如果有多个摄像头，可以设置其他数值
+​ 也可以是视频文件地址，调用视频文件，如果要播放要设置帧的循环
 
-3.函数：read() 
-  读取摄像头,它能返回两个参数，第一个参数是bool型的ret，其值为True或False，代表有没有读到图片；第二个参数是frame，是当前截取一帧的图片
+3.函数：read()
+读取摄像头,它能返回两个参数，第一个参数是 bool 型的 ret，其值为 True 或 False，代表有没有读到图片；第二个参数是 frame，是当前截取一帧的图片
 
 4.函数：frame = cv.flip(frame, 1)
-​          表示翻转    
-​           等于0:逆时针180度旋转， 
-​          *大于0:正常 ，*
+​ 表示翻转  
+​ 等于 0:逆时针 180 度旋转，
+​ _大于 0:正常 ，_
+
 ```
    小于0上下颠倒
 ```
-
-
-
-
 
 ```python
 import winreg
@@ -79,43 +77,45 @@ internet_set_option(0, INTERNET_OPTION_REFRESH, 0, 0)
 internet_set_option(0, INTERNET_OPTION_SETTINGS_CHANGED, 0, 0)
 ```
 
-
-
-
-
 ### 常见代理网站
+
 [https://www.kuaidaili.com/free/](https://www.oschina.net/action/GoToLink?url=https%3A%2F%2Fwww.kuaidaili.com%2Ffree%2F)
 [http://www.xicidaili.com/](https://www.oschina.net/action/GoToLink?url=http%3A%2F%2Fwww.xicidaili.com%2F)
 
-常见agent
-**一、为何要设置User Agent**
-​    有一些网站不喜欢被爬虫程序访问，所以会检测连接对象，如果是爬虫程序，也就是非人点击访问，它就会不让你继续访问，所以为了要让程序可以正常运行，需要隐藏自己的爬虫程序的身份。此时，我们就可以通过设置User Agent的来达到隐藏身份的目的，User Agent的中文名为用户代理，简称UA。
-​    User Agent存放于Headers中，服务器就是通过查看Headers中的User Agent来判断是谁在访问。在Python中，如果不设置User Agent，程序将使用默认的参数，那么这个User Agent就会有Python的字样，如果服务器检查User Agent，那么没有设置User Agent的Python程序将无法正常访问网站。
-​    Python允许我们修改这个User Agent来模拟浏览器访问，它的强大毋庸置疑。
+常见 agent
+**一、为何要设置 User Agent**
+​ 有一些网站不喜欢被爬虫程序访问，所以会检测连接对象，如果是爬虫程序，也就是非人点击访问，它就会不让你继续访问，所以为了要让程序可以正常运行，需要隐藏自己的爬虫程序的身份。此时，我们就可以通过设置 User Agent 的来达到隐藏身份的目的，User Agent 的中文名为用户代理，简称 UA。
+​ User Agent 存放于 Headers 中，服务器就是通过查看 Headers 中的 User Agent 来判断是谁在访问。在 Python 中，如果不设置 User Agent，程序将使用默认的参数，那么这个 User Agent 就会有 Python 的字样，如果服务器检查 User Agent，那么没有设置 User Agent 的 Python 程序将无法正常访问网站。
+​ Python 允许我们修改这个 User Agent 来模拟浏览器访问，它的强大毋庸置疑。
 
-**二、常见的User Agent**
+**二、常见的 User Agent**
 **1.Android**
+
 - Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Safari/535.19
 - Mozilla/5.0 (Linux; U; Android 4.0.4; en-gb; GT-I9300 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30
 - Mozilla/5.0 (Linux; U; Android 2.2; en-gb; GT-P1000 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
 
 **2.Firefox**
+
 - Mozilla/5.0 (Windows NT 6.2; WOW64; rv:21.0) Gecko/20100101 Firefox/21.0
 - Mozilla/5.0 (Android; Mobile; rv:14.0) Gecko/14.0 Firefox/14.0
 
 **3.Google Chrome**
+
 - Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.94 Safari/537.36
 - Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19
 
 **4.iOS**
+
 - Mozilla/5.0 (iPad; CPU OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3
 - Mozilla/5.0 (iPod; U; CPU like Mac OS X; en) AppleWebKit/420.1 (KHTML, like Gecko) Version/3.0 Mobile/3A101a Safari/419.3
-​    上面列举了Andriod、Firefox、Google Chrome、iOS的一些User Agent，直接copy就能用。
+  ​ 上面列举了 Andriod、Firefox、Google Chrome、iOS 的一些 User Agent，直接 copy 就能用。
 
-**三、设置User Agent的方法**
-![img](https://static.oschina.net/uploads/space/2018/0114/231414_aZPu_2856757.png)
-通过代理隐藏自己的ip信息
+**三、设置 User Agent 的方法**
+![img](../images/231414_aZPu_2856757.png)
+通过代理隐藏自己的 ip 信息
 设置代理字典
+
 ```python
 proxyDict = {
                       "http"  : self.http_proxy,
@@ -125,13 +125,15 @@ proxyDict = {
 ```
 
 有密码的代理
+
 ```python
 proxies = {
     "http": "http://user:pass@10.10.1.10:3128/"
 }
 ```
 
-第一种requests模块
+第一种 requests 模块
+
 ```python
 # 作者：十四君
 # 链接：https://www.zhihu.com/question/23825711/answer/129293723
@@ -159,9 +161,7 @@ response = s.get(url, verify=False, proxies=proxie, timeout=20)
 print(response.text)
 ```
 
- 
-
-第二种urlopen模块
+第二种 urlopen 模块
 
 ```python
 from urllib import request
@@ -191,21 +191,22 @@ if __name__ == "__main__":
     print(html)
 ```
 
+# python 设置 win 系统代理
 
+采集数据的时候有时候会需要频繁修改系统代理, 调用 python 标准库来实现是个不错的方法
 
-# python设置win系统代理
-1 人赞同了该文章
-采集数据的时候有时候会需要频繁修改系统代理, 调用python标准库来实现是个不错的方法
+## Windows 修改代理注册表位置:
 
-## Windows修改代理注册表位置:
 > HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings
 
 ## 该目录下有三个键值：
-- ProxyEnable *是否开启代理 1:开启 0:关闭*
-- ProxyOverride *不代理的ip,一般是本地*
-- ProxyServer *代理服务器ip和端口*
 
-## *用*winreg修改完以后一定要刷新才会生效,就好比要点击应用或确定
+- ProxyEnable _是否开启代理 1:开启 0:关闭_
+- ProxyOverride _不代理的 ip,一般是本地_
+- ProxyServer _代理服务器 ip 和端口_
+
+## *用*winreg 修改完以后一定要刷新才会生效,就好比要点击应用或确定
+
 ```python
 import winreg
 import ctypes
@@ -233,7 +234,7 @@ def start():
     set_key('ProxyEnable', 1)  # 启用
     # 本地链接不代理
     set_key('ProxyOverride',
-            u'localhost;127.*;10.*;172.16.*;172.17.*;172.18.*;172.19.*;172.20.*;172.21.*;172.22.*;172.23.*;172.24.*;172.25.*;172.26.*;172.27.*;172.28.*;172.29.*;172.30.*;172.31.*;192.168.*;127.0.0.1"""')  
+            u'localhost;127.*;10.*;172.16.*;172.17.*;172.18.*;172.19.*;172.20.*;172.21.*;172.22.*;172.23.*;172.24.*;172.25.*;172.26.*;172.27.*;172.28.*;172.29.*;172.30.*;172.31.*;192.168.*;127.0.0.1"""')
     set_key('ProxyServer', u'{}'.format(ip_port))  # 代理IP及端口，将此代理修改为自己的代理IP
     internet_set_option(0, INTERNET_OPTION_REFRESH, 0, 0)
     internet_set_option(0, INTERNET_OPTION_SETTINGS_CHANGED, 0, 0)
@@ -246,9 +247,8 @@ def stop():
     internet_set_option(0, INTERNET_OPTION_SETTINGS_CHANGED, 0, 0)
 ```
 
-
-
 ##### proxy.py
+
 ```python
 # !/usr/bin/python
 # _*_ coding: utf-8 _*_
@@ -292,6 +292,7 @@ if __name__ == '__main__':
 ```
 
 ##### proxyServer.py
+
 ```python
 # !/usr/bin/python
 # _*_ coding: utf-8 _*_
@@ -380,16 +381,16 @@ if __name__ == '__main__':
     print('Sth error')
 ```
 
+![Image text](../images/1648447422850.png)
 
-![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1648447422850.png)
+![Image text](../images/1648447443658.png)
 
-![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1648447443658.png)
+![Image text](../images/1648447405011.png)
 
-![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1648447405011.png)
+#### 使用 socks5 代理访问
 
-
-#### 使用socks5代理访问
 ##### client.py
+
 ```python
 # -*- coding: utf-8 -*-
 # time: 2022-3-28 17:27:49
@@ -414,6 +415,7 @@ print(html.text)
 ```
 
 ##### server.py
+
 ```python
 # -*- coding: utf-8 -*-
 
@@ -494,7 +496,7 @@ class DYProxy(Tcp):
             | 1  |   1    |
             +----+--------+
         """
-        # 发送协商响应数据包 
+        # 发送协商响应数据包
         self.connection.sendall(struct.pack("!BB", SOCKS_VERSION, 0))
 
         # 校验用户名和密码
@@ -551,8 +553,8 @@ class DYProxy(Tcp):
         self.server.close_request(self.request)
 
     def IsAvailable(self, n):
-        """ 
-        检查是否支持该验证方式 
+        """
+        检查是否支持该验证方式
         """
         methods = []
         for i in range(n):
@@ -581,14 +583,14 @@ class DYProxy(Tcp):
         return False
 
     def ReplyFaild(self, address_type, error_number):
-        """ 
-        生成连接失败的回复包 
+        """
+        生成连接失败的回复包
         """
         return struct.pack("!BBBBIH", SOCKS_VERSION, error_number, 0, address_type, 0, 0)
 
     def ExchangeData(self, client, remote):
-        """ 
-        交换数据 
+        """
+        交换数据
         """
         while True:
             # 等待数据
@@ -700,7 +702,7 @@ class DYProxy(Tcp):
         VER, NMETHODS = struct.unpack("!BB", header)
         # 设置socks5协议，METHODS字段的数目大于0
         assert VER == SOCKS_VERSION, 'SOCKS版本错误'
-        
+
         # 接受支持的方法
         # 无需认证：0x00    用户名密码认证：0x02
         assert NMETHODS > 0
@@ -709,7 +711,7 @@ class DYProxy(Tcp):
         if 2 not in set(methods):
             self.server.close_request(self.request)
             return
-        
+
         """
         二、服务端回应认证
             +----+--------+
@@ -718,13 +720,13 @@ class DYProxy(Tcp):
             | 1  |   1    |
             +----+--------+
         """
-        # 发送协商响应数据包 
+        # 发送协商响应数据包
         self.connection.sendall(struct.pack("!BB", SOCKS_VERSION, 2))
-        
+
         # 校验用户名和密码
         if not self.VerifyAuth():
             return
-        
+
 
         """
         三、客户端连接请求(连接目的网络)
@@ -777,8 +779,8 @@ class DYProxy(Tcp):
 
 
     def IsAvailable(self, n):
-        """ 
-        检查是否支持该验证方式 
+        """
+        检查是否支持该验证方式
         """
         methods = []
         for i in range(n):
@@ -809,15 +811,15 @@ class DYProxy(Tcp):
 
 
     def ReplyFaild(self, address_type, error_number):
-        """ 
-        生成连接失败的回复包 
+        """
+        生成连接失败的回复包
         """
         return struct.pack("!BBBBIH", SOCKS_VERSION, error_number, 0, address_type, 0, 0)
 
 
     def ExchangeData(self, client, remote):
-        """ 
-        交换数据 
+        """
+        交换数据
         """
         while True:
             # 等待数据
@@ -844,4 +846,5 @@ if __name__ == '__main__':
     Server.serve_forever();
 
 ```
-![Image text](https://github.com/pzspsh/intelligentlibrary/blob/main/images/1648451697430.png)
+
+![Image text](../images/1648451697430.png)

@@ -162,11 +162,11 @@ Censys: https://www.censys.io/
 
 登录到 censys 并转到 censys 搜索页面选择证书，然后在证书中像这样搜索您的目标
 
-![图片](F:\Images\censys查询真实ip.png)
+![图片](../images/censys查询真实ip.png)
 
 现在打开任何证书，在右侧找到 Explore，将鼠标悬停在它上面并单击主机。
 
-![图片](F:\Images\opencert.png)
+![图片](../images/opencert.png)
 
 现在在主机中复制你找到的每个 IP 并尝试在新选项卡中打开它.
 
@@ -174,11 +174,11 @@ Censys: https://www.censys.io/
 
 登录，这次将您的目标放在主机中。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/RRrILrELHYibO4yc2fMuibvsB8A6DiaZC3ecGy7KfWdCweCoEsxJkf9R5wYSJ33a91wF8msujJ3ckJ9tQibTJia6rBA/640?wx_fmt=png&tp=wxpic&wxfrom=5&wx_lazy=1&wx_co=1)
+![图片](../images/获取IP方法.png)
 
 现在选择其他服务系统而不是 Cloudflare 或 Akamai。
 
-![图片](F:\Images\getip.png)
+![图片](../images/getip.png)
 
 尝试新选项卡中的每个 IP 并检查自主 IP，但确保 cert.CN: 必须是 target.com 而不是其他任何东西，并且 target.com 必须在 cert.CN: 中，而不是在 http.body 或其他东西中。
 
@@ -186,7 +186,7 @@ grep 所有子域，使用 httpx 解析它们或在浏览器中安装多 url ope
 
 粘贴所有 url 并尝试找出哪些克隆或看起来像 ip url（前端），如果你发现不是在该域上点击 shodan 扩展以查看它是否在 cloudflare 后面或不是这样
 
-![图片](F:\Images\scanfrancisco.png)
+![图片](../images/scanfrancisco.png)
 
 如果是，那么恭喜你找到了 waf 背后的 IP。
 

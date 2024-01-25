@@ -4,9 +4,9 @@
 
 ### 1、mysql 数据库官网下载：[下载-https://dev.mysql.com/downloads/installer/](https://dev.mysql.com/downloads/installer/)
 
-![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/mysql下载.png)
+![img](../../images/mysql下载.png)
 
-![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/mysql下载-1.png)
+![img](../../images/mysql下载-1.png)
 
 ### 2、把下载的 mysql zip 包解压
 
@@ -16,21 +16,21 @@
 
 ### 5、配置系统环境变量(如下图所示)：
 
-![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/环境变量.png)
+![img](../../images/环境变量.png)
 
-![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/环境变量-1.png)
+![img](../../images/环境变量-1.png)
 
 这是我安装的数据库，和上图下载的版本不是同一个版本，但操作一样。
 
-![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/环境变量-2.png)
+![img](../../images/环境变量-2.png)
 
 ### 6、创建 data 文件(如下图)：
 
-![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/mysqldata.png)
+![img](../../images/mysqldata.png)
 
 ### 7、配置 mysql 的 mysql.ini 文件(如果没有 mysql.ini 文件，直接创建就行，并填上一下的数据对应内容):
 
-![img](https://github.com/pzspsh/intelligentlibrary/blob/main/images/mysqlini.png)
+![img](../../images/mysqlini.png)
 
 ```
 [mysqld]
