@@ -1,5 +1,3 @@
-
-
 # 互斥锁
 
 在[编程](https://baike.baidu.com/item/编程/139828?fromModule=lemma_inlink)中，引入了对象互斥锁的概念，来保证共享数据操作的完整性。每个[对象](https://baike.baidu.com/item/对象/2331271?fromModule=lemma_inlink)都对应于一个可称为互斥锁的标记，这个标记用来保证在任一时刻，只能有一个[线程](https://baike.baidu.com/item/线程/103101?fromModule=lemma_inlink)访问该[对象](https://baike.baidu.com/item/对象/2331271?fromModule=lemma_inlink)。
@@ -8,7 +6,7 @@
 
   互斥锁
 
-- 领  域
+- 领 域
 
   汇编语言
 
@@ -16,65 +14,34 @@
 
 查看全部
 
-![img](https://bkimg.cdn.bcebos.com/smart/96dda144ad345982b2b77ec8aba126adcbef76092e69-bkimg-process,v_1,rw_16,rh_9,maxl_640,pad_1?x-bce-process=image/format,f_auto)
+![img](../../../../images/96dda144ad345982b2b77ec8aba126adcbef76092e69.png)
 
-![img](https://bkssl.bdimg.com/static/wiki-lemma/widget/lemma_content/configModule/second/types/common/videoList/img/play-icon_68f96a9.png)
+Go 语言互斥锁之加锁逻辑源码分析
 
-1.1万播放
+![img](../../../../images/96dda144ad345982b2b77ec8aba126adcbef76092e692.png)
 
-07:14
+go 如何使用互斥锁同步协程？
 
-Go语言互斥锁之加锁逻辑源码分析
+```go
+type Mutex struct {
+    state int32
+    sema  uint32
+}
+```
 
-![img](https://bkimg.cdn.bcebos.com/smart/63d0f703918fa0ec08fa286ebbc14eee3d6d55fb6d03-bkimg-process,v_1,rw_16,rh_9,maxl_640,pad_1?x-bce-process=image/format,f_auto)
+Go 语言互斥锁的介绍
 
-![img](https://bkssl.bdimg.com/static/wiki-lemma/widget/lemma_content/configModule/second/types/common/videoList/img/play-icon_68f96a9.png)
+![img](../../../../images/96dda144ad345982b2b77ec8aba126adcbef76092e694.png)
 
-8370播放
+互斥锁 3 #python #编程 #程序员 #python 全栈
 
-02:54
+![img](../../../../images/96dda144ad345982b2b77ec8aba126adcbef76092e695.png)
 
-go如何使用互斥锁同步协程？
+互斥锁 4 #python #编程 #程序员 #python 全栈开发
 
-![img](https://bkimg.cdn.bcebos.com/smart/902397dda144ad3459821fdd77f71bf431adcbef2f69-bkimg-process,v_1,rw_16,rh_9,maxl_640,pad_1?x-bce-process=image/format,f_auto)
+![img](../../../../images/96dda144ad345982b2b77ec8aba126adcbef76092e696.png)
 
-![img](https://bkssl.bdimg.com/static/wiki-lemma/widget/lemma_content/configModule/second/types/common/videoList/img/play-icon_68f96a9.png)
-
-1.1万播放
-
-06:34
-
-Go语言互斥锁的介绍
-
-![img](https://bkimg.cdn.bcebos.com/smart/908fa0ec08fa513d269722bda03b42fbb2fb43167303-bkimg-process,v_1,rw_16,rh_9,maxl_640,pad_1?x-bce-process=image/format,f_auto)
-
-![img](https://bkssl.bdimg.com/static/wiki-lemma/widget/lemma_content/configModule/second/types/common/videoList/img/play-icon_68f96a9.png)
-
-6765播放
-
-02:09
-
-互斥锁3 #python #编程 #程序员 #python全栈
-
-![img](https://bkimg.cdn.bcebos.com/smart/a1ec08fa513d269759ee413ec8ada5fb43166d227203-bkimg-process,v_1,rw_16,rh_9,maxl_640,pad_1?x-bce-process=image/format,f_auto)
-
-![img](https://bkssl.bdimg.com/static/wiki-lemma/widget/lemma_content/configModule/second/types/common/videoList/img/play-icon_68f96a9.png)
-
-6969播放
-
-02:58
-
-互斥锁4 #python #编程 #程序员 #python全栈开发
-
-![img](https://bkimg.cdn.bcebos.com/smart/622762d0f703918fa0ec70a9cc6b319759ee3d6d6e03-bkimg-process,v_1,rw_16,rh_9,maxl_640,pad_1?x-bce-process=image/format,f_auto)
-
-![img](https://bkssl.bdimg.com/static/wiki-lemma/widget/lemma_content/configModule/second/types/common/videoList/img/play-icon_68f96a9.png)
-
-6447播放
-
-01:56
-
-互斥锁1 #python #编程 #程序员 #python全栈开发
+互斥锁 1 #python #编程 #程序员 #python 全栈开发
 
 ## 目录
 
@@ -83,59 +50,57 @@ Go语言互斥锁的介绍
 3. 3 [销毁对象](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#3)
 4. 4 [设置范围](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#4)
 
-1. 5 [获取范围](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#5)
-2. 6 [类型属性](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#6)
-3. 7 [获取属性](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#7)
-4. 8 [设置协议](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#8)
+5. 5 [获取范围](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#5)
+6. 6 [类型属性](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#6)
+7. 7 [获取属性](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#7)
+8. 8 [设置协议](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#8)
 
-1. 9 [获取协议](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#9)
-2. 10 [设置上限](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#10)
-3. 11 [互斥上限](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#11)
-4. 12 [互斥锁](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#12)
+9. 9 [获取协议](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#9)
+10. 10 [设置上限](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#10)
+11. 11 [互斥上限](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#11)
+12. 12 [互斥锁](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#12)
 
-1. 13 [获取设置](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#13)
-2. 14 [强健属性](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#14)
-3. 15 [互斥锁的相关实现与效率问题](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#15)
+13. 13 [获取设置](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#13)
+14. 14 [强健属性](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#14)
+15. 15 [互斥锁的相关实现与效率问题](https://baike.baidu.com/item/互斥锁?fromId=1889552&redirected=seachword#15)
 
 ## 示例
 
-[编辑](javascript:;)[ 播报](javascript:;)
-
 下面举例：
 
-在Posix Thread中定义有一套专门用于[线程同步](https://baike.baidu.com/item/线程同步?fromModule=lemma_inlink)的mutex函数。
+在 Posix Thread 中定义有一套专门用于[线程同步](https://baike.baidu.com/item/线程同步?fromModule=lemma_inlink)的 mutex 函数。
 
 1． 创建和销毁
 
-有两种方法创建互斥锁，静态方式和动态方式。POSIX定义了一个[宏](https://baike.baidu.com/item/宏/2648286?fromModule=lemma_inlink)PTHREAD_MUTEX_INITIALIZER来静态初始化互斥锁，方法如下： pthread_mutex_t mutex=PTHREAD_MUTEX_INITIALIZER; 在LinuxThreads实现中，pthread_mutex_t是一个结构，而PTHREAD_MUTEX_INITIALIZER则是一个结构常量。
+有两种方法创建互斥锁，静态方式和动态方式。POSIX 定义了一个[宏](https://baike.baidu.com/item/宏/2648286?fromModule=lemma_inlink)PTHREAD_MUTEX_INITIALIZER 来静态初始化互斥锁，方法如下： pthread_mutex_t mutex=PTHREAD_MUTEX_INITIALIZER; 在 LinuxThreads 实现中，pthread_mutex_t 是一个结构，而 PTHREAD_MUTEX_INITIALIZER 则是一个结构常量。
 
-动态方式是采用pthread_mutex_init()函数来初始化互斥锁，API定义如下： int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *mutexattr) 其中mutexattr用于指定互斥锁属性（见下），如果为NULL则使用缺省属性。
+动态方式是采用 pthread_mutex_init()函数来初始化互斥锁，API 定义如下： int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *mutexattr) 其中 mutexattr 用于指定互斥锁属性（见下），如果为 NULL 则使用缺省属性。
 
-pthread_mutex_destroy ()用于注销一个互斥锁，API定义如下： int pthread_mutex_destroy(pthread_mutex_t *mutex) 销毁一个互斥锁即意味着释放它所占用的资源，且要求锁当前处于开放状态。由于在Linux中，互斥锁并不占用任何资源，因此LinuxThreads中的 pthread_mutex_destroy()除了检查锁状态以外（锁定状态则返回EBUSY）没有其他动作。
+pthread_mutex_destroy ()用于注销一个互斥锁，API 定义如下： int pthread_mutex_destroy(pthread_mutex_t \*mutex) 销毁一个互斥锁即意味着释放它所占用的资源，且要求锁当前处于开放状态。由于在 Linux 中，互斥锁并不占用任何资源，因此 LinuxThreads 中的 pthread_mutex_destroy()除了检查锁状态以外（锁定状态则返回 EBUSY）没有其他动作。
 
 2． 互斥锁属性
 
-互斥锁的属性在创建锁的时候指定，在LinuxThreads实现中仅有一个锁类型属性，不同的锁类型在试图对一个已经被锁定的互斥锁加锁时表现不同。当前（glibc2.2.3,linuxthreads0.9）有四个值可供选择：
+互斥锁的属性在创建锁的时候指定，在 LinuxThreads 实现中仅有一个锁类型属性，不同的锁类型在试图对一个已经被锁定的互斥锁加锁时表现不同。当前（glibc2.2.3,linuxthreads0.9）有四个值可供选择：
 
-\* PTHREAD_MUTEX_TIMED_NP，这是[缺省值](https://baike.baidu.com/item/缺省值?fromModule=lemma_inlink)，也就是普通锁。当一个线程加锁以后，其余请求锁的线程将形成一个[等待队列](https://baike.baidu.com/item/等待队列?fromModule=lemma_inlink)，并在解锁后按优先级获得锁。这种锁策略保证了资源分配的公平性。
+- PTHREAD_MUTEX_TIMED_NP，这是[缺省值](https://baike.baidu.com/item/缺省值?fromModule=lemma_inlink)，也就是普通锁。当一个线程加锁以后，其余请求锁的线程将形成一个[等待队列](https://baike.baidu.com/item/等待队列?fromModule=lemma_inlink)，并在解锁后按优先级获得锁。这种锁策略保证了资源分配的公平性。
 
-\* PTHREAD_MUTEX_RECURSIVE_NP，嵌套锁，允许同一个线程对同一个锁成功获得多次，并通过多次unlock解锁。如果是不同线程请求，则在加锁线程解锁时重新竞争。
+- PTHREAD_MUTEX_RECURSIVE_NP，嵌套锁，允许同一个线程对同一个锁成功获得多次，并通过多次 unlock 解锁。如果是不同线程请求，则在加锁线程解锁时重新竞争。
 
-\* PTHREAD_MUTEX_ERRORCHECK_NP，检错锁，如果同一个线程请求同一个锁，则返回EDEADLK，否则与PTHREAD_MUTEX_TIMED_NP类型动作相同。这样就保证当不允许多次加锁时不会出现最简单情况下的死锁。
+- PTHREAD_MUTEX_ERRORCHECK_NP，检错锁，如果同一个线程请求同一个锁，则返回 EDEADLK，否则与 PTHREAD_MUTEX_TIMED_NP 类型动作相同。这样就保证当不允许多次加锁时不会出现最简单情况下的死锁。
 
-\* PTHREAD_MUTEX_ADAPTIVE_NP，适应锁，动作最简单的锁类型，仅等待解锁后重新竞争。
+- PTHREAD_MUTEX_ADAPTIVE_NP，适应锁，动作最简单的锁类型，仅等待解锁后重新竞争。
 
 3．[锁](https://baike.baidu.com/item/锁/379548?fromModule=lemma_inlink)操作
 
-锁操作主要包括加锁pthread_mutex_lock()、解锁pthread_mutex_unlock()和测试加锁 pthread_mutex_trylock()三个，不论哪种类型的锁，都不可能被两个不同的线程同时得到，而必须等待解锁。对于普通锁和适应锁类型，解锁者可以是同进程内任何线程；而检错锁则必须由加锁者解锁才有效，否则返回EPERM；对于嵌套锁，文档和实现要求必须由加锁者解锁，但实验结果表明并没有这种限制，这个不同还没有得到解释。在同一进程中的线程，如果加锁后没有解锁，则任何其他线程都无法再获得锁。
+锁操作主要包括加锁 pthread_mutex_lock()、解锁 pthread_mutex_unlock()和测试加锁 pthread_mutex_trylock()三个，不论哪种类型的锁，都不可能被两个不同的线程同时得到，而必须等待解锁。对于普通锁和适应锁类型，解锁者可以是同进程内任何线程；而检错锁则必须由加锁者解锁才有效，否则返回 EPERM；对于嵌套锁，文档和实现要求必须由加锁者解锁，但实验结果表明并没有这种限制，这个不同还没有得到解释。在同一进程中的线程，如果加锁后没有解锁，则任何其他线程都无法再获得锁。
 
-int pthread_mutex_lock(pthread_mutex_t *mutex)
+int pthread_mutex_lock(pthread_mutex_t \*mutex)
 
-int pthread_mutex_unlock(pthread_mutex_t *mutex)
+int pthread_mutex_unlock(pthread_mutex_t \*mutex)
 
-int pthread_mutex_trylock(pthread_mutex_t *mutex)
+int pthread_mutex_trylock(pthread_mutex_t \*mutex)
 
-pthread_mutex_trylock()语义与pthread_mutex_lock()类似，不同的是在锁已经被占据时返回EBUSY而不是挂起等待。
+pthread_mutex_trylock()语义与 pthread_mutex_lock()类似，不同的是在锁已经被占据时返回 EBUSY 而不是挂起等待。
 
 4． 其他
 
@@ -145,7 +110,7 @@ pthread_mutex_trylock()语义与pthread_mutex_lock()类似，不同的是在锁�
 
 互斥锁属性使用互斥锁（互斥）可以使线程按[顺序执行](https://baike.baidu.com/item/顺序执行?fromModule=lemma_inlink)。通常，互斥锁通过确保一次只有一个线程执行代码的临界段来同步多个线程。互斥锁还可以保护[单线程](https://baike.baidu.com/item/单线程?fromModule=lemma_inlink)代码。
 
-要更改缺省的互斥锁属性，可以对属性对象进行声明和初始化。通常，互斥锁属性会设置在应用程序开头的某个位置，以便可以快速查找和轻松修改。表 4–1列出了用来处理互斥锁属性的函数。
+要更改缺省的互斥锁属性，可以对属性对象进行声明和初始化。通常，互斥锁属性会设置在应用程序开头的某个位置，以便可以快速查找和轻松修改。表 4–1 列出了用来处理互斥锁属性的函数。
 
 表 4–1 互斥锁属性例程
 
@@ -166,7 +131,7 @@ pthread_mutex_trylock()语义与pthread_mutex_lock()类似，不同的是在锁�
 | 设置互斥锁的强健属性       | pthread_mutexattr_setrobust_np 语法   |
 | 获取互斥锁的强健属性       | pthread_mutexattr_getrobust_np 语法   |
 
-表 4–2中显示了在定义互斥范围时 Solaris 线程和 POSIX 线程之间的差异。
+表 4–2 中显示了在定义互斥范围时 Solaris 线程和 POSIX 线程之间的差异。
 
 表 4–2 互斥锁范围比较
 
@@ -180,17 +145,17 @@ pthread_mutex_trylock()语义与pthread_mutex_lock()类似，不同的是在锁�
 
 [编辑](javascript:;)[ 播报](javascript:;)
 
-使用pthread_mutexattr_init(3C)可以将与互斥锁对象相关联的属性初始化为其缺省值。在执行过程中，线程系统会为每个属性对象分配[存储空间](https://baike.baidu.com/item/存储空间?fromModule=lemma_inlink)。
+使用 pthread_mutexattr_init(3C)可以将与互斥锁对象相关联的属性初始化为其缺省值。在执行过程中，线程系统会为每个属性对象分配[存储空间](https://baike.baidu.com/item/存储空间?fromModule=lemma_inlink)。
 
 **pthread_mutexattr_init 语法**
 
-int pthread_mutexattr_init(pthread_mutexattr_t *mattr);
+int pthread_mutexattr_init(pthread_mutexattr_t \*mattr);
 
 \#include <pthread.h>
 
 pthread_mutexattr_t mattr;
 
-int ret;/* initialize an attribute to default value */
+int ret;/_ initialize an attribute to default value _/
 
 ret = pthread_mutexattr_init(&mattr);
 
@@ -212,7 +177,7 @@ pthread_mutexattr_destroy(3C)可用来取消分配用于维护**pthread_mutexatt
 
 **pthread_mutexattr_destroy 语法**
 
-int pthread_mutexattr_destroy(pthread_mutexattr_t *mattr)#include <pthread.h>pthread_mutexattr_t mattr;int ret;/* destroy an attribute */ret = pthread_mutexattr_destroy(&mattr);
+int pthread*mutexattr_destroy(pthread_mutexattr_t \_mattr)#include <pthread.h>pthread_mutexattr_t mattr;int ret;/* destroy an attribute \*/ret = pthread_mutexattr_destroy(&mattr);
 
 **pthread_mutexattr_destroy 返回值**
 
@@ -230,7 +195,7 @@ pthread_mutexattr_setpshared(3C)可用来设置互斥锁[变量](https://baike.b
 
 **pthread_mutexattr_setpshared 语法**
 
-int pthread_mutexattr_setpshared(pthread_mutexattr_t *mattr, int pshared);
+int pthread_mutexattr_setpshared(pthread_mutexattr_t \*mattr, int pshared);
 
 \#include <pthread.h>
 
@@ -238,7 +203,7 @@ pthread_mutexattr_t mattr;
 
 int ret;
 
-ret = pthread_mutexattr_init(&mattr);/* * resetting to its default value: private */
+ret = pthread*mutexattr_init(&mattr);/\* * resetting to its default value: private \_/
 
 ret = pthread_mutexattr_setpshared(&mattr, PTHREAD_PROCESS_PRIVATE);
 
@@ -254,7 +219,7 @@ pthread_mutexattr_getpshared(3C)可用来返回由**pthread_mutexattr_setpshared
 
 **pthread_mutexattr_getpshared 语法**
 
-int pthread_mutexattr_getpshared(pthread_mutexattr_t *mattr, int *pshared);#include <pthread.h>pthread_mutexattr_t mattr;int pshared, ret;/* get pshared of mutex */ret = pthread_mutexattr_getpshared(&mattr, &pshared); 此函数可为属性对象 mattr 获取 pshared 的当前值。该值为 PTHREAD_PROCESS_SHARED 或 PTHREAD_PROCESS_PRIVATE。
+int pthread*mutexattr_getpshared(pthread_mutexattr_t *mattr, int _pshared);#include <pthread.h>pthread_mutexattr_t mattr;int pshared, ret;/_ get pshared of mutex \_/ret = pthread_mutexattr_getpshared(&mattr, &pshared); 此函数可为属性对象 mattr 获取 pshared 的当前值。该值为 PTHREAD_PROCESS_SHARED 或 PTHREAD_PROCESS_PRIVATE。
 
 ## 类型属性
 
@@ -264,7 +229,7 @@ pthread_mutexattr_settype(3C)可用来设置互斥锁的**type**属性。
 
 **pthread_mutexattr_settype 语法**
 
-\#include <pthread.h>int pthread_mutexattr_settype(pthread_mutexattr_t *attr , int type);类型属性的[缺省值](https://baike.baidu.com/item/缺省值?fromModule=lemma_inlink)为 PTHREAD_MUTEX_DEFAULT。
+\#include <pthread.h>int pthread_mutexattr_settype(pthread_mutexattr_t \*attr , int type);类型属性的[缺省值](https://baike.baidu.com/item/缺省值?fromModule=lemma_inlink)为 PTHREAD_MUTEX_DEFAULT。
 
 **type**参数指定互斥锁的类型。以下列出了有效的互斥锁类型：
 
@@ -316,7 +281,7 @@ PTHREAD_MUTEX_RECURSIVE
 
 PTHREAD_MUTEX_DEFAULT
 
-有关每种类型的说明，请参见pthread_mutexattr_settype 语法。
+有关每种类型的说明，请参见 pthread_mutexattr_settype 语法。
 
 **pthread_mutexattr_gettype 返回值**
 
@@ -330,7 +295,7 @@ pthread_mutexattr_setprotocol(3C)可用来设置互斥锁属性对象的协议�
 
 **pthread_mutexattr_setprotocol 语法**
 
-\#include <pthread.h>int pthread_mutexattr_setprotocol(pthread_mutexattr_t *attr, int protocol);attr 指示以前调用**pthread_mutexattr_init()**时创建的互斥锁属性对象。
+\#include <pthread.h>int pthread_mutexattr_setprotocol(pthread_mutexattr_t \*attr, int protocol);attr 指示以前调用**pthread_mutexattr_init()**时创建的互斥锁属性对象。
 
 protocol 可定义应用于互斥锁属性对象的协议。
 
@@ -348,7 +313,7 @@ PTHREAD_PRIO_INHERIT
 
 使用 PTHREAD_PRIO_INHERIT 可以避免优先级倒置。低优先级的线程持有较高优先级线程所需的锁时，便会发生优先级倒置。只有在较低优先级的线程释放该锁之后，较高优先级的线程才能继续使用该锁。设置 PTHREAD_PRIO_INHERIT，以便按与预期的优先级相反的优先级处理每个线程。
 
-如果为使用协议属性值 PTHREAD_PRIO_INHERIT 初始化的互斥锁定义了 _POSIX_THREAD_PRIO_INHERIT，则互斥锁的属主失败时会执行以下操作。属主失败时的行为取决于**pthread_mutexattr_setrobust_np()**的 robustness 参数的值。
+如果为使用协议属性值 PTHREAD_PRIO_INHERIT 初始化的互斥锁定义了 \_POSIX_THREAD_PRIO_INHERIT，则互斥锁的属主失败时会执行以下操作。属主失败时的行为取决于**pthread_mutexattr_setrobust_np()**的 robustness 参数的值。
 
 解除锁定互斥锁。
 
@@ -382,7 +347,7 @@ PTHREAD_PRIO_PROTECT
 
 ENOSYS
 
-**描述:**选项 _POSIX_THREAD_PRIO_INHERIT 和 _POSIX_THREAD_PRIO_PROTECT 均未定义并且该实现不支持此函数。
+**描述:**选项 \_POSIX_THREAD_PRIO_INHERIT 和 \_POSIX_THREAD_PRIO_PROTECT 均未定义并且该实现不支持此函数。
 
 ENOTSUP
 
@@ -418,7 +383,7 @@ protocol 包含以下协议属性之一：PTHREAD_PRIO_NONE、PTHREAD_PRIO_INHER
 
 ENOSYS
 
-**描述:**_POSIX_THREAD_PRIO_INHERIT 选项和 _POSIX_THREAD_PRIO_PROTECT 选项均未定义并且该实现不支持此函数。
+**描述:**\_POSIX_THREAD_PRIO_INHERIT 选项和 \_POSIX_THREAD_PRIO_PROTECT 选项均未定义并且该实现不支持此函数。
 
 如果出现以下任一情况，**pthread_mutexattr_getprotocol()**可能会失败并返回对应的值。
 
@@ -452,7 +417,7 @@ oldceiling 包含以前的优先级上限值。
 
 ENOSYS
 
-**描述:**选项 _POSIX_THREAD_PRIO_PROTECT 未定义并且该实现不支持此函数。
+**描述:**选项 \_POSIX_THREAD_PRIO_PROTECT 未定义并且该实现不支持此函数。
 
 如果出现以下任一情况，**pthread_mutexattr_setprioceiling()**可能会失败并返回对应的值。
 
@@ -476,7 +441,7 @@ pthread_mutexattr_getprioceiling(3C)可用来获取互斥锁属性对象的优�
 
 **注 –**
 
-仅当定义了 _POSIX_THREAD_PRIO_PROTECT 符号时，attr 互斥锁属性对象才会包括优先级上限属性。
+仅当定义了 \_POSIX_THREAD_PRIO_PROTECT 符号时，attr 互斥锁属性对象才会包括优先级上限属性。
 
 **pthread_mutexattr_getprioceiling()**返回 prioceiling 中已初始化互斥锁的优先级上限。优先级上限定义执行互斥锁保护的临界段时的最低优先级。prioceiling 位于 SCHED_FIFO 所定义的优先级的最大范围内。要避免优先级倒置，请将 prioceiling 设置为高于或等于可能会锁定特定互斥锁的所有线程的最高优先级。
 
@@ -488,7 +453,7 @@ pthread_mutexattr_getprioceiling(3C)可用来获取互斥锁属性对象的优�
 
 ENOSYS
 
-**描述:**_POSIX_THREAD_PRIO_PROTECT 选项未定义并且该实现不支持此函数。
+**描述:**\_POSIX_THREAD_PRIO_PROTECT 选项未定义并且该实现不支持此函数。
 
 如果出现以下任一情况，**pthread_mutexattr_getprioceiling()**可能会失败并返回对应的值。
 
@@ -520,7 +485,7 @@ pthread_mutexattr_setprioceiling(3C)可用来设置互斥锁的优先级上限�
 
 ENOSYS
 
-**描述:**选项_POSIX_THREAD_PRIO_PROTECT 未定义并且该实现不支持此函数。
+**描述:**选项\_POSIX_THREAD_PRIO_PROTECT 未定义并且该实现不支持此函数。
 
 如果出现以下任一情况，**pthread_mutex_setprioceiling()**可能会失败并返回对应的值。
 
@@ -558,7 +523,7 @@ pthread_mutexattr_getprioceiling(3C)可用来获取互斥锁的优先级上限�
 
 ENOSYS
 
-**描述:**_POSIX_THREAD_PRIO_PROTECT 选项未定义并且该实现不支持此函数。
+**描述:**\_POSIX_THREAD_PRIO_PROTECT 选项未定义并且该实现不支持此函数。
 
 如果出现以下任一情况，**pthread_mutex_getprioceiling()**可能会失败并返回对应的值。
 
@@ -584,7 +549,7 @@ pthread_mutexattr_setrobust_np(3C)可用来设置互斥锁属性对象的强健�
 
 \#include <pthread.h>int pthread_mutexattr_setrobust_np(pthread_mutexattr_t *attr, int *robustness);**注 –**
 
-仅当定义了符号 _POSIX_THREAD_PRIO_INHERIT 时，**pthread_mutexattr_setrobust_np()**才适用。
+仅当定义了符号 \_POSIX_THREAD_PRIO_INHERIT 时，**pthread_mutexattr_setrobust_np()**才适用。
 
 attr 指示以前通过调用**pthread_mutexattr_init()**创建的互斥锁属性对象。
 
@@ -598,15 +563,15 @@ PTHREAD_MUTEX_STALLED_NP
 
 互斥锁的属主失败时，将会解除锁定该互斥锁。互斥锁的下一个属主将获取该互斥锁，并返回错误 EOWNWERDEAD。
 
-**注 –**应用程序必须检查pthread_mutex_lock()的返回代码，查找返回错误 EOWNWERDEAD 的互斥锁。
+**注 –**应用程序必须检查 pthread_mutex_lock()的返回代码，查找返回错误 EOWNWERDEAD 的互斥锁。
 
 互斥锁的新属主应使该互斥锁所保护的状态保持一致。如果上一个属主失败，则互斥锁状态可能会不一致。
 
-如果新属主能够使状态保持一致，请针对该互斥锁调用pthread_mutex_consistent_np()，并解除锁定该互斥锁。
+如果新属主能够使状态保持一致，请针对该互斥锁调用 pthread_mutex_consistent_np()，并解除锁定该互斥锁。
 
-如果新属主无法使状态保持一致，请勿针对该互斥锁调用pthread_mutex_consistent_np()，而是解除锁定该互斥锁。
+如果新属主无法使状态保持一致，请勿针对该互斥锁调用 pthread_mutex_consistent_np()，而是解除锁定该互斥锁。
 
-所有等待的线程都将被唤醒，以后对pthread_mutex_lock()的所有调用都将无法获取该互斥锁。返回代码为 ENOTRECOVERABLE。通过调用pthread_mutex_destroy()取消对互斥锁的初始化，并调用pthread_mutex_int()重新初始化该互斥锁，可使该互斥锁保持一致。
+所有等待的线程都将被唤醒，以后对 pthread_mutex_lock()的所有调用都将无法获取该互斥锁。返回代码为 ENOTRECOVERABLE。通过调用 pthread_mutex_destroy()取消对互斥锁的初始化，并调用 pthread_mutex_int()重新初始化该互斥锁，可使该互斥锁保持一致。
 
 如果已获取该锁的线程失败并返回 EOWNERDEAD，则下一个属主获取该锁时将返回代码 EOWNERDEAD。
 
@@ -618,7 +583,7 @@ PTHREAD_MUTEX_STALLED_NP
 
 ENOSYS
 
-**描述:**选项 _POSIX_THREAD_PRIO__INHERIT 未定义，或者该实现不支持**pthread_mutexattr_setrobust_np()**。
+**描述:**选项 \_POSIX_THREAD_PRIO\_\_INHERIT 未定义，或者该实现不支持**pthread_mutexattr_setrobust_np()**。
 
 ENOTSUP
 
@@ -634,4 +599,4 @@ EINVAL
 
 [编辑](javascript:;)[ 播报](javascript:;)
 
-互斥锁实际的效率还是可以让人接受的，加锁的时间大概100ns左右，而实际上互斥锁的一种可能的实现是先自旋一段时间，当自旋的时间超过阀值之后再将线程投入睡眠中，因此在并发运算中使用互斥锁（每次占用锁的时间很短）的效果可能不亚于使用自旋锁。
+互斥锁实际的效率还是可以让人接受的，加锁的时间大概 100ns 左右，而实际上互斥锁的一种可能的实现是先自旋一段时间，当自旋的时间超过阀值之后再将线程投入睡眠中，因此在并发运算中使用互斥锁（每次占用锁的时间很短）的效果可能不亚于使用自旋锁。
