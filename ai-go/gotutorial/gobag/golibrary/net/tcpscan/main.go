@@ -14,7 +14,6 @@ import (
 )
 
 func main() {
-
 	hostname := flag.String("hostname", "www.baidu.com", "hostname to test")
 	startPort := flag.Int("start-port", 80, "the port on which the scanning starts")
 	endPort := flag.Int("end-port", 100, "the port from which the scanning ends")
@@ -36,14 +35,12 @@ func main() {
 	}
 	wg.Wait()
 	fmt.Printf("opened ports: %v\n", ports)
-	/**
-	opened ports: [80]
-
+	/*
+		opened ports: [80]
 	*/
 }
 
 /*
-*
 检测端口是否可连接
 */
 func isOpen(host string, port int, timeout time.Duration) bool {
@@ -53,6 +50,5 @@ func isOpen(host string, port int, timeout time.Duration) bool {
 		_ = conn.Close()
 		return true
 	}
-
 	return false
 }
