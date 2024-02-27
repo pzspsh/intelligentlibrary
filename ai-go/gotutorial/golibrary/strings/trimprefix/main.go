@@ -1,0 +1,18 @@
+/*
+@File   : main.go
+@Author : pan
+@Time   : 2023-12-02 23:08:40
+*/
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main() {
+	var s = "¡¡¡Hello, Gophers!!!"
+	s = strings.TrimPrefix(s, "¡¡¡Hello, ")
+	s = strings.TrimPrefix(s, "¡¡¡Howdy, ")
+	fmt.Print(s)
+}
