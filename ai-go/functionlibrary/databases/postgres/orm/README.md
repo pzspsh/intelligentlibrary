@@ -339,90 +339,33 @@ func TostringArray(ss []interface{}) []string {
 
 ```
 
+### pg 数据库创建 json 字段示例
+
 ```go
-func SelectDemo(es *elastic.Client, db *gorm.DB, taskdata []map[string]string) {
-	es.CloseIndex("index").Do(context.Background())
-	es.OpenIndex("index").Do(context.Background())
-	logger.Info("SelectDemo taskdata Len:%v", len(taskdata))
-	demoData := []DemoData{}
-	for _, data := range taskdata {
-		number := data["Number"]
-		matchquery := elastic.NewBoolQuery()
-		matchquery.Must(elastic.NewMatchPhraseQuery("Number", number))
-		demotest, err := es.Scroll("index").Query(matchquery).TrackTotalHits(true).Scroll("100m").Do(context.Background())
-		if err != nil {
-			es.CloseIndex("index").Do(context.Background())
-			es.OpenIndex("index").Do(context.Background())
-			logger.Error("Number:%v select demotest es Scroll error:%v", number, err)
-		}
-		scrollid := demotest.ScrollId
-		for {
-			if len(demotest.Hits.Hits) > 0 {
-				demodatas := make(map[string]interface{})
-				for _, item := range demotest.Each(reflect.TypeOf(demodatas)) {
-					demodata := DemoData{}
-					number := item.(map[string]interface{})["number"]
-					name := item.(map[string]interface{})["name"]
-					title := item.(map[string]interface{})["title"]
-					port := item.(map[string]interface{})["port"]
-					alive := item.(map[string]interface{})["alive"]
-					createTime := item.(map[string]interface{})["createTime"]
-					lastTime := item.(map[string]interface{})["lastTime"]
-					createtime, _ := time.ParseInLocation("2006-01-02T15:04:05", createTime.(string), time.Local)
-					lasttime, _ := time.ParseInLocation("2006-01-02T15:04:05", lastTime.(string), time.Local)
-					fingerprint := item.(map[string]interface{})["fingerprint"]
-					waf := item.(map[string]interface{})["waf"]
-					demodata.Number = number.(string)
-					demodata.Name = name.(string)
-					demodata.Tile = title.(string)
-					switch port.(type) {
-					case string:
-						demodata.Port, _ = strconv.Atoi(fmt.Sprintf("%v", port))
-					default:
-						demodata.Port = int(port.(float64))
-					}
-					if alive != "" {
-						demodata.Alive = int(alive.(float64))
-					}
-					demodata.CreatedAt = createtime
-					demodata.UpdatedAt = lasttime
-					if fingerprint != "" {
-						switch fingerprint := fingerprint.(type) {
-						case string:
-							demodata.Fingerprint = []string{fingerprint}
-						default:
-							demodata.Fingerprint = TostringArray(fingerprint.([]interface{}))
-						}
-					}
-					if waf != "" {
-						switch waf := waf.(type) {
-						case string:
-							demodata.Waf = []string{waf}
-						default:
-							demodata.Waf = utils.TostringArray(waf.([]interface{}))
-						}
-					}
-					// demodata.Insert(db)
-					fmt.Println("demoData Data Info:", demodata)
-					demoData = append(demoData, demodata)
-				}
-			} else {
-				break
-			}
-			if demotest.TotalHits() > int64(len(demotest.Hits.Hits)) {
-				demotest, err = es.Scroll("index").ScrollId(scrollid).Do(context.Background())
-				if err != nil {
-					logger.Error("demoData es Scroll ScrollId error:%v", err)
-				}
-				scrollid = demotest.ScrollId
-			} else {
-				break
-			}
-		}
-		es.ClearScroll(scrollid)
-		es.CloseIndex("index").Do(context.Background())
-		es.OpenIndex("index").Do(context.Background())
-	}
-	fmt.Println("DemoTest Len", len(demoData))
+import (
+	"fmt"
+	"time"
+
+	"github.com/lib/pq"
+	"gorm.io/datatypes"
+	"gorm.io/gorm"
+)
+
+type TestDemo struct {
+	Id        int64          `gorm:"column:id;primary_key;AUTO_INCREMENT;comment:自增编号" json:"id"`
+	Number    string         `gorm:"column:number;type:varchar(255);uniqueIndex;not null;comment:自定义编号" json:"number"`
+	Name      string         `gorm:"column:name;type:varchar(255);default:not null;comment:任务名称" json:"name"`
+	Args1     datatypes.JSON `gorm:"column:args1;serializer:json;comment:资产扫描参数" json:"ses_args"`
+	Args2     datatypes.JSON `gorm:"column:args2;serializer:json;comment:指纹识别参数" json:"fis_args"`
+	Args3     datatypes.JSON `gorm:"column:args3;serializer:json;comment:漏洞扫描参数" json:"vvs_args"`
+	Target    pq.StringArray `gorm:"column:target;type:text[];default:null;comment:任务目标数据" json:"target"`
+	Status    int            `gorm:"column:status;default:null;comment:任务状态" json:"status,omitempty"`
+	Dumber    string         `gorm:"column:dumber;type:varchar(255);default:not null;comment:单位编号" json:"dw_number,omitempty"`
+	CreatedAt time.Time      `gorm:"column:created_at;type:TIMESTAMP;comment:创建时间" json:"created_at,omitempty"`
+	UpdatedAt time.Time      `gorm:"column:updated_at;type:TIMESTAMP;autoUpdateTime;comment:更新时间" json:"update_at,omitempty"`
+}
+
+func (TestDemo) TableName() string {
+	return "test_demo"
 }
 ```
