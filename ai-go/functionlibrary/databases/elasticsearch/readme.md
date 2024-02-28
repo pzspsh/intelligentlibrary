@@ -1,4 +1,5 @@
 ### ElasticSearch Go
+
 ```go
 /*
 @File   : index.go
@@ -191,7 +192,7 @@ func (a *IndexStatistic) Update() {
 
 ```
 
-```go 
+```go
 package demo
 
 import (
@@ -321,7 +322,7 @@ func SelectIndex(es *elastic.Client, db *gorm.DB) *[]IndexArgs {
 	// 	}
 	// }
 	// fmt.Println("BBBB", len(indexcount))
-	
+
 	// indexcount := []string{}
 	// for _, aft := range aftc {
 	// 	// logger.Info("company info:%v", aft.Number)
@@ -721,4 +722,93 @@ func (a *ApsTargetStatistic) Update() {
 
 }
 
+```
+
+### ES 查询超过 1 万+数据量示例方法
+
+```go
+func SelectDemo(es *elastic.Client, taskdata []map[string]string) {
+	es.CloseIndex("index").Do(context.Background())
+	es.OpenIndex("index").Do(context.Background())
+	logger.Info("SelectDemo taskdata Len:%v", len(taskdata))
+	demoData := []DemoData{}
+	for _, data := range taskdata {
+		number := data["Number"]
+		matchquery := elastic.NewBoolQuery()
+		matchquery.Must(elastic.NewMatchPhraseQuery("Number", number))
+		demotest, err := es.Scroll("index").Query(matchquery).TrackTotalHits(true).Scroll("100m").Do(context.Background())
+		if err != nil {
+			es.CloseIndex("index").Do(context.Background())
+			es.OpenIndex("index").Do(context.Background())
+			logger.Error("Number:%v select demotest es Scroll error:%v", number, err)
+		}
+		scrollid := demotest.ScrollId
+		for {
+			if len(demotest.Hits.Hits) > 0 {
+				demodatas := make(map[string]interface{})
+				for _, item := range demotest.Each(reflect.TypeOf(demodatas)) {
+					demodata := DemoData{}
+					number := item.(map[string]interface{})["number"]
+					name := item.(map[string]interface{})["name"]
+					title := item.(map[string]interface{})["title"]
+					port := item.(map[string]interface{})["port"]
+					alive := item.(map[string]interface{})["alive"]
+					createTime := item.(map[string]interface{})["createTime"]
+					lastTime := item.(map[string]interface{})["lastTime"]
+					createtime, _ := time.ParseInLocation("2006-01-02T15:04:05", createTime.(string), time.Local)
+					lasttime, _ := time.ParseInLocation("2006-01-02T15:04:05", lastTime.(string), time.Local)
+					fingerprint := item.(map[string]interface{})["fingerprint"]
+					waf := item.(map[string]interface{})["waf"]
+					demodata.Number = number.(string)
+					demodata.Name = name.(string)
+					demodata.Tile = title.(string)
+					switch port.(type) {
+					case string:
+						demodata.Port, _ = strconv.Atoi(fmt.Sprintf("%v", port))
+					default:
+						demodata.Port = int(port.(float64))
+					}
+					if alive != "" {
+						demodata.Alive = int(alive.(float64))
+					}
+					demodata.CreatedAt = createtime
+					demodata.UpdatedAt = lasttime
+					if fingerprint != "" {
+						switch fingerprint := fingerprint.(type) {
+						case string:
+							demodata.Fingerprint = []string{fingerprint}
+						default:
+							demodata.Fingerprint = TostringArray(fingerprint.([]interface{}))
+						}
+					}
+					if waf != "" {
+						switch waf := waf.(type) {
+						case string:
+							demodata.Waf = []string{waf}
+						default:
+							demodata.Waf = utils.TostringArray(waf.([]interface{}))
+						}
+					}
+					fmt.Println("demoData Data Info:", demodata)
+					demoData = append(demoData, demodata)
+				}
+			} else {
+				break
+			}
+			if demotest.TotalHits() > int64(len(demotest.Hits.Hits)) {
+				demotest, err = es.Scroll("index").ScrollId(scrollid).Do(context.Background())
+				if err != nil {
+					logger.Error("demoData es Scroll ScrollId error:%v", err)
+				}
+				scrollid = demotest.ScrollId
+			} else {
+				break
+			}
+		}
+		es.ClearScroll(scrollid)
+		es.CloseIndex("index").Do(context.Background())
+		es.OpenIndex("index").Do(context.Background())
+	}
+	fmt.Println("DemoTest Len", len(demoData))
+}
 ```
