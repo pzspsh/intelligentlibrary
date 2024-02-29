@@ -8,17 +8,15 @@ package main
 import (
 	"fmt"
 	"regexp"
-	"strings"
 )
 
 func ExtractLetter(letter string) string {
-	reg := regexp.MustCompile(`[a-zA-Z-]`)
-	letters := reg.FindAllString(letter, -1)
-	letterstr := strings.Join(letters, "")
-	return letterstr
+	reg := regexp.MustCompile("[\u4e00-\u9fa50-9a-zA-Z- ]*")
+	letters := reg.FindString(letter)
+	return letters
 }
 
 func main() {
-	letter := ExtractLetter("Apache-Coyote/1.1")
+	letter := ExtractLetter("315soft-FileSystem 2.3.4")
 	fmt.Println(letter)
 }
