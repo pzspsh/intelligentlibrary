@@ -26,3 +26,15 @@ func removeDuplicateElement(data []string) []string {
 	}
 	return result
 }
+
+func RemoveDuplicates(arr []string) []string {
+	result := make([]string, 0)
+	seen := map[string]bool{}
+	for _, value := range arr {
+		if !seen[value] {
+			result = append(result, value)
+			seen[value] = true
+		}
+	}
+	return result
+}
