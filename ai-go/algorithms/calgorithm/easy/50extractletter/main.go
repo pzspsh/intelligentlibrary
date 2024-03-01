@@ -17,6 +17,6 @@ func ExtractLetter(letter string) string {
 }
 
 func main() {
-	letter := ExtractLetter("315soft-FileSystem 2.3.4")
+	letter := ExtractLetter("iis8.0")
 	fmt.Println(letter)
 }
