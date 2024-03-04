@@ -84,6 +84,7 @@ func MakeCharsetReader(charset string, input io.Reader) (io.Reader, error) {
 }
 
 func WriteXml(filename string, config *XmlConfig) error {
+	// data, err := xml.Marshal(config)
 	data, err := xml.MarshalIndent(config, "", "\t")
 	if err != nil {
 		return err

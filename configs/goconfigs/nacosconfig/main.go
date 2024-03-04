@@ -54,20 +54,44 @@ func getNacosClient(nacosConfig NacosConfig) config_client.IConfigClient {
 		password = "password"
 	}
 	//create ServerConfig
+	/*
+	   sc := []constant.ServerConfig{
+	   		*constant.NewServerConfig(nacosConfig.Ip, nacosConfig.Port, constant.WithContextPath("/nacos")),
+	   	}
+	*/
+
 	sc := []constant.ServerConfig{
-		*constant.NewServerConfig(nacosConfig.Ip, nacosConfig.Port, constant.WithContextPath("/nacos")),
+		{
+			IpAddr:      nacosConfig.Ip,
+			ContextPath: "/nacos",
+			Port:        nacosConfig.Port,
+			Scheme:      "http",
+		},
 	}
+
 	//create ClientConfig
-	cc := *constant.NewClientConfig(
-		constant.WithNamespaceId(nacosConfig.Namespace),
-		constant.WithTimeoutMs(5000),
-		constant.WithNotLoadCacheAtStart(true),
-		constant.WithLogDir("./tmp/nacos/log"),
-		constant.WithCacheDir("./tmp/nacos/cache"),
-		constant.WithLogLevel("debug"),
-		constant.WithUsername("nacos"),
-		constant.WithPassword(password),
-	)
+	/*
+		   cc := *constant.NewClientConfig(
+				constant.WithNamespaceId(nacosConfig.Namespace),
+				constant.WithTimeoutMs(5000),
+				constant.WithNotLoadCacheAtStart(true),
+				constant.WithLogDir("./tmp/nacos/log"),
+				constant.WithCacheDir("./tmp/nacos/cache"),
+				constant.WithLogLevel("debug"),
+				constant.WithUsername("nacos"),
+				constant.WithPassword(password),
+			)
+	*/
+	cc := constant.ClientConfig{
+		NamespaceId:         nacosConfig.Namespace,
+		TimeoutMs:           5000,
+		NotLoadCacheAtStart: true,
+		LogDir:              "",
+		CacheDir:            "",
+		LogLevel:            "debug",
+		Username:            "nacos",
+		Password:            password,
+	}
 
 	// create config client
 	client, err := clients.NewConfigClient(
