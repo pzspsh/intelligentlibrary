@@ -1,0 +1,24 @@
+{
+    "name": "pan01",
+    "hello": {
+        "second": 2,
+        "statuscode": 300
+    },
+    "words": [
+        "head",
+        "queue",
+        "set"
+    ],
+    "Users": {
+        "student": {
+            "name": "pan02",
+            "age": 27
+        },
+        "teacher": {
+            "name": "pan03",
+            "age": 25
+        }
+    },
+    "username": "admin",
+    "password": "admin123"
+}
