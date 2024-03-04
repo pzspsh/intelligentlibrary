@@ -7,7 +7,7 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	// "fmt"
 	"io"
 	"os"
 )
@@ -66,7 +66,8 @@ func WriteJson(filename string) error {
 		Password: "admin123",
 		Users:    Users{Student: Student{Name: "pan02", Age: 27}, Teacher: Teacher{Name: "pan03", Age: 25}},
 	}
-	data, err := json.MarshalIndent(config, "", "\t")
+	// data, err := json.MarshalIndent(config, "", "\t")
+	data, err := json.Marshal(config)
 	if err != nil {
 		return err
 	}
@@ -75,10 +76,10 @@ func WriteJson(filename string) error {
 }
 
 func main() {
-	data, err := ParseJson("../../config.json")
-	if err != nil {
-		fmt.Printf("parse json err:%v", err)
-	}
-	fmt.Println(data)
-	// WriteJson("../../writeconfig.json")
+	// data, err := ParseJson("../../config.json")
+	// if err != nil {
+	// 	fmt.Printf("parse json err:%v", err)
+	// }
+	// fmt.Println(data)
+	WriteJson("../../writeconfig.json")
 }
