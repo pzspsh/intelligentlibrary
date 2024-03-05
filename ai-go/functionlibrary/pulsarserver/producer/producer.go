@@ -92,7 +92,7 @@ func Producer2(data any) { // 参数类型any,发生任何类型的数据
 		fmt.Println(err)
 	}
 	msg := pulsar.ProducerMessage{
-		Payload: []byte(string(b)),
+		Payload: b,
 	}
 	if err, _ := producer.Send(context.Background(), &msg); err != nil {
 		fmt.Println(err)
