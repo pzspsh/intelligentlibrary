@@ -66,6 +66,14 @@ func SearchList(db *gorm.DB) (bool, *[]Table_demo) {
 	}
 }
 
+func Select(db *gorm.DB, obj interface{}, selectobj, target string) (interface{}, error) {
+	err := db.Where(selectobj+" = ?", target).First(obj).Error
+	if err != nil {
+		return nil, err
+	}
+	return obj, nil
+}
+
 func main() {
 	c := &DBConfig{
 		Host:     "ip",

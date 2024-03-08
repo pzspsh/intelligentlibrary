@@ -53,6 +53,14 @@ func (t *Table_demo) Update(db *gorm.DB, id int64) error {
 	}
 }
 
+func Update(db *gorm.DB, obj, target string, table interface{}) error {
+	err := db.Where(obj+" = ?", target).Updates(table)
+	if err.Error != nil {
+		return err.Error
+	}
+	return nil
+}
+
 func main() {
 	c := &DBConfig{
 		Host:     "ip",
