@@ -21,7 +21,8 @@ func main() {
 	}()
 	var a int
 	for {
-		a = Demo(a)
+		Demo(&a)
+		// a = Demo1(a) // 传参不是传地址(指针)的话，函数内部修改不会影响外部变量
 		fmt.Printf("a number: %d\n", a)
 		if a == 5 {
 			fmt.Println("end demo")
@@ -30,7 +31,13 @@ func main() {
 	}
 }
 
-func Demo(a int) int {
+func Demo(a *int) {
+	fmt.Println("hello demo")
+	time.Sleep(2 * time.Second)
+	*a++
+}
+
+func Demo1(a int) int {
 	fmt.Println("hello demo")
 	time.Sleep(2 * time.Second)
 	a++
