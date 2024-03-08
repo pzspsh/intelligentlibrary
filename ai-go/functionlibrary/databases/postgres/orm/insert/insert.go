@@ -52,6 +52,14 @@ func (t *Table_demo) Insert(db *gorm.DB) error {
 	}
 }
 
+func Insert(db *gorm.DB, obj interface{}) error {
+	err := db.Create(obj).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func main() {
 	c := &DBConfig{
 		Host:     "ip",
