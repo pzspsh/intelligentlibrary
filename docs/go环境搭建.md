@@ -69,7 +69,7 @@ GO环境下载包代理设置：
 以go1.20.3版本为例：
 wget https://golang.google.cn/dl/go1.20.3.linux-amd64.tar.gz # 先下载go文件包
 
-rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.3.linux-amd64.tar.gz // 如果之前安装库go环境，则直接执行该命令
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.3.linux-amd64.tar.gz # 如果之前安装库go环境，则直接执行该命令
 # 之前没安装过，直接解压go文件包，把go文件包迁移到/usr/local目录下
 
 
