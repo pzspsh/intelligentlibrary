@@ -19,7 +19,7 @@ def tinyproxy_deploy(ip, password):
     # 允许链接不在know_hosts文件中的主机
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     # 连接服务器
-    ssh.connect(hostname=ip, username='root', password=password)
+    ssh.connect(hostname=ip, username="root", password=password)
 
     # 执行脚本1
     command_01 = "mkdir tinyproxy"
@@ -28,7 +28,7 @@ def tinyproxy_deploy(ip, password):
     # sftp连接
     try:
         transport = paramiko.Transport((ip, 22))
-        transport.connect(username='root', password=password)
+        transport.connect(username="root", password=password)
         sftp = paramiko.SFTPClient.from_transport(transport)
     except Exception as e:
         print(f"连接失败，密码不正确？\n{e}")
@@ -44,16 +44,16 @@ def tinyproxy_deploy(ip, password):
     exec_shell(ssh, command_02)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     server_list = [
         {
-            'ip': '139.224.192.64',
-            'password': 'a*9PfXbQcPB&KJX',
+            "ip": "localhost",
+            "password": "password",
         },
         {
-            'ip': '182.92.169.248',
-            'password': 'TTzq9517',
-        }
+            "ip": "localhost",
+            "password": "password",
+        },
     ]
     for server in server_list:
-        tinyproxy_deploy(ip=server['ip'], password=server['password'])
+        tinyproxy_deploy(ip=server["ip"], password=server["password"])
