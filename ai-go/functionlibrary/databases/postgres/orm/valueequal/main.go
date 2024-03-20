@@ -30,7 +30,7 @@ func main() {
 	var user User
 	db.Model(&User{}).
 		Where("id = ?", 1).                              // 假设我们更新ID为1的用户
-		Update("Balance", gorm.Expr("balance + ?", 10)). // // 更新Balance字段的值，对balance字段加10
+		Update("Balance", gorm.Expr("balance + ?", 10)). // 更新Balance字段的值，对balance字段加10
 		First(&user)                                     // 重新查询用户以获取更新后的Balance值
 
 	// 现在，user.Balance包含了更新后的值
