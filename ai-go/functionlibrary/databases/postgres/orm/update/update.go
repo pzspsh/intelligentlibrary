@@ -39,6 +39,7 @@ type Table_demo struct {
 	Name        string `json:"name,omitempty" gorm:"column:name;type:varchar(255);default:null"`
 	Description string `json:"description,omitempty" gorm:"column:description;type:text;default:null"`
 	Type        string `json:"type,omitempty" gorm:"column:type;type:text;default:null"`
+	Email       string `json:"email,omitempty" gorm:"column:email;type:text;default:null"`
 }
 
 func (t *Table_demo) Update(db *gorm.DB, id int64) error {
@@ -50,6 +51,14 @@ func (t *Table_demo) Update(db *gorm.DB, id int64) error {
 	} else {
 		fmt.Printf("update data successful")
 		return nil
+	}
+}
+
+func (t *Table_demo) Updates(db gorm.DB, id string) {
+	//  实现更新某个字段的执行，其它字段的值不变
+	result := db.Model(&Table_demo{}).Where("id = ?", id).Updates(Table_demo{Email: "new_email@example.com"})
+	if result.Error != nil {
+		panic(result.Error)
 	}
 }
 
