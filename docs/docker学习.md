@@ -172,6 +172,7 @@ docker cp 容器ID: 容器内路径 目的主机路径
 docker ps
 docker images
 docker run -it centos /bin/bash
+docker run -it 127.0.0.1/web/vvscan /bin/bash
 docker ps
 
 docker attach 容器ID
