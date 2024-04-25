@@ -1,0 +1,15 @@
+id: CVE-2024-14882
+title: "CVE-2024-14882"
+desc: >
+  This affects the package xmljs before 0.2.1. A type confusion vulnerability
+  in the function xmljs.parseXml() allows execution of arbitrary code.
+references:
+  - https://github.com/nijikokun/xmljs/issues/49
+fingerprint: "thinkphp"
+http:
+  paths:
+    - "{{BASE_DIR}}/node_modules/xmljs/lib/xmljs.js"
+    - "{{BASE_DIR}}/node_modules/xmljs/lib/xmljs.min.js"
+  patterns:
+    - "function parseXml(xml, options)"
+  matchers-condition: and
