@@ -1,0 +1,16 @@
+id: CVE-2024-14882
+
+info:
+  name: struts2
+  author: pikpikcu
+  severity: critical
+  fingerprint: struts2
+  metadata:
+    verified:
+
+tcp:
+  input:
+    - 2080/tcp
+  match:
+    - pattern: '(?m)^.*Struts Pwned.*$'
+      type: regex

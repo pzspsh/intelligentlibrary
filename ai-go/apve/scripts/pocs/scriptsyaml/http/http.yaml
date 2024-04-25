@@ -1,0 +1,47 @@
+id: CVE-2024-1001
+
+info:
+  name: struts2
+  author: pikpikcu
+  severity: critical
+  links:
+  fingerprint: struts2
+  metadata:
+    verified:
+
+http:
+  - raw:
+
+    verify:
+
+detail:
+script:
+expression:
+requests:
+follow_redirects: false
+method:
+path:
+transport:
+timeout:
+thread:
+body:
+headers:
+output:
+requests_type:
+unsafe: true
+matchers:
+matchers-condition: and
+matchers-case-insensitive: true
+words:
+status:
+stop-at-first-match: true
+verify:
+stop-at-first-match: true
+condition:
+variables:
+extractors:
+json:
+name:
+internal:
+dsl:
+contains:
