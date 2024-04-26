@@ -14,34 +14,3 @@ http:
 
     verify:
 
-detail:
-script:
-expression:
-requests:
-follow_redirects: false
-method:
-path:
-transport:
-timeout:
-thread:
-body:
-headers:
-output:
-requests_type:
-unsafe: true
-matchers:
-matchers-condition: and
-matchers-case-insensitive: true
-words:
-status:
-stop-at-first-match: true
-verify:
-stop-at-first-match: true
-condition:
-variables:
-extractors:
-json:
-name:
-internal:
-dsl:
-contains:
