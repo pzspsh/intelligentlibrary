@@ -50,6 +50,8 @@
 
 ##### [Chinaz](https://ping.chinaz.com/)
 
+##### [Chinaz](https://www.chinaz.net/)
+
 ##### [Host Tracker](https://www.host-tracker.com/)
 
 ##### [Webpage Test](https://www.webpagetest.org/)
@@ -485,6 +487,8 @@
 ##### [zoomeye 搜索引擎](https://www.zoomeye.org/)
 
 ##### [hunter 搜索引擎](https://hunter.io/)
+
+##### [奇安信Hunter 搜索引擎](https://hunter.qianxin.com/)
 
 ##### [onyphe 搜索引擎](https://www.onyphe.io/)
 
