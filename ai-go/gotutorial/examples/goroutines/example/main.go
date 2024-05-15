@@ -5,10 +5,19 @@
 */
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
+	task := map[string]TaskStat{}
+	fmt.Println(len(task))
+}
 
+type TaskStat struct {
+	End     bool
+	Timeout time.Time
 }
 
 func ResultStat(dateresults chan map[string]string) {
