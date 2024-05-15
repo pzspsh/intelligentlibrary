@@ -37,14 +37,13 @@ func main() {
 					if value, ok := execmap1[key]; !ok {
 						execmap1[key] = 1
 					} else {
-						fmt.Println("CCCCCC", value)
-						execmap1[key] = execmap1[key] + 1
+						execmap1[key] = value + 1
 					}
 				} else if key, ok := data["demo"]; ok {
-					if _, ok := execmap2[key]; !ok {
+					if value, ok := execmap2[key]; !ok {
 						execmap2[key] = 1
 					} else {
-						execmap2[key] = execmap2[key] + 1
+						execmap2[key] = value + 1
 					}
 				}
 			}
@@ -53,14 +52,18 @@ func main() {
 	for {
 		if len(execmap1) > 0 {
 			for number, value := range execmap1 {
-				fmt.Println(number, value)
-				delete(execmap1, number)
+				go func(number string, value int) {
+					fmt.Println("AAAAAAAA", number, value)
+					delete(execmap1, number)
+				}(number, value)
 			}
 		}
 		if len(execmap2) > 0 {
 			for number, value := range execmap2 {
-				fmt.Println(number, value)
-				delete(execmap2, number)
+				go func(number string, value int) {
+					fmt.Println("BBBBBBBBB", number, value)
+					delete(execmap2, number)
+				}(number, value)
 			}
 		}
 		time.Sleep(2 * time.Second)
