@@ -60,11 +60,17 @@ func main() {
 		for {
 			value := sharedData.Get()
 			fmt.Println("Goroutine 2: Current value is", value)
+			i := 0
 			for key := range value { // 检查是否应该结束
-				delete(value, key)
+				i++
+				if i/2 == 0 {
+					continue
+				}
+				delete(value, key) // 执行该操作之后，循环将是从新进行，不是继续上次的循环
 			}
-			sharedData.Set(value)
-			time.Sleep(1 * time.Second) // 模拟不同的工作负载
+			fmt.Println("Goroutine 3: Current value is", value)
+			// sharedData.Set(value)
+			time.Sleep(3 * time.Second) // 模拟不同的工作负载
 		}
 	}()
 
