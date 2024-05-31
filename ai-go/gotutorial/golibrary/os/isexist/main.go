@@ -14,7 +14,7 @@ import (
 func main() {
 	if _, err := os.Open("filepath/test.js"); err != nil {
 		// false 不存在   true 存在
-		emptyErr := os.IsExist(err)
+		emptyErr := os.IsExist(err) // 常用于这些os.OpenFile、os.Create、os.Mkdir函数
 		fmt.Println(emptyErr, "\n", err)
 	}
 }

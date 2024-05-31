@@ -11,9 +11,15 @@ import (
 )
 
 func main() {
-	if _, err := os.Open("filepath/test.js"); err != nil {
+	path := "filepath/test.js"
+	if _, err := os.Open(path); err != nil {
 		// false 不存在   true 存在
-		emptyErr := os.IsNotExist(err)
+		if _, emptyErr := os.Stat(path); os.IsNotExist(emptyErr) {
+			fmt.Println("不存在")
+		} else {
+			fmt.Println("存在")
+		}
+		emptyErr := os.IsNotExist(err) // 用户os.Stat函数
 		fmt.Println(emptyErr, "\n", err)
 	}
 }
