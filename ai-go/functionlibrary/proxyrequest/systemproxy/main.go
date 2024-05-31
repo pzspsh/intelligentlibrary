@@ -12,36 +12,21 @@ import (
 )
 
 func main() {
-	// 获取系统代理设置
-	proxyURL, err := http.ProxyFromEnvironment(nil)
+	proxyURL, err := http.ProxyFromEnvironment(nil) // 获取系统代理设置
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error getting system proxy: %v\n", err)
 		os.Exit(1)
 	}
-
-	// 创建代理传输设置
-	transport := &http.Transport{
-		Proxy: http.ProxyURL(proxyURL),
-	}
-
-	// 创建使用代理的客户端
-	client := &http.Client{
-		Transport: transport,
-	}
-
-	// 请求的目标URL
-	targetURL := "http://www.example.com"
-
-	// 发送GET请求
-	resp, err := client.Get(targetURL)
+	transport := &http.Transport{Proxy: http.ProxyURL(proxyURL)} // 创建代理传输设置
+	client := &http.Client{Transport: transport} // 创建使用代理的客户端
+	targetURL := "http://www.example.com" // 请求的目标URL
+	resp, err := client.Get(targetURL) // 发送GET请求
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error sending request: %v\n", err)
 		os.Exit(1)
 	}
 	defer resp.Body.Close()
-
-	// 输出响应头
-	for name, values := range resp.Header {
+	for name, values := range resp.Header { // 输出响应头
 		fmt.Printf("%s: %s\n", name, values)
 	}
 }
