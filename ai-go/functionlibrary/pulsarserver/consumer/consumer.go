@@ -12,7 +12,7 @@ import (
 	"github.com/apache/pulsar-client-go/pulsar"
 )
 
-func ConsumerCert() {
+func ConsumerCert(receive chan []byte) {
 	client, err := pulsar.NewClient(pulsar.ClientOptions{
 		// URL: "pulsar://127.0.0.1:6650",
 		URL:                        "pulsar+ssl://127.0.0.1:6651",
@@ -38,6 +38,7 @@ func ConsumerCert() {
 			fmt.Println(err)
 		} else {
 			if taskData != nil {
+				receive <- taskData.Payload()
 				fmt.Println(string(taskData.Payload()))
 			}
 		}
