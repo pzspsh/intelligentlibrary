@@ -40,6 +40,9 @@ func ProducerRun() {
 		Topic:     "persistent://public/default/test",
 	}
 	data := map[string]string{"aaa": "bbb"}
+	if pulsaroption, err = pulsaroption.PulsarConn(); err != nil {
+		panic(err)
+	}
 	if err = pulsaroption.Producer(data); err != nil {
 		panic(err)
 	}
