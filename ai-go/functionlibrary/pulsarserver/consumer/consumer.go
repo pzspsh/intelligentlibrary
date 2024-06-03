@@ -45,7 +45,7 @@ func ConsumerCert() {
 	}
 }
 
-func Consumer() {
+func Consumer(receive chan any) {
 	client, err := pulsar.NewClient(pulsar.ClientOptions{
 		URL: "pulsar0://127.0.0.1:6650",
 	})
@@ -68,6 +68,7 @@ func Consumer() {
 			fmt.Println(err)
 		} else {
 			if taskData != nil {
+				receive <- taskData.Payload()
 				fmt.Println(string(taskData.Payload()))
 			}
 		}
