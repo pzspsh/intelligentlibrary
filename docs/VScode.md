@@ -483,11 +483,11 @@
   "remote.downloadExtensionsLocally": true,
   "remote.SSH.defaultForwardedPorts": [],
   "remote.SSH.remotePlatform": {
-    "10.0.35.65": "linux",
-    "10.0.35.74": "linux",
-    "10.0.35.66": "linux",
-    "10.0.35.123": "linux",
-    "10.0.35.76": "linux"
+    "ip": "linux",
+    "ip": "linux",
+    "ip": "linux",
+    "ip": "linux",
+    "ip": "linux"
   },
   "remote.SSH.configFile": "C:\\Users\\admin\\.ssh\\config",
   "workbench.colorCustomizations": {
