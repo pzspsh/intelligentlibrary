@@ -47,19 +47,7 @@ class Particle:
 
 
 class PSO:
-    def __init__(
-        self,
-        dim,
-        size,
-        iter_num,
-        x_max,
-        max_vel,
-        tol,
-        best_fitness_value=float("Inf"),
-        C1=2,
-        C2=2,
-        W=1,
-    ):
+    def __init__(self, dim, size, iter_num, x_max, max_vel, tol, best_fitness_value=float("Inf"), C1=2, C2=2, W=1):
         self.C1 = C1
         self.C2 = C2
         self.W = W
@@ -114,7 +102,6 @@ class PSO:
             self.set_bestPosition(pos_value)
 
     def update_ndim(self):
-
         for i in range(self.iter_num):
             for part in self.Particle_list:
                 self.update_vel(part)  # 更新速度

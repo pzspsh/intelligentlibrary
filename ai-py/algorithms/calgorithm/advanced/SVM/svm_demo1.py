@@ -182,8 +182,9 @@ if __name__ == "__main__":
     Y = iris.target
     X = X[Y != 2]
     Y = Y[Y != 2]
-    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3)
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=42)
     # 构建模型并训练
+    print("aaa", X_train, "bbb", type(X_test), "ccc", type(Y_train), "ddd", type(Y_test))
     svm_clf = SVM("linear", 1)
     svm_clf.fit(X_train, Y_train, iterations=2000)
     # 测试结果
