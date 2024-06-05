@@ -88,7 +88,7 @@ docker ps -a
 删除容器
 
 ```shell
-docker rm 容器id						# 删除指定的容器，不能删除正在运行的容器，如果要强制删除，加采纳数rm -f
+docker rm 容器id					 # 删除指定的容器，不能删除正在运行的容器，如果要强制删除，加采纳数rm -f
 docker rm -f $(docker ps -aq)	 	 # 删除所有的容器
 docker ps -a -q | xargs docker rm 	 # 删除所有的容器（管道命令）
 ```
@@ -444,13 +444,13 @@ vim /etc/docker/daemon.json 添加国内镜像
 }
 
 添加完源然后重启docker, 命令如下:
-  systemctl restart docker.service
+systemctl restart docker.service
 ```
 
 docker 进入容器 root 权限
 
 ```shell
-docker exec -it --user=root ID号/容器名称 bash
+docker exec -it --user=root ID号/容器名称 bash # 进入容器并进入管理权限容器
 ```
 
 ```shell
@@ -472,6 +472,14 @@ services:
     networks:
       - product
     tty: true // 重要参数，必须加
+```
+```bash
+使用docker run命令时设置自启动:
+docker run -d --restart=always --name your_container_name your_image
+
+
+如果容器已经运行，可以使用docker update命令：
+docker update --restart=always your_container_name
 ```
 
 从 docker 容器中拷贝出文件的方法：
