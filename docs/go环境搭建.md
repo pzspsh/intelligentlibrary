@@ -78,5 +78,7 @@ export GOROOT=/usr/local/go  # 安装默认的路径
 export GOPATH=/home/GoProjects #  GOPATH是指你开发的路径
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
-$ go version
+
+$ source /etc/profile # 使环境变量生效
+$ go version # 查看go版本
 ```
