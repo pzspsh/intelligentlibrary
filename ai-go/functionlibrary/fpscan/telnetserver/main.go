@@ -51,7 +51,7 @@ func detectTelnetService(target string) (string, error) {
 }
 
 func main() {
-	target := "10.0.35.74" // 替换为目标IP地址和端口（格式：IP:PORT）
+	target := "127.0.0.1" // 替换为目标IP地址和端口（格式：IP:PORT）
 	banner, err := detectTelnetService(target)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error connecting to Telnet service: %s\n", err)
