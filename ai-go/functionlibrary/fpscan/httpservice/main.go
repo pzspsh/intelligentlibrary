@@ -76,10 +76,14 @@ func isHTTPSService(host string, port int) (bool, error) {
 }
 
 func main() {
-	host := "127.0.0.1"
-	httpPort := 7001
-	httpsPort := 10000
-
+	host := "www.baidu.com"
+	httpPort := 80
+	httpsPort := 443
+	/*
+		host := "127.0.0.1"
+		httpPort := 7001
+		httpsPort := 10000
+	*/
 	isHTTP, err := isHTTPService(host, httpPort)
 	if err != nil {
 		fmt.Printf("Error checking HTTP service: %s\n", err)
