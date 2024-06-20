@@ -1,61 +1,126 @@
 # 框架项目教程
 
-## django
+## 1、django
 
 ```python
 
 ```
 
-## fastapi
+## 2、fastapi
 
 ```python
 
 ```
 
-## flask
+## 3、flask
 
 ```python
 
 ```
 
-## numpy
+## 4、numpy
 
 ```python
 
 ```
 
-## pandas
+## 5、pandas
 
 ```python
 
 ```
 
-## tensorflow
+## 6、tensorflow
 
 ```python
 
 ```
 
-## transformers
+## 7、transformers
 
 ```python
 
 ```
 
-## tkinter
+## 8、tkinter
 
 ```python
 
 ```
 
-## PyQt5
+## 9、PyQt5
 
 ```python
 
 ```
 
-## tornado
+## 10、tornado
 
+```python
+
+```
+
+## 11、PyTorch
+
+```python
+
+```
+
+## 12、Theano
+
+```python
+
+```
+
+## 13、scikit-learn
+
+```python
+
+```
+
+## 14、Keras
+
+```python
+
+```
+
+## 15、Matplotlib
+
+```python
+
+```
+
+## 16、OpenCV
+
+```python
+
+```
+
+## 17、Pillow
+
+```python
+
+```
+
+## 18、PyQtGraph
+
+```python
+
+```
+
+## 19、SciPy
+
+```python
+
+```
+
+## 20、SymPy
+
+```python
+
+```
+
+## 21、3D Slicer
 ```python
 
 ```
