@@ -60,6 +60,8 @@ shutdown -r +10 # 10分钟后重启
 cat /var/log/messages # 查看各种系统日志
 ls /etc/init.d # 查看系统中所有服务脚本
 tail -f log_file_name # 查看自定义的日志信息
+
+sudo shutdown now # 立即关机
 ```
 #### 2.远程命令
 ```shell
