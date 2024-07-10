@@ -2072,6 +2072,50 @@ false
 false
 ```
 
+#### 流程控制
+3、switch 条件语句
+```go 
+问题举例：
+func SwitchDemo(inter interface{}) {
+	switch inter.(type) {
+		case string:
+			return inter.(string)
+		case int:
+			return string(rune(inter.(string)))
+		case int64:
+			return strconv.FormatInt(inter.(int64), 10)
+		case int32:
+			return strconv.FormatInt(int64(inter.(int64)), 10)
+		case float32:
+			return strconv.FormatFloat(inter.(float64), 'E', -1, 32)
+		case float64:
+			return strconv.FormatFloat(inter.(float64), 'E', -1, 64)
+		default:
+			return ""
+	}
+}
+
+正确形式：
+func SwitchDemo(inter interface{}) string {
+	switch inter := inter.(type) {
+	   case string:
+		   return inter
+	   case int:
+		   return string(rune(inter))
+	   case int64:
+		   return strconv.FormatInt(inter, 10)
+	   case int32:
+		   return strconv.FormatInt(int64(inter), 10)
+	   case float32:
+	   	   return strconv.FormatFloat(float64(inter), 'E', -1, 32)
+	   case float64:
+		   return strconv.FormatFloat(inter, 'E', -1, 64)
+	   default:
+	   	   return ""
+	}
+}
+```
+
 ### 函数
 
 ```go
