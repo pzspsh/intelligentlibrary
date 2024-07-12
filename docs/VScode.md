@@ -560,6 +560,7 @@
   ],
   "files.eol": "\n",
   "python.languageServer": "Default",
+ /* 
   "[python]": {
     "editor.wordWrap": "wordWrapColumn",
     "editor.wordWrapColumn": 1000,
@@ -569,7 +570,22 @@
       "source.organizeImports": true
     },
     "editor.defaultFormatter": "ms-python.black-formatter", // 格式化"[该语言代码]"
+  }, 
+  */
+  "[python]": {
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.black-formatter", // 格式化"[该语言代码]" // 需安装Black Formatter
+    // "editor.wordWrap": "wordWrapColumn",
+    // "editor.wordWrapColumn": 1000,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    },
   },
+  "black-formatter.args": [  // 需安装Black Formatter
+    "--line-length",
+    "120"
+  ],
   "git.openRepositoryInParentFolders": "always",
   "extensions.ignoreRecommendations": true,
   "C_Cpp.intelliSenseEngineFallback": "disabled",
