@@ -16,7 +16,9 @@ require (
 	github.com/google/go-github/v30 v30.1.0
 	github.com/google/gopacket v1.1.19
 	github.com/gorilla/mux v1.8.1
+	github.com/gorilla/sessions v1.2.1
 	github.com/gorilla/websocket v0.0.0-20170926233335-4201258b820c
+	github.com/lib/pq v1.10.9
 	github.com/liujiawm/graphics-go v0.0.0-20200331105750-879216a3393f
 	github.com/logrusorgru/aurora v2.0.3+incompatible
 	github.com/mangenotwork/gathertool v0.4.7
@@ -28,6 +30,7 @@ require (
 	github.com/remeh/sizedwaitgroup v1.0.0
 	github.com/robberphex/grpc-in-memory v0.0.0-20211119144331-71a404f799e3
 	github.com/robfig/cron v1.2.0
+	github.com/rs/xid v1.5.0
 	github.com/saintfish/chardet v0.0.0-20230101081208-5e3ef4b5456d
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/shirou/gopsutil/v3 v3.23.10
@@ -44,6 +47,7 @@ require (
 	golang.org/x/sys v0.14.0
 	golang.org/x/text v0.14.0
 	google.golang.org/grpc v1.57.0
+	gopkg.in/corvus-ch/zbase32.v1 v1.0.0
 	gopkg.in/yaml.v3 v3.0.1
 	k8s.io/klog v1.0.0
 )
@@ -74,6 +78,7 @@ require (
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
+	github.com/gorilla/securecookie v1.1.1 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
@@ -158,7 +163,7 @@ require (
 	github.com/yuin/goldmark-emoji v1.0.1 // indirect
 	github.com/yusufpapurcu/wmi v1.2.3 // indirect
 	github.com/zmap/rc2 v0.0.0-20190804163417-abaa70531248 // indirect
-	golang.org/x/crypto v0.15.0 // indirect
+	golang.org/x/crypto v0.15.0
 	golang.org/x/mod v0.14.0 // indirect
 	golang.org/x/net v0.18.0
 	golang.org/x/tools v0.15.0 // indirect
