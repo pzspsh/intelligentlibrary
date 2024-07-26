@@ -28,6 +28,7 @@ func handleRequestAndRedirect(res http.ResponseWriter, req *http.Request) {
 	// 执行反向代理请求
 	proxy.ServeHTTP(res, req)
 }
+
 func main() {
 	// 注册代理处理函数
 	http.HandleFunc("/", handleRequestAndRedirect)
