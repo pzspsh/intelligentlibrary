@@ -1,6 +1,6 @@
 module pangin
 
-go 1.21
+go 1.22.5
 
 require github.com/jinzhu/gorm v1.9.16
 

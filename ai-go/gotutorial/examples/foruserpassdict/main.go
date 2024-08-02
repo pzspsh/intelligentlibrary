@@ -21,6 +21,7 @@ func main() {
 	for _, dict := range dicts {
 		fmt.Println(dict.User, dict.Pass)
 	}
+	fmt.Println(dicts)
 }
 
 func UserPassDict(users []string, passs []string) []UserPass {
