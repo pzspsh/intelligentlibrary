@@ -969,7 +969,7 @@ func main() {
 	// Url := "http://akm506.inter.iqiyi.com"
 	// Url := "http://*c5cnepgsm37t41ni7pl0.sso.ndrc.gov.cn"
 	// Url := "https://你好.pas2323nzh-onsdfsdre23g.com:443/hello.html"
-	Url := "mb2.yrdsd$hxm.orsd$g.cn:443"
+	Url := "mb2.yrdsfsd$hxm.orsd$g.cn:443"
 	// Url := "https://192.168.135.74"
 	// Url := "ftp://mb2.yrdhxm.org.cn:23"
 	// Url := "https://192.168.135.74:10000/?hello.html"
@@ -978,7 +978,10 @@ func main() {
 	// Url := "http://example.com/page#section1"
 	// Url := "https://pan:zhong@*mb2.y3r潘d$hxm.org.cn:443/?hello.html"
 	// Url := "mb2.yrdhxm.org.cn:1443/path/to/resource?hello.html"
-	parse, _ := Parse(Url)
+	parse, err := Parse(Url)
+	if err != nil {
+		fmt.Println("ERROR: ", err)
+	}
 	fmt.Println("BBBBBBBB", parse.Scheme, parse.Host, parse.Hostname(), parse.Port())
 	user := parse.User.Username()
 	fmt.Println("username", user)
