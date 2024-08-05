@@ -57,7 +57,7 @@ func main() {
 		fmt.Println("转换失败 error: ", err)
 	}
 	fmt.Println("转换之前:", reflect.TypeOf(str), "将string转换成int:", intvalues, "类型：", reflect.TypeOf(intvalues))
-	i, ok := strconv.Atoi("100000")
+	i, ok := strconv.Atoi("")
 	if ok == nil {
 		fmt.Printf("Atoi, i is %v, type is %v\n", i, reflect.TypeOf(i))
 	}
