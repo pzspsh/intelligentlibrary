@@ -969,7 +969,7 @@ func main() {
 	// Url := "http://akm506.inter.iqiyi.com"
 	// Url := "http://*c5cnepgsm37t41ni7pl0.sso.ndrc.gov.cn"
 	// Url := "https://你好.pas2323nzh-onsdfsdre23g.com:443/hello.html"
-	Url := "mb2.yrdsfsd$hxm.orsd$g.cn:443"
+	Url := "mb2.yrdsfsd$hxm.orsd$g.cn:443/path/to/resource?hello.html%23"
 	// Url := "https://192.168.135.74"
 	// Url := "ftp://mb2.yrdhxm.org.cn:23"
 	// Url := "https://192.168.135.74:10000/?hello.html"
