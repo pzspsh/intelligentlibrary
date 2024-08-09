@@ -4,3 +4,7 @@
 @File   : consumer.go
 */
 package server
+
+func TaskReceive() {
+
+}

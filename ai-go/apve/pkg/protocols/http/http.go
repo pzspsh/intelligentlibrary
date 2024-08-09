@@ -5,7 +5,7 @@
 */
 package http
 
-type HttpRuquests struct {
+type Ruquest struct {
 	Method             string                 `yaml:"method,omitempty"`
 	Path               string                 `yaml:"path,omitempty"`
 	Body               string                 `yaml:"body,omitempty"`
@@ -15,11 +15,11 @@ type HttpRuquests struct {
 	Raw                []string               `yaml:"raw,omitempty"`
 	Attack             string                 `yaml:"attack,omitempty"`
 	Payloads           map[string]interface{} `yaml:"attack,omitempty"`
-	DigestUsername     string
-	DigestPassword     string
-	IterateAll         bool
-	SkipVariablesCheck bool
-	CookieRease        bool
+	DigestUsername     string                 `yaml:"digest-username,omitempty"`
+	DigestPassword     string                 `yaml:"degest-password,omitempty"`
+	IterateAll         bool                   `yaml:"iterateall,omitempty"`
+	SkipVariablesCheck bool                   `yaml:"skip-variables-check,omitemptp"`
+	CookieRease        bool                   `yaml:"cookie-rease,omitempty"`
 	HostRedirects      bool
 	MaxRedirects       bool
 	ReqCondition       bool
