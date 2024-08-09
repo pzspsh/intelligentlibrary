@@ -487,3 +487,14 @@ docker update --restart=always your_container_name
 ```bash
 docker cp 你的容器ID:/容器路径/拷贝的文件 /path/拷贝文件的目录
 ```
+
+```bash
+# 1、运行容器
+docker run -it 镜像id /bin/bash
+
+# 2、查看上面精选id运行对应的容器id
+docker ps
+
+# 3、复制folder或file到root目录下
+docker cp folder/file 启动的容器id:/root/
+```
