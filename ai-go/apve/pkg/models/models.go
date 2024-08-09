@@ -42,5 +42,5 @@ type UserInfo struct {
 	FingerScanReceiveTopic string // 指纹识别任务监听Topic队列
 	VulResultPushTopic     string // 漏洞扫描结果topic队列
 	VulScanReceiveTopic    string // 漏洞扫描任务监听Topic队列
-	Verify                 string
+	Verify                 bool
 }
