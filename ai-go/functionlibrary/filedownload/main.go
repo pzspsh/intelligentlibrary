@@ -33,7 +33,9 @@ func DownloadFile(filepath string, url string) error {
 }
 
 func main() {
-	err := DownloadFile(`path\intelligentlibrary\ai-go\gotutorial\examples\file\tests\test.zip`, `http://ip:port/path/test.zip`)
+	loadpath := "path/filepath/"
+	downloadUrl := `http://ip:port/path/test.zip`
+	err := DownloadFile(loadpath, downloadUrl)
 	if err != nil {
 		fmt.Println(err)
 	}
