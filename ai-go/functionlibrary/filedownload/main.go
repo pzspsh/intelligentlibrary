@@ -10,7 +10,9 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
+	"path"
 )
 
 func DownloadFile(filepath string, url string) error {
@@ -34,8 +36,15 @@ func DownloadFile(filepath string, url string) error {
 
 func main() {
 	loadpath := "path/filepath/"
-	downloadUrl := `http://ip:port/path/test.zip`
-	err := DownloadFile(loadpath, downloadUrl)
+	downloadUrl := `https://github.com/projectdiscovery/dnsx/archive/refs/heads/dev.zip`
+	u, err := url.Parse(downloadUrl)
+	if err != nil {
+		panic(err)
+	}
+	filename := path.Base(u.Path) // 获取URL请求文件名
+	loadpathfile := loadpath + filename
+	fmt.Println(loadpathfile)
+	err = DownloadFile(loadpathfile, downloadUrl)
 	if err != nil {
 		fmt.Println(err)
 	}
