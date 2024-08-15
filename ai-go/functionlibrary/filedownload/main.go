@@ -13,6 +13,8 @@ import (
 	"net/url"
 	"os"
 	"path"
+	"path/filepath"
+	"strings"
 )
 
 func DownloadFile(filepath string, url string) error {
@@ -43,7 +45,11 @@ func main() {
 	}
 	filename := path.Base(u.Path) // 获取URL请求文件名
 	loadpathfile := loadpath + filename
-	fmt.Println(loadpathfile)
+	ext := filepath.Ext(filename)
+	file := strings.TrimSuffix(filename, ext)
+	fmt.Println(filename)     // dev.zip
+	fmt.Println(file)         // dev
+	fmt.Println(loadpathfile) // path/filepath/dev.zip
 	err = DownloadFile(loadpathfile, downloadUrl)
 	if err != nil {
 		fmt.Println(err)
