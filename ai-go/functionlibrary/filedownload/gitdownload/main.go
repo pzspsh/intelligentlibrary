@@ -35,6 +35,8 @@ type Options struct {
 	Master    bool
 	Develop   bool
 	Latest    bool
+	ProxyDown string
+	Proxy     string
 }
 
 func ParseUrl(parseurl string) {
@@ -360,6 +362,8 @@ func GithubProjectRun(targets, storagedir string) error {
 	flag.BoolVar(&options.Latest, "latest", false, "download latest version")
 	flag.StringVar(&options.DownUrl, "target", "", "download target url")
 	flag.StringVar(&options.DownPath, "dir", "", "download file path")
+	flag.StringVar(&options.Proxy, "proxy", "", "proxy download")
+	flag.StringVar(&options.ProxyDown, "proxydown", "", "proxy download")
 	flag.Parse()
 	var downtarget []string
 	if options.DownUrl != "" {
