@@ -31,7 +31,7 @@ type Auth struct {
 }
 
 func ParseToml(filepath string) (*TomlConfig, error) {
-	viper.AddConfigPath(filepath) // "D:/GoProjects/src/intelligentlibrary/configs"
+	viper.AddConfigPath(filepath) // "path/intelligentlibrary/configs"
 	viper.SetConfigType("toml")
 	viper.SetConfigName("configs")
 	if err := viper.ReadInConfig(); err != nil {

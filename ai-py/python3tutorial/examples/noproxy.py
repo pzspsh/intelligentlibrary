@@ -10,7 +10,8 @@ import requests
 from requests.adapters import HTTPAdapter
 
 requests.packages.urllib3.disable_warnings()
-original_socket = socket.socket  # 保存原始的socket.socket，一定要保存原始的socket.socket再设置全局代理，然后在用原始socket恢复不调用代理
+original_socket = socket.socket
+# 保存原始的socket.socket，一定要保存原始的socket.socket再设置全局代理，然后在用原始socket恢复不调用代理
 
 
 # 自定义一个不使用代理的HTTPAdapter

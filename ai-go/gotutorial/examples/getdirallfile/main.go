@@ -67,6 +67,6 @@ func GetAllFile2(dir string) {
 
 func main() {
 	// GetAllFile("path/intelligentlibrary/docs")
-	// GetAllFile1("D:/GoProjects/src/intelligentlibrary/docs")
+	// GetAllFile1("path/intelligentlibrary/docs")
 	// GetAllFile2("path/intelligentlibrary")
 }
