@@ -19,6 +19,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -127,7 +128,10 @@ func Download(downurl, localdir string) error {
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
-	client := &http.Client{Transport: tr}
+	client := &http.Client{
+		Transport: tr,
+		Timeout:   360 * time.Second,
+	}
 	resp, err := client.Get(downurl)
 	if err != nil {
 		return err
@@ -161,7 +165,10 @@ func GetGithubTags(downurl string, options *Options) (map[string]string, error) 
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
-	client := &http.Client{Transport: tr}
+	client := &http.Client{
+		Transport: tr,
+		Timeout:   360 * time.Second,
+	}
 	begin := 0
 	for {
 		resp := &http.Response{}
@@ -245,7 +252,10 @@ func GetGithubBranches(downurl string, options *Options) (map[string]string, err
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	parsedUrl.Host = "codeload.github.com"
-	client := &http.Client{Transport: tr}
+	client := &http.Client{
+		Transport: tr,
+		Timeout:   360 * time.Second,
+	}
 	respbranches, err := client.Get(downurl + "/branches/all")
 	if err != nil {
 		return targeturls, err
@@ -420,7 +430,7 @@ func GithubProjectRun(targets, storagedir string) error {
 
 func main() {
 	var err error
-	downtargets := "https://github.com/projectdiscovery/subfinder,https://github.com/projectdiscovery/nuclei" // 下载目标
+	downtargets := "https://github.com/projectdiscovery/nuclei,https://github.com/projectdiscovery/subfinder" // 下载目标
 	catalog := "../"                                                                                          // 存储的目录
 	if err = GithubProjectRun(downtargets, catalog); err != nil {
 		fmt.Println("error: ", err)
