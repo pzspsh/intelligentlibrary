@@ -169,8 +169,6 @@ func main() {
 
 **效果**
 
-![在这里插入图片描述](F:\Images\2024012811054024.png)
-
 
 
 ## Document介绍
@@ -262,8 +260,6 @@ goquery.Document对象是GoQuery库的核心组成部分，它封装了对HTML�
 
 首先我们要打开f12调试工具，找到我们需要爬取数据的所在的具体位置。
 
-![在这里插入图片描述](F:\Images\2024012811054025.png)
-
 由上图可知我们的文章连接在拥有class=“mainContent” 的div盒子里，这个盒子包括了二十个含有 class=“blog-list-box” 的article标签，我们所需要的内容就在article标签下面的a标签的herf中。
 
 这里我们采用层次原则器 ancestor descendant：匹配在ancestor元素内的所有descendant元素（无论嵌套多深）。把文章盒子提取来之后我们还需要通过Each方法遍历输出a标签中的href属性的值
@@ -283,7 +279,7 @@ goquery.Document对象是GoQuery库的核心组成部分，它封装了对HTML�
 	})
 ```
 
-**效果**![在这里插入图片描述](F:\Images\2024012811054026.png)
+**效果**
 
 
 
@@ -321,8 +317,6 @@ func main() {
 ```
 
 **效果**
-
-![在这里插入图片描述](F:\Images\2024012811054023.png)
 
 
 

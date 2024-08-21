@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	file, err := os.Open("D:/GoLang/go_demo/helloworld/hello.go")
+	file, err := os.Open("path/helloworld/hello.go")
 	if err != nil {
 		fmt.Println(err)
 		return

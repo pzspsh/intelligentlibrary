@@ -126,9 +126,22 @@ func SearchDir(rootdir string) ([]string, error) {
 	return filenamelist, nil
 }
 
-func Download(downurl, localdir string) error {
+func Download(downurl, localdir string, options *Options) error {
+	var err error
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	if options.ProxyDown != "" {
+		if !strings.HasSuffix(options.ProxyDown, "/") {
+			options.ProxyDown = options.ProxyDown + "/"
+		}
+		downurl = strings.ReplaceAll(downurl, "https://codeload.", options.ProxyDown)
+	} else if options.Proxy != "" {
+		proxyUrl, err := url.Parse(options.Proxy)
+		if err != nil {
+			return err
+		}
+		tr.Proxy = http.ProxyURL(proxyUrl)
 	}
 	client := &http.Client{
 		Transport: tr,
@@ -166,6 +179,13 @@ func GetGithubTags(downurl string, options *Options) (map[string]string, error) 
 	parsedUrl.Host = "codeload.github.com"
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	if options.Proxy != "" {
+		proxyUrl, err := url.Parse(options.Proxy)
+		if err != nil {
+			return targeturls, err
+		}
+		tr.Proxy = http.ProxyURL(proxyUrl)
 	}
 	client := &http.Client{
 		Transport: tr,
@@ -238,7 +258,9 @@ func GetGithubTags(downurl string, options *Options) (map[string]string, error) 
 }
 
 func GetGithubBranches(downurl string, options *Options) (map[string]string, error) {
+	var err error
 	var filename string
+	var nextdownurl string
 	targeturls := map[string]string{}
 	parsedUrl, err := url.Parse(downurl)
 	if err != nil {
@@ -254,61 +276,90 @@ func GetGithubBranches(downurl string, options *Options) (map[string]string, err
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	parsedUrl.Host = "codeload.github.com"
+	if options.Proxy != "" {
+		proxyUrl, err := url.Parse(options.Proxy)
+		if err != nil {
+			return targeturls, err
+		}
+		tr.Proxy = http.ProxyURL(proxyUrl)
+	}
 	client := &http.Client{
 		Transport: tr,
 		Timeout:   360 * time.Second,
 	}
-	respbranches, err := client.Get(downurl + "/branches/all")
-	if err != nil {
-		return targeturls, err
-	}
-	if options.IsWrit {
-		branchesbody, err := io.ReadAll(respbranches.Body)
+	begin := 0
+	for {
+		resp := &http.Response{}
+		if begin == 0 {
+			resp, err = client.Get(downurl + "/branches/all?page=1")
+			if err != nil {
+				return targeturls, err
+			}
+			begin++
+		} else {
+			resp, err = client.Get(nextdownurl)
+			if err != nil {
+				return targeturls, err
+			}
+		}
+		if options.IsWrit {
+			body, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return targeturls, err
+			}
+			file, err := os.OpenFile(options.BranchLog, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+			if err != nil {
+				return targeturls, err
+			}
+			_, err = file.Write(body)
+			if err != nil {
+				return targeturls, err
+			}
+		}
+		doc, err := goquery.NewDocumentFromReader(resp.Body)
 		if err != nil {
 			return targeturls, err
 		}
-		branchesfile, err := os.OpenFile(options.BranchLog, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-		if err != nil {
-			return targeturls, err
-		}
-		_, err = branchesfile.Write(branchesbody)
-		if err != nil {
-			return targeturls, err
-		}
-	}
-	doc, err := goquery.NewDocumentFromReader(respbranches.Body)
-	if err != nil {
-		return targeturls, err
-	}
-	doc.Find("tbody").Find("tr").Find("td").Find("div").Find("a").Each(func(i int, s *goquery.Selection) {
-		branch := s.Text()
-		if branch != "" {
-			if options.AllBranch {
+		if options.AllBranch {
+			doc.Find("tbody").Find("tr").Find("td").Find("div").Find("a").Each(func(i int, s *goquery.Selection) {
+				branch := s.Text()
 				downloadurl := parsedUrl.String() + "/zip/refs/heads/" + branch
 				branch = strings.ReplaceAll(branch, "/", "-")
 				branch = strings.ReplaceAll(branch, "\\", "-")
 				targeturls[downloadurl] = filename + "-" + branch + ".zip"
-			} else if options.Develop && options.Master {
+			})
+		} else if options.Develop && options.Master {
+			doc.Find("tbody").Find("tr").Find("td").Find("div").Find("a").Each(func(i int, s *goquery.Selection) {
+				branch := s.Text()
 				downbranch := []string{"dev", "develop", "main", "master"}
 				if JudgmentExist(downbranch, branch) {
 					downloadurl := parsedUrl.String() + "/zip/refs/heads/" + branch
 					targeturls[downloadurl] = filename + "-" + branch + ".zip"
 				}
-			} else if options.Master {
+			})
+			break
+		} else if options.Master {
+			doc.Find("tbody").Find("tr").Find("td").Find("div").Find("a").Each(func(i int, s *goquery.Selection) {
+				branch := s.Text()
 				master := []string{"main", "master"}
 				if JudgmentExist(master, branch) {
 					downloadurl := parsedUrl.String() + "/zip/refs/heads/" + branch
 					targeturls[downloadurl] = filename + "-" + branch + ".zip"
 				}
-			} else if options.Develop {
-				develop := []string{"dev", "develop"}
-				if JudgmentExist(develop, branch) {
-					downloadurl := parsedUrl.String() + "/zip/refs/heads/" + branch
-					targeturls[downloadurl] = filename + "-" + branch + ".zip"
-				}
-			}
+			})
+			break
+		} else if options.Develop {
+			doc.Find("tbody").Find("tr").Find("td").Find("div").Find("a").Each(func(i int, s *goquery.Selection) {
+				branch := s.Text()
+				downloadurl := parsedUrl.String() + "/zip/refs/heads/" + branch
+				branch = strings.ReplaceAll(branch, "/", "-")
+				branch = strings.ReplaceAll(branch, "\\", "-")
+				targeturls[downloadurl] = filename + "-" + branch + ".zip"
+			})
+			break
 		}
-	})
+	}
+
 	return targeturls, nil
 }
 
@@ -338,11 +389,11 @@ func MergeMap(dest, src map[string]string) map[string]string {
 	return dest
 }
 
-func DownloadRun(downurls map[string]string, storagedir string) error {
+func DownloadRun(downurls map[string]string, storagedir string, options *Options) error {
 	var err error
 	for urls, filename := range downurls {
 		filenamepath := filepath.Join(storagedir, filename)
-		if err = Download(urls, filenamepath); err != nil {
+		if err = Download(urls, filenamepath, options); err != nil {
 			return err
 		}
 	}
@@ -421,7 +472,7 @@ func GithubProjectRun(targets, storagedir string) error {
 					}
 					downurlsmap = DeletedFile(filelist, downurlsmap) // 删选文件
 				}
-				if err = DownloadRun(downurlsmap, downdir); err != nil {
+				if err = DownloadRun(downurlsmap, downdir, options); err != nil {
 					return err
 				}
 			}
@@ -461,7 +512,7 @@ https://github.com/projectdiscovery/subfinder/releases
 https://codeload.github.com/ExpLangcn/Aopo/zip/refs/heads/master // 下载
 https://github.com/projectdiscovery/public-bugbounty-programs/tags  // 没有tags，标识：There aren’t any releases here
 
-还未支持添加代理下：
+代理下载：
 	https://cors.isteed.cc/
 	https://githubfast.com/
 	https://gitclone.com/
