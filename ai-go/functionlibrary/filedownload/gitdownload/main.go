@@ -337,7 +337,7 @@ func DownloadRun(downurls map[string]string, storagedir string) error {
 	return err
 }
 
-func GithubProjectRun(target, storagedir string) error {
+func GithubProjectRun(targets, storagedir string) error {
 	var err error
 	options := &Options{}
 	flag.BoolVar(&options.IsWrit, "w", false, "iswrite")
@@ -351,20 +351,11 @@ func GithubProjectRun(target, storagedir string) error {
 	flag.StringVar(&options.DownUrl, "target", "", "download target url")
 	flag.StringVar(&options.DownPath, "dir", "", "download file path")
 	flag.Parse()
-	downurlsmap := map[string]string{}
+	var downtarget []string
 	if options.DownUrl != "" {
-		target = options.DownUrl
+		targets = options.DownUrl
 	}
-	if options.DownPath != "" {
-		storagedir = options.DownPath
-	} else {
-		parsedUrl, err := url.Parse(target)
-		if err != nil {
-			return err
-		}
-		pathsegments := strings.Split(parsedUrl.Path, "/")
-		storagedir = filepath.Join(storagedir, pathsegments[len(pathsegments)-1])
-	}
+	downtarget = strings.Split(targets, ",")
 	if options.IsWrit {
 		if options.TagsLog == "" {
 			options.TagsLog = "tags.txt"
@@ -373,47 +364,65 @@ func GithubProjectRun(target, storagedir string) error {
 			options.BranchLog = "branches.txt"
 		}
 	}
-
-	if options.AllTags || options.Latest {
-		tagsdownloadurls, err := GetGithubTags(target, options)
-		if err != nil {
-			return err
-		}
-		if len(tagsdownloadurls) > 0 {
-			downurlsmap = MergeMap(downurlsmap, tagsdownloadurls)
+	if options.DownPath != "" {
+		storagedir = options.DownPath
+	}
+	for _, target := range downtarget {
+		var downdir string
+		downurlsmap := map[string]string{}
+		if target != "" {
+			parsedUrl, err := url.Parse(target)
+			if err != nil {
+				return err
+			}
+			pathsegments := strings.Split(parsedUrl.Path, "/")
+			downdir = filepath.Join(storagedir, pathsegments[len(pathsegments)-1])
+			if options.AllTags || options.Latest {
+				tagsdownloadurls, err := GetGithubTags(target, options)
+				if err != nil {
+					return err
+				}
+				if len(tagsdownloadurls) > 0 {
+					downurlsmap = MergeMap(downurlsmap, tagsdownloadurls)
+				}
+			}
+			if options.AllBranch || options.Master || options.Develop {
+				branchesurls, err := GetGithubBranches(target, options)
+				if err != nil {
+					return err
+				}
+				if len(branchesurls) > 0 {
+					downurlsmap = MergeMap(downurlsmap, branchesurls)
+				}
+			}
+			if len(downurlsmap) > 0 {
+				if _, err = os.Stat(downdir); os.IsNotExist(err) {
+					if err = os.MkdirAll(downdir, 0755); err != nil {
+						return err
+					}
+				} else {
+					filelist, err := SearchDir(downdir)
+					if err != nil {
+						return err
+					}
+					downurlsmap = DeletedFile(filelist, downurlsmap) // 删选文件
+				}
+				if err = DownloadRun(downurlsmap, downdir); err != nil {
+					return err
+				}
+			}
+		} else {
+			err = errors.New("target download url error")
 		}
 	}
-	if options.AllBranch || options.Master || options.Develop {
-		branchesurls, err := GetGithubBranches(target, options)
-		if err != nil {
-			return err
-		}
-		if len(branchesurls) > 0 {
-			downurlsmap = MergeMap(downurlsmap, branchesurls)
-		}
-	}
-	if _, err = os.Stat(storagedir); os.IsNotExist(err) {
-		if err = os.MkdirAll(storagedir, 0755); err != nil {
-			return err
-		}
-	} else {
-		filelist, err := SearchDir(storagedir)
-		if err != nil {
-			return err
-		}
-		downurlsmap = DeletedFile(filelist, downurlsmap) // 删选文件
-	}
-	if err = DownloadRun(downurlsmap, storagedir); err != nil {
-		return err
-	}
-	return nil
+	return err
 }
 
 func main() {
 	var err error
-	downtarget := "https://github.com/projectdiscovery/subfinder" // 下载目标
-	catalog := "../"                                              // 存储的目录
-	if err = GithubProjectRun(downtarget, catalog); err != nil {
+	downtargets := "https://github.com/projectdiscovery/subfinder,https://github.com/projectdiscovery/nuclei" // 下载目标
+	catalog := "../"                                                                                          // 存储的目录
+	if err = GithubProjectRun(downtargets, catalog); err != nil {
 		fmt.Println("error: ", err)
 	}
 }
