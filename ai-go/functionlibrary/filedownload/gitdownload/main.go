@@ -456,4 +456,18 @@ https://github.com/projectdiscovery/subfinder/releases/download/v2.6.6/subfinder
 https://github.com/projectdiscovery/subfinder/releases
 https://codeload.github.com/ExpLangcn/Aopo/zip/refs/heads/master // 下载
 https://github.com/projectdiscovery/public-bugbounty-programs/tags  // 没有tags，标识：There aren’t any releases here
+
+还未支持添加代理下：
+	https://cors.isteed.cc/
+	https://githubfast.com/
+	https://gitclone.com/
+	https://kkgithub.com/
+	https://ghproxy.net/
+	https://mirror.ghproxy.com/
+	https://download.yzuu.cf/
+	https://sciproxy.com/
+	https://download.ixnic.net/
+	https://dgithub.xyz/
+	代理下载连接例子如下：
+	https://cors.isteed.cc/github.com/golang101/golang101/archive/refs/heads/master.zip
 */
