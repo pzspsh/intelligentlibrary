@@ -625,4 +625,5 @@ proxy download:
 	https://gh.ddlc.top/github.com/projectdiscovery/subfinder/archive/refs/tags/v2.6.6.zip
 	https://gh.ddlc.top/github.com/polaris1119/golangweekly/archive/refs/heads/master.zip
 	https://cors.isteed.cc/github.com/golang101/golang101/archive/refs/heads/master.zip
+	https://mirror.ghproxy.com/github.com/projectdiscovery/subfinder/releases/download/v2.6.6/subfinder_2.6.6_windows_amd64.zip
 */
