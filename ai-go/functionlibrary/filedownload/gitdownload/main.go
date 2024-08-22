@@ -328,9 +328,14 @@ func GetGithubBranches(downurl string, options *Options) (map[string]string, err
 				branch = strings.ReplaceAll(branch, "\\", "-")
 				targeturls[downloadurl] = filename + "-" + branch + ".zip"
 			})
-			next, exists := doc.Find("nav").Find("div").Find("a").Attr("href")
-			if exists {
-				nextdownurl = downurl + fmt.Sprintf("/branches/all?page=%v", strings.Replace(next, "#", "", 1))
+			a := doc.Find("react-app").Find("div").Find("nav").Find("div").Find("a").Last()
+			if a.Text() == "Next" {
+				next, exists := a.Attr("href")
+				if exists {
+					nextdownurl = downurl + fmt.Sprintf("/branches/all?page=%v", strings.Replace(next, "#", "", 1))
+				} else {
+					break
+				}
 			} else {
 				break
 			}
@@ -354,9 +359,14 @@ func GetGithubBranches(downurl string, options *Options) (map[string]string, err
 					}
 				}
 			})
-			next, exists := doc.Find("nav").Find("div").Find("a").Attr("href")
-			if exists {
-				nextdownurl = downurl + fmt.Sprintf("/branches/all?page=%v", strings.Replace(next, "#", "", 1))
+			a := doc.Find("react-app").Find("div").Find("nav").Find("div").Find("a").Last()
+			if a.Text() == "Next" {
+				next, exists := a.Attr("href")
+				if exists {
+					nextdownurl = downurl + fmt.Sprintf("/branches/all?page=%v", strings.Replace(next, "#", "", 1))
+				} else {
+					break
+				}
 			} else {
 				break
 			}
@@ -494,8 +504,8 @@ func GithubProjectRun(targets, storagedir string) error {
 
 func main() {
 	var err error
-	downtargets := "https://github.com/guardicore/monkey" // 下载目标
-	catalog := "../"                                      // 存储的目录
+	downtargets := "https://github.com/polaris1119/golangweekly" // 下载目标
+	catalog := "../"                                             // 存储的目录
 	if err = GithubProjectRun(downtargets, catalog); err != nil {
 		fmt.Println("error: ", err)
 	}
@@ -503,6 +513,7 @@ func main() {
 
 /*
 例如：
+	https://github.com/guardicore/monkey
 	https://github.com/projectdiscovery/subfinder
 	https://github.com/projectdiscovery/public-bugbounty-programs
 	https://github.com/PuerkitoBio/goquery
