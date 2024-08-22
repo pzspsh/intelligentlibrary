@@ -457,8 +457,8 @@ func GithubProjectRun(targets, storagedir string) error {
 	flag.BoolVar(&options.Master, "master", false, "download master branches")
 	flag.BoolVar(&options.Develop, "dev", false, "download develop branches")
 	flag.BoolVar(&options.Latest, "latest", false, "download latest version")
-	flag.StringVar(&options.Target, "target", "", "download target url")
-	flag.StringVar(&options.DownloadUrl, "downurl", "", "download target url")
+	flag.StringVar(&options.Target, "target", "", "download target url")       // 如果有多个下载目标，url之间用英文“,”隔开
+	flag.StringVar(&options.DownloadUrl, "downurl", "", "download target url") // 如果有多个直接下载url，url之间用英文“,”隔开
 	flag.StringVar(&options.LocalPath, "dir", "", "download file path")
 	flag.StringVar(&options.Proxy, "proxy", "", "proxy download")
 	flag.StringVar(&options.ProxyDown, "proxydown", "", "proxy download")
@@ -558,6 +558,20 @@ func GithubProjectRun(targets, storagedir string) error {
 				if err = DownloadRun(downurlsmap, downdir, options); err != nil {
 					return err
 				}
+			} else if strings.Contains(downurl, "releases/download") {
+				parseurl, err := url.Parse(downurl)
+				if err != nil {
+					return err
+				}
+				pathsegments := strings.Split(parseurl.Path, "/")
+				index := FindIndex(pathsegments, "releases")
+				file := pathsegments[index-1]
+				downdir := filepath.Join(storagedir, file)
+				filename := pathsegments[len(pathsegments)-1]
+				downurlsmap[downurl] = filename
+				if err = DownloadRun(downurlsmap, downdir, options); err != nil {
+					return err
+				}
 			}
 		}
 	}
@@ -607,9 +621,8 @@ proxy download:
 	https://sciproxy.com/
 	https://download.ixnic.net/
 	https://dgithub.xyz/
-	代理下载连接例子如下：
+代理下载连接例子如下：
 	https://gh.ddlc.top/github.com/projectdiscovery/subfinder/archive/refs/tags/v2.6.6.zip
 	https://gh.ddlc.top/github.com/polaris1119/golangweekly/archive/refs/heads/master.zip
 	https://cors.isteed.cc/github.com/golang101/golang101/archive/refs/heads/master.zip
-	直接代理下载，不需要先网络爬虫获取url再下载
 */
