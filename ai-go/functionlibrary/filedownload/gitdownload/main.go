@@ -25,18 +25,19 @@ import (
 )
 
 type Options struct {
-	DownUrl   string
-	DownPath  string
-	IsWrit    bool
-	TagsLog   string
-	BranchLog string
-	AllTags   bool
-	AllBranch bool
-	Master    bool
-	Develop   bool
-	Latest    bool
-	ProxyDown string
-	Proxy     string
+	Target      string
+	DownloadUrl string
+	LocalPath   string
+	IsWrit      bool
+	TagsLog     string
+	BranchLog   string
+	AllTags     bool
+	AllBranch   bool
+	Master      bool
+	Develop     bool
+	Latest      bool
+	ProxyDown   string
+	Proxy       string
 }
 
 func ParseUrl(parseurl string) {
@@ -51,6 +52,16 @@ func ParseUrl(parseurl string) {
 	} else {
 		fmt.Println("no path segments found.")
 	}
+}
+
+// 查找数组的索引
+func FindIndex(arr []string, value string) int {
+	for i, v := range arr {
+		if v == value {
+			return i
+		}
+	}
+	return -1
 }
 
 func PageParse() []string {
@@ -73,11 +84,11 @@ func PageParse() []string {
 	return filenames
 }
 
-func CompareVersions(v1, v2 string) int {
-	v1 = strings.ReplaceAll(v1, "v", "")
-	v2 = strings.ReplaceAll(v2, "v", "")
-	parts1 := strings.Split(v1, ".")
-	parts2 := strings.Split(v2, ".")
+func CompareVersions(newvserion, oldversion string) int {
+	newvserion = strings.ReplaceAll(newvserion, "v", "")
+	oldversion = strings.ReplaceAll(oldversion, "v", "")
+	parts1 := strings.Split(newvserion, ".")
+	parts2 := strings.Split(oldversion, ".")
 	length := len(parts1)
 	if len(parts2) > length {
 		length = len(parts2)
@@ -88,14 +99,14 @@ func CompareVersions(v1, v2 string) int {
 		if i < len(parts1) {
 			num1, err = strconv.Atoi(parts1[i])
 			if err != nil {
-				fmt.Println("版本号格式错误:", err)
+				fmt.Println("the version number format is incorrect:", err)
 				return 0
 			}
 		}
 		if i < len(parts2) {
 			num2, err = strconv.Atoi(parts2[i])
 			if err != nil {
-				fmt.Println("版本号格式错误:", err)
+				fmt.Println("the version number format is incorrect:", err)
 				return 0
 			}
 		}
@@ -135,7 +146,11 @@ func Download(downurl, localdir string, options *Options) error {
 		if !strings.HasSuffix(options.ProxyDown, "/") {
 			options.ProxyDown = options.ProxyDown + "/"
 		}
-		downurl = strings.ReplaceAll(downurl, "https://codeload.", options.ProxyDown)
+		downurl = strings.Replace(downurl, "https://codeload.", options.ProxyDown, 1)
+		if strings.Contains(downurl, "zip/refs") {
+			downurl = strings.Replace(downurl, "zip/refs", "archive/refs", 1)
+			downurl = downurl + ".zip"
+		}
 	} else if options.Proxy != "" {
 		proxyUrl, err := url.Parse(options.Proxy)
 		if err != nil {
@@ -410,6 +425,17 @@ func MergeMap(dest, src map[string]string) map[string]string {
 
 func DownloadRun(downurls map[string]string, storagedir string, options *Options) error {
 	var err error
+	if _, err = os.Stat(storagedir); os.IsNotExist(err) {
+		if err = os.MkdirAll(storagedir, 0755); err != nil {
+			return err
+		}
+	} else {
+		filelist, err := SearchDir(storagedir)
+		if err != nil {
+			return err
+		}
+		downurls = DeletedFile(filelist, downurls) // Deleted file
+	}
 	for urls, filename := range downurls {
 		filenamepath := filepath.Join(storagedir, filename)
 		if err = Download(urls, filenamepath, options); err != nil {
@@ -421,6 +447,7 @@ func DownloadRun(downurls map[string]string, storagedir string, options *Options
 
 func GithubProjectRun(targets, storagedir string) error {
 	var err error
+	var downtarget []string
 	options := &Options{}
 	flag.BoolVar(&options.IsWrit, "w", false, "iswrite")
 	flag.StringVar(&options.TagsLog, "tlog", "", "write file path")
@@ -430,73 +457,108 @@ func GithubProjectRun(targets, storagedir string) error {
 	flag.BoolVar(&options.Master, "master", false, "download master branches")
 	flag.BoolVar(&options.Develop, "dev", false, "download develop branches")
 	flag.BoolVar(&options.Latest, "latest", false, "download latest version")
-	flag.StringVar(&options.DownUrl, "target", "", "download target url")
-	flag.StringVar(&options.DownPath, "dir", "", "download file path")
+	flag.StringVar(&options.Target, "target", "", "download target url")
+	flag.StringVar(&options.DownloadUrl, "downurl", "", "download target url")
+	flag.StringVar(&options.LocalPath, "dir", "", "download file path")
 	flag.StringVar(&options.Proxy, "proxy", "", "proxy download")
 	flag.StringVar(&options.ProxyDown, "proxydown", "", "proxy download")
 	flag.Parse()
-	var downtarget []string
-	if options.DownUrl != "" {
-		targets = options.DownUrl
+	if options.Target != "" {
+		targets = options.Target
 	}
-	downtarget = strings.Split(targets, ",")
-	if options.IsWrit {
-		if options.TagsLog == "" {
-			options.TagsLog = "tags.txt"
-		}
-		if options.BranchLog == "" {
-			options.BranchLog = "branches.txt"
-		}
+	if options.LocalPath != "" {
+		storagedir = options.LocalPath
 	}
-	if options.DownPath != "" {
-		storagedir = options.DownPath
-	}
-	for _, target := range downtarget {
-		var downdir string
-		downurlsmap := map[string]string{}
-		if target != "" {
-			parsedUrl, err := url.Parse(target)
-			if err != nil {
-				return err
+	if len(targets) > 0 {
+		downtarget = strings.Split(targets, ",")
+		if options.IsWrit {
+			if options.TagsLog == "" {
+				options.TagsLog = "tags.txt"
 			}
-			pathsegments := strings.Split(parsedUrl.Path, "/")
-			downdir = filepath.Join(storagedir, pathsegments[len(pathsegments)-1])
-			if options.AllTags || options.Latest {
-				tagsdownloadurls, err := GetGithubTags(target, options)
+			if options.BranchLog == "" {
+				options.BranchLog = "branches.txt"
+			}
+		}
+		for _, target := range downtarget {
+			var downdir string
+			downurlsmap := map[string]string{}
+			if target != "" {
+				parsedUrl, err := url.Parse(target)
 				if err != nil {
 					return err
 				}
-				if len(tagsdownloadurls) > 0 {
-					downurlsmap = MergeMap(downurlsmap, tagsdownloadurls)
-				}
-			}
-			if options.AllBranch || options.Master || options.Develop {
-				branchesurls, err := GetGithubBranches(target, options)
-				if err != nil {
-					return err
-				}
-				if len(branchesurls) > 0 {
-					downurlsmap = MergeMap(downurlsmap, branchesurls)
-				}
-			}
-			if len(downurlsmap) > 0 {
-				if _, err = os.Stat(downdir); os.IsNotExist(err) {
-					if err = os.MkdirAll(downdir, 0755); err != nil {
-						return err
-					}
-				} else {
-					filelist, err := SearchDir(downdir)
+				pathsegments := strings.Split(parsedUrl.Path, "/")
+				downdir = filepath.Join(storagedir, pathsegments[len(pathsegments)-1])
+				if options.AllTags || options.Latest {
+					tagsdownloadurls, err := GetGithubTags(target, options)
 					if err != nil {
 						return err
 					}
-					downurlsmap = DeletedFile(filelist, downurlsmap) // 删选文件
+					if len(tagsdownloadurls) > 0 {
+						downurlsmap = MergeMap(downurlsmap, tagsdownloadurls)
+					}
 				}
+				if options.AllBranch || options.Master || options.Develop {
+					branchesurls, err := GetGithubBranches(target, options)
+					if err != nil {
+						return err
+					}
+					if len(branchesurls) > 0 {
+						downurlsmap = MergeMap(downurlsmap, branchesurls)
+					}
+				}
+				if len(downurlsmap) > 0 {
+					if err = DownloadRun(downurlsmap, downdir, options); err != nil {
+						return err
+					}
+				}
+			} else {
+				err = errors.New("target download is empty")
+			}
+		}
+	}
+	if options.DownloadUrl != "" {
+		downloadurl := strings.Split(options.DownloadUrl, ",")
+		for _, downurl := range downloadurl {
+			var downdir string
+			downurlsmap := map[string]string{}
+			if strings.Contains(downurl, "zip/refs") {
+				parseurl, err := url.Parse(downurl)
+				if err != nil {
+					return err
+				}
+				pathsegments := strings.Split(parseurl.Path, "/")
+				index := FindIndex(pathsegments, "zip")
+				file := pathsegments[index-1]
+				suffix := pathsegments[len(pathsegments)-1]
+				if strings.HasPrefix(suffix, "v") {
+					suffix = strings.Replace(suffix, "v", "", 1)
+				}
+				filename := fmt.Sprintf("%v-%v.zip", file, suffix)
+				downdir = filepath.Join(storagedir, file)
+				downurlsmap[downurl] = filename
+				if err = DownloadRun(downurlsmap, downdir, options); err != nil {
+					return err
+				}
+			} else if strings.Contains(downurl, "archive/refs") {
+				parseurl, err := url.Parse(downurl)
+				if err != nil {
+					return err
+				}
+				pathsegments := strings.Split(parseurl.Path, "/")
+				index := FindIndex(pathsegments, "archive")
+				file := pathsegments[index-1]
+				suffix := pathsegments[len(pathsegments)-1]
+				if strings.HasPrefix(suffix, "v") {
+					suffix = strings.Replace(suffix, "v", "", 1)
+				}
+				filename := fmt.Sprintf("%v-%v", file, suffix)
+				downdir := filepath.Join(storagedir, file)
+				downurlsmap[downurl] = filename
 				if err = DownloadRun(downurlsmap, downdir, options); err != nil {
 					return err
 				}
 			}
-		} else {
-			err = errors.New("target download url error")
 		}
 	}
 	return err
@@ -504,24 +566,26 @@ func GithubProjectRun(targets, storagedir string) error {
 
 func main() {
 	var err error
-	downtargets := "https://github.com/polaris1119/golangweekly" // 下载目标
-	catalog := "../"                                             // 存储的目录
+	downtargets := "" // 下载目标
+	catalog := "../"  // 存储的目录
 	if err = GithubProjectRun(downtargets, catalog); err != nil {
 		fmt.Println("error: ", err)
 	}
 }
 
 /*
-例如：
+example:
 	https://github.com/guardicore/monkey
 	https://github.com/projectdiscovery/subfinder
 	https://github.com/projectdiscovery/public-bugbounty-programs
 	https://github.com/PuerkitoBio/goquery
-下载：
+	https://github.com/polaris1119/golangweekly
+	https://github.com/projectdiscovery/nuclei
+Download:
 	https://codeload.github.com/projectdiscovery/subfinder/zip/refs/tags/v2.6.6  // tags用该例子
 	https://codeload.github.com/projectdiscovery/subfinder/zip/refs/heads/dev    // branches用该例子
 
-查询所有：
+query all:
 	https://github.com/projectdiscovery/subfinder/branches/all
 	https://github.com/projectdiscovery/subfinder/tags
 	https://github.com/projectdiscovery/subfinder/tags?after=v2.5.7  // 跳转上一页
@@ -532,7 +596,7 @@ https://github.com/projectdiscovery/subfinder/releases
 https://codeload.github.com/ExpLangcn/Aopo/zip/refs/heads/master // 下载
 https://github.com/projectdiscovery/public-bugbounty-programs/tags  // 没有tags，标识：There aren’t any releases here
 
-代理下载：
+proxy download:
 	https://cors.isteed.cc/
 	https://githubfast.com/
 	https://gitclone.com/
@@ -544,5 +608,8 @@ https://github.com/projectdiscovery/public-bugbounty-programs/tags  // 没有tag
 	https://download.ixnic.net/
 	https://dgithub.xyz/
 	代理下载连接例子如下：
+	https://gh.ddlc.top/github.com/projectdiscovery/subfinder/archive/refs/tags/v2.6.6.zip
+	https://gh.ddlc.top/github.com/polaris1119/golangweekly/archive/refs/heads/master.zip
 	https://cors.isteed.cc/github.com/golang101/golang101/archive/refs/heads/master.zip
+	直接代理下载，不需要先网络爬虫获取url再下载
 */
