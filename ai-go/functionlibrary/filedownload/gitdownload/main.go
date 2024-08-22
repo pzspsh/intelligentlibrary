@@ -328,38 +328,47 @@ func GetGithubBranches(downurl string, options *Options) (map[string]string, err
 				branch = strings.ReplaceAll(branch, "\\", "-")
 				targeturls[downloadurl] = filename + "-" + branch + ".zip"
 			})
-		} else if options.Develop && options.Master {
+			next, exists := doc.Find("nav").Find("div").Find("a").Attr("href")
+			if exists {
+				nextdownurl = downurl + fmt.Sprintf("/branches/all?page=%v", strings.Replace(next, "#", "", 1))
+			} else {
+				break
+			}
+		} else if options.Develop || options.Master {
+			var develop bool
+			var master bool
 			doc.Find("tbody").Find("tr").Find("td").Find("div").Find("a").Each(func(i int, s *goquery.Selection) {
 				branch := s.Text()
-				downbranch := []string{"dev", "develop", "main", "master"}
-				if JudgmentExist(downbranch, branch) {
-					downloadurl := parsedUrl.String() + "/zip/refs/heads/" + branch
-					targeturls[downloadurl] = filename + "-" + branch + ".zip"
+				if options.Develop {
+					if JudgmentExist([]string{"dev", "develop"}, branch) {
+						downloadurl := parsedUrl.String() + "/zip/refs/heads/" + branch
+						targeturls[downloadurl] = filename + "-" + branch + ".zip"
+						develop = true
+					}
+				}
+				if options.Master {
+					if JudgmentExist([]string{"main", "master"}, branch) {
+						downloadurl := parsedUrl.String() + "/zip/refs/heads/" + branch
+						targeturls[downloadurl] = filename + "-" + branch + ".zip"
+						master = true
+					}
 				}
 			})
-			break
-		} else if options.Master {
-			doc.Find("tbody").Find("tr").Find("td").Find("div").Find("a").Each(func(i int, s *goquery.Selection) {
-				branch := s.Text()
-				master := []string{"main", "master"}
-				if JudgmentExist(master, branch) {
-					downloadurl := parsedUrl.String() + "/zip/refs/heads/" + branch
-					targeturls[downloadurl] = filename + "-" + branch + ".zip"
-				}
-			})
-			break
-		} else if options.Develop {
-			doc.Find("tbody").Find("tr").Find("td").Find("div").Find("a").Each(func(i int, s *goquery.Selection) {
-				branch := s.Text()
-				downloadurl := parsedUrl.String() + "/zip/refs/heads/" + branch
-				branch = strings.ReplaceAll(branch, "/", "-")
-				branch = strings.ReplaceAll(branch, "\\", "-")
-				targeturls[downloadurl] = filename + "-" + branch + ".zip"
-			})
-			break
+			next, exists := doc.Find("nav").Find("div").Find("a").Attr("href")
+			if exists {
+				nextdownurl = downurl + fmt.Sprintf("/branches/all?page=%v", strings.Replace(next, "#", "", 1))
+			} else {
+				break
+			}
+			if options.Develop && options.Master && master && develop {
+				break
+			} else if options.Develop && develop {
+				break
+			} else if options.Master && master {
+				break
+			}
 		}
 	}
-
 	return targeturls, nil
 }
 
@@ -485,8 +494,8 @@ func GithubProjectRun(targets, storagedir string) error {
 
 func main() {
 	var err error
-	downtargets := "https://github.com/projectdiscovery/nuclei,https://github.com/projectdiscovery/subfinder" // 下载目标
-	catalog := "../"                                                                                          // 存储的目录
+	downtargets := "https://github.com/guardicore/monkey" // 下载目标
+	catalog := "../"                                      // 存储的目录
 	if err = GithubProjectRun(downtargets, catalog); err != nil {
 		fmt.Println("error: ", err)
 	}
