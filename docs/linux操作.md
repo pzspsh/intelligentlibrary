@@ -207,3 +207,24 @@ locate \*.ps  # 寻找以 '.ps' 结尾的文件 - 先运行 'updatedb' 命令
 whereis file # 显示一个二进制文件、源码或man的位置
 which file  # 显示一个二进制文件或可执行文件的完整路径
 ```
+
+#### 10、复制文件/文件命令
+```shell
+cp -r folder1 folder2‌ # 复制一个文件夹到另一个目录
+cp -r /path/to/source_folder /path/to/destination_folder # 复制一个文件夹到另一个目录
+cp -rp /path/to/source_folder /path/to/destination_folder # 如果你想保留源文件的时间戳和权限，可以添加-p选项
+cp source.txt destination.txt # ‌复制单个文件
+cp file1.txt file2.txt /path/to/destination/ # 复制多个文件‌
+cp -r source_directory/ /path/to/destination/ # ‌递归复制目录‌
+cp -i file.txt /path/to/destination/ # 交互式复制‌
+cp -u file.txt /path/to/destination/ # 仅复制更新的文件‌
+cp -v file.txt /path/to/destination/ # ‌显示详细输出
+
+‌-a‌：此选项保留源文件的属性，包括权限、所有者、时间戳等，通常用于复制目录时使用。
+‌-f‌：强制复制，不提示是否覆盖目标文件。
+‌-i‌：在覆盖目标文件前询问用户确认，避免意外覆盖。
+‌-p‌：保留源文件的权限、时间戳等信息，确保复制后的文件与原始文件保持一致。
+‌-r‌：递归复制目录及其所有子目录和文件。
+‌-u‌：仅复制源文件中更新的部分，如果源文件比目标文件新，则进行复制。
+‌-v‌：显示详细输出，列出已复制的文件，便于跟踪复制进度。
+```
