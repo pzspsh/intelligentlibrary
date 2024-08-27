@@ -132,3 +132,29 @@ chmod 600 /root/.ssh/id_ed25519
 
 git config --global http.sslVerify false
 ```
+
+
+
+### 解决 git pull/push 每次都需要输入密码问题
+
+1、地址中携带用户信息
+
+##### 在https链接里加入username:password
+
+```
+git remote add origin https://username:password@xxx.git
+```
+
+2、配置全局开机存储认证信息
+
+###### 下面命令会将下次弹框的账号和密码保存起来，永久使用
+
+```
+git config --global credential.helper store
+```
+
+如果想要清除该账号和密码，使用如下命令：
+
+```
+git config --global credential.helper reset
+```
