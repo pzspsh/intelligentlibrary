@@ -15,6 +15,8 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+
+	gitpull "function/filedownload/githubpull"
 )
 
 func DownloadFile(filepath string, url string) error {
@@ -36,12 +38,11 @@ func DownloadFile(filepath string, url string) error {
 	return err
 }
 
-func main() {
-	loadpath := "path/filepath/"
-	downloadUrl := `https://github.com/projectdiscovery/dnsx/archive/refs/heads/dev.zip`
-	u, err := url.Parse(downloadUrl)
+func DownRun(downloadurl, loadpath string) error {
+	var err error
+	u, err := url.Parse(downloadurl)
 	if err != nil {
-		panic(err)
+		return err
 	}
 	filename := path.Base(u.Path) // 获取URL请求文件名
 	loadpathfile := loadpath + filename
@@ -50,8 +51,32 @@ func main() {
 	fmt.Println(filename)     // dev.zip
 	fmt.Println(file)         // dev
 	fmt.Println(loadpathfile) // path/filepath/dev.zip
-	err = DownloadFile(loadpathfile, downloadUrl)
+	err = DownloadFile(loadpathfile, downloadurl)
 	if err != nil {
 		fmt.Println(err)
+	}
+	return err
+}
+
+func GitDownload() error {
+	var err error
+	downtargets := "" // 下载目标
+	catalog := "../"  // 存储的目录
+	if err = gitpull.GithubProjectRun(downtargets, catalog); err != nil {
+		fmt.Println("github download error: ", err)
+	}
+	return err
+}
+
+func main() {
+	/*
+		loadpath := "path/filepath/"
+		downloadUrl := `https://github.com/projectdiscovery/dnsx/archive/refs/heads/dev.zip`
+		if err := DownRun(downloadUrl, loadpath); err != nil {
+			fmt.Println("download error: ", err)
+		}
+	*/
+	if err := GitDownload(); err != nil {
+		fmt.Println("github download error: ", err)
 	}
 }
