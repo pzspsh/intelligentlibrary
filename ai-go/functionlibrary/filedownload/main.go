@@ -69,15 +69,14 @@ func GitDownload() error {
 }
 
 func main() {
-	/*
-	   loadpath := ""
-	   	downloadUrl := `https://cve.mitre.org/data/downloads/allitems-cvrf.xml`
-	   	if err := DownRun(downloadUrl, loadpath); err != nil {
-	   		fmt.Println("download error: ", err)
-	   	}
-	*/
-
-	if err := GitDownload(); err != nil {
-		fmt.Println("github download error: ", err)
+	loadpath := ""
+	// downloadUrl := `https://cve.mitre.org/data/downloads/allitems-cvrf.xml`
+	downloadUrl := `https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2024/0xxx/CVE-2024-0007.json`
+	if err := DownRun(downloadUrl, loadpath); err != nil {
+		fmt.Println("download error: ", err)
 	}
+
+	/* if err := GitDownload(); err != nil {
+		fmt.Println("github download error: ", err)
+	} */
 }
