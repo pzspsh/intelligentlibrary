@@ -7,6 +7,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -42,7 +43,63 @@ func Update(db *gorm.DB) error {
 	}
 }
 
-func main() {
+// User 模型
+type User struct {
+	ID   uint `gorm:"primaryKey"`
+	Name string
+	Age  int
+}
+
+func BatchUpdateMain() {
+	// 连接数据库
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	if err != nil {
+		log.Fatal("failed to connect database")
+	}
+
+	// 自动迁移模式
+	db.AutoMigrate(&User{})
+
+	// 假设这是我们要更新的用户数据
+	updates := []struct {
+		ID  uint
+		Age int
+	}{
+		{ID: 1, Age: 30},
+		{ID: 2, Age: 25},
+		// ... 添加更多用户数据，‌直到1000条
+	}
+
+	// 批量更新的批次大小
+	batchSize := 100
+
+	// 分批更新用户数据
+	for i := 0; i < len(updates); i += batchSize {
+		end := i + batchSize
+		if end > len(updates) {
+			end = len(updates)
+		}
+
+		// 提取当前批次的用户ID
+		var ids []uint
+		for _, update := range updates[i:end] {
+			ids = append(ids, update.ID)
+		}
+
+		// 批量更新操作
+		db.Model(&User{}).Where("id IN ?", ids).Updates(map[string]interface{}{"age": 0})
+
+		// 注意：‌由于Gorm的限制，‌我们不能直接在Updates中使用切片进行批量更新每个用户的不同年龄。‌
+		// 因此，‌我们需要对每个用户单独进行更新操作。‌
+		for _, update := range updates[i:end] {
+			db.Model(&User{}).Where("id = ?", update.ID).Updates(User{Age: update.Age})
+		}
+	}
+
+	fmt.Println("批量更新完成！")
+}
+
+func UpdateMain() {
 	db, err := SqliteConn()
 	if err != nil {
 		fmt.Printf("sqlite conn err:%v", err)

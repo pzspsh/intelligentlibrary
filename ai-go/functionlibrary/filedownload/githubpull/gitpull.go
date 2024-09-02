@@ -265,7 +265,7 @@ func GetGithubTags(downurl string, options *Options) (map[string]string, error) 
 				break
 			}
 		} else {
-			err = errors.New("not tags")
+			fmt.Println(downurl, "not tags")
 			break
 		}
 	}
