@@ -60,7 +60,51 @@ func (s *StudentInfo) Update(db *gorm.DB, id string) error {
 	}
 }
 
-func main() {
+// 定义一个结构体表示数据表的模型
+type User struct {
+	ID   uint
+	Name string
+	Age  int
+}
+
+// 定义一个UpdateMap结构体表示需要更新的字段和对应的值
+type UpdateMap struct {
+	Field string
+	Value interface{}
+}
+
+// 执行批量更新操作
+func BatchUpdate(db *gorm.DB, table string, condition interface{}, updateMapList []UpdateMap) error {
+	return db.Table(table).Where(condition).Updates(updateMapList).Error
+}
+
+func BatchMain() {
+	dsn := "root:root@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local"
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	// 自动创建数据表
+	err = db.AutoMigrate(&User{})
+	if err != nil {
+		panic("failed to migrate database")
+	}
+
+	// 批量更新数据
+	updateMapList := []UpdateMap{
+		{"Name", "Alice"},
+		{"Age", 18},
+	}
+	err = BatchUpdate(db, "users", "id > 0", updateMapList)
+	if err != nil {
+		panic("failed to batch update")
+	}
+
+	fmt.Println("batch update success")
+}
+
+func UpdateMain() {
 	m := &MysqlConfig{
 		Host:     "ip",
 		Port:     "port",
@@ -83,4 +127,8 @@ func main() {
 	} else {
 		fmt.Printf("update data successful.")
 	}
+}
+
+func main() {
+
 }
