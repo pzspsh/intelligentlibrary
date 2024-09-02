@@ -25,19 +25,20 @@ import (
 )
 
 type Options struct {
-	Target      string
-	DownloadUrl string
-	LocalPath   string
-	IsWrit      bool
-	TagsLog     string
-	BranchLog   string
-	AllTags     bool
-	AllBranch   bool
-	Master      bool
-	Develop     bool
-	Latest      bool
-	ProxyDown   string
-	Proxy       string
+	Target         string
+	DownloadUrl    string
+	LocalPath      string
+	IsWrit         bool
+	TagsLog        string
+	BranchLog      string
+	AllTags        bool
+	AllBranch      bool
+	Master         bool
+	Develop        bool
+	Latest         bool
+	ProxyDown      string
+	Proxy          string
+	SingleFileDown string // 单个文件下载
 }
 
 func ParseUrl(parseurl string) {
@@ -627,5 +628,14 @@ proxy download:
 	https://cors.isteed.cc/github.com/golang101/golang101/archive/refs/heads/master.zip
 	https://mirror.ghproxy.com/github.com/projectdiscovery/subfinder/releases/download/v2.6.6/subfinder_2.6.6_windows_amd64.zip
 
-之后会添加下载git的各种文件(如：pdf、md等等)
+之后会添加下载git的各种文件(如：pdf、md等等)：
+	原始url下载：
+	https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2024/0xxx/CVE-2024-0007.json
+	使用代理https://mirror.ghproxy.com下载：
+	https://mirror.ghproxy.com/raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2024/0xxx/CVE-2024-0007.json
+
+获取代理的URL：
+	https://github.com/XIU2/UserScript
+	https://github.com/XIU2/UserScript/blob/master/GithubEnhanced-High-Speed-Download.user.js
+	https://update.greasyfork.org/scripts/412245/Github%20%E5%A2%9E%E5%BC%BA%20-%20%E9%AB%98%E9%80%9F%E4%B8%8B%E8%BD%BD.user.js
 */
