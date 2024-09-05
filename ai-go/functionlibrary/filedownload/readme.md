@@ -402,9 +402,9 @@ func GetGithubBranches(downurl string, options *Options) (map[string]string, err
 	return targeturls, nil
 }
 
-func GetGithubAllFile(targeturl string, options *Options) (map[string]string, error) {
+func GetGithubAllFile(targeturl string, options *Options) ([]string, error) {
 	var err error
-	targeturls := map[string]string{}
+	targeturls := []string{}
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
@@ -419,39 +419,18 @@ func GetGithubAllFile(targeturl string, options *Options) (map[string]string, er
 		Transport: tr,
 		Timeout:   360 * time.Second,
 	}
-	targetmap := make(chan string, 10)
-	begin := 0
-	for {
-		if begin == 0 {
-			resp, err := client.Get(targeturl)
-			if err != nil {
-				return targeturls, err
-			}
-			ParseBody(targetmap, resp, options)
-			begin++
-		} else {
-			if len(targetmap) > 0 {
-				if target, ok := <-targetmap; ok {
-					resp, err := client.Get(target)
-					if err != nil {
-						return targeturls, err
-					}
-					ParseBody(targetmap, resp, options)
-				}
-			} else {
-				break
-			}
-		}
+	resp, err := client.Get(targeturl)
+	if err != nil {
+		return targeturls, err
 	}
+	ParseBody(resp, options)
 	return targeturls, err
 }
 
-func ParseBody(targetchan chan string, resp *http.Response, options *Options) (map[string]string, error) {
-	// body, _ := io.ReadAll(resp.Body)
-	// fmt.Println(string(body))
+func ParseBody(resp *http.Response, options *Options) ([]string, error) {
 	var err error
-	targeturls := map[string]string{}
-	doc, err := goquery.NewDocumentFromReader(resp.Body) // bytes.NewReader(body)
+	targeturls := []string{}
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
 		return targeturls, err
 	}
@@ -461,32 +440,17 @@ func ParseBody(targetchan chan string, resp *http.Response, options *Options) (m
 			s.Find("div").Find("div").Find("div").Find("a").Each(func(i int, v *goquery.Selection) {
 				arialable, exists := v.Attr("aria-label")
 				if exists {
-					if strings.Contains(arialable, "(File)") {
+					if strings.Contains(arialable, "File") {
 						href, exists := v.Attr("href")
+						href = "http://github.com" + href
 						if exists {
-							fmt.Println("file url: ", href)
+							fmt.Println("download file url: ", href)
 						}
-					} else if strings.Contains(arialable, "(Directory)") {
+					} else if strings.Contains(arialable, "Directory") {
 						href, exists := v.Attr("href")
 						if exists {
 							href = "http://github.com" + href
-							// targetchan <- href
-							if len(targetchan) == cap(targetchan) {
-								// newtargetcap := cap(targetchan) + 1
-								newtargetcap := cap(targetchan) * 2
-								newtargetchan := make(chan string, newtargetcap)
-							Look:
-								for value := range targetchan {
-									newtargetchan <- value
-									if len(targetchan) == 0 {
-										break Look
-									}
-								}
-								targetchan = newtargetchan
-								targetchan <- href
-							} else {
-								targetchan <- href
-							}
+							GetGithubAllFile(href, options)
 						}
 					}
 				}
@@ -746,5 +710,4 @@ proxy download:
 	https://github.com/XIU2/UserScript/blob/master/GithubEnhanced-High-Speed-Download.user.js
 	https://update.greasyfork.org/scripts/412245/Github%20%E5%A2%9E%E5%BC%BA%20-%20%E9%AB%98%E9%80%9F%E4%B8%8B%E8%BD%BD.user.js
 */
-
 ```
