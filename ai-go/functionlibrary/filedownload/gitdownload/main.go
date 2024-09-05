@@ -17,6 +17,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -398,9 +399,9 @@ func GetGithubBranches(downurl string, options *Options) (map[string]string, err
 	return targeturls, nil
 }
 
-func GetGithubAllFile(targeturl string, options *Options) (map[string]string, error) {
+func GetGithubAllFile(targeturl string, options *Options) ([]string, error) {
 	var err error
-	targeturls := map[string]string{}
+	targeturls := []string{}
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
@@ -415,37 +416,50 @@ func GetGithubAllFile(targeturl string, options *Options) (map[string]string, er
 		Transport: tr,
 		Timeout:   360 * time.Second,
 	}
-	targetmap := make(chan string, 10)
 	resp, err := client.Get(targeturl)
 	if err != nil {
 		return targeturls, err
 	}
-	ParseBody(targetmap, resp, options)
+	body, _ := io.ReadAll(resp.Body)
+	if options.IsWrit {
+		file, err := os.OpenFile("test.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+		if err != nil {
+			return targeturls, err
+		}
+		_, err = file.Write(body)
+		if err != nil {
+			return targeturls, err
+		}
+	}
+	ReGexpParseBody(body, options)
+	// ParseBody(bytes.NewReader(body), options)
 	return targeturls, err
 }
 
-func ParseBody(targetchan chan string, resp *http.Response, options *Options) (map[string]string, error) {
+func ParseBody(resp *bytes.Reader, options *Options) ([]string, error) {
 	var err error
-	targeturls := map[string]string{}
-	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	targeturls := []string{}
+	doc, err := goquery.NewDocumentFromReader(resp)
 	if err != nil {
 		return targeturls, err
 	}
 	doc.Find("table").Find("tbody").Find("tr").Find("td").Each(func(i int, s *goquery.Selection) {
 		colspan, exists := s.Attr("colspan")
 		if exists && colspan == "1" {
-			s.Find("div").Find("div").Find("div").Find("a").Each(func(i int, v *goquery.Selection) {
+			s.Find("div").Find("div").Find("div").Find("a").Each(func(i int, v *goquery.Selection) { //
 				arialable, exists := v.Attr("aria-label")
 				if exists {
 					if strings.Contains(arialable, "File") {
 						href, exists := v.Attr("href")
+						href = "http://github.com" + href
 						if exists {
-							fmt.Println("file url: ", href)
+							targeturls = append(targeturls, href)
 						}
 					} else if strings.Contains(arialable, "Directory") {
 						href, exists := v.Attr("href")
 						if exists {
 							href = "http://github.com" + href
+							fmt.Println("dir url: ", href)
 							GetGithubAllFile(href, options)
 						}
 					}
@@ -454,6 +468,38 @@ func ParseBody(targetchan chan string, resp *http.Response, options *Options) (m
 		}
 	})
 	return targeturls, nil
+}
+
+func ReGexpParseBody(body []byte, options *Options) {
+	aregexpurl, _ := regexp.Compile(`<a title=.*?aria-label=.*?\(File\).*?href="(.*?)"`)
+	aregexpdir, _ := regexp.Compile(`<a title=.*?aria-label=.*?\(Directory\).*?href="(.*?)"`)
+	aregexpurllist := aregexpurl.FindAllSubmatch(body, -1)
+	aregexpdirlist := aregexpdir.FindAllSubmatch(body, -1)
+	if len(aregexpurllist) > 0 {
+		aregexpurllist = removeDuplicates(aregexpurllist)
+		for _, value := range aregexpurllist {
+			fmt.Println("file url: ", "http://github.com"+string(value[1]))
+		}
+	}
+	if len(aregexpdirlist) > 0 {
+		aregexpdirlist = removeDuplicates(aregexpdirlist)
+		for _, value := range aregexpdirlist {
+			targeturl := "http://github.com" + string(value[1])
+			GetGithubAllFile(targeturl, options)
+		}
+	}
+}
+
+func removeDuplicates(nums [][][]byte) [][][]byte {
+	m := make(map[string]bool)
+	uniqueNums := [][][]byte{}
+	for _, num := range nums {
+		if !m[string(num[1])] {
+			uniqueNums = append(uniqueNums, num)
+			m[string(num[1])] = true
+		}
+	}
+	return uniqueNums
 }
 
 func DeletedFile(filelist []string, downurls map[string]string) map[string]string {
@@ -638,17 +684,16 @@ func GithubProjectRun(targets, storagedir string) error {
 }
 
 func main() {
-	// var err error
-	downtargets := "https://github.com/projectdiscovery/nuclei/tree/dev/pkg" // 下载目标
-	// catalog := "../"  // 存储的目录
 	options := &Options{}
+	// var err error
+	downtargets := "https://github.com/projectdiscovery/nuclei" // 下载目标
+	// catalog := "../"  // 存储的目录
 	// if err = GithubProjectRun(downtargets, catalog); err != nil {
 	// 	fmt.Println("error: ", err)
 	// }
 	if _, err := GetGithubAllFile(downtargets, options); err != nil {
 		fmt.Println("get github all file error: ", err)
 	}
-
 }
 
 /*
