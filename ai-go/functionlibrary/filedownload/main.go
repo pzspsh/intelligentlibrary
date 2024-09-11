@@ -76,7 +76,9 @@ func main() {
 		fmt.Println("download error: ", err)
 	}
 
-	/* if err := GitDownload(); err != nil {
-		fmt.Println("github download error: ", err)
-	} */
+	/*
+		if err := GitDownload(); err != nil {
+			fmt.Println("github download error: ", err)
+		}
+	*/
 }
