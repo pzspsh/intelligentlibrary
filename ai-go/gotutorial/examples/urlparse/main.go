@@ -976,7 +976,7 @@ func main() {
 	// Url := "https://pan:zhosdf$ng@example.com"
 	// Url := "http://mb2.yrdhxm.org.cn潘:1443" // err Url
 	// Url := "http://example.com/page#section1"
-	// Url := "https://pan:zhong@*mb2.y3r潘d$hxm.org.cn:443/?hello.html"
+	// Url := "https://pan:zh@ong@*mb2.y3r潘d$hxm.org.cn:443/?hello.html" // 如果用户/密码(如：zh@ong有特殊符号@)，则需要把特殊符号进行编码再解析url
 	// Url := "mb2.yrdhxm.org.cn:1443/path/to/resource?hello.html"
 	parse, err := Parse(Url)
 	if err != nil {
