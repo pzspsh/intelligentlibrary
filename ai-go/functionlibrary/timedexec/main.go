@@ -62,14 +62,15 @@ func HourTimer() { // 小时计时器
 }
 
 func DailyTimer() { // 每天计时器
-	hour := 18
-	minute := 3
+	hour := 15
+	minute := 44
 	second := 0
 	for {
 		targetTime := time.Date(time.Now().Year(), time.Now().Month(), time.Now().Day(), hour, minute, second, 0, time.Local)
 		if time.Now().After(targetTime) {
 			targetTime = targetTime.AddDate(0, 0, 1)
 		}
+		fmt.Println("下次执行时间:", targetTime)
 		time.Sleep(time.Until(targetTime))
 		fmt.Printf("现在是%v点%v分，执行任务！\n", hour, minute)
 	}
@@ -90,6 +91,7 @@ func WeeklyTimer() { // 每周计时器
 		if time.Now().After(targetTime) {
 			targetTime = targetTime.AddDate(0, 0, days)
 		}
+		fmt.Println("下次执行时间:", targetTime)
 		time.Sleep(time.Until(targetTime))
 		fmt.Printf("现在是%v点%v分，执行任务！\n", hour, minute)
 	}
@@ -98,30 +100,31 @@ func WeeklyTimer() { // 每周计时器
 func MonthlyTimer() { // 每月计时器
 	hour := 14
 	minute := 30
+	day := 19
 	second := 0
 	for {
-		targetTime := time.Date(time.Now().Year(), time.Now().Month(), 19, hour, minute, second, 0, time.Local)
+		targetTime := time.Date(time.Now().Year(), time.Now().Month(), day, hour, minute, second, 0, time.Local)
 		if time.Now().After(targetTime) {
 			targetTime = targetTime.AddDate(0, 1, 0)
-			fmt.Println("AAAAAAA:", targetTime)
 		}
+		fmt.Println("下次执行时间:", targetTime)
 		time.Sleep(time.Until(targetTime))
 		fmt.Printf("现在是%v点%v分，执行任务！\n", hour, minute)
 	}
 }
 
-func YearlyTimer() { // 每月计时器
-	month := 1
-	day := 2
-	hour := 11
-	minute := 45
+func YearlyTimer() { // 每年计时器
+	month := 9
+	day := 20
+	hour := 15
+	minute := 42
 	second := 0
 	for {
 		targetTime := time.Date(time.Now().Year(), time.Month(month), day, hour, minute, second, 0, time.Local)
 		if time.Now().After(targetTime) {
 			targetTime = targetTime.AddDate(1, 0, 0)
-			fmt.Println("AAAAAAA:", targetTime)
 		}
+		fmt.Println("下次执行时间:", targetTime)
 		time.Sleep(time.Until(targetTime))
 		fmt.Printf("现在是%v点%v分，执行任务！\n", hour, minute)
 	}
@@ -176,8 +179,8 @@ func main() {
 	// weekDay := parseWeekDay(dayName)
 	// fmt.Println("BBBBBBBBB", int(weekDay))
 	// ScheduleTask()
-	// DailyTimer()
+	DailyTimer()
 	// WeeklyTimer()
 	// MonthlyTimer()
-	YearlyTimer()
+	// YearlyTimer()
 }
