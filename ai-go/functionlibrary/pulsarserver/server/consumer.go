@@ -11,6 +11,22 @@ import (
 	"github.com/apache/pulsar-client-go/pulsar"
 )
 
+type PulsarConfig struct {
+	ReceivePulsar Pulsars `json:"ReceivePulsar,omitempty"`
+	SendPulsar    Pulsars `json:"SendPulsar,omitempty"`
+}
+
+type Pulsars struct {
+	LocalPulsar  Pulsar `json:"localpulsar,omitempty"`
+	RemotePulsar Pulsar `json:"remotepulsar,omitempty"`
+}
+
+type Pulsar struct {
+	Url     string   `json:"url,omitempty"`
+	Topic   []string `json:"topic,omitempty"`
+	SubName string   `json:"subname,omitempty"`
+}
+
 func (p *PulsarOptions) Consumer(receive chan []byte) error {
 	consumer, err := p.client.Subscribe(pulsar.ConsumerOptions{
 		Topic:            p.Topic,

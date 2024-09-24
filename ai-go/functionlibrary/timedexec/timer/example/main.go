@@ -11,16 +11,16 @@ import (
 )
 
 func main() {
-	// daily := "15:06:00"
-	// ScheduleTask("daily", daily, task)
+	daily := "16:45:00"
+	ScheduleTask("daily", daily, task)
 	// weekly := "Friday 15:10:00"
 	// ScheduleTask("weekly", weekly, task)
 
 	// monthly := "20 15:12:00"
 	// ScheduleTask("monthly", monthly, task)
 
-	yearly := "09-20 15:16:00"
-	ScheduleTask("yearly", yearly, task)
+	// yearly := "09-20 15:16:00"
+	// ScheduleTask("yearly", yearly, task)
 }
 
 func task() {

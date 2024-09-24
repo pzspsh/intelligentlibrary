@@ -60,8 +60,8 @@ func DownRun(downloadurl, loadpath string) error {
 
 func GitDownload() error {
 	var err error
-	downtargets := "" // 下载目标
-	catalog := "../"  // 存储的目录
+	downtargets := "https://github.com/infobyte/faraday" // 下载目标
+	catalog := "../"                                     // 存储的目录
 	if err = gitpull.GithubProjectRun(downtargets, catalog); err != nil {
 		fmt.Println("github download error: ", err)
 	}
@@ -69,16 +69,15 @@ func GitDownload() error {
 }
 
 func main() {
-	loadpath := ""
-	// downloadUrl := `https://cve.mitre.org/data/downloads/allitems-cvrf.xml`
-	downloadUrl := `https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2024/0xxx/CVE-2024-0007.json`
-	if err := DownRun(downloadUrl, loadpath); err != nil {
-		fmt.Println("download error: ", err)
+	// loadpath := ""
+	// // downloadUrl := `https://cve.mitre.org/data/downloads/allitems-cvrf.xml`
+	// downloadUrl := `https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2024/0xxx/CVE-2024-0007.json`
+	// if err := DownRun(downloadUrl, loadpath); err != nil {
+	// 	fmt.Println("download error: ", err)
+	// }
+
+	if err := GitDownload(); err != nil {
+		fmt.Println("github download error: ", err)
 	}
 
-	/*
-		if err := GitDownload(); err != nil {
-			fmt.Println("github download error: ", err)
-		}
-	*/
 }

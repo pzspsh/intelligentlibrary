@@ -7,6 +7,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -39,6 +40,39 @@ func Search(db *gorm.DB) (bool, *Student) {
 		fmt.Println("search data successfule.")
 		return true, &student
 	}
+}
+
+type Product struct {
+	gorm.Model
+	Code  string
+	Price uint
+}
+
+func Searchexist() { // 判断数据，存在则更新，不存在则创建
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	if err != nil {
+		log.Fatal("failed to connect database")
+	}
+
+	// 自动迁移
+	db.AutoMigrate(&Product{})
+
+	// 创建
+	db.Create(&Product{Code: "D42", Price: 100})
+
+	// 更新或创建
+	var product Product
+	db.First(&product, "code = ?", "D42") // 尝试找到记录
+	if product.Code == "" {
+		// 如果不存在，则创建
+		db.Create(&Product{Code: "D42", Price: 200})
+	} else {
+		// 如果存在，则更新
+		db.Model(&product).Update("Price", 200)
+	}
+
+	// Save 方法示例
+	db.Save(&Product{Code: "D42", Price: 300}) // 如果存在则更新，不存在则创建
 }
 
 func main() {

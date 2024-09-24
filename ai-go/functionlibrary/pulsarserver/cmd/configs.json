@@ -1,0 +1,47 @@
+{
+    "pulsar": {
+        "ReceivePulsar": {
+            "localpulsar": {
+                "url": "",
+                "topic": [
+                    "topic1",
+                    "topic2"
+                ],
+                "subname": ""
+            },
+            "remotepulsar": {
+                "url": "",
+                "topic": [
+                    "topic1",
+                    "topic2"
+                ],
+                "subname": ""
+            }
+        },
+        "SendPulsar": {
+            "localpulsar": {
+                "url": "",
+                "topic": [
+                    "topic1",
+                    "topic2"
+                ],
+                "subname": ""
+            },
+            "remotepulsar": {
+                "url": "",
+                "topic": [
+                    "topic1",
+                    "topic2"
+                ],
+                "subname": ""
+            }
+        }
+    },
+    "postgres": {
+        "host": "",
+        "port": "",
+        "username": "",
+        "password": "",
+        "database": ""
+    }
+}
