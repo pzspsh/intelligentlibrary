@@ -116,7 +116,7 @@ func GetWeekNumber(year int) map[int]map[int]map[string]string {
 	}
 	for year, values := range weeknum {
 		reslen := len(values)
-		if reslen >= 52 {
+		if reslen >= 2 {
 			for i := 0; i <= reslen; i++ {
 				value := values[i]
 				for key, value := range value {
@@ -176,16 +176,45 @@ func GetYearWeekInNum(value string) int { // 获取每年的周数
 	return 0
 }
 
+func GetTodayWeek(datestr string) int { // 获取今天是今天的第几周
+	date, _ := time.Parse("2006-01-02", datestr)
+	_, week := date.ISOWeek()
+	return week
+}
+
+func GetYearDay(datestr string) int { // 获取某天是某年的第几天
+	date, _ := time.Parse("2006-01-02", datestr)
+	return date.YearDay()
+}
+
 func GetOldYearWeek(year int) int {
 	return 0
 }
 
+// 获取给定年份的第n周的日期范围
+func GetWeekDateRange(year int, weekNum int) (start, end time.Time) {
+	// 设置地点，因为不同地点的周起始日可能不同
+	loc, _ := time.LoadLocation("Asia/Shanghai")
+	// 构建给定年份的第一天
+	firstDayOfYear := time.Date(year, 1, 1, 0, 0, 0, 0, loc)
+	// 计算第一天是星期几（0是星期日，6是星期六）
+	weekdayOfFirstDay := int(firstDayOfYear.Weekday())
+	// 计算第一周的第一天（星期一）
+	firstMonday := firstDayOfYear.AddDate(0, 0, -weekdayOfFirstDay+1)
+	// 计算第n周的第一天
+	startOfWeek := firstMonday.AddDate(0, 0, (weekNum-1)*7)
+	// 计算第n周的最后一天
+	endOfWeek := startOfWeek.AddDate(0, 0, 6)
+	fmt.Printf("第%d周的日期范围是：%s 至 %s\n", weekNum, start.Format("2006-01-02"), end.Format("2006-01-02"))
+	return startOfWeek, endOfWeek
+}
+
 func main() {
-	fmt.Println(355 / 7)
-	fmt.Println(GetYearWeekInNum("1582-10"))
+	// fmt.Println(355 / 7)
+	// fmt.Println(GetYearWeekInNum("1582-10"))
 	// fmt.Println(WeekDay("1580-01-01 11:57:02"))
 	// fmt.Println(GetDaysInMonth("2024-09"))
-	// fmt.Println(GetYearWeekNum(1582))
+	// fmt.Println(GetYearWeekNum(2023))
 	/*
 		dateStr := "1583-01-01"
 		start, end, err := GetWeekRange(dateStr)
@@ -199,7 +228,7 @@ func main() {
 		yearstart := time.Date(2023, 1, 1, 0, 0, 0, 0, time.UTC)
 		fmt.Println(yearstart.ISOWeek())
 	*/
-	// GetWeekNumber(1583)
+	GetWeekNumber(2023)
 	// 计算1582年10月15日之前是错误的，因为10月没有10天，实际应该为21
 	// GetDaysInMonth(1583, 9)
 	// 周一(1582.10.1)-周日(1582.10.17)
