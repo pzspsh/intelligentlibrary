@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func main() {
+func Demo() {
 	// See the example for Time.Format for a thorough description of how
 	// to define the layout string to parse a time.Time value; Parse and
 	// Format use the same model to describe their input and output.
@@ -40,4 +40,15 @@ func main() {
 	fmt.Println(t)
 	_, err := time.Parse(time.RFC3339, time.RFC3339)
 	fmt.Println("error", err) // Returns an error as the layout is not a valid time value
+}
+
+func Demo1() {
+	time1, _ := time.Parse("2006-01-02", "2023-03-10")
+	fmt.Println(time1)
+	time3, _ := time.Parse("2006", "2023")
+	fmt.Println(time3)
+}
+
+func main() {
+	Demo()
 }

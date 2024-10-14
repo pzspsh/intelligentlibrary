@@ -74,6 +74,8 @@ func Select(db *gorm.DB, obj interface{}, selectobj, target string) (interface{}
 	return obj, nil
 }
 
+// 多条件查询
+
 func main() {
 	c := &DBConfig{
 		Host:     "ip",
