@@ -355,9 +355,9 @@ type TestDemo struct {
 	Id        int64          `gorm:"column:id;primary_key;AUTO_INCREMENT;comment:自增编号" json:"id"`
 	Number    string         `gorm:"column:number;type:varchar(255);uniqueIndex;not null;comment:自定义编号" json:"number"`
 	Name      string         `gorm:"column:name;type:varchar(255);default:not null;comment:任务名称" json:"name"`
-	Args1     datatypes.JSON `gorm:"column:args1;serializer:json;comment:资产扫描参数" json:"ses_args"`
-	Args2     datatypes.JSON `gorm:"column:args2;serializer:json;comment:指纹识别参数" json:"fis_args"`
-	Args3     datatypes.JSON `gorm:"column:args3;serializer:json;comment:漏洞扫描参数" json:"vvs_args"`
+	Args1     datatypes.JSON `gorm:"column:args1;serializer:json;comment:资产扫描参数" json:"args1"`
+	Args2     datatypes.JSON `gorm:"column:args2;serializer:json;comment:指纹识别参数" json:"args2"`
+	Args3     datatypes.JSON `gorm:"column:args3;serializer:json;comment:漏洞扫描参数" json:"args3"`
 	Target    pq.StringArray `gorm:"column:target;type:text[];default:null;comment:任务目标数据" json:"target"`
 	Status    int            `gorm:"column:status;default:null;comment:任务状态" json:"status,omitempty"`
 	Dumber    string         `gorm:"column:dumber;type:varchar(255);default:not null;comment:单位编号" json:"dw_number,omitempty"`
@@ -368,4 +368,110 @@ type TestDemo struct {
 func (TestDemo) TableName() string {
 	return "test_demo"
 }
+```
+
+```go
+import (
+	"database/sql/driver"
+	"encoding/json"
+	"time"
+
+	"github.com/lib/pq"
+)
+
+type SubDomain struct {
+	Id         int64          `gorm:"column:id;primary_key;AUTO_INCREMENT;comment:自增编号" json:"id"`
+	Domains    pq.StringArray `gorm:"column:domains;type:text[];default:null;comment:域名列表" json:"domains,omitempty"`
+	Ips        pq.StringArray `gorm:"column:ips;type:text[];default:null;comment:ip列表" json:"ips,omitempty"`
+	DomainsUrl DdomainData    `gorm:"column:domainsUrl;embedded" json:"domainsUrl,omitempty"`
+	IpSegments IpsegmentData  `gorm:"column:ipSegments;embedded" json:"ipSegments,omitempty"`
+	Protocol   Jsondata       `gorm:"column:protocol;embedded;comment:协议统计" json:"protocol,omitempty"`
+	Port       Jsondata       `gorm:"column:port;embedded;comment:端口统计" json:"port,omitempty"`
+	Location   Jsondata       `gorm:"column:location;embedded;comment:" json:"location,omitempty"`
+	Status     int            `gorm:"column:status;default:null" json:"status,omitempty"`
+	CreatedAt  time.Time      `gorm:"column:created_at;type:TIMESTAMP;comment:创建时间" json:"created_at,omitempty"`
+	UpdatedAt  time.Time      `gorm:"column:updated_at;type:TIMESTAMP;autoUpdateTime;comment:更新时间" json:"updated_at,omitempty"`
+}
+
+func (SubDomain) TableName() string {
+	return "test_subdomain"
+}
+
+type DdomainData []DomainList
+
+func (ms *DdomainData) Scan(value any) error {
+	v, _ := value.(string)
+	return json.Unmarshal([]byte(v), ms)
+}
+
+func (ms DdomainData) Value() (driver.Value, error) {
+	b, err := json.Marshal(ms)
+	return string(b), err
+}
+
+type IpsegmentData []IpSegmentList
+
+func (ms *IpsegmentData) Scan(value any) error {
+	v, _ := value.(string)
+	return json.Unmarshal([]byte(v), ms)
+}
+
+func (ms IpsegmentData) Value() (driver.Value, error) {
+	b, err := json.Marshal(ms)
+	return string(b), err
+}
+
+type DomainList struct {
+	Id        int64     `gorm:"column:id;primary_key;AUTO_INCREMENT;comment:自增编号" json:"id"`
+	Number    string    `gorm:"column:number;type:varchar(255);uniqueIndex;default:not null;comment:域名编号" json:"number"`
+	Level     int       `gorm:"column:level;default:null" json:"level,omitempty"`
+	Cname     string    `gorm:"column:cname;type:text;default:null" json:"cname,omitempty"`
+	Ip        string    `gorm:"column:ip;type:varchar(255);default:null" json:"ip,omitempty"`
+	CreatedAt time.Time `gorm:"column:created_at;type:TIMESTAMP;comment:创建时间" json:"created_at,omitempty"`
+	UpdatedAt time.Time `gorm:"column:updated_at;type:TIMESTAMP;autoUpdateTime;comment:更新时间" json:"updated_at,omitempty"`
+}
+
+type IpSegmentList struct {
+	Id        int64     `gorm:"column:id;primary_key;AUTO_INCREMENT;comment:自增编号" json:"id"`
+	Number    string    `gorm:"column:number;type:varchar(255);uniqueIndex;default:not null;comment:IP段编号" json:"number"`
+	IpSegment string    `gorm:"column:ip_segment;type;varchar(255);default:null" json:"ipSegment,omitempty"`
+	Count     int       `gorm:"column:count;default:null" json:"count,omitempty"`
+	Data      DataList  `gorm:"column:data;embedded" json:"data,omitempty"`
+	CreatedAt time.Time `gorm:"column:created_at;type:TIMESTAMP;comment:创建时间" json:"created_at,omitempty"`
+	UpdatedAt time.Time `gorm:"column:updated_at;type:TIMESTAMP;autoUpdateTime;comment:更新时间" json:"updated_at,omitempty"`
+}
+
+type Data struct {
+	Ip     string `json:"ip,omitempty"`
+	Domain string `json:"domain,omitempty"`
+}
+
+func (IpSegmentList) TableName() string {
+	return "test_ipsegment"
+}
+
+type DataList []Data
+
+func (ms *DataList) Scan(value any) error {
+	v, _ := value.(string)
+	return json.Unmarshal([]byte(v), ms)
+}
+
+func (ms DataList) Value() (driver.Value, error) {
+	b, err := json.Marshal(ms)
+	return string(b), err
+}
+
+type Jsondata map[string]int
+
+func (jd *Jsondata) Scan(value any) error {
+	v, _ := value.(string)
+	return json.Unmarshal([]byte(v), jd)
+}
+
+func (jd Jsondata) Value() (driver.Value, error) {
+	b, err := json.Marshal(jd)
+	return string(b), err
+}
+
 ```
