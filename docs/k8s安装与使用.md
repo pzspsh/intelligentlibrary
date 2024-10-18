@@ -43,3 +43,9 @@ make quick-release
 ```
 
 ```
+
+### k8s + harbor + kubePi + harness集群使用教程
+#### 1、安装、配置
+```
+
+```
