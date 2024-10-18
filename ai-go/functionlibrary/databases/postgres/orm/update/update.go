@@ -56,7 +56,7 @@ func (t *Table_demo) Update(db *gorm.DB, id int64) error {
 
 func (t *Table_demo) Updates(db gorm.DB, id string) {
 	//  实现更新某个字段的执行，其它字段的值不变
-	result := db.Model(&Table_demo{}).Where("id = ?", id).Updates(Table_demo{Email: "new_email@example.com"})
+	result := db.Model(&Table_demo{}).Where("id = ?", id).Updates(&Table_demo{Email: "new_email@example.com"})
 	if result.Error != nil {
 		panic(result.Error)
 	}
