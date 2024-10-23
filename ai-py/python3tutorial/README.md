@@ -42,3 +42,63 @@
 print("hello world")
 
 ```
+
+python项目导包
+```python
+from rootdir.包文件夹名称...包文件夹名称 import 功能程序所在的.py文件名 as 重命名1
+from rootdir.包文件夹名称...包文件夹名称.功能程序所在的.py文件名 import 类 as 重命名2, 功能函数名 as 重命名3
+
+
+调用方法：
+重命名1.功能函数名()
+重命名1.类()
+
+重命名2()
+重命名3()
+
+print(重命名2.字段)
+
+例如：项目DemoProject
+DemoProject:
+  └── configs
+  |  └── configs.py
+  └── views
+  |  └── utils.py
+  |  └── views.py  
+  └── main.py
+
+
+config.py
+class Config:
+  fiel1 = "hello, world!"
+  fiel2 = "你好, 世界!"
+
+utils.py
+def demo():
+  print("hello demo...")
+
+views.py
+from view.utils import demo
+from view import utils 
+from view import utils as ut
+from configs.configs import Config as cf
+
+def ViewsRun():
+  demo()
+  utils.demo()
+  print(ut.demo())
+  print(cf.fiel1)
+  print(cf.fiel2)
+
+main.py
+from views.views import ViewsRun
+
+
+def main()
+  ViewsRun()
+
+if __name__ == "__main__":
+  main()
+
+```
+
