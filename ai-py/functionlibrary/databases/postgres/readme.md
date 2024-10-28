@@ -86,6 +86,87 @@ finally:
 
 
 
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+# 定义数据库连接（这里以 SQLite 为例）
+engine = create_engine('sqlite:///example.db', echo=True)
+
+# 声明基类
+Base = declarative_base()
+
+# 定义表模型
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    age = Column(Integer)
+
+# 创建表
+Base.metadata.create_all(engine)
+
+# 创建会话
+Session = sessionmaker(bind=engine)
+session = Session()
+
+# 要添加或更新的数据
+user_data = User(id=1, name='John Doe', age=30)
+
+# 使用 merge 方法
+session.merge(user_data)
+session.commit()
+session.close()
+
+
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+# 定义数据库连接（这里以 SQLite 为例）
+engine = create_engine('sqlite:///example.db', echo=True)
+
+# 声明基类
+Base = declarative_base()
+
+# 定义表模型
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    age = Column(Integer)
+
+# 创建表
+Base.metadata.create_all(engine)
+
+# 创建会话
+Session = sessionmaker(bind=engine)
+session = Session()
+
+# 要添加或更新的数据
+user_id = 1
+user_name = 'John Doe'
+user_age = 30
+
+# 查询是否存在
+existing_user = session.query(User).filter_by(id=user_id).first()
+
+if existing_user:
+    # 更新现有记录
+    existing_user.name = user_name
+    existing_user.age = user_age
+else:
+    # 添加新记录
+    new_user = User(id=user_id, name=user_name, age=user_age)
+    session.add(new_user)
+
+# 提交事务
+session.commit()
+session.close()
+
+
+
+
 from pony.orm import *
 from config.config import Config as cf
 
