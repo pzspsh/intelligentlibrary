@@ -439,6 +439,19 @@ type IpSegmentList struct {
 	Data      DataList  `gorm:"column:data;embedded" json:"data,omitempty"`
 	CreatedAt time.Time `gorm:"column:created_at;type:TIMESTAMP;comment:创建时间" json:"created_at,omitempty"`
 	UpdatedAt time.Time `gorm:"column:updated_at;type:TIMESTAMP;autoUpdateTime;comment:更新时间" json:"updated_at,omitempty"`
+	Email     string    `gorm:"type:varchar(100);unique_index"`
+	Role      string    `gorm:"size:255"`        //设置字段的大小为255个字节
+	MeNumber  *string   `gorm:"unique;not null"` // 设置 memberNumber 字段唯一且不为空
+	Num       int       `gorm:"AUTO_INCREMENT"`  // 设置 Num字段自增
+	IgnoreMe  int       `gorm:"-"`               //忽略这个字段
+	Id        uint      `json:"id" gorm:"column:id;type:int(10) unsigned not null AUTO_INCREMENT;primaryKey;"`
+    UserName  string    `json:"user_name" gorm:"column:user_name;type:varchar(16) not null;default:'';index:idx_user_name"`
+    Password  string    `json:"-" gorm:"column:password;type:varchar(128) not null;default:''"`
+    Status    uint      `json:"status" gorm:"column:status;type:tinyint(1) unsigned not null;default:0;index:idx_status"`
+    CreatTime int64     `json:"created_time" gorm:"column:created_time;type:int(11) not null;default:0;index:idx_created_time"`
+    UpdatTime int64     `json:"updated_time" gorm:"column:updated_time;type:int(11) not null;default:0;index:idx_updated_time"`
+    DeletTime int64     `json:"-" gorm:"column:deleted_time;type:int(11) not null;default:0"`
+	Avatar    []byte    `gorm:"cloumn:avatar;type:blob"`
 }
 
 type Data struct {
@@ -475,3 +488,35 @@ func (jd Jsondata) Value() (driver.Value, error) {
 }
 
 ```
+
+
+
+### 字段标签
+
+在声明模型时，标签是可选的，GORM支持以下标签：标签不区分大小写，但首选‘ camelCase ’。如果使用多个标签，它们应该用分号（';'）分隔。对解析器具有特殊意义的字符可以使用反斜杠（' \ '）进行转义，从而允许将它们用作参数值。
+
+| 标签名                 | 说明                                                         |
+| :--------------------- | :----------------------------------------------------------- |
+| column                 | 指定 db 列名                                                 |
+| type                   | 列数据类型，推荐使用兼容性好的通用类型，例如：所有数据库都支持 bool、int、uint、float、string、time、bytes 并且可以和其他标签一起使用，例如：`not null`、`size`, `autoIncrement`… 像 `varbinary(8)` 这样指定数据库数据类型也是支持的。在使用指定数据库数据类型时，它需要是完整的数据库数据类型，如：`MEDIUMINT UNSIGNED not NULL AUTO_INCREMENT` |
+| serializer             | 指定将数据序列化或反序列化到数据库中的序列化器, 例如: `serializer:json/gob/unixtime` |
+| size                   | 定义列数据类型的大小或长度，例如 `size: 256`                 |
+| primaryKey             | 将列定义为主键                                               |
+| unique                 | 将列定义为唯一键                                             |
+| default                | 定义列的默认值                                               |
+| precision              | 指定列的精度                                                 |
+| scale                  | 指定列大小                                                   |
+| not null               | 指定列为 NOT NULL                                            |
+| autoIncrement          | 指定列为自动增长                                             |
+| autoIncrementIncrement | 自动步长，控制连续记录之间的间隔                             |
+| embedded               | 嵌套字段                                                     |
+| embeddedPrefix         | 嵌入字段的列名前缀                                           |
+| autoCreateTime         | 创建时追踪当前时间，对于 `int` 字段，它会追踪时间戳秒数，您可以使用 `nano`/`milli` 来追踪纳秒、毫秒时间戳，例如：`autoCreateTime:nano` |
+| autoUpdateTime         | 创建/更新时追踪当前时间，对于 `int` 字段，它会追踪时间戳秒数，您可以使用 `nano`/`milli` 来追踪纳秒、毫秒时间戳，例如：`autoUpdateTime:milli` |
+| index                  | 根据参数创建索引，多个字段使用相同的名称则创建复合索引，查看 [索引](https://gorm.io/zh_CN/docs/indexes.html) 获取详情 |
+| uniqueIndex            | 与 `index` 相同，但创建的是唯一索引                          |
+| check                  | 创建检查约束，例如 `check:age > 13`，查看 [约束](https://gorm.io/zh_CN/docs/constraints.html) 获取详情 |
+| <-                     | 设置字段写入的权限， `<-:create` 只创建、`<-:update` 只更新、`<-:false` 无写入权限、`<-` 创建和更新权限 |
+| ->                     | 设置字段读的权限，`->:false` 无读权限                        |
+| -                      | 忽略该字段，`-` 表示无读写，`-:migration` 表示无迁移权限，`-:all` 表示无读写迁移权限 |
+| comment                | 迁移时为字段添加注释                                         |
