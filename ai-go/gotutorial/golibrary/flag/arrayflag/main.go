@@ -46,4 +46,12 @@ func main() {
 	fmt.Println(options)
 }
 
-// go run main.go -s "hello world" -a1 "你" -a1 "好" -b  //结果：&{hello world [你 好] [] true}
+/*
+参数：
+	parameter
+	arguments
+*/
+
+/*
+go run main.go -s "hello world" -a1 "你" -a1 "好" -b  //结果：&{hello world [你 好] [] true}
+*/
