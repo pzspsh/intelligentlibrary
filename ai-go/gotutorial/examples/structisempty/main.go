@@ -29,17 +29,23 @@ func IsStructZeroValue(s interface{}) bool {
 	return reflect.DeepEqual(s, reflect.Zero(reflect.TypeOf(s)).Interface())
 }
 
+func isEmpty(s interface{}) bool {
+	v := reflect.ValueOf(s)
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
+
+	return v.IsZero()
+}
+
 func RunMain() {
 	var a A
-
 	if a == (A{}) { // 括号不能去
 		fmt.Println("a == A{} empty")
 	}
-
 	if a.IsEmpty() {
 		fmt.Println("reflect deep is empty")
 	}
-
 	a.name = "pan"
 	a.age = 19
 	if !a.IsEmpty() {
@@ -52,7 +58,6 @@ func RunMain() {
 func RunMain1() {
 	// 创建一个结构体实例
 	var myStruct MyStruct
-
 	myStruct.Field1 = 42
 	// 判断结构体是否为零值
 	if IsStructZeroValue(myStruct) {
@@ -72,8 +77,18 @@ func RunMain2() {
 	}
 }
 
+func RunMain3() {
+	var a A
+	var b A
+	b.name = "pan"
+	b.age = 20
+	fmt.Println("main3: ", isEmpty(a))
+	fmt.Println("main3: ", isEmpty(b))
+}
+
 func main() {
-	RunMain()
-	RunMain1()
-	RunMain2()
+	// RunMain()
+	// RunMain1()
+	// RunMain2()
+	RunMain3()
 }
