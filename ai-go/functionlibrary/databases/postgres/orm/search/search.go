@@ -74,6 +74,17 @@ func Select(db *gorm.DB, obj interface{}, selectobj, target string) (interface{}
 	return obj, nil
 }
 
+func Search1(target, number string, db *gorm.DB) {
+	tabledemo := new(Table_demo)
+	if err := db.Where(target+" = ?", number).First(tabledemo); err.RowsAffected == 0 {
+		fmt.Println("AAAAA", err.RowsAffected)
+	} else if err.Error != nil {
+		fmt.Println("err: ", err.Error)
+	} else {
+		fmt.Println("aaa: ", err)
+	}
+}
+
 // 多条件查询
 
 func main() {

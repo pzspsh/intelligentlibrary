@@ -1,0 +1,26 @@
+{
+    "python": {
+        "page": 100,
+        "stars": 100,
+        "url": [
+            "url1",
+            "url2"
+        ]
+    },
+    "c": {
+        "page": 100,
+        "stars": 100,
+        "url": [
+            "url1",
+            "url2"
+        ]
+    },
+    "go": {
+        "page": 100,
+        "stars": 100,
+        "url": [
+            "url1",
+            "url2"
+        ]
+    }
+}
