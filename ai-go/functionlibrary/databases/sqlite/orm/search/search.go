@@ -75,7 +75,37 @@ func Searchexist() { // 判断数据，存在则更新，不存在则创建
 	db.Save(&Product{Code: "D42", Price: 300}) // 如果存在则更新，不存在则创建
 }
 
-func main() {
+type User struct {
+	ID         uint
+	Field1     string
+	Field2     string
+	OtherField string
+}
+
+func Search2() {
+	// 初始化数据库连接
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	// 自动迁移模式
+	db.AutoMigrate(&User{})
+
+	// 假设我们要查询 Field1 等于 "value1" 或者 Field2 等于 "value2" 的用户
+	value1 := "value1"
+	value2 := "value2"
+
+	var users []User
+	db.Where("field1 = ? OR field2 = ?", value1, value2).Find(&users)
+
+	// 打印查询结果
+	for _, user := range users {
+		fmt.Printf("ID: %d, Field1: %s, Field2: %s, OtherField: %s\n", user.ID, user.Field1, user.Field2, user.OtherField)
+	}
+}
+
+func SearchRun() {
 	db, err := SqliteConn()
 	if err != nil {
 		fmt.Printf("sqlite conn err:%v", err)
@@ -86,4 +116,8 @@ func main() {
 	if ok {
 		fmt.Printf("student search successful:%v", student)
 	}
+}
+
+func main() {
+
 }
