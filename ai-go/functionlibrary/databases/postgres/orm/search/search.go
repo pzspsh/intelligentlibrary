@@ -41,6 +41,14 @@ type Table_demo struct {
 	Type        string `json:"type,omitempty" gorm:"column:type;type:text;default:null"`
 }
 
+type Table2 struct {
+	ID          int64  `gorm:"column:id;primary_key;AUTO_INCREMENT"`
+	Title       string `json:"title,omitempty" gorm:"column:title;type:varchar(255);default:null"`
+	Name        string `json:"name,omitempty" gorm:"column:name;type:varchar(255);default:null"`
+	Description string `json:"description,omitempty" gorm:"column:description;type:text;default:null"`
+	Type        string `json:"type,omitempty" gorm:"column:type;type:text;default:null"`
+}
+
 // 查询单个
 func Search(db *gorm.DB, column, searchv string) (bool, *Table_demo) {
 	demo := new(Table_demo)
@@ -85,6 +93,13 @@ func Search1(target, number string, db *gorm.DB) {
 	}
 }
 
+func GetLdkData[T []*Table_demo | []Table2](table T, db *gorm.DB) T {
+	var err error
+	if err = db.Find(&table).Error; err != nil {
+		return table
+	}
+	return table
+}
 
 // HasData 函数用于判断表是否有数据
 func HasData(db *gorm.DB, model interface{}) bool {
