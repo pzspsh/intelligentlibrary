@@ -93,12 +93,12 @@ func Search1(target, number string, db *gorm.DB) {
 	}
 }
 
-func GetLdkData[T []*Table_demo | []Table2](table T, db *gorm.DB) T {
+func GetLdkData[T *Table_demo | *Table2](table []T, db *gorm.DB) ([]T, error) {
 	var err error
 	if err = db.Find(&table).Error; err != nil {
-		return table
+		return table, err
 	}
-	return table
+	return table, err
 }
 
 // HasData 函数用于判断表是否有数据
