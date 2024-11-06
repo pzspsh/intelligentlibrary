@@ -85,7 +85,23 @@ func Search1(target, number string, db *gorm.DB) {
 	}
 }
 
+
+// HasData 函数用于判断表是否有数据
+func HasData(db *gorm.DB, model interface{}) bool {
+	var count int64
+	db.Model(model).Count(&count)
+	return count > 0
+}
+
 // 多条件查询
+func Search2(value1, value2 string, db *gorm.DB) error {
+	var err error
+	tabledemo := new(Table_demo)
+	if err = db.Where("title = ? and name = ?", value1, value2).First(tabledemo).Error; err != nil {
+		return err
+	}
+	return err
+}
 
 func main() {
 	c := &DBConfig{

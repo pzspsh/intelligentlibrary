@@ -93,7 +93,7 @@ func SearchList(db *gorm.DB) (bool, *[]StudentInfo) {
 	}
 }
 
-func main() {
+func SearchRun() {
 	m := &MysqlConfig{
 		Host:     "ip",
 		Port:     "port",
@@ -113,4 +113,58 @@ func main() {
 	} else {
 		fmt.Printf("search data successful:%v", result)
 	}
+}
+
+type YourModel struct {
+	ID uint `gorm:"primaryKey"`
+	// 其他字段
+}
+
+func checkIfExists(db *gorm.DB, ids []uint) {
+	var existingIDs []YourModel
+
+	// 批量查询存在的 ID
+	db.Select("ID").Where("ID IN ?", ids).Find(&existingIDs)
+
+	// 将查询结果转换为 ID 切片
+	existingIDSet := make(map[uint]struct{}, len(existingIDs))
+	for _, model := range existingIDs {
+		existingIDSet[model.ID] = struct{}{}
+	}
+
+	// 检查哪些 ID 存在，哪些不存在
+	for _, id := range ids {
+		if _, exists := existingIDSet[id]; exists {
+			// ID 存在
+			fmt.Println("ID", id, "exists")
+		} else {
+			// ID 不存在
+			fmt.Println("ID", id, "does not exist")
+		}
+	}
+}
+
+func SearcRun2() {
+	dsn := "user:password@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	// 确保数据库连接成功
+	sqlDB, err := db.DB()
+	if err != nil {
+		panic("failed to get database connection")
+	}
+	defer sqlDB.Close()
+
+	// 示例 ID 列表
+	ids := []uint{1, 2, 3, 4, 5 /* 其他 ID... */, 100}
+
+	// 检查是否存在
+	checkIfExists(db, ids)
+}
+
+func main() {
+
 }
