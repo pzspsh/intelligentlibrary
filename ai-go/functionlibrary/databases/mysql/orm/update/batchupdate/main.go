@@ -6,10 +6,14 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"strings"
+	"sync"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 type User struct {
@@ -78,6 +82,92 @@ func BatchUpdate() {
 	}
 
 	tx.Commit()
+}
+
+func BatchUpdateUsers(db *gorm.DB, users []User) error {
+	if len(users) == 0 {
+		return nil
+	}
+
+	var ids []interface{}
+	var cases []string
+	for _, user := range users {
+		ids = append(ids, user.ID)
+		cases = append(cases, fmt.Sprintf("WHEN %d THEN '%s'", user.ID, user.Name))
+	}
+
+	sql := fmt.Sprintf(
+		"UPDATE users SET name = CASE %s END WHERE id IN (%s)",
+		strings.Join(cases, " "),
+		joinInts(ids), // joinInts 是一个将整数数组转换为字符串的函数
+	)
+
+	return db.Exec(sql).Error
+}
+
+func joinInts(ints []interface{}) string {
+	var buffer bytes.Buffer
+	buffer.WriteString("(")
+	for i, val := range ints {
+		if i > 0 {
+			buffer.WriteString(",")
+		}
+		buffer.WriteString(fmt.Sprintf("%v", val))
+	}
+	buffer.WriteString(")")
+	return buffer.String()
+}
+
+type User1 struct {
+	ID     uint   `gorm:"primaryKey"`
+	Unique string `gorm:"unique"`
+	Field1 string
+	Field2 int
+	// ... 其他字段
+}
+
+func updateBatch(db *gorm.DB, users []User1) {
+	for _, user := range users {
+		// 假设我们只更新Field1和Field2，其他字段根据实际情况添加
+		db.Model(&User{}).Where("id = ?", user.ID).Updates(User1{
+			Field1: user.Field1,
+			Field2: user.Field2,
+			// ... 更新其他字段
+		})
+	}
+}
+
+func BatchUpdate3() {
+	// 连接数据库
+	dsn := "user:password@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Info),
+	})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	// 假设我们有一个包含所有要更新数据的切片
+	var usersToUpdate []User1
+	// ... 填充usersToUpdate切片，这里省略了数据获取的代码
+
+	// 分批更新
+	batchSize := 1000 // 每个批次的大小
+	var wg sync.WaitGroup
+	for i := 0; i < len(usersToUpdate); i += batchSize {
+		end := i + batchSize
+		if end > len(usersToUpdate) {
+			end = len(usersToUpdate)
+		}
+
+		wg.Add(1)
+		go func(batch []User1) {
+			defer wg.Done()
+			updateBatch(db, batch)
+		}(usersToUpdate[i:end])
+	}
+
+	wg.Wait() // 等待所有Goroutine完成
 }
 
 func main() {
