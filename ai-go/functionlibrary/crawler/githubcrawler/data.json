@@ -1,26 +1,32 @@
 {
-    "python": {
-        "page": 100,
-        "stars": 100,
-        "url": [
-            "url1",
-            "url2"
-        ]
-    },
     "c": {
         "page": 100,
         "stars": 100,
-        "url": [
-            "url1",
-            "url2"
-        ]
+        "url": {
+            "url1": "stars"
+        }
     },
     "go": {
         "page": 100,
         "stars": 100,
-        "url": [
-            "url1",
-            "url2"
-        ]
+        "url": {
+            "url1": "stars"
+        }
+    },
+    "python": {
+        "page": 3,
+        "stars": 100,
+        "url": {
+            "https://github.com//ansible/ansible": "62950 stars",
+            "https://github.com//binary-husky/gpt_academic": "65538 stars",
+            "https://github.com//bregman-arie/devops-exercises": "66595 stars",
+            "https://github.com//d2l-ai/d2l-zh": "63478 stars",
+            "https://github.com//josephmisiti/awesome-machine-learning": "65944 stars",
+            "https://github.com//keras-team/keras": "61982 stars",
+            "https://github.com//pallets/flask": "68054 stars",
+            "https://github.com//python/cpython": "63416 stars",
+            "https://github.com//swisskyrepo/PayloadsAllTheThings": "61250 stars",
+            "https://github.com//xtekky/gpt4free": "61111 stars"
+        }
     }
 }
