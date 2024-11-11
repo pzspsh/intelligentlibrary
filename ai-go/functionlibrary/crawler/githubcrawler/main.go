@@ -171,7 +171,7 @@ func Parse(body []byte, result map[string]string) (map[string]string, error) {
 	datalist := regex.FindAllSubmatch(body, -1)
 	if len(datalist) > 0 {
 		for _, value := range datalist {
-			url := "https://github.com/" + string(value[1])
+			url := "https://github.com" + string(value[1])
 			stars := string(value[2])
 			result[url] = stars
 		}
