@@ -114,8 +114,6 @@ func (o *Options) GitCrawler() error {
 	if len(result) > 0 {
 		if _, ok := datajson[o.Language]; ok {
 			data := datajson[o.Language]
-			data.Page = o.Page
-			data.Stars = o.Stars
 			data.Url = MergeMap(data.Url, result)
 			datajson[o.Language] = data
 		} else {
@@ -230,7 +228,7 @@ func WriteJson(file string, datainfo map[string]DataInfo) error {
 func main() {
 	var err error
 	opt := &Options{
-		Language: "python",
+		Language: "go",
 		Stars:    100,
 		Page:     1,
 		Jsonfile: "data.json",
