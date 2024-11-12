@@ -41,6 +41,10 @@ type Options struct {
 
 func (o *Options) GetGithubUrl() string {
 	/*
+		https://github.com/search?q=algorithm+stars%3A%3E%3D2000&type=repositories&s=stars&o=desc&p=1 //  搜索algorithm stars大于等于2000
+		https://github.com/search?q=algorithm&type=repositories&s=stars&o=desc&p=2 // 搜索algorithm
+		https://github.com/search?q=algorithm&type=repositories&s=stars&o=desc // 搜索algorithm(算法)
+		https://github.com/search?q=leetcode&type=repositories&s=stars&o=desc  // 搜索leetcode
 		https://github.com/search?q=language:python+stars:>=100&type=repositories&p=1
 		https://github.com/search?q=language:go+stars:>=100&type=repositories&p=2
 		https://github.com/search?q=language:python+stars:>=100&type=repositories&s=stars&o=desc&p=1
