@@ -58,11 +58,31 @@ func DownRun(downloadurl, loadpath string) error {
 	return err
 }
 
+// func GitDownload() error {
+// 	var err error
+// 	downtargets := "https://github.com/infobyte/faraday" // 下载目标
+// 	catalog := "../"                                     // 存储的目录
+// 	if err = gitpull.GithubProjectRun(downtargets, catalog); err != nil {
+// 		fmt.Println("github download error: ", err)
+// 	}
+// 	return err
+// }
+
 func GitDownload() error {
 	var err error
-	downtargets := "https://github.com/infobyte/faraday" // 下载目标
-	catalog := "../"                                     // 存储的目录
-	if err = gitpull.GithubProjectRun(downtargets, catalog); err != nil {
+	var downurllist string
+	downname := []string{"nuclei-templates", "awesome-search-queries", "docs", "proxify", "nuclei", "tlsx", "aix", "httpx", "gcache", "naabu", "notify", "ratelimit", "utils", "mapcidr", "goflags", "tinydns", "useragent", "shuffledns", "asnmap", "cdncheck", "pdtm", "subfinder", "retryabledns", "retryablehttp-go", "katana", "chaos-client", "tldfinder", "cvemap", "rawhttp", "alterx", "public-bugbounty-programs", "gologger", "cloudlist", "hmap", "interactsh-web", "clistats", "dnsx", "interactsh", "dsl", "fastdialer", "wappalyzergo", "uncover", "nuclei-action", "freeport", "networkpolicy", "actions", "goleak", "ldapserver", "ipranger", "openrisk", "templates-stats", "fuzzing-templates", "sarif", "gozero", "machineid", "martian", "gostruct", "go-smb2", "simplehttpserver", "nuclei-ai-extension", "wallpapers", "httpx-action", "tailwindcss", "js-proto-docs", "yamldoc-go", "goconfig", "blackrock", "sslcert", "roundrobin", "nuclei-docs", "eslint-config", "fdmax", "sqlc-go-builder", "nvd", "asyncsqs", "n3iwf", "mapsutil", "stringsutil", "js-yaml-source-map", "filekv", "network-fingerprint", "rdap", "cloudlist-action", "fasttemplate", "smb", "iputil", "fileutil", "reflectutil", "httputil", "cryptoutil", "folderutil", "urlutil", "executil", "sliceutil", "sqlc-builder", "notify-action", "naabu-action", "subfinder-action", "dnsx-action", "collaborator", "pd-actions", "dnsprobe", "resolvercache-go", "expirablelru"}
+	for _, name := range downname {
+		downtargets := "https://github.com/projectdiscovery/" // 下载目标
+		downtargets = downtargets + name
+		if downurllist == "" {
+			downurllist = downtargets
+		} else {
+			downurllist = downurllist + "," + downtargets
+		}
+	}
+	catalog := "../" // 存储的目录
+	if err = gitpull.GithubProjectRun(downurllist, catalog); err != nil {
 		fmt.Println("github download error: ", err)
 	}
 	return err
