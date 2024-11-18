@@ -5,6 +5,6 @@
 */
 package server
 
-func TaskSend() {
+func ResultBack() {
 
 }
