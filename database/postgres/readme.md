@@ -72,3 +72,84 @@ insert into lr_array1(id, array_i, array_t) values(3, array[4,5,6,7], array['h',
 -- SELECT created_at FROM zck_asset;
 SELECT COUNT(*) FROM zck_asset WHERE created_at BETWEEN '2023-01-01' AND '2023-12-31';
 ```
+
+
+
+## Ubuntu安装postgres
+
+##### 1、执行更新命令
+
+```
+sudo apt-get update
+```
+
+##### 2、安装postgresql
+
+```
+sudo apt install postgresql
+```
+
+##### 3、登录postgresql命令
+
+```
+sudo -u postgres -i
+```
+
+##### 4、修改postgresql密码命令
+
+```
+sudo passwd postgres
+```
+
+![image-20241118162514758](../../images/image-20241118162514758.png)
+
+##### 5、进入postgres用户
+
+```
+su - postgres
+```
+
+##### 6、进入postgresql
+
+```
+psql
+
+psql --version # 查看版本号
+```
+
+##### 7、设置远程访问，并且关闭ssl
+
+```
+进入postgresql
+查找postgresql配置文件位置
+$ show config_file;
+这里会显示postgresql.conf文件的位置路径
+```
+
+退出修改postgresql.conf文件内容
+
+![image-20241118163429590](../../images/image-20241118163429590.png)
+
+![image-20241118163507689](../../images/image-20241118163507689.png)
+
+##### 8、修改postgresql的账号密码
+
+```
+psql进入数据库
+postgres=#\password postgres
+这里是你要输入的新密码
+```
+
+##### 9、修改允许访问网段，找到pg_hba.con配置文件，并进行内容修改，例如如下所示（具体修改根据你的IP段来修改）：
+
+```
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            md5
+host    all             all             192.168.26.1/24            md5
+host    all             all             192.168.25.15/24           md5
+host    all             all             192.168.35.0/24           trust
+# IPv6 local connections:
+host    all             all             ::1/128                 md5
+host    all             all             192.168.26.1/24            md5
+```
+

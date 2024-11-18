@@ -161,3 +161,159 @@ select  User,authentication_string,Host from user;
 ```sql
 
 ```
+
+
+
+## Ubuntu安装MySQL
+
+#### 1、ubuntu安装MySQL8.0.23
+
+```shell
+apt-get upgrade  # 更新软件包
+apt-get install mysql-server # 安装MySQL
+```
+
+#### 2、启动mysql服务
+
+```
+启动：
+    systemctl start mysqld
+    或
+    service mysqld start
+
+查看启动状态：
+	systemctl status mysqld
+	或
+	service mysqld status
+```
+
+**MySQL服务管理**
+
+```plaintext
+sudo service mysql status # 查看服务状态
+sudo service mysql start # 启动服务
+sudo service mysql stop # 停止服务
+sudo service mysql restart # 重启服务
+```
+
+输入`service mysql status`就可以看到mysql正在运行中了，差不多要占350MB的内存
+
+```awk
+$ service mysql status
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: active (running) since Wed 2021-02-10 16:15:50 CST; 17min ago
+    Process: 1008 ExecStartPre=/usr/share/mysql/mysql-systemd-start pre (code=exited, status=0/SUCCESS)
+   Main PID: 1168 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 4620)
+     Memory: 395.2M
+     CGroup: /system.slice/mysql.service
+             └─1168 /usr/sbin/mysqld
+
+2月 10 16:15:45 ubuntu systemd[1]: Starting MySQL Community Server...
+2月 10 16:15:50 ubuntu systemd[1]: Started MySQL Community Server.
+```
+
+#### 3、登录
+
+**方法一：默认账户登录**
+
+查看密码使用`sudo cat /etc/mysql/debian.cnf`这条查看
+
+```
+$ sudo cat /etc/mysql/debian.cnf
+[sudo] bot 的密码： 
+# Automatically generated for Debian scripts. DO NOT TOUCH!
+[client]
+host     = localhost
+user     = debian-sys-maint
+password = SffnwAJrKhIFZ2tO
+socket   = /var/run/mysqld/mysqld.sock
+[mysql_upgrade]
+host     = localhost
+user     = debian-sys-maint
+password = SffnwAJrKhIFZ2tO
+socket   = /var/run/mysqld/mysqld.sock
+```
+
+**方法二：直接进入mysql**
+命令：`sudo mysql`
+
+#### 本地 root 用户
+
+到了关键的一步，其实现在你的数据库中就有一个叫做 `host` 字段为 `localhost` 的 `root` 的用户我们需要做如下几件事情：
+
+- 修改初始 root 用户的密码（修为我们自己的密码）
+
+> 不需要授予访问权限等操作，因为默认已经有了
+
+**重置密码**
+
+重置 root 账户密码
+
+```pgsql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '新密码';
+```
+
+**刷新权限**
+
+```abnf
+FLUSH PRIVILEGES;
+```
+
+#### 远程root 用户
+
+如果需要远程登陆：
+
+- 创建一个 `host` 字段为 `%` 的 root 用户（创建用户的同时设置密码）
+- 授权所有数据库的访问权限
+- 刷新权限列表
+
+> 有些 uu 就会很奇怪为什么要创建两个 `root` 用户呢？这个和 `mysql` 的用户管理方式有关系：`localhost` 表示本机登录；`%` 表示远程登陆。
+> 如果 `root` 用户只有 `%` ，那就只能除了本机外的其他计算机才能登陆 mysql server，如果用户只有 `localhost`，那只有本机可以登录，远程计算机不能登录 mysql server
+> 那么 mysql 为什么要这么设计呢？可能是为了安全吧！这样我们可以为 root 设置两个不同的密码，`localhost` 环境下设置一个很简单的密码；`%` 环境下就可以极其复杂，诸如：`MnRmsrdm9wjkT5XC9Y2F5b4IouAPZBfx` （注意 mysql 的密码有长度限制，好像是 32 个字符长度）
+
+**新建一个 host 为 % 的 root用户，密码随意**
+
+```sql
+create user 'root'@'%' identified by 'yourpassword';
+```
+
+**授权**
+
+```plaintext
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+```
+
+**刷新权限**
+
+```abnf
+FLUSH PRIVILEGES;
+```
+
+远程连接遇到如下错误：
+
+![image-20241118161443533](../../images/image-20241118161443533.png)
+
+先关停mysql服务
+
+```arduino
+sudo systemctl stop mysql
+```
+
+编辑mysql配置文件
+
+```awk
+sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+```
+
+![image-20241118161544354](../../images/image-20241118161544354.png)
+
+注销掉
+
+```1c
+#bind-address           = 127.0.0.1
+```
+
+在开启mysql服务即可`sudo service mysql start`
