@@ -5,6 +5,6 @@
 */
 package init
 
-func UpdateStart() {
+func InitStart() {
 
 }
