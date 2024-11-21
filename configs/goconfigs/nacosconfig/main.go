@@ -34,10 +34,8 @@ type Config struct {
 }
 
 func (n NacosConfig) FillNacosEnv() NacosConfig {
-	nacosIp := os.Getenv("YJWB_NACOS_IP")
-	nacosPort := os.Getenv("YJWB_NACOS_PORT")
-	fmt.Printf("YJWB_NACOS_IP: %v\n", nacosIp)
-	fmt.Printf("YJWB_NACOS_PORT: %v\n", nacosPort)
+	nacosIp := os.Getenv("NACOS_IP")
+	nacosPort := os.Getenv("NACOS_PORT")
 	if nacosIp != "" {
 		n.Ip = nacosIp
 	}
@@ -49,7 +47,7 @@ func (n NacosConfig) FillNacosEnv() NacosConfig {
 
 func getNacosClient(nacosConfig NacosConfig) config_client.IConfigClient {
 	// get nacos password
-	password := os.Getenv("YJWB_NACOS_PASSWORD")
+	password := os.Getenv("NACOS_PASSWORD")
 	if password == "" {
 		password = "password"
 	}
