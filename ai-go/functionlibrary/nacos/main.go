@@ -50,7 +50,7 @@ func (n *NacosConfig) LoadConfig() (*TargetConfig, error) {
 	sc := []constant.ServerConfig{
 		*constant.NewServerConfig(n.IP, n.Port, constant.WithContextPath("/nacos")),
 	}
-	cc := *constant.NewClientConfig(
+	/* cc := *constant.NewClientConfig(
 		constant.WithNamespaceId(n.Namespace),
 		constant.WithTimeoutMs(5000),
 		constant.WithNotLoadCacheAtStart(true),
@@ -59,7 +59,19 @@ func (n *NacosConfig) LoadConfig() (*TargetConfig, error) {
 		constant.WithLogLevel("debug"),
 		constant.WithUsername("nacos"),
 		constant.WithPassword(n.Password),
-	)
+	) */
+	cc := constant.ClientConfig{
+		NamespaceId:         n.Namespace,
+		TimeoutMs:           5000,
+		NotLoadCacheAtStart: true,
+		LogDir:              "", // 不写日志
+		CacheDir:            "", // 不写缓存
+		LogLevel:            "debug",
+		Username:            "nacos",
+		Password:            n.Password,
+		// LogDir:              "./tmp/nacos/log",
+		// CacheDir:            "./tmp/nacos/cache",
+	}
 	client, err := clients.NewConfigClient(
 		vo.NacosClientParam{
 			ClientConfig:  &cc,
