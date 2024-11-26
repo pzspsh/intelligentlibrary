@@ -63,14 +63,12 @@ func (n *NacosConfig) LoadConfig() (*TargetConfig, error) {
 	cc := constant.ClientConfig{
 		NamespaceId:         n.Namespace,
 		TimeoutMs:           5000,
-		NotLoadCacheAtStart: true,
-		LogDir:              "", // 不写日志
-		CacheDir:            "", // 不写缓存
+		NotLoadCacheAtStart: true, // 不加载缓存
+		LogDir:              "./tmp/nacos/log",
+		CacheDir:            "./tmp/nacos/cache",
 		LogLevel:            "debug",
 		Username:            "nacos",
 		Password:            n.Password,
-		// LogDir:              "./tmp/nacos/log",
-		// CacheDir:            "./tmp/nacos/cache",
 	}
 	client, err := clients.NewConfigClient(
 		vo.NacosClientParam{
