@@ -1,8 +1,13 @@
 {
     "apache": {
+        "path": "/apache",
         "name": "",
         "body": "",
         "header": "",
-        "key": ""
+        "key": "",
+        "method": "",
+        "query": "",
+        "icon": "",
+        "rexp": ""
     }
 }
