@@ -459,13 +459,13 @@
   "editor.formatOnType": true,
   "editor.links": false,
   "editor.fontWeight": "normal",
+  "editor.quickSuggestionsDelay": 0,
+  "editor.rename.enablePreview": false,
+  "editor.unicodeHighlight.nonBasicASCII": false,
   "editor.codeActionsOnSave": {
     // "source.organizeImports": true,
     // "source.fixAll": true
   },
-  "editor.quickSuggestionsDelay": 0,
-  "editor.rename.enablePreview": false,
-  "editor.unicodeHighlight.nonBasicASCII": false,
   "editor.tokenColorCustomizations": {
     // "comments": "#FFE5C365", // 注释的颜色
     // "keywords": "#D15FEE",   // 关键字的颜色
@@ -479,15 +479,13 @@
   "editor.unicodeHighlight.allowedLocales": {
     "zh-hant": true
   },
+  "editor.wordWrap": "on",
   "remote.SSH.showLoginTerminal": true,
   "remote.downloadExtensionsLocally": true,
   "remote.SSH.defaultForwardedPorts": [],
   "remote.SSH.remotePlatform": {
     "ip": "linux",
-    "ip": "linux",
-    "ip": "linux",
-    "ip": "linux",
-    "ip": "linux"
+    "ip2": "linux",
   },
   "remote.SSH.configFile": "C:\\Users\\admin\\.ssh\\config",
   "workbench.colorCustomizations": {
@@ -505,42 +503,35 @@
   "workbench.preferredLightColorTheme": "Monokai",
   "workbench.editor.enablePreviewFromQuickOpen": true,
   "workbench.startupEditor": "none",
-  "workbench.editor.enablePreview": false,
   "workbench.iconTheme": "material-icon-theme",
+  // "workbench.editor.enablePreview": false,
   "window.openFoldersInNewWindow": "on",
   "window.newWindowDimensions": "offset",
   "window.zoomLevel": 1,
   "security.workspace.trust.untrustedFiles": "open",
-  "[jsonc]": {
-    "editor.quickSuggestions": {
-      "strings": true
-    },
-    "editor.formatOnSave": true,
-    "editor.suggest.insertMode": "replace",
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "json.schemaDownload.enable": false,
-  "files.associations": {
-    "*.json": "jsonc"
-  },
+  "breadcrumbs.enabled": true, // 开启 vscode 文件路径导航
   "explorer.confirmDelete": false,
   "explorer.openEditors.minVisible": 1,
   "search.followSymlinks": false,
+  "files.eol": "\n",
+  "black-formatter.args": ["--line-length", "1000"],
+  "git.openRepositoryInParentFolders": "always",
+  "extensions.ignoreRecommendations": true,
+  "update.mode": "manual",
   "[go]": {
-    // "editor.snippetSuggestions": "none",
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
     "editor.codeActionsOnSave": {
       "source.organizeImports": true
     },
     "editor.defaultFormatter": "golang.go"
+    // "editor.snippetSuggestions": "none",
   },
   "gopls": {
-    "usePlaceholders": true, // add parameter placeholders when completing a function
-    // Experimental settings
+    "usePlaceholders": true, // add parameter placeholders when completing a function Experimental settings
     "completeUnimported": true, // autocomplete unimported packages
-    // "watchFileChanges": true, // watch file changes outside of the editor
     "deepCompletion": true // enable deep completion
+    // "watchFileChanges": true, // watch file changes outside of the editor
   },
   "[go.mod]": {
     "editor.formatOnSave": true,
@@ -553,46 +544,24 @@
   "go.useLanguageServer": true,
   "go.inferGopath": false,
   "go.formatTool": "goimports",
-  "go.languageServerFlags": [
-    "serve",
-    "-rpc.trace",
-    "--debug=localhost:6060"
-  ],
-  "files.eol": "\n",
-  "python.languageServer": "Default",
- /* 
-  "[python]": {
-    "editor.wordWrap": "wordWrapColumn",
-    "editor.wordWrapColumn": 1000,
-    // "editor.formatOnSave": true,
-    "editor.formatOnType": true,
+  "go.languageServerFlags": ["serve", "-rpc.trace", "--debug=localhost:6060"],
+  "[go][go.mod][python]": {
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    },
-    "editor.defaultFormatter": "ms-python.black-formatter", // 格式化"[该语言代码]"
-  }, 
-  */
+      "source.organizeImports": "explicit"
+    }
+  },
+  "go.toolsManagement.autoUpdate": true,
+  "python.languageServer": "Default",
   "[python]": {
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "ms-python.black-formatter", // 格式化"[该语言代码]" // 需安装Black Formatter
-    // "editor.wordWrap": "wordWrapColumn",
-    // "editor.wordWrapColumn": 1000,
+    "editor.defaultFormatter": "ms-python.black-formatter", // 格式化"[该语言代码]"
     "editor.codeActionsOnSave": {
       "source.organizeImports": true
-    },
+    }
+    // "editor.wordWrap": "wordWrapColumn",
+    // "editor.wordWrapColumn": 1000,
   },
-  "black-formatter.args": [  // 需安装Black Formatter
-    "--line-length",
-    "120"
-  ],
-  "git.openRepositoryInParentFolders": "always",
-  "extensions.ignoreRecommendations": true,
-  "C_Cpp.intelliSenseEngineFallback": "disabled",
-  "C_Cpp.intelliSenseEngine": "Tag Parser",
-  "update.mode": "manual",
-  "Codegeex.Privacy": true,
-  "cmake.configureOnOpen": false,
   "[javascript]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -613,16 +582,47 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "prettier.printWidth": 160,
-  "[go][go.mod][python]": {
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": "explicit"
+  "[jsonc]": {
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 300,
+    "editor.formatOnSave": true,
+    "editor.suggest.insertMode": "replace",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.associations": {
+    "*.json": "jsonc"
+  },
+  "json.schemaDownload.enable": false,
+  "C_Cpp.intelliSenseEngineFallback": "disabled",
+  "C_Cpp.intelliSenseEngine": "Tag Parser",
+  "cmake.configureOnOpen": false,
+  "cmake.options.advanced": {
+    "build": {
+      "statusBarVisibility": "inherit",
+      "inheritDefault": "visible"
+    },
+    "launch": {
+      "statusBarVisibility": "inherit",
+      "inheritDefault": "visible"
+    },
+    "debug": {
+      "statusBarVisibility": "inherit",
+      "inheritDefault": "visible"
     }
   },
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "prettier.printWidth": 160,
   "liveServer.settings.donotShowInfoMsg": true,
-  "go.toolsManagement.autoUpdate": true,
-  "terminal.integrated.enableMultiLinePasteWarning": false
+  "settingsSync.ignoredExtensions": ["cweijan.vscode-office"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "workbench.editorAssociations": {
+    "{git,gitlens,git-graph}:/**/*.{md,csv,svg}": "default"
+  }
 }
+
 ```
 
 
