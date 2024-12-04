@@ -10,6 +10,8 @@ import (
 	"strings"
 )
 
-func main() {
-	fmt.Print(strings.Trim("¡¡¡Hello, Gophers!!!", "!¡"))
+func main() { // 去除首尾的指定字符串
+	fmt.Println(strings.Trim("¡¡¡Hello, Gophers!!!", "!¡"))
+	fmt.Println(" hello world")
+	fmt.Println(strings.Trim(" hello world", " "))
 }
