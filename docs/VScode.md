@@ -504,7 +504,7 @@
   "workbench.editor.enablePreviewFromQuickOpen": true,
   "workbench.startupEditor": "none",
   "workbench.iconTheme": "material-icon-theme",
-  // "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreview": false,
   "window.openFoldersInNewWindow": "on",
   "window.newWindowDimensions": "offset",
   "window.zoomLevel": 1,
