@@ -113,6 +113,84 @@ docker run -d centos
 # 问题：docker ps，发现centos停止了
 # 常见的坑：docker 容器使用后台运行，就必须要有一个前台进程,docker发现没有应用，就会自动停止
 # Nginx容器启动后，发现自己没有提供服务，就会立刻停止，就是没有程序运行了
+
+# 创建镜像（进入dockerfile所在的路径）
+docker build -t my_image:1.0 .
+
+# 查看镜像
+docker images
+
+# 创建容器
+docker run -dit --restart=always -p 9700:9700 --name my_container my_image:1.0 
+
+# 查看容器
+docker ps -a
+
+# 进入容器
+docker exec -it my_container /bin/bash
+
+# 退出容器
+exit 或 ctrl + D
+
+# 启动容器（容器状态为exited）
+docker start my_container 
+
+# 暂停容器
+docker stop my_container 
+
+# 删除容器
+docker rm my_container 
+
+# 将容器转化为镜像
+docker commit my_container  my_image:1.2
+
+# 将镜像转为压缩包
+docker save -o my_package.tar my_image:1.2
+
+# 删除原镜像
+docker rmi my_image:1.2
+
+# 将压缩包解压得到镜像
+docker load –i my_package.tar
+
+# 从dockerhub上拉取python镜像
+docker pull python:3.10
+
+# 创建容器不进入
+docker run -dit --name=p1 python:3.10
+
+# 进入容器
+docker exec -it p1 bash
+
+# 创建文件夹
+mkdir app
+
+# 将需要的依赖拷贝到镜像指定目录
+docker cp torchvision-0.15.1+cpu-cp310-cp310-linux_x86_64.whl p1:app/
+
+# 升级pip
+pip3 install --upgrade pip
+
+# 安装需要的依赖（加上镜像源）
+pip install -r requirements_new.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 退出镜像
+exit
+
+# 将容器打包为镜像（确保容器正在运行）
+docker commit p1 logistics_park:base
+
+# 标记镜像
+docker tag logistics_park:v1.5 10.82.27.215:10081/ai_platform/logistics_park:v1.5
+
+# 将镜像推送到私有仓库
+docker push 10.82.27.215:10081/ai_platform/logistics_park:v1.5
+
+# 构建镜像---使用dockerfile构建,切换到Dockerfile文件的目录下
+docker build -t logistics_park:v1.1 .
+
+# 容器运行命令：
+docker run -dit --restart=always -p 9700:9700 --name logistics_park logistics_park:v1.1
 ```
 
 查看日志
@@ -130,6 +208,12 @@ docker ps # 查看容器ID
 -tf   				# 显示日志（-t:时间戳，-f:持续显示日志）
 --tail number 		# 要显示的日志条数
 docker logs -ft --tails 10 容器ID（10代表打印的条数）
+
+# 实时查看容器日志（Ctrl + C退出）
+ docker logs -f logistics_park
+ 
+# 类似cat的查看方式
+ docker logs logistics_park
 ```
 
 查看容器中进程信息 ps
@@ -286,7 +370,8 @@ docker build -f /home/docker-test--volume/docekrfile1 -t rich/centos:1.0 .
 ![Image text](../images/1649901176056.png)
 这个卷和外部一定有一个同步的目录
 
-四、打包 Docker 镜像
+#### 四、打包 Docker 镜像
+
 1、构建 SpringBoot 项目
 2、打包应用
 3、编写 DockerFile
@@ -294,7 +379,9 @@ docker build -f /home/docker-test--volume/docekrfile1 -t rich/centos:1.0 .
 5、发布运行
 以后在使用 Docker 的时候，给别人一个 Docker 的镜像就可以
 
-# 【Docker】从零开始将自己的应用打包到 docker 镜像
+
+
+### 零开始将自己的应用打包到 docker 镜像
 
 背景是这样：
 有一个 python 写的 web 服务，希望打包到容器中，通过容器去启动。
@@ -497,4 +584,190 @@ docker ps
 
 # 3、复制folder或file到root目录下
 docker cp folder/file 启动的容器id:/root/
+```
+
+
+
+## Docker构建与推送镜
+
+**第一步：编写Dockerfile**
+
+首先，创建一个名为`Dockerfile`的文件，该文件包含了构建镜像所需的指令和配置。以下是一个简单的示例，用于创建一个基于Python的镜像：
+```
+# 基于Python 3.8的基础镜像
+FROM python:3.9
+# 设置工作目录
+WORKDIR /app
+# 将当前目录内容复制到容器的/app目录下
+COPY . /app
+# 安装所需的依赖项（如果有）
+RUN pip install --no-cache-dir -r requirements.txt
+# 设置容器启动时执行的命令
+CMD [“python”, “app.py”]
+```
+
+在这个例子中，我们使用了一个基于Python 3.8的基础镜像，并在容器中安装了所需的依赖项。我们还设置了工作目录和启动命令。
+**第二步：构建镜像**
+在包含`Dockerfile`的目录中打开终端，并执行以下命令来构建镜像：
+
+```bash
+docker build -t your-image-name . # 注意最后的句点不能省略,.表示当前目录
+
+例子：
+	docker build -t ip/library/your-image-name:[镜像版本号] . # 可上传到你的docker镜像管理平台上
+```
+
+这将会根据`Dockerfile`中的指令构建一个名为`your-image-name`的镜像。请确保将`your-image-name`替换为您想要为镜像指定的名称。
+
+**第三步：运行容器**
+在构建镜像成功后，您可以运行一个容器来测试镜像是否按预期工作：
+
+```
+docker run -p 4000:80 your-image-name # 假设您的应用在容器内监听80端口，而您希望将容器的80端口映射到主机的4000端口上
+```
+
+这将启动一个容器，并将容器的80端口映射到主机的4000端口上。您可以根据实际情况修改端口映射设置。
+
+**第四步：推送镜像到远程仓库**
+如果您想将镜像推送到远程仓库（例如Docker Hub），请确保您已经登录到相应的仓库：
+
+```
+docker login # 输入您的用户名和密码（如果您使用的是其他远程仓库，请使用相应的命令进行登录）
+```
+
+然后，使用以下命令将镜像推送到远程仓库：
+`shell docker tag your-image-name username/your-repository # 将'your-image-name'替换为您的镜像名称，'username/your-repository'替换为您的远程仓库名称（例如：docker/myrepo） docker push username/your-repository # 将'username/your-repository'替换为您的远程仓库名称（例如：docker/myrepo）`这将把您的镜像标记为远程仓库的名称，并将其推送到该仓库。请确保将`username/your-repository`替换为您实际的远程仓库名称。
+现在您已经成功构建了Docker镜像，并将其推送到远程仓库。您可以使用相同的过程来构建和推送其他类型的镜像，只需根据需要修改`Dockerfile`和命令即可
+
+
+
+## Docker buildx push harbor
+
+#### 步骤1：登录到harbor
+
+在推送镜像之前，需要登录到harbor，通过以下命令实现：
+
+```
+docker login <your-harbor-domain>  # <your-harbor-domain>是你的harbor 服务器地址，例如：harbor.your-company.com
+# 系统会提示你输入用户名和密码
+```
+
+#### 步骤2：创建Dockerfile
+
+Dockerfile是一个包含所有必要构建指令的文件，以下是一个简单的Dockerfile示例：
+
+```
+# 编译环境
+FROM 10.0.35.97/library/golang:1.22.2
+
+WORKDIR /root/yourproject/
+ADD . /root/yourproject/
+
+# golang 依赖包代理
+RUN go env -w GO111MODULE=on
+# RUN go env -w GOPROXY=https://goproxy.cn,direct
+RUN go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
+RUN go mod download && go mod verify
+RUN cd cmd/yourproject && go build -o yourproject
+
+RUN rm -rf ./root/yourproject
+```
+
+将以上内容保存到Dockerfile文件中
+
+#### 步骤3：使用buildx构建镜像
+
+首先确保buildx已启用，通过以下命令检查buildx:
+
+```
+docker buildx version
+```
+
+接下来，使用命令构造镜像：
+
+```
+docker buildx build --platform linux/amd64,linux/arm64 -t <your-harbor-domain>/<your-repository>/<image-name>:<tag> .
+
+# 说明：
+	# --platform 指定构造平台
+	# -t 拥有指定镜像的标签，包括harbor的域名、仓库和镜像名称
+	# .表示当前目录作为上下文
+```
+
+#### 步骤4：推送镜像到harbor
+
+通过以下命令将镜像推送到harbor:
+
+```
+docker buildx build --push -t <your-harbor-domain>/<your-repository>/<image-name>:<tag> .
+
+# --push 表示构造的镜像推送到指定的仓库
+```
+
+
+
+### dockerflie
+
+使用dockerdocker build命令来构建
+
+```bash
+# docker build -f 指定dockerflie路径  -t  镜像名称：Tag   "."表示当前目录
+# 如果dockerflie在当前目录，则可以省略
+docker build -f path/to/Dockerfile -t myapp:latest .  
+# 使用官方的Python运行时作为父镜像
+FROM 10.82.27.215:10081/ai_platform/logistics_park:base
+
+# 设置工作目录为/app
+WORKDIR /app
+
+# 将当前目录内容复制到位于 /app 的容器中
+COPY . /app
+
+# 安装任何需要的包
+# RUN pip install torch-2.0.0+cpu-cp310-cp310-linux_x86_64.whl
+# RUN pip install torchvision-0.15.1+cpu-cp310-cp310-linux_x86_64.whl
+# RUN pip install --no-cache-dir -r requirements_new.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip install ai_platform_dataset_sdk-1.0.0-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip install gevent==24.2.1 -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 将/etc/localtime链接到上海时区文件
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+# 验证时区
+RUN date
+
+# 对外暴露的端口号
+EXPOSE 9700
+
+# 定义环境变量
+ENV model=gpt-4-vision-preview
+ENV api_key=d2ab5xxxxe4b929b
+ENV api_base=https:XXXXXX.openai.azure.com/
+ENV deployment_name=vision-preview-1
+ENV api_version=2023-12-01-preview
+
+# 当容器启动时运行python app.py
+CMD ["python", "app.py"]
+```
+
+
+
+### docker compose用法
+
+相当于启动启动容器命令，可以在文件中指定参数，尤其适合需要同时启动多个容器，并且容器间存在交互的场景
+
+#### docker-compose.yaml文件
+
+```bash
+version: '3'
+services:
+  logistics_park:
+    image: logistics_park:datasets_v1
+    container_name: logistics_park
+    restart: always
+    ports:
+      - "9700:9700"
+
+# 运行命令：
+# docker compose up -d
+# docker compose up --build -d   后台运行
 ```
