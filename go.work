@@ -5,7 +5,6 @@ use (
 	./ai-go/apve
 	./ai-go/frameworks/projects/pangin
 	./ai-go/functionlibrary
-	./ai-go/functionlibrary/gorequests
 	./ai-go/gotutorial
 	./ai-go/humanfunc
 	./ai-go/systemdesign/designpatterns
