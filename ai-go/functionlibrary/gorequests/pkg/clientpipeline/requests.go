@@ -12,7 +12,7 @@ import (
 	"io"
 	"strings"
 
-	"gorequests/pkg/client"
+	"function/gorequests/pkg/client"
 )
 
 var (

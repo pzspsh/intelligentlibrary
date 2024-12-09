@@ -3,7 +3,7 @@ package errorutil_test
 import (
 	"testing"
 
-	errors "gorequests/pkg/utils/errors"
+	errors "function/gorequests/pkg/utils/errors"
 
 	"github.com/stretchr/testify/require"
 )

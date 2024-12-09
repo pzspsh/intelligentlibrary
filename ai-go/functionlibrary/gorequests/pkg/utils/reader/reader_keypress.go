@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"gorequests/pkg/utils/reader/rawmode"
+	"function/gorequests/pkg/utils/reader/rawmode"
 )
 
 type KeyPressReader struct {

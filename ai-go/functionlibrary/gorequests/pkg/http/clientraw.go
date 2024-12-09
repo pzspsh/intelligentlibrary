@@ -7,7 +7,7 @@ package http
 
 import (
 	"fmt"
-	urlutil "gorequests/pkg/utils/url"
+	urlutil "function/gorequests/pkg/utils/url"
 	"io"
 	"net/http"
 	"strings"

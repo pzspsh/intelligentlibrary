@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"gorequests/pkg/utils/blackrock"
+	"function/gorequests/pkg/utils/blackrock"
 )
 
 // PruneEmptyStrings from the slice

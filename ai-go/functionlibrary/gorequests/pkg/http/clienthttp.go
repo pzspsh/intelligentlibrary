@@ -15,7 +15,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	dac "gorequests/pkg/digestauth"
+	dac "function/gorequests/pkg/digestauth"
 )
 
 type ClientHttp struct {

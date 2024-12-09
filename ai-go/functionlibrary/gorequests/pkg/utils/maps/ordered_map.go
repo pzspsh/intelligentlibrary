@@ -1,7 +1,7 @@
 package mapsutil
 
 import (
-	sliceutil "gorequests/pkg/utils/slice"
+	sliceutil "function/gorequests/pkg/utils/slice"
 
 	"golang.org/x/exp/maps"
 )

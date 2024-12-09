@@ -4,7 +4,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	errorutil "gorequests/pkg/utils/errors"
+	errorutil "function/gorequests/pkg/utils/errors"
 )
 
 var (

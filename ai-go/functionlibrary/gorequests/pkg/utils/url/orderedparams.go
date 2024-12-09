@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"strings"
 
-	mapsutil "gorequests/pkg/utils/maps"
+	mapsutil "function/gorequests/pkg/utils/maps"
 )
 
 type OrderedParams struct {
