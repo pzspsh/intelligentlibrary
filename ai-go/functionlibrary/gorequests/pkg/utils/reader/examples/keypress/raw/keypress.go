@@ -5,8 +5,8 @@ import (
 	"sync"
 	"time"
 
-	"gorequests/pkg/utils/reader"
-	stringsutil "gorequests/pkg/utils/strings"
+	"function/gorequests/pkg/utils/reader"
+	stringsutil "function/gorequests/pkg/utils/strings"
 )
 
 func main() {

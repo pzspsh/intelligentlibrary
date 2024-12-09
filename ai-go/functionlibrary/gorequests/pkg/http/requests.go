@@ -15,8 +15,8 @@ import (
 	"net/url"
 	"os"
 
-	readerutil "gorequests/pkg/utils/reader"
-	urlutil "gorequests/pkg/utils/url"
+	readerutil "function/gorequests/pkg/utils/reader"
+	urlutil "function/gorequests/pkg/utils/url"
 )
 
 var PreferHTTP bool

@@ -9,8 +9,8 @@ import (
 	"io"
 	"net/http"
 
-	"gorequests/pkg/clientpipeline"
-	urlutil "gorequests/pkg/utils/url"
+	"function/gorequests/pkg/clientpipeline"
+	urlutil "function/gorequests/pkg/utils/url"
 )
 
 type PipelineClient struct {

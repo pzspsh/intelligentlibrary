@@ -13,7 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"gorequests/pkg/client"
+	"function/gorequests/pkg/client"
 )
 
 func HTTPDialer(proxyAddr string, timeout time.Duration) DialFunc {

@@ -5,9 +5,9 @@ import (
 	"net/url"
 	"strings"
 
-	errorutil "gorequests/pkg/utils/errors"
-	osutils "gorequests/pkg/utils/os"
-	stringsutil "gorequests/pkg/utils/strings"
+	errorutil "function/gorequests/pkg/utils/errors"
+	osutils "function/gorequests/pkg/utils/os"
+	stringsutil "function/gorequests/pkg/utils/strings"
 )
 
 var DisableAutoCorrect bool

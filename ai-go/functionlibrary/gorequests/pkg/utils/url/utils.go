@@ -4,7 +4,7 @@ import (
 	"os"
 	"strings"
 
-	errorutil "gorequests/pkg/utils/errors"
+	errorutil "function/gorequests/pkg/utils/errors"
 )
 
 const (

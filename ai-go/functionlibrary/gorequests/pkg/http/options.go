@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"time"
 
-	"gorequests/pkg/client"
-	"gorequests/pkg/clientpipeline"
+	"function/gorequests/pkg/client"
+	"function/gorequests/pkg/clientpipeline"
 
 	"github.com/projectdiscovery/fastdialer/fastdialer"
 	"golang.org/x/net/http2"

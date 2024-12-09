@@ -13,9 +13,9 @@ import (
 	"net/http"
 	"strings"
 
-	"gorequests/pkg/client"
-	readerutil "gorequests/pkg/utils/reader"
-	urlutil "gorequests/pkg/utils/url"
+	"function/gorequests/pkg/client"
+	readerutil "function/gorequests/pkg/utils/reader"
+	urlutil "function/gorequests/pkg/utils/url"
 )
 
 type ContextOverride string

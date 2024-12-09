@@ -16,8 +16,8 @@ import (
 	"sync"
 	"time"
 
-	"gorequests/pkg/client"
-	"gorequests/pkg/proxy"
+	"function/gorequests/pkg/client"
+	"function/gorequests/pkg/proxy"
 )
 
 // Dialer can dial a remote HTTP server.

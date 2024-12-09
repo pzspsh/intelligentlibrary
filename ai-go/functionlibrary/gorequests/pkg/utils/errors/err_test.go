@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	errors "gorequests/pkg/utils/errors"
+	errors "function/gorequests/pkg/utils/errors"
 )
 
 func TestErrorEqual(t *testing.T) {
