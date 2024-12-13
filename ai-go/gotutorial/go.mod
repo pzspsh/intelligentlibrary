@@ -4,6 +4,7 @@ go 1.22.5
 
 require (
 	github.com/Masterminds/semver/v3 v3.2.1
+	github.com/PuerkitoBio/goquery v1.8.1
 	github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
 	github.com/charmbracelet/glamour v0.6.0
@@ -49,12 +50,15 @@ require (
 	google.golang.org/grpc v1.57.0
 	gopkg.in/corvus-ch/zbase32.v1 v1.0.0
 	gopkg.in/yaml.v3 v3.0.1
+	gorm.io/driver/postgres v1.2.3
+	gorm.io/gorm v1.22.5
 	k8s.io/klog v1.0.0
 )
 
 require (
 	github.com/Shopify/sarama v1.38.1 // indirect
 	github.com/aliyun/aliyun-log-go-sdk v0.1.50 // indirect
+	github.com/andybalholm/cascadia v1.3.2 // indirect
 	github.com/aws/aws-sdk-go v1.34.28 // indirect
 	github.com/bytedance/sonic v1.9.1 // indirect
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
@@ -83,6 +87,14 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
+	github.com/jackc/pgconn v1.10.1 // indirect
+	github.com/jackc/pgio v1.0.0 // indirect
+	github.com/jackc/pgpassfile v1.0.0 // indirect
+	github.com/jackc/pgproto3/v2 v2.2.0 // indirect
+	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
+	github.com/jackc/pgtype v1.9.1 // indirect
+	github.com/jackc/pgx/v4 v4.14.1 // indirect
 	github.com/jcmturner/aescts/v2 v2.0.0 // indirect
 	github.com/jcmturner/dnsutils/v2 v2.0.0 // indirect
 	github.com/jcmturner/gofork v1.7.6 // indirect
@@ -126,7 +138,6 @@ require (
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
-	gorm.io/gorm v1.22.5 // indirect
 )
 
 require (
