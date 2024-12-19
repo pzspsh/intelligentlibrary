@@ -29,7 +29,7 @@ func IsOpen(host string, port int, timeout time.Duration) (bool, error) {
 func PortScan(ip string, ports []int) {
 	var wg sync.WaitGroup
 	timeout := 100 * time.Millisecond
-	threads := make(chan bool, 1000)
+	threads := make(chan bool, 100)
 	start := time.Now()
 	for port := 1; port <= 65535; port++ {
 		wg.Add(1)
@@ -62,7 +62,7 @@ func PortScan1(ip string, ports []int) {
 		}
 		for i := 0; i <= splits; i++ {
 			var end int
-			start := i * 1000
+			start := i*1000 + 1
 			if i == splits {
 				end = start + endvalue
 			} else {
@@ -91,7 +91,8 @@ func PortScan2(ip string, ports []int) {
 	var wg sync.WaitGroup
 	var defaultport int = 65536
 	stime := time.Now()
-	timeout := 100 * time.Millisecond
+	// timeout := 100 * time.Millisecond
+	timeout := 10 * time.Second
 	if defaultport > 1000 {
 		splits := defaultport / 1000
 		var endvalue int
@@ -101,7 +102,7 @@ func PortScan2(ip string, ports []int) {
 		for i := 0; i <= splits; i++ {
 			var end int
 			zwg.Add(1)
-			start := i * 1000
+			start := i*1000 + 1
 			if i == splits {
 				end = start + endvalue
 			} else {
@@ -115,6 +116,7 @@ func PortScan2(ip string, ports []int) {
 						defer wg.Done()
 						isopen, _ := IsOpen(ip, port, timeout)
 						if isopen {
+							fmt.Printf("open port: %v\n", port)
 							ports = append(ports, port)
 						}
 						file.WriteString(fmt.Sprintf("%v\n", port))
@@ -217,9 +219,9 @@ func PortScan4(ip string, ports []int) {
 
 func main() {
 	ports := []int{}
-	// PortScan("10.0.35.64", ports)
+	PortScan("10.0.35.64", ports)
 	// PortScan1("10.0.35.64", ports)
-	PortScan2("10.0.35.64", ports)
+	// PortScan2("10.0.35.64", ports)
 	// PortScan3("10.0.35.64", ports)
 	// PortScan4("10.0.35.64", ports)
 }
