@@ -93,10 +93,9 @@ func UpdateData(db *sql.DB, table string, id int, updates map[string]string) (sq
 	// 执行更新操作
 	fmt.Println(query)
 	fmt.Println(args...)
-	// result, err := db.Exec(query, args...)
-	// fmt.Printf("result = %d", result)
-	// return result, err
-	return nil, nil
+	result, err := db.Exec(query, args...)
+	fmt.Printf("result = %d", result)
+	return result, err
 }
 
 func main() {
