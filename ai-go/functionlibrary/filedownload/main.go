@@ -81,7 +81,7 @@ func GitDownload() error {
 			downurllist = downurllist + "," + downtargets
 		}
 	}
-	
+
 	catalog := "../" // 存储的目录
 	if err = gitpull.GithubProjectRun(downurllist, catalog); err != nil {
 		fmt.Println("github download error: ", err)
