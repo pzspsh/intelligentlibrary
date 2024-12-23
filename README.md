@@ -75,21 +75,6 @@ print("hello world")
 
 ```
 
-### [Ai 源码]()
-
-- [ChatGPT 的开源框架](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/ChatGPT的开源框架)
-- [ChatGPT 的模型评测对比](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/ChatGPT的模型评测对比)
-- [ChatGPT 的资料](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/ChatGPT的资料)
-- [ChatGPT 的文档问答](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/ChatGPT的文档问答)
-- [ChatGPT 的行业应用](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/ChatGPT的行业应用)
-- [提示工程](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/提示工程)
-- [LLM 的训练*推理*低资源\_高效训练](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/LLM的训练_推理_低资源_高效训练)
-- [LLM 的安全问题](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/LLM的安全问题)
-- [LLM 的数据集](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/LLM的数据集)
-- [LLM 多模态](https://github.com/pzspsh/intelligentlibrary/tree/main/AI-Source-Code/LLM多模态)
-
-说明：该 AI 源码资源大都参考《[funNLP](https://github.com/fighting41love/funNLP)》和市面上比较火的开源代码进行收集和整理，需要的同学可直接下载
-
 ### 面试与解答
 
 #### 大公司算法面试
