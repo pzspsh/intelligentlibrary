@@ -21,13 +21,7 @@ type CustomLayer struct {
 
 // 注册自定义层类型，然后我们才可以使用它
 // 第一个参数是ID. 自定义层使用大于2000的数字，它必须是唯一的
-var CustomLayerType = gopacket.RegisterLayerType(
-	2001,
-	gopacket.LayerTypeMetadata{
-		"CustomLayerType",
-		gopacket.DecodeFunc(decodeCustomLayer),
-	},
-)
+var CustomLayerType = gopacket.RegisterLayerType(2001, gopacket.LayerTypeMetadata{"CustomLayerType", gopacket.DecodeFunc(decodeCustomLayer)})
 
 // 自定义层实现LayerType
 func (l CustomLayer) LayerType() gopacket.LayerType {
