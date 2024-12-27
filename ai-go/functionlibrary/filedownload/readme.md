@@ -711,3 +711,379 @@ proxy download:
 	https://update.greasyfork.org/scripts/412245/Github%20%E5%A2%9E%E5%BC%BA%20-%20%E9%AB%98%E9%80%9F%E4%B8%8B%E8%BD%BD.user.js
 */
 ```
+
+```go
+var DownTargetList = []string{
+	// 漏洞扫描工具
+	"https://github.com/shadow1ng/fscan",
+	"https://github.com/jjf012/gopoc",
+	"https://github.com/Adminisme/ServerScan",
+	"https://github.com/netxfly/x-crack",
+	"https://github.com/hack2fun/Gscan",
+	"https://github.com/k8gege/LadonGo",
+	"https://github.com/aquasecurity/trivy",
+	"https://github.com/JustinTimperio/gomap",
+	"https://github.com/projectdiscovery/nuclei",
+	"https://github.com/google/osv-scanner",
+	"https://github.com/ExpLangcn/Aopo",
+	"https://github.com/anchore/grype",
+	"https://github.com/shadow1ng/fscan",
+	"https://github.com/JKme/cube",
+	"https://github.com/veo/vscan",
+	"https://github.com/78778443/QingScanDesk",
+	"https://github.com/netxfly/Transparent-Proxy-Scanner",
+	"https://github.com/wrenchonline/glint",
+	"https://github.com/selinuxG/Golin",
+	"https://github.com/MiSecurity/x-patrol",
+	"https://github.com/s0md3v/XSStrike",
+	"https://github.com/u21h2/nacs",
+	"https://github.com/inbug-team/InScan",
+	"https://github.com/awake1t/HackReport",
+	"https://github.com/rustgopy/RGPScan",
+	"https://github.com/inbug-team/SweetBabyScan", // Red Tools 渗透测试
+	"https://github.com/arminc/clair-scanner",
+	"https://github.com/dwisiswant0/crlfuzz",
+	"https://github.com/s0md3v/XSStrike",
+	"https://github.com/quay/clair",
+	"https://github.com/anchore/anchore",
+	"https://github.com/sqlmapproject/sqlmap",
+	"https://github.com/sullo/nikto",
+	"https://github.com/aquasecurity/cloudsploit",
+	"https://github.com/xmendez/wfuzz",
+	"https://code.goole.com/archive/p/skipfish/source",
+	"https://github.com/Arachni/arachni",
+	"https://github.com/zaproxy/zaproxy",
+	"https://github.com/andresriancho/w3af",
+	"https://github.com/OWASP/Nettacker",
+	"https://github.com/owasp-amass/amass", // 深度攻击面和资产发现
+	"https://github.com/RUB-NDS/Terrapin-Scanner",
+	"https://github.com/securego/gosec", // 安全检查员
+	"https://github.com/zan8in/afrog",
+	"https://github.com/infobyte/faraday",
+	"https://github.com/lal0ne/vulnerability",
+	"https://github.com/NVIDIA/garak",
+	"https://github.com/cloudflare/flan",
+	"https://github.com/PentestPad/subzy",
+	"https://github.com/Qianlitp/crawlergo",
+	"https://github.com/future-architect/vuls",
+	"https://github.com/dwisiswant0/crlfuzz",
+	"https://github.com/Manisso/fsociety", // 夺旗赛CTF
+	"https://github.com/PentestPad/subzy",
+	"https://github.com/knownsec/pocsuite3",
+	"https://github.com/golang/vuln",
+	"https://github.com/zema1/watchvuln",
+	"https://github.com/PaytmLabs/nerve",
+	"https://github.com/chaitin/SafeLine",
+	"https://github.com/hahwul/dalfox",
+	"https://github.com/guardicore/monkey",
+	"https://github.com/awake1t/linglong",
+
+	// 端口扫描工具
+	"https://github.com/veo/vscan",
+	"https://github.com/k8gege/LadonGo",
+	"https://github.com/XinRoom/go-portScan",
+	"https://github.com/jboursiquot/portscan",
+	"https://github.com/JustinTimperio/gomap",
+	"https://github.com/robertdavidgraham/masscan",
+	"https://github.com/RustScan/RustScan",
+	"https://github.com/GhostTroops/scan4all",
+	"https://github.com/projectdiscovery/naabu",
+	"https://github.com/xuxueyun-one/PortScan",
+	"https://github.com/lcvvvv/gonmap",
+	"https://github.com/HToTH/fuckcdn", // 全网扫描找出真实IP
+	"https://github.com/s0md3v/Smap",
+	"https://github.com/XinRoom/go-portScan",
+	"https://github.com/AlphabugX/AScanPort",
+	"https://github.com/xs25cn/scanPort",
+	"https://github.com/vesche/scanless",
+	"https://github.com/GhostTroops/scan4all",
+	"https://github.com/se55i0n/PortScanner",
+	"https://github.com/redtoolskobe/scaninfo", // 信息扫描
+	"https://github.com/s0md3v/Silver",
+	"https://github.com/JimYJ/scanproxy",
+	"https://github.com/ATpiu/asset-scan",
+	"https://github.com/4dogs-cn/TXPortMap",
+	"https://github.com/lcvvvv/kscan",
+	"https://github.com/selinuxG/Golin",
+	"http://www.github-zh.com/collections/port-scanner",
+	"https://github.com/nmap/nmap",
+	"https://github.com/qq431169079/PortScanner-3",
+
+	// 算法
+	"https://github.com/jwasham/coding-interview-university",
+	"https://github.com/TheAlgorithms/Python",
+	"https://github.com/trekhleb/javascript-algorithms",
+	"https://github.com/yangshun/tech-interview-handbook",
+	"https://github.com/halfrost/LeetCode-Go",
+	"https://github.com/donnemartin/interactive-coding-challenges",
+	"https://github.com/keon/algorithms",
+	"https://github.com/azl397985856/leetcode",
+	"https://github.com/keon/algorithms",
+	"https://github.com/facebook/zstd",
+	"https://github.com/TheAlgorithms/C",
+	"https://github.com/TheAlgorithms/Go",
+	"https://github.com/twitter/the-algorithm-ml",
+
+	// 指纹识别工具
+	"https://github.com/TideSec/TideFinger",
+	"https://github.com/webanalyzer/rules",
+	"https://github.com/se55i0n/Webfinger",
+	"https://github.com/lcvvvv/kscan",
+	"https://github.com/yhy0/FuckFingerprint",
+	"https://github.com/l3m0n/whatweb",
+	"https://github.com/Athena1337/blackJack",
+	"https://github.com/newbe3three/gotoscan",
+	"https://github.com/boy-hack/goWhatweb",
+	"https://github.com/lemonlove7/EHole_magic",
+	"https://github.com/zhzyker/dismap",
+	"https://github.com/lcvvvv/appfinger",
+	"https://github.com/wintrysec/Taiji",
+	"https://github.com/EdgeSecurityTeam/EHole",
+	"https://github.com/EASY233/Finger",
+
+	// 内网穿透工具
+	"https://github.com/ginuerzh/gost",
+	"https://github.com/cloudflare/cloudflared",
+	"https://github.com/go-gost/gost",
+	"https://github.com/vzex/dog-tunnel",
+	"https://github.com/fatedier/frp",
+	"https://github.com/ehang-io/nps",
+	"https://github.com/v2fly/v2ray-core",
+	"https://github.com/XTLS/Xray-core",
+	"https://github.com/xtaci/kcptun",
+	"https://github.com/jpillora/chisel",
+	"https://github.com/p4gefau1t/trojan-go",
+	"https://github.com/telepresenceio/telepresence",
+	"https://github.com/traefik/traefik",
+	"https://github.com/mitmproxy/mitmproxy",
+	"https://github.com/SagerNet/sing-box",
+	"https://github.com/nginx-proxy/nginx-proxy",
+	"https://github.com/joewalnes/websocketd",
+	"https://github.com/snail007/goproxy",
+	"https://github.com/inconshreveable/ngrok",
+	"https://github.com/antoniomika/sish",
+	"https://github.com/pgrok/pgrok",
+	"https://github.com/FunnyWolf/TFirewall",
+	"https://github.com/Mob2003/rakshasa",
+	"https://github.com/Dliv3/Venom", // 渗透测试仪的多跳代理
+	"https://github.com/v2ray/v2ray-core",
+	"https://github.com/v2fly/v2ray-core",
+	"https://github.com/drk1wi/Modlishka",
+	"https://github.com/XTLS/Xray-core",
+
+	// 网络代理
+	"https://github.com/traefik/traefik",
+	"https://github.com/nginx-proxy/nginx-proxy",
+	"https://github.com/oauth2-proxy/oauth2-proxy",
+	"https://github.com/SagerNet/sing-box",
+	"https://github.com/DNSCrypt/dnscrypt-proxy",
+	"https://github.com/XX-net/XX-Net",
+	"https://github.com/elazarl/goproxy",
+	"https://github.com/goproxyio/goproxy",
+	"https://github.com/umputun/reproxy",
+	"https://github.com/malfunkt/hyperfox",
+	"https://github.com/Shopify/toxiproxy",
+
+	// 子域名扫描工具
+	"https://github.com/yunxu1/dnsub",
+	"https://github.com/guelfoweb/knock",
+	"https://github.com/jwt1399/Sec-Tools",
+	"https://github.com/knownsec/ksubdomain",
+	"https://github.com/projectdiscovery/subfinder",
+	"https://github.com/shadowabi/AutoDomain",
+	"https://github.com/ZhuriLab/Starmap",
+	"https://github.com/shadow1ng/fscan",
+	"https://github.com/ExpLangcn/Aopo",
+	"https://github.com/lijiejie/subDomainsBrute",
+	"https://github.com/guelfoweb/knock",
+	"https://github.com/yanxiu0614/subdomain3",
+	"https://github.com/laramies/theHarvester",
+	"https://github.com/aboul3la/Sublist3r",
+	"https://github.com/evilsocket/dnssearch",
+	"https://github.com/PentestPad/subzy",
+	"https://github.com/haccer/subjack",
+	"https://github.com/tomnomnom/assetfinder",
+	"https://github.com/tomnomnom/waybackurls",
+
+	// 漏洞脚本
+	"https://github.com/projectdiscovery/nuclei-templates",
+	"https://github.com/trickest/cve",
+	"https://github.com/nomi-sec/PoC-in-GitHub",
+
+	// 游戏开发
+	"https://github.com/viphxin/xingo",
+	"https://github.com/suiyunonghen/DxTcpServer" // 游戏网络通信框架
+
+	// 运维
+	"https://github.com/1Panel-dev/1Panel",
+
+	// 大模型
+	"https://github.com/ollama/ollama",
+	"https://github.com/geekan/MetaGPT",
+	"https://github.com/mlabonne/llm-course",
+	"https://github.com/run-llama/llama_index",
+	"https://github.com/QuivrHQ/quivr",
+	"https://github.com/hiyouga/LLaMA-Factory",
+	"https://github.com/milvus-io/milvus",
+	"https://github.com/xtekky/gpt4free",
+	"https://github.com/PlexPt/awesome-chatgpt-prompts-zh",
+	"https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web",
+	"https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+	"https://github.com/huggingface/transformers",
+	"https://github.com/pytorch/pytorch",
+	"https://github.com/d2l-ai/d2l-zh",
+	"https://github.com/keras-team/keras",
+	"https://github.com/labmlai/annotated_deep_learning_paper_implementations",
+	"https://github.com/hpcaitech/ColossalAI",
+	"https://github.com/aymericdamien/TensorFlow-Examples",
+	"https://github.com/fighting41love/funNLP",
+	"https://github.com/Significant-Gravitas/AutoGPT",
+	"https://github.com/binary-husky/gpt_academic",
+	"https://github.com/geekan/MetaGPT",
+	"https://github.com/2noise/ChatTTS",
+	"https://github.com/Pythagora-io/gpt-pilot",
+	"https://github.com/rasbt/MachineLearning-QandAI-book",
+	"https://github.com/rasbt/deeplearning-models",
+	"https://github.com/rasbt/machine-learning-book",
+	"https://github.com/rasbt/LLM-workshop-2024",
+	"https://github.com/google-research/bert",
+	"https://github.com/microsoft/AI-For-Beginners",
+	"https://github.com/GokuMohandas/Made-With-ML",
+	"https://github.com/ymcui/Chinese-LLaMA-Alpaca",
+	"https://github.com/Ciphey/Ciphey", // 夺旗赛 (CTF) 和网络安全资源#使用自然语言处理和人工智能以及一些全自动解密/解码/破解工具。
+	"https://github.com/lazyprogrammer/machine_learning_examples",
+	"https://github.com/amusi/Deep-Learning-Interview-Book",
+	"https://github.com/meta-llama/llama",
+	"https://github.com/ageitgey/face_recognition", // 人脸识别#本项目是世界上最简洁的人脸识别库，你可以使用Python和命令行工具提取、识别、操作人脸
+	"https://github.com/openai/whisper",            //whisper 是一个通用语音识别模型
+
+	// 资产扫描
+	"https://github.com/maurosoria/dirsearch",
+	"https://github.com/hakluke/hakrawler",
+	"https://github.com/tomnomnom/assetfinder",
+
+	// 数学
+	"https://github.com/apachecn/ailearning",
+	"https://github.com/3b1b/manim",
+	"https://github.com/jiye-ML/math_study",
+	"https://github.com/jakevdp/PythonDataScienceHandbook",
+	"https://github.com/ManimCommunity/manim",
+
+	// 机器学习
+	"https://github.com/MorvanZhou/tutorials",
+	"https://github.com/lawlite19/MachineLearning_Python",
+	"https://github.com/shunliz/Machine-Learning",
+	"https://github.com/apachecn/ailearning",
+
+	// 深度学习
+	"https://github.com/Mikoto10032/DeepLearning",
+	"https://github.com/fengdu78/deeplearning_ai_books",
+
+	// 数据库
+
+	// 消息队列
+	"https://github.com/nsqio/nsq",
+
+	// 分布式
+	"https://github.com/busgo/forest",
+
+	// 微服务
+
+	// 容器
+
+	// 反编译工具
+
+	// 爬虫工具
+	"https://github.com/projectdiscovery/katana",
+	"https://github.com/gocolly/colly",
+	"https://github.com/scrapy/scrapy",
+
+	// 网络安全
+	"https://github.com/Clouditera/SecGPT",
+
+	// API接口开发
+
+	// 视频播放器
+	"https://github.com/Hunlongyu/ZY-Player",
+	"https://github.com/gwuhaolin/livego",
+
+	// 爆破工具
+	"https://github.com/niudaii/crack",
+	"https://github.com/awake1t/PortBrute",
+	"https://github.com/JKme/cube",
+	"https://github.com/i11us0ry/goon",
+	"https://github.com/byt3bl33d3r/CrackMapExec",
+	"https://github.com/netxfly/x-crack",
+
+	// 密码破解
+	"https://github.com/Ciphey/Ciphey",
+
+	// 人工智能
+
+	// 机器人
+
+	// 图形界面
+
+	// 操作系统
+
+	// 网络设备
+
+	// 音视频
+
+	// 图形图像处理
+
+	// 自然语言处理
+
+	// 网络通信
+	"https://github.com/curl/curl",
+	"https://github.com/xindong/frontd",
+	"https://github.com/dxcweb/go-nat-hole",
+	"https://github.com/funny/link",
+	"https://github.com/gwuhaolin/lightsocks", // 网络混淆代理
+	"https://github.com/txthinking/brook", // 跨平台加密功能
+	"https://github.com/AdguardTeam/AdGuardHome", // 广告拦截，反跟踪dns服务器
+
+	// 网络协议
+	"https://github.com/brewlin/net-protocol",
+	"https://github.com/impact-eintr/netstack",
+	"https://github.com/quic-go/quic-go",
+	"https://github.com/apernet/hysteria",
+
+	// Py项目
+
+	// Go项目
+
+	// C项目
+
+	// 其它
+	"https://github.com/freeCodeCamp/freeCodeCamp",
+	"https://github.com/EbookFoundation/free-programming-books",
+	"https://github.com/sindresorhus/awesome",
+	"https://github.com/public-apis/public-apis",
+	"https://github.com/codecrafters-io/build-your-own-x",
+	"https://github.com/jwasham/coding-interview-university",
+	"https://github.com/kamranahmedse/developer-roadmap",
+	"https://github.com/donnemartin/system-design-primer",
+	"https://github.com/vinta/awesome-python",
+	"https://github.com/practical-tutorials/project-based-learning",
+	"https://github.com/TheAlgorithms/Python",
+	"https://github.com/torvalds/linux",
+	"https://github.com/Significant-Gravitas/AutoGPT",
+	"https://github.com/microsoft/vscode",
+	"https://github.com/jackfrued/Python-100-Days",
+	"https://github.com/trimstray/the-book-of-secret-knowledge",
+	"https://github.com/avelino/awesome-go",
+	"https://github.com/ytdl-org/youtube-dl",
+	"https://github.com/golang/go",
+	"https://github.com/Genymobile/scrcpy",
+	"https://github.com/kubernetes/kubernetes",
+	"https://github.com/ollama/ollama",
+	"https://github.com/syncthing/syncthing",
+	"https://github.com/Lengso/iplookup", // IP反查域名
+	"https://github.com/corazawaf/coraza",
+	"https://github.com/kgretzky/evilginx2", // 
+	"https://github.com/hashicorp/vault", // 密钥管理工具
+	"https://github.com/rancher/rancher", // 管理和部署k8s完整解决方案
+	"https://github.com/secdev/scapy",
+}
+```

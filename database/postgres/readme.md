@@ -41,7 +41,7 @@ create table lr_array1(
     array_t    text[]);   --text类型数组
 ```
 
-插入数据
+## 插入数据
 
 ```sql
 --数组类型的插入方式两种
@@ -49,30 +49,57 @@ create table lr_array1(
 insert into test_array1(id, array_i, array_t) values(1 , '{1,2,3}', '{"abc","def"}');
 --第二种
 insert into test_array1(id, array_i, array_t) values(2 ,array[4,5,6,7],array['h','d','s']);
-```
 
-查询
-
-```sql
-select array_i from test_array1 where id = 1;--查询数组名即可
-select array_i[1],array_t[1] from test_array1;--通过[]方式获取数据，下标从1开始
---查询array_i数据组中包含有3的 数据
-```
-
-```sql
---查询array_i数据组中包含有3的 数据
-select * from lr_array1 WHERE array_i @>'{3}'
 
 insert into lr_array1(id, array_i, array_t) values(1, '{1,2,3}', '{"abc","def"}');
 insert into lr_array1(id, array_i, array_t) values(2, '{1,2,3}', '{"abc","def"}');
 insert into lr_array1 values(5,'{3,2,1,0}','{"abc","cde","bef"}')
 insert into lr_array1(id, array_i, array_t) values(3, array[4,5,6,7], array['h','d','s']);
+```
 
+## 查询
 
+```sql
+select array_i from test_array1 where id = 1;--查询数组名即可
+select array_i[1],array_t[1] from test_array1;--通过[]方式获取数据，下标从1开始
+--查询array_i数据组中包含有3的 数据
+
+--查询array_i数据组中包含有3的 数据
+select * from lr_array1 WHERE array_i @>'{3}'
 -- SELECT created_at FROM zck_asset;
 SELECT COUNT(*) FROM zck_asset WHERE created_at BETWEEN '2023-01-01' AND '2023-12-31';
 ```
 
+
+## 更新
+使用UPDATE语句对表中的数据进行更新，基本的语法结构如下
+```sql
+UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;
+
+-- 示例：将学生表中，学号为1001的学生的姓名和年龄更新为“张三”和20岁。
+UPDATE students SET name = '张三', age = 20 WHERE id = 1001;
+
+--示例：将员工表中，部门号为1的员工的工资更新为部门表中部门号为1的部门的平均工资
+UPDATE employees e SET salary = (
+  SELECT AVG(salary) FROM departments d WHERE e.department_id = d.id AND d.id = 1)
+WHERE e.department_id = 1;
+
+--高级查询更新操作
+--示例：将学生表中，成绩高于所在班级平均成绩的学生成绩降低1分
+UPDATE students SET score = score - 1
+WHERE score > (SELECT AVG(score) FROM students WHERE class_id = students.class_id);
+
+--JOIN操作可以帮助我们在更新数据时关联多个表
+--示例：将订单表中，商品库存不足的订单状态更新为“缺货”
+UPDATE orders o SET status = '缺货'
+JOIN (SELECT product_id FROM products WHERE stock < 0 ) p ON o.product_id = p.product_id;
+
+--CTE（Common Table Expressions）是SQL查询中的一种高级特性，它可以让我们在查询更新操作中创建一个临时的结果集，以便在后续查询中使用
+--示例：将员工表中，部门人数超过10人的部门员工的工资增加10%
+WITH DepartmentCount AS (SELECT department_id, COUNT(*) AS total FROM employees
+  GROUP BY department_id HAVING COUNT(*) > 10) UPDATE employees e SET salary = salary * 1.1
+WHERE EXISTS (SELECT 1 FROM DepartmentCount d WHERE e.department_id = d.department_id);
+```
 
 
 ## Ubuntu安装postgres
