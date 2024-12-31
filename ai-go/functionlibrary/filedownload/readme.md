@@ -904,6 +904,10 @@ var DownTargetList = []string{
 	"https://github.com/haccer/subjack",
 	"https://github.com/tomnomnom/assetfinder",
 	"https://github.com/tomnomnom/waybackurls",
+	"https://github.com/d3mondev/puredns",
+	"https://github.com/PentestPad/subzy",
+	"https://github.com/edoardottt/scilla",
+	"https://github.com/boy-hack/ksubdomain",
 
 	// 漏洞脚本
 	"https://github.com/projectdiscovery/nuclei-templates",
@@ -913,6 +917,9 @@ var DownTargetList = []string{
 	// 游戏开发
 	"https://github.com/viphxin/xingo",
 	"https://github.com/suiyunonghen/DxTcpServer" // 游戏网络通信框架
+	"https://github.com/icexin/gocraft",
+	"https://github.com/hajimehoshi/ebiten",
+	"https://github.com/OpenDiablo2/OpenDiablo2",
 
 	// 运维
 	"https://github.com/1Panel-dev/1Panel",
@@ -956,6 +963,10 @@ var DownTargetList = []string{
 	"https://github.com/meta-llama/llama",
 	"https://github.com/ageitgey/face_recognition", // 人脸识别#本项目是世界上最简洁的人脸识别库，你可以使用Python和命令行工具提取、识别、操作人脸
 	"https://github.com/openai/whisper",            //whisper 是一个通用语音识别模型
+	"https://github.com/labring/FastGPT",
+	"https://github.com/songquanpeng/one-api",
+	"https://github.com/Calcium-Ion/new-api?tab=readme-ov-file",
+	"https://github.com/coaidev/coai",
 
 	// 资产扫描
 	"https://github.com/maurosoria/dirsearch",
@@ -1085,5 +1096,30 @@ var DownTargetList = []string{
 	"https://github.com/hashicorp/vault", // 密钥管理工具
 	"https://github.com/rancher/rancher", // 管理和部署k8s完整解决方案
 	"https://github.com/secdev/scapy",
+	"https://github.com/hengyoush/kyanos", // 网络解析器
+	"https://github.com/j3ssie/osmedeus", 
+	
+	
+	// 夺旗赛（CTF）和网络安全资源
+	"https://github.com/trimstray/the-book-of-secret-knowledge",
+	"https://github.com/swisskyrepo/PayloadsAllTheThings",
+	"https://github.com/sherlock-project/sherlock",
+	"https://github.com/danielmiessler/SecLists",
+	"https://github.com/drduh/macOS-Security-and-Privacy-Guide",
+	"https://github.com/jivoi/awesome-osint",
+	"https://github.com/Ciphey/Ciphey",
+	"https://github.com/bettercap/bettercap",
+	"https://github.com/vitalysim/Awesome-Hacking-Resources",
+	"https://github.com/Gallopsled/pwntools",
+	"https://github.com/gophish/gophish",
+	"https://github.com/laramies/theHarvester",
+	"https://github.com/s0md3v/Photon",
+	"https://github.com/Manisso/fsociety",
+	"https://github.com/GTFOBins/GTFOBins.github.io",
+	"https://github.com/juice-shop/juice-shop",
+	"https://github.com/ctf-wiki/ctf-wiki",
+	"https://github.com/pwndbg/pwndbg",
+	"https://github.com/google/google-ctf",
+	"https://github.com/rsmusllp/king-phisher",
 }
 ```
