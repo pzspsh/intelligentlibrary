@@ -64,7 +64,7 @@ func Decrypt(data []byte) []byte {
 	}
 
 	if len(data) < gcm.NonceSize() {
-		panic(err)
+		panic(len(data))
 	}
 
 	plaintext, err := gcm.Open(nil, data[:gcm.NonceSize()], data[gcm.NonceSize():], nil)
@@ -440,4 +440,3 @@ func main() {
 		time.Sleep(60 * time.Second)
 	}
 }
-
