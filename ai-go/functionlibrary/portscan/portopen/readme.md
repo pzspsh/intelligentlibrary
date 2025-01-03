@@ -1,5 +1,7 @@
 # 端口探活
 ```go
+package main
+
 import (
 	"fmt"
 	"net"
