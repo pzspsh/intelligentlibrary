@@ -6,47 +6,33 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"io"
 	"log"
-	"net"
-	"net/http"
+	"time"
+
+	"github.com/google/gopacket"
+	"github.com/google/gopacket/pcap"
 )
 
-func handleRequest(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("BBBBBBBBB", r.URL.Path)
-	fmt.Println(r.Header)
-	// fmt.Println(resp.Header)
-	// Connect to Burp Suite proxy
-	proxyConn, err := net.Dial("tcp", "127.0.0.1:8080")
-	if err != nil {
-		log.Fatalf("Error connecting to Burp Suite proxy: %v", err)
-	}
-	defer proxyConn.Close()
-
-	// Forward request to Burp Suite
-	err = r.WriteProxy(proxyConn)
-	if err != nil {
-		log.Fatalf("Error forwarding request to Burp Suite: %v", err)
-	}
-
-	// Read response from Burp Suite
-	resp, err := http.ReadResponse(bufio.NewReader(proxyConn), r)
-	if err != nil {
-		log.Fatalf("Error reading response from Burp Suite: %v", err)
-	}
-
-	// Forward response to client
-	for k, v := range resp.Header {
-		w.Header().Set(k, v[0])
-	}
-	w.WriteHeader(resp.StatusCode)
-	io.Copy(w, resp.Body)
-	resp.Body.Close()
-}
-
 func main() {
-	http.HandleFunc("/", handleRequest)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	device, err := pcap.FindAllDevs()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Devices found:", device[1].Name)
+	handle, err := pcap.OpenLive(device[0].Name, 65536, true, pcap.BlockForever)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer handle.Close()
+
+	packetCount := 0
+	packetSource := gopacket.NewPacketSource(handle, handle.LinkType())
+	for packet := range packetSource.Packets() {
+		packetCount++
+		fmt.Println("Packet:", packetCount)
+		fmt.Println(packet)
+		// TODO: 进行数据包分析
+		time.Sleep(1 * time.Second) // 仅用于示例，避免数据包流量过大
+	}
 }
