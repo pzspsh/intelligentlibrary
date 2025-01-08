@@ -1,59 +1,86 @@
 /*
 @File   : main.go
 @Author : pan
-@Time   : 2024-04-29 15:05:26
+@Time   : 2024-04-29 15:46:25
 */
 package main
 
 import (
 	"fmt"
 	"log"
-
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/layers"
-	"github.com/google/gopacket/pcap"
+	"net/http"
 )
 
 func main() {
-	device, err := pcap.FindAllDevs()
-	if err != nil {
-		log.Fatal(err)
+	// http.ListenAndServe(":8080", http.HandlerFunc(proxyHandler))
+	http.HandleFunc("/", proxyHandler)
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+func proxyHandler(w http.ResponseWriter, r *http.Request) {
+	// 打印请求的URL和方法
+	fmt.Println("=========================================================================")
+	fmt.Printf("URL: %s %s\n", r.URL.Path, r.Method)
+	// fmt.Printf("Method: %s\n", r.Method)
+
+	// fmt.Println("Headers:")
+	for name, headers := range r.Header { // 打印请求头部信息
+		for _, h := range headers {
+			fmt.Printf("%s: %s\n", name, h)
+		}
 	}
-
-	handle, err := pcap.OpenLive(device[0].Name, 65536, true, pcap.BlockForever)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer handle.Close()
-
-	packetSource := gopacket.NewPacketSource(handle, handle.LinkType())
-	for packet := range packetSource.Packets() {
-		ethernetLayer := packet.Layer(layers.LayerTypeEthernet)
-		if ethernetLayer != nil {
-			ethernetPacket, _ := ethernetLayer.(*layers.Ethernet)
-			fmt.Println(ethernetPacket)
-			ipLayer := packet.Layer(layers.LayerTypeIPv4)
-			if ipLayer != nil {
-				ipPacket, _ := ipLayer.(*layers.IPv4)
-				fmt.Println("Source IP:", ipPacket.SrcIP)
-				fmt.Println("Destination IP:", ipPacket.DstIP)
-
-				tcpLayer := packet.Layer(layers.LayerTypeTCP)
-				if tcpLayer != nil {
-					tcpPacket, _ := tcpLayer.(*layers.TCP)
-					fmt.Println("Source Port:", tcpPacket.SrcPort)
-					fmt.Println("Destination Port:", tcpPacket.DstPort)
-					fmt.Println("Payload:", string(tcpPacket.Payload))
-				}
-
-				udpLayer := packet.Layer(layers.LayerTypeUDP)
-				if udpLayer != nil {
-					udpPacket, _ := udpLayer.(*layers.UDP)
-					fmt.Println("Source Port:", udpPacket.SrcPort)
-					fmt.Println("Destination Port:", udpPacket.DstPort)
-					fmt.Println("Payload:", string(udpPacket.Payload))
-				}
-			}
+	fmt.Println(r.Body)
+	buf := make([]byte, 1024) // 打印请求体
+	for {
+		n, err := r.Body.Read(buf)
+		if n > 0 {
+			fmt.Print(string(buf[:n]))
+		}
+		if err != nil {
+			break
 		}
 	}
 }
+
+/* import (
+    "fmt"
+    "log"
+    "net/http"
+)
+
+func requestHandler(w http.ResponseWriter, r *http.Request) {
+    // 打印请求的URL和方法
+    fmt.Printf("URL: %s\n", r.URL.Path)
+    fmt.Printf("Method: %s\n", r.Method)
+
+    // 打印请求头部信息
+    fmt.Println("Headers:")
+    for name, headers := range r.Header {
+        for _, h := range headers {
+            fmt.Printf("%s: %s\n", name, h)
+        }
+    }
+
+    // 打印请求体
+    buf := make([]byte, 1024)
+    for {
+        n, err := r.Body.Read(buf)
+        if n > 0 {
+            fmt.Print(string(buf[:n]))
+        }
+        if err != nil {
+            break
+        }
+    }
+}
+
+func main() {
+    // 注册路由处理函数
+    http.HandleFunc("/", requestHandler)
+
+    // 启动HTTP服务器并监听特定端口
+    err := http.ListenAndServe(":8080", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+} */

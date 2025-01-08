@@ -129,7 +129,7 @@ func main() {
 		log.Printf("Starting capture on interface %q", *iface)
 		// handle, err = pcap.OpenLive(*iface, int32(*snaplen), true, pcap.BlockForever)
 		log.Printf("Starting capture on interface %q", device[0].Name)
-		handle, err = pcap.OpenLive(device[0].Name, int32(*snaplen), true, pcap.BlockForever)
+		handle, err = pcap.OpenLive("\\Device\\NPF_{B7E01C74-876F-44B9-95FF-13BAB4AB8D9E}", int32(*snaplen), true, pcap.BlockForever)
 	}
 	if err != nil {
 		log.Fatal(err)
