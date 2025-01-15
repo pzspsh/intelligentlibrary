@@ -920,6 +920,10 @@ var DownTargetList = []string{
 	"https://github.com/icexin/gocraft",
 	"https://github.com/hajimehoshi/ebiten",
 	"https://github.com/OpenDiablo2/OpenDiablo2",
+	"https://github.com/faiface/pixel",
+	"https://github.com/gen2brain/raylib-go/raylib",
+	"https://github.com/go-gl/gl/v4.1-core/gl",
+	"https://github.com/go-gl/glfw/v3.3/glfw",
 
 	// 运维
 	"https://github.com/1Panel-dev/1Panel",
