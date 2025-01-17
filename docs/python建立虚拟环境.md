@@ -12,4 +12,22 @@ $ deactivate
 
 https://mirrors.aliyun.com/pypi/simple
 https://pypi.douban.com/simple
+
+```
+
+```bash
+# 安装虚拟环境（如果尚未安装）
+pip install virtualenv
+# 创建一个新的虚拟环境
+virtualenv tf_env
+ 
+# 激活虚拟环境
+# 在 Windows 上
+tf_env\Scripts\activate
+ 
+# 在 Unix 或 MacOS 上
+source tf_env/bin/activate
+ 
+# 在虚拟环境中安装 TensorFlow
+pip install tensorflow
 ```
