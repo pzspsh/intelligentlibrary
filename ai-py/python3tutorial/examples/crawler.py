@@ -1,16 +1,16 @@
 # -*- encoding: utf-8 -*-
-'''
+"""
 @File   : crawler.py
 @Time   : 2024-06-06 15:01:27
 @Author : pan
-'''
+"""
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-def CrawlerShowMoreClick(Url: str): # 实现Show More...按钮点击
+def CrawlerShowMoreClick(Url: str):  # 实现Show More...按钮点击
     """
     实现Show More...按钮点击
     :param Url: 要抓取的网页URL
@@ -31,7 +31,7 @@ def CrawlerShowMoreClick(Url: str): # 实现Show More...按钮点击
         # show_more_button = driver.find_element_by_id('showMoreButtonId')
 
         # 等待"Show more"按钮出现并变得可点击
-        show_more_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'load-more-btn')))
+        show_more_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "load-more-btn")))
 
         # 点击"Show more"按钮
         show_more_button.click()
