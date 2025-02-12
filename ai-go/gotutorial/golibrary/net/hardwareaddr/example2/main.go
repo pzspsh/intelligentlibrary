@@ -1,3 +1,5 @@
+//go:build windows
+
 /*
 @File   : main.go
 @Author : pan
