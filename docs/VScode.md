@@ -287,7 +287,12 @@
     // Experimental settings
     "completeUnimported": true, // autocomplete unimported packages
     "watchFileChanges": true, // watch file changes outside of the editor
-    "deepCompletion": true // enable deep completion
+    "deepCompletion": true, // enable deep completion
+    "staticcheck": true,
+    "analyses": {
+      "unusedparams": true,
+      "unusedwrite": true
+    }
   },
   "[go.mod]": {
     "editor.formatOnSave": true,
