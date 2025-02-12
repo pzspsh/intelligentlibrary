@@ -1,10 +1,12 @@
 module function
 
-go 1.22.5
+go 1.23
+
+toolchain go1.24.0
 
 require (
 	github.com/Kagami/go-face v0.0.0-20210630145111-0c14797b4d0e
-	github.com/PuerkitoBio/goquery v1.9.2
+	github.com/PuerkitoBio/goquery v1.10.1
 	github.com/apache/pulsar-client-go v0.11.0
 	github.com/cnf/structhash v0.0.0-20201127153200-e1b16c1ebc08
 	github.com/cryptix/wav v0.0.0-20180415113528-8bdace674401
@@ -36,9 +38,9 @@ require (
 	github.com/tosone/minimp3 v1.0.2
 	go.mongodb.org/mongo-driver v1.11.7
 	gocv.io/x/gocv v0.35.0
-	golang.org/x/crypto v0.27.0
+	golang.org/x/crypto v0.31.0
 	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1
-	golang.org/x/net v0.29.0
+	golang.org/x/net v0.33.0
 	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/driver/mysql v1.5.1
 	gorm.io/driver/postgres v1.5.2
@@ -55,7 +57,7 @@ require (
 	github.com/akrylysov/pogreb v0.10.1 // indirect
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.18 // indirect
 	github.com/andybalholm/brotli v1.0.6 // indirect
-	github.com/andybalholm/cascadia v1.3.2 // indirect
+	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/antchfx/htmlquery v1.3.2 // indirect
 	github.com/antchfx/xmlquery v1.4.1 // indirect
 	github.com/antchfx/xpath v1.3.1 // indirect
@@ -155,10 +157,10 @@ require (
 	golang.org/x/mobile v0.0.0-20201217150744-e6ae53a27f4f // indirect
 	golang.org/x/mod v0.19.0 // indirect
 	golang.org/x/oauth2 v0.11.0 // indirect
-	golang.org/x/sync v0.8.0 // indirect
-	golang.org/x/sys v0.25.0 // indirect
-	golang.org/x/term v0.24.0 // indirect
-	golang.org/x/text v0.18.0 // indirect
+	golang.org/x/sync v0.10.0 // indirect
+	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/term v0.27.0 // indirect
+	golang.org/x/text v0.21.0 // indirect
 	golang.org/x/tools v0.22.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013 // indirect
