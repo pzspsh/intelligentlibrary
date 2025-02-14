@@ -7,7 +7,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net"
 	"os"
@@ -96,7 +96,7 @@ func main() {
 
 			// 这里pause, 运行命令lsof -P -p $pid，检查下有没有listenfd传过来，除了0，1，2，应该有看到3
 			// ctrl+d to continue
-			ioutil.ReadAll(os.Stdin)
+			io.ReadAll(os.Stdin)
 
 			fmt.Println("....")
 			_, err = net.FileListener(ff)

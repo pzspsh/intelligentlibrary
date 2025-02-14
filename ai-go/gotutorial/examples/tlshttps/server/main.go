@@ -9,9 +9,9 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -35,7 +35,7 @@ func main() {
 func loadCA(caFile string) *x509.CertPool {
 	pool := x509.NewCertPool()
 
-	if ca, e := ioutil.ReadFile(caFile); e != nil {
+	if ca, e := os.ReadFile(caFile); e != nil {
 		log.Fatal("ReadFile: ", e)
 	} else {
 		pool.AppendCertsFromPEM(ca)
