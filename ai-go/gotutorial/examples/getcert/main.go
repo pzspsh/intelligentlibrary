@@ -7,6 +7,7 @@ package main
 
 import (
 	"crypto/tls"
+	"encoding/hex"
 	"fmt"
 	"net/http"
 	"time"
@@ -52,4 +53,12 @@ func main() {
 	fmt.Println("  签名：", cert.Signature)
 	fmt.Println("  key id：", cert.AuthorityKeyId)
 	fmt.Println("  版本号：", cert.Version)
+	fmt.Println("  授权访问：", cert.OCSPServer)
+	fmt.Println("扩展信息 (Extensions):")
+	for _, ext := range cert.Extensions {
+		fmt.Printf("  - ID: %s\n", ext.Id)
+		fmt.Printf("    Critical: %v\n", ext.Critical)
+		fmt.Printf("    Value: %s\n", hex.EncodeToString(ext.Value))
+		fmt.Println("    --------------------")
+	}
 }
