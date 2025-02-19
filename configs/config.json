@@ -1,24 +1,20 @@
 {
-    "name": "demo",
-    "hello": {
-        "first": 2,
-        "status": 200
+  "name": "demo",
+  "hello": {
+    "first": 2,
+    "status": 200
+  },
+  "words": ["first", "second", "three"],
+  "Users": {
+    "student": {
+      "name": "潘",
+      "age": 25
     },
-    "words": [
-        "first",
-        "second",
-        "three"
-    ],
-    "Users": {
-        "student": {
-            "name": "潘",
-            "age": 25
-        },
-        "teacher": {
-            "name": "杨",
-            "age": 25
-        }
-    },
-    "username": "user",
-    "password": "pass"
+    "teacher": {
+      "name": "杨",
+      "age": 25
+    }
+  },
+  "username": "user",
+  "password": "pass"
 }
