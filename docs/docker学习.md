@@ -658,7 +658,7 @@ Dockerfile是一个包含所有必要构建指令的文件，以下是一个简�
 
 ```
 # 编译环境
-FROM 10.0.35.97/library/golang:1.22.2
+FROM ip/library/golang:1.22.2
 
 WORKDIR /root/yourproject/
 ADD . /root/yourproject/

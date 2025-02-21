@@ -306,11 +306,11 @@ func ScanPortRun() {
 
 func main() {
 	// ports := []int{}
-	// PortScan("10.0.35.64", ports)
-	// PortScan1("10.0.35.64", ports)
-	// PortScan2("10.0.35.64", ports)
-	// PortScan3("10.0.35.64", ports)
-	// PortScan4("10.0.35.64", ports)
+	// PortScan("", ports)
+	// PortScan1("", ports)
+	// PortScan2("", ports)
+	// PortScan3("", ports)
+	// PortScan4("", ports)
 	ScanPortRun()
 }
 

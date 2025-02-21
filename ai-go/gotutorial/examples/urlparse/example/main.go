@@ -19,7 +19,7 @@ func main() {
 	// Url := "https://你好.pas2323##nzhonsdfsdre23g.com.&^%$:443/hello.html"
 	// Url := "mb2.yrdhxm.org.cn:1443"
 	// Url := "ftp://mb2.yrdhxm.org.cn:23"
-	// Url := "https://10.0.35.74:10000/?hello.html"
+	// Url := "https://ip:10000/?hello.html"
 	// Url := "https://pan:zhosdf$ng@example.com"
 	// Url := "http://mb2.yrdhxm.org.cn潘:1443" // err Url
 	Url := "http://example.com/page#section1"
