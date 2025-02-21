@@ -1,2 +1,3 @@
 selenium
 PySocks>=1.7.1
+pyOpenSSL

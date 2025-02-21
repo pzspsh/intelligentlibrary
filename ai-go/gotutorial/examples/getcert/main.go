@@ -6,10 +6,14 @@
 package main
 
 import (
+	"crypto/md5"
+	"crypto/sha1"
+	"crypto/sha256"
 	"crypto/tls"
 	"encoding/hex"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -25,7 +29,7 @@ func main() {
 		Timeout: 10 * time.Second,
 	}
 	// 发送https请求
-	resp, err := client.Get("https://www.baidu.com")
+	resp, err := client.Get("https://www.jd.com")
 	if err != nil {
 		fmt.Println("请求失败：", err)
 		return
@@ -61,4 +65,33 @@ func main() {
 		fmt.Printf("    Value: %s\n", hex.EncodeToString(ext.Value))
 		fmt.Println("    --------------------")
 	}
+	// fmt.Println(cert.Raw)
+	fmt.Println(cert.DNSNames)
+	fmt.Println(TranDomains(cert.DNSNames))
+	// fmt.Println(cert.ExcludedDNSDomains)
+	// fmt.Println(cert.ExcludedURIDomains)
+	// fmt.Println(cert.PermittedIPRanges)
+	// fmt.Println(cert.PermittedURIDomains)
+	// fmt.Println(cert.EmailAddresses)
+	// fmt.Println(cert.PermittedDNSDomains)
+	// fmt.Println(cert.Raw[:20])
+	fmt.Println()
+	sha1s := sha1.Sum(cert.Raw)
+	sha256s := sha256.Sum256(cert.Raw)
+	md5s := md5.Sum(cert.Raw)
+	fmt.Println(hex.EncodeToString(sha1s[:]))
+	fmt.Println(strings.ToLower(hex.EncodeToString(sha1s[:])))
+	fmt.Println(strings.ToLower(hex.EncodeToString(sha256s[:])))
+	fmt.Println(strings.ToLower(hex.EncodeToString(md5s[:])))
+}
+
+func TranDomains(domains []string) string {
+	var builder strings.Builder
+	for i, domain := range domains {
+		builder.WriteString("DNS:" + domain)
+		if i < len(domains)-1 {
+			builder.WriteString(", ")
+		}
+	}
+	return builder.String()
 }
