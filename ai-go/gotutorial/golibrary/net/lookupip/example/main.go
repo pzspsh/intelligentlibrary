@@ -182,7 +182,7 @@ func DecHex(n int64) string {
 		m := q % 16
 		if m > 9 && m < 16 {
 			m = hex[m]
-			s = fmt.Sprintf("%v%v", string(m), s)
+			s = fmt.Sprintf("%v%v", m, s)
 			continue
 		}
 		s = fmt.Sprintf("%v%v", m, s)
@@ -202,7 +202,7 @@ func HexDec(h string) (n int64) {
 		if v, ok := hex[c]; ok {
 			c = v
 		}
-		f, err := strconv.ParseFloat(c, 10)
+		f, err := strconv.ParseFloat(c, 32)
 		if err != nil {
 			log.Println("Hexadecimal to decimal error:", err.Error())
 			return -1
