@@ -9,3 +9,9 @@ func ReadFile(filepath string) (data []byte, err error) {
 	return
 }
 ```
+
+```go
+for range 10 {
+	fmt.Println("hello")
+}
+```
