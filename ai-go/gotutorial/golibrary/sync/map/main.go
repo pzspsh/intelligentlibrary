@@ -39,7 +39,14 @@ func main() {
 	// 	fmt.Println("not found")
 	// }
 
-	// value, ok := m.LoadAndDelete("key1") // 读取并删除 (LoadAndDelete)
+	value1, ok1 := m.LoadAndDelete("key1") // 读取并删除 (LoadAndDelete)
+	if ok1 {
+		fmt.Println(value1.(int))
+	} else {
+		fmt.Println("not found")
+	}
+
+	// value, ok := m.Load("key1") // 读取键值对 (Load)
 	// if ok {
 	// 	fmt.Println(value.(int))
 	// } else {
@@ -64,16 +71,16 @@ func main() {
 	// 	fmt.Println("swap fail")
 	// }
 
-	value, ok := m.Swap("key1", 102)
-	if ok {
-		fmt.Println(value.(int))
-		value, ok := m.Load("key1")
-		if ok {
-			fmt.Println(value.(int))
-		}
-	} else {
-		fmt.Println("swap fail")
-	}
+	// value, ok := m.Swap("key1", 102)
+	// if ok {
+	// 	fmt.Println(value.(int))
+	// 	value, ok := m.Load("key1")
+	// 	if ok {
+	// 		fmt.Println(value.(int))
+	// 	}
+	// } else {
+	// 	fmt.Println("swap fail")
+	// }
 }
 
 func Get() {
