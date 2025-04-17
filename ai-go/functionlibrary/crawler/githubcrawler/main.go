@@ -10,6 +10,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"maps"
 	"net/http"
 	"net/url"
 	"os"
@@ -20,7 +21,7 @@ import (
 
 var (
 	regex  = regexp.MustCompile(`<a class="prc-Link-Link-85e08" href="(.*?)".*?<a class="Box-sc-g0xbh4-0 iPuHRc prc-Link-Link-85e08" href=".*?" aria-label="(.*?)"`)
-	pagere = regexp.MustCompile(`<a href=".*?p=\d+" aria-label="Page \d+" class="Pagination__Page-sc-cp45c9-0 gnHNlv">(\d+)</a>`)
+	pagere = regexp.MustCompile(`<a href=".*?p=\d+" aria-label="Page \d+" class=".*?">(\d+)</a>`)
 )
 
 var DataJson = make(map[string]DataInfo)
@@ -78,8 +79,8 @@ func (o *Options) GitCrawler() error {
 	}
 	GithubUrl = o.GetGithubUrl()
 	req, _ := http.NewRequest("GET", GithubUrl, nil)
-	req.Header.Set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0")
-	req.Header.Set("cookie", ``)
+	req.Header.Set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0")
+	req.Header.Set("Cookie", ``)
 	resp, err := client.Do(req)
 	if err != nil {
 		return err
@@ -88,6 +89,7 @@ func (o *Options) GitCrawler() error {
 	if err != nil {
 		return err
 	}
+	resp.Body.Close()
 	pagedata := pagere.FindAllSubmatch(body, -1)
 	if len(pagedata) > 0 {
 		nlen := len(pagedata)
@@ -100,6 +102,7 @@ func (o *Options) GitCrawler() error {
 	if result, err = Parse(body, result); err != nil {
 		return err
 	}
+	fmt.Println("page: ", page)
 	if page > 0 {
 		for i := o.Page; i <= page; i++ {
 			o.Page = i + 1
@@ -155,8 +158,8 @@ func (o *Options) GetGithubBody() ([]byte, error) {
 	}
 	GithubUrl = o.GetGithubUrl()
 	req, _ := http.NewRequest("GET", GithubUrl, nil)
-	req.Header.Set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0")
-	req.Header.Set("cookie", ``)
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0")
+	req.Header.Set("Cookie", ``)
 	resp, err := client.Do(req)
 	if err != nil {
 		return body, err
@@ -165,6 +168,7 @@ func (o *Options) GetGithubBody() ([]byte, error) {
 	if err != nil {
 		return body, err
 	}
+	defer resp.Body.Close()
 	return body, err
 }
 
@@ -206,9 +210,7 @@ func ParseJson(file string) (map[string]DataInfo, error) {
 
 func MergeMap(map1, map2 map[string]string) map[string]string {
 	if len(map1) > 0 {
-		for key, value := range map2 {
-			map1[key] = value
-		}
+		maps.Copy(map1, map2)
 		return map1
 	} else {
 		return map2
@@ -232,7 +234,7 @@ func WriteJson(file string, datainfo map[string]DataInfo) error {
 func main() {
 	var err error
 	opt := &Options{
-		Language: "go",
+		Language: "python",
 		Stars:    100,
 		Page:     1,
 		Jsonfile: "data.json",
