@@ -20,11 +20,11 @@ import (
 )
 
 var (
-	regex  = regexp.MustCompile(`<a class="prc-Link-Link-85e08" href="(.*?)".*?<a class="Box-sc-g0xbh4-0 iPuHRc prc-Link-Link-85e08" href=".*?" aria-label="(.*?)"`)
-	pagere = regexp.MustCompile(`<a href=".*?p=\d+" aria-label="Page \d+" class=".*?">(\d+)</a>`)
+	DataJson = make(map[string]DataInfo)
+	cookie   string
+	regex    = regexp.MustCompile(`<a class="prc-Link-Link-85e08" href="(.*?)".*?<a class="Box-sc-g0xbh4-0 iPuHRc prc-Link-Link-85e08" href=".*?" aria-label="(.*?)"`)
+	pagere   = regexp.MustCompile(`<a href=".*?p=\d+" aria-label="Page \d+" class=".*?">(\d+)</a>`)
 )
-
-var DataJson = make(map[string]DataInfo)
 
 type DataInfo struct {
 	Page  int               `json:"page,omitempty"`
@@ -80,7 +80,7 @@ func (o *Options) GitCrawler() error {
 	GithubUrl = o.GetGithubUrl()
 	req, _ := http.NewRequest("GET", GithubUrl, nil)
 	req.Header.Set("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0")
-	req.Header.Set("Cookie", ``)
+	req.Header.Set("Cookie", cookie)
 	resp, err := client.Do(req)
 	if err != nil {
 		return err
@@ -159,7 +159,7 @@ func (o *Options) GetGithubBody() ([]byte, error) {
 	GithubUrl = o.GetGithubUrl()
 	req, _ := http.NewRequest("GET", GithubUrl, nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0")
-	req.Header.Set("Cookie", ``)
+	req.Header.Set("Cookie", cookie)
 	resp, err := client.Do(req)
 	if err != nil {
 		return body, err
@@ -233,12 +233,8 @@ func WriteJson(file string, datainfo map[string]DataInfo) error {
 
 func main() {
 	var err error
-	opt := &Options{
-		Language: "python",
-		Stars:    100,
-		Page:     1,
-		Jsonfile: "data.json",
-	}
+	cookie = ``
+	opt := &Options{Language: "python", Stars: 100, Page: 1, Jsonfile: "data.json"}
 	if err = opt.GitCrawler(); err != nil {
 		fmt.Println()
 	}

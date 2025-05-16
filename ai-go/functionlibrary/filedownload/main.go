@@ -7,6 +7,7 @@ package main
 
 import (
 	"crypto/tls"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -18,6 +19,12 @@ import (
 
 	gitpull "function/filedownload/githubpull"
 )
+
+type DownloadData struct {
+	Page  int               `json:"page,omitempty"`
+	Stars int               `json:"stars,omitempty"`
+	Urls  map[string]string `json:"url,omitempty"`
+}
 
 func DownloadFile(filepath string, url string) error {
 	tr := &http.Transport{
@@ -89,6 +96,43 @@ func GitDownload() error {
 	return err
 }
 
+func GitHubProjectsDownload() error {
+	var err error
+	var catalog = "../"
+	var downurllist string
+	filepath := "path/data.json"
+	file, err := os.Open(filepath)
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return err
+	}
+	defer file.Close()
+	content, err := io.ReadAll(file) // 读取文件内容
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		return err
+	}
+	var datas map[string]DownloadData
+	if err = json.Unmarshal(content, &datas); err != nil { // 解析JSON数据
+		fmt.Println("Error parsing JSON:", err)
+		return err
+	}
+
+	for _, vs := range datas {
+		for url := range vs.Urls {
+			if downurllist == "" {
+				downurllist = url
+			} else {
+				downurllist = downurllist + "," + url
+			}
+		}
+	}
+	if err = gitpull.GithubProjectRun(downurllist, catalog); err != nil {
+		fmt.Println("github download error: ", err)
+	}
+	return err
+}
+
 func main() {
 	// loadpath := ""
 	// // downloadUrl := `https://cve.mitre.org/data/downloads/allitems-cvrf.xml`
@@ -97,8 +141,9 @@ func main() {
 	// 	fmt.Println("download error: ", err)
 	// }
 
-	if err := GitDownload(); err != nil {
-		fmt.Println("github download error: ", err)
-	}
+	// if err := GitDownload(); err != nil {  // go run main.go -dir /path/folder -master -dev -latest
+	// 	fmt.Println("github download error: ", err)
+	// }
 
+	GitHubProjectsDownload()
 }
