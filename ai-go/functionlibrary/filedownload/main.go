@@ -96,11 +96,10 @@ func GitDownload() error {
 	return err
 }
 
-func GitHubProjectsDownload() error {
+func GitHubProjectsDownload(filepath string) error {
 	var err error
 	var catalog = "../"
 	var downurllist string
-	filepath := "path/data.json"
 	file, err := os.Open(filepath)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
@@ -141,9 +140,10 @@ func main() {
 	// 	fmt.Println("download error: ", err)
 	// }
 
-	// if err := GitDownload(); err != nil {  // go run main.go -dir /path/folder -master -dev -latest
-	// 	fmt.Println("github download error: ", err)
-	// }
+	if err := GitDownload(); err != nil { // go run main.go -dir /path/folder -master -dev -latest
+		fmt.Println("github download error: ", err)
+	}
 
-	GitHubProjectsDownload()
+	// filepath := ""
+	// GitHubProjectsDownload(filepath)
 }
