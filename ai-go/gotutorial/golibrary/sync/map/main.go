@@ -8,18 +8,31 @@ package main
 import (
 	"fmt"
 	"sync"
+	"time"
 )
 
 func main() {
 	var m sync.Map
-	m.Store("key1", 100)           // 写入键值对
-	m.Store("key2", "hello world") // 支持任意类型 (interface{})
+	var wg sync.WaitGroup
+	var hasValue bool
+	updatech := make(chan int, 1)
+	m.Store("key1", 100) // 写入键值对
+	// m.Store("key2", "hello world") // 支持任意类型 (interface{})
 	m.Store("key3", 300)
-	// m.Range(func(key, value any) bool { // 遍历所有键值对
-	// 	fmt.Println(key.(string), value.(int))
-	// 	return true
-	// })
-
+	m.Range(func(key, value any) bool { // 遍历所有键值对
+		wg.Add(1)
+		updatech <- 1
+		go func(update chan int) {
+			defer wg.Done()
+			defer func() { <-update }()
+			fmt.Println(key.(string), value.(int))
+			time.Sleep(time.Second * 5)
+		}(updatech)
+		hasValue = true
+		return true
+	})
+	wg.Wait()
+	fmt.Println(hasValue)
 	// m.Delete("key1") // 删除键值对 (Delete)
 	// value, ok := m.Load("key1") // 读取键值对 (Load)
 	// if ok {
@@ -39,12 +52,12 @@ func main() {
 	// 	fmt.Println("not found")
 	// }
 
-	value1, ok1 := m.LoadAndDelete("key1") // 读取并删除 (LoadAndDelete)
-	if ok1 {
-		fmt.Println(value1.(int))
-	} else {
-		fmt.Println("not found")
-	}
+	// value1, ok1 := m.LoadAndDelete("key1") // 读取并删除 (LoadAndDelete)
+	// if ok1 {
+	// 	fmt.Println(value1.(int))
+	// } else {
+	// 	fmt.Println("not found")
+	// }
 
 	// value, ok := m.Load("key1") // 读取键值对 (Load)
 	// if ok {

@@ -27,7 +27,6 @@ func GenNumber() []string {
 	for range 20 {
 		number = append(number, RandomStr(10))
 	}
-	time.Sleep(10 * time.Second)
 	return number
 }
 
@@ -70,8 +69,89 @@ func StatsRun() {
 	}
 }
 
-func main() {
+func StatsRun2() {
+	var wg sync.WaitGroup
+	var m sync.Map
+	var updatech = make(chan bool, 5)
 	var taskchan = make(chan string, 10)
-	fmt.Println(len(taskchan))
-	StatsRun()
+	go func() {
+		var newlist []string
+		for {
+			var numberlist []string
+			if len(newlist) > 0 {
+				numberlist = newlist
+				newlist = []string{}
+			} else {
+				numberlist = GenNumber()
+			}
+			if len(numberlist) > 0 {
+				fmt.Println("开始生成任务", numberlist)
+				for _, number := range numberlist {
+					select {
+					case taskchan <- number:
+						m.Store(number, true)
+					default:
+						newlist = append(newlist, number)
+					}
+				}
+			} else {
+				time.Sleep(time.Second * 10)
+			}
+		}
+	}()
+
+	for {
+		if len(taskchan) > 0 {
+			for number := range taskchan {
+				wg.Add(1)
+				updatech <- true
+				go func(number string, update chan bool) {
+					defer wg.Done()
+					defer func() { <-update }()
+					fmt.Println(number)
+					m.Delete(number)
+				}(number, updatech)
+			}
+			wg.Wait()
+		} else {
+			time.Sleep(5 * time.Second)
+		}
+
+	}
+}
+
+func StatsRun3() {
+	var updatech = make(chan bool, 5)
+	var taskchan = make(chan string, 10)
+	go func() {
+		for {
+			numberlist := GenNumber()
+			if len(numberlist) > 0 {
+				fmt.Println("开始生成任务", numberlist)
+				for _, number := range numberlist {
+					taskchan <- number
+				}
+			} else {
+				time.Sleep(time.Second * 10)
+			}
+			time.Sleep(10 * time.Second)
+		}
+	}()
+
+	for {
+		if number, ok := <-taskchan; ok {
+			updatech <- true
+			go func(number string, update chan bool) {
+				defer func() { <-update }()
+				fmt.Println(number)
+				time.Sleep(2 * time.Second)
+			}(number, updatech)
+		}
+	}
+}
+
+func main() {
+	// StatsRun()
+	StatsRun2()
+	// StatsRun3()
 }
