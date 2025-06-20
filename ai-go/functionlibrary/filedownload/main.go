@@ -84,7 +84,7 @@ func GitDownload() error {
 	for _, name := range downname {
 		downurllist = append(downurllist, projectdiscovery+name)
 	}
-	githubURL := []string{"https://github.com/shadow1ng/fscan"}
+	githubURL := []string{"https://github.com/shadow1ng/fscan", "https://github.com/fatedier/frp", "https://github.com/traefik/traefik", "https://github.com/mitmproxy/mitmproxy", "https://github.com/ehang-io/nps", "https://github.com/v2fly/v2ray-core", "https://github.com/XTLS/Xray-core", "https://github.com/SagerNet/sing-box", "https://github.com/snail007/goproxy", "https://github.com/Shopify/toxiproxy"}
 	if len(githubURL) > 0 {
 		downurllist = append(downurllist, githubURL...)
 	}
