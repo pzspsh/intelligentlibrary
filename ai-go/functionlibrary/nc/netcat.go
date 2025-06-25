@@ -144,7 +144,7 @@ func main() {
 	if *port == 0 {
 		a := flag.Arg(0)
 		p := flag.Arg(1)
-		conn, err = net.Dial("tcp", fmt.Sprintf("%s:%s", a, p))
+		conn, err = net.Dial("tcp", net.JoinHostPort(a, p))
 		if err != nil {
 			panic(err)
 		}
