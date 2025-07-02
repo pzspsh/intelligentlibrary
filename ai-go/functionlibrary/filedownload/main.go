@@ -16,6 +16,8 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+	"sync"
+	"time"
 
 	gitpull "function/filedownload/githubpull"
 )
@@ -92,6 +94,7 @@ func GitDownload() error {
 	catalog := "../" // 存储的目录
 	if err = gitpull.GithubProjectRun(downurlstr, catalog); err != nil {
 		fmt.Println("github download error: ", err)
+		return err
 	}
 	return err
 }
@@ -139,11 +142,24 @@ func main() {
 	// if err := DownRun(downloadUrl, loadpath); err != nil {
 	// 	fmt.Println("download error: ", err)
 	// }
-
-	if err := GitDownload(); err != nil { // go run main.go -dir /path/folder -master -dev -latest
-		fmt.Println("github download error: ", err)
-	}
-
 	// filepath := ""
 	// GitHubProjectsDownload(filepath)
+	wg := sync.WaitGroup{}
+	for {
+		var err error
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			err = GitDownload() // go run main.go -dir /path/folder -master -dev -latest -alltag
+		}()
+		wg.Wait()
+		if err != nil {
+			fmt.Println("github download error: ", err)
+			time.Sleep(time.Minute * 30)
+		} else {
+			fmt.Println("github download success")
+			break
+		}
+	}
+
 }
