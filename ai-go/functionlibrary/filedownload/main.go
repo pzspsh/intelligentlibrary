@@ -179,7 +179,7 @@ func GitDownloadRun() {
 		wg.Wait()
 		if err != nil {
 			fmt.Println("github download error: ", err)
-			time.Sleep(time.Minute * 30)
+			time.Sleep(time.Second * 30)
 		} else {
 			fmt.Println("github download success")
 			break
