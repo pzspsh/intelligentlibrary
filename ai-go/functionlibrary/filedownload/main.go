@@ -8,6 +8,7 @@ package main
 import (
 	"crypto/tls"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
 	"net/http"
@@ -92,12 +93,14 @@ func GitDownload() error {
 	}
 	downurlstr = strings.Join(downurllist, ",")
 	catalog := "../" // 存储的目录
-	if err = gitpull.GithubProjectRun(downurlstr, catalog); err != nil {
+	if err = gitpull.GithubProjectRun(downurlstr, catalog, options); err != nil {
 		fmt.Println("github download error: ", err)
 		return err
 	}
 	return err
 }
+
+var options = &gitpull.Options{}
 
 func GitHubProjectsDownload(filepath string) error {
 	var err error
@@ -129,10 +132,59 @@ func GitHubProjectsDownload(filepath string) error {
 			}
 		}
 	}
-	if err = gitpull.GithubProjectRun(downurllist, catalog); err != nil {
+	if err = gitpull.GithubProjectRun(downurllist, catalog, options); err != nil {
 		fmt.Println("github download error: ", err)
 	}
 	return err
+}
+
+func getParams() {
+	flag.BoolVar(&options.IsWrit, "w", false, "iswrite")
+	flag.StringVar(&options.TagsLog, "tlog", "", "write file path")
+	flag.StringVar(&options.BranchLog, "blog", "", "write file path")
+	flag.BoolVar(&options.AllTags, "alltag", false, "download all tags")
+	flag.BoolVar(&options.AllBranch, "allbranch", false, "download all branch")
+	flag.BoolVar(&options.Master, "master", false, "download master branches")
+	flag.BoolVar(&options.Develop, "dev", false, "download develop branches")
+	flag.BoolVar(&options.Latest, "latest", false, "download latest version")
+	flag.StringVar(&options.Target, "target", "", "download target url")       // 如果有多个下载目标，url之间用英文“,”隔开
+	flag.StringVar(&options.DownloadUrl, "downurl", "", "download target url") // 如果有多个直接下载url，url之间用英文“,”隔开
+	flag.StringVar(&options.LocalPath, "dir", "", "download file path")
+	flag.StringVar(&options.Proxy, "proxy", "", "proxy download")
+	flag.StringVar(&options.ProxyDown, "proxydown", "", "proxy download")
+	flag.Parse()
+}
+
+func GitDownloadRun() {
+	wg := sync.WaitGroup{}
+	for {
+		var err error
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			getParams()
+			if options.LocalPath != "" {
+				fmt.Println("github download start ...  1")
+				err = GitDownload() // go run main.go -dir /path/folder -master -dev -latest -alltag
+			} else {
+				fmt.Println("github download start ...  2")
+				options.Master = true
+				options.Develop = true
+				options.Latest = true
+				// options.AllTags = true
+				options.LocalPath = "/path/folder" // /home/datas/2025备份/20250623备份
+				err = GitDownload()
+			}
+		}()
+		wg.Wait()
+		if err != nil {
+			fmt.Println("github download error: ", err)
+			time.Sleep(time.Minute * 30)
+		} else {
+			fmt.Println("github download success")
+			break
+		}
+	}
 }
 
 func main() {
@@ -144,22 +196,5 @@ func main() {
 	// }
 	// filepath := ""
 	// GitHubProjectsDownload(filepath)
-	wg := sync.WaitGroup{}
-	for {
-		var err error
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			err = GitDownload() // go run main.go -dir /path/folder -master -dev -latest -alltag
-		}()
-		wg.Wait()
-		if err != nil {
-			fmt.Println("github download error: ", err)
-			time.Sleep(time.Minute * 30)
-		} else {
-			fmt.Println("github download success")
-			break
-		}
-	}
-
+	GitDownloadRun()
 }

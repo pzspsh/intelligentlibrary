@@ -9,7 +9,6 @@ import (
 	"bytes"
 	"crypto/tls"
 	"errors"
-	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -445,24 +444,9 @@ func DownloadRun(downurls map[string]string, storagedir string, options *Options
 	return err
 }
 
-func GithubProjectRun(targets, storagedir string) error {
+func GithubProjectRun(targets, storagedir string, options *Options) error {
 	var err error
 	var downtarget []string
-	options := &Options{}
-	flag.BoolVar(&options.IsWrit, "w", false, "iswrite")
-	flag.StringVar(&options.TagsLog, "tlog", "", "write file path")
-	flag.StringVar(&options.BranchLog, "blog", "", "write file path")
-	flag.BoolVar(&options.AllTags, "alltag", false, "download all tags")
-	flag.BoolVar(&options.AllBranch, "allbranch", false, "download all branch")
-	flag.BoolVar(&options.Master, "master", false, "download master branches")
-	flag.BoolVar(&options.Develop, "dev", false, "download develop branches")
-	flag.BoolVar(&options.Latest, "latest", false, "download latest version")
-	flag.StringVar(&options.Target, "target", "", "download target url")       // 如果有多个下载目标，url之间用英文“,”隔开
-	flag.StringVar(&options.DownloadUrl, "downurl", "", "download target url") // 如果有多个直接下载url，url之间用英文“,”隔开
-	flag.StringVar(&options.LocalPath, "dir", "", "download file path")
-	flag.StringVar(&options.Proxy, "proxy", "", "proxy download")
-	flag.StringVar(&options.ProxyDown, "proxydown", "", "proxy download")
-	flag.Parse()
 	if options.Target != "" {
 		targets = options.Target
 	}
