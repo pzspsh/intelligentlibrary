@@ -504,11 +504,11 @@ func GithubProjectRun(targets, storagedir string, options *Options, isdownload m
 		for !isfull {
 			var flag = true
 			for _, target := range downtarget {
-				fmt.Printf("start get target: [%s] download url....\n", target)
 				downmap := make(map[string]DownUrl)
 				downurlsmap := make(map[string]string)
 				if target != "" {
 					if _, ok := downurlsmap[target]; !ok {
+						fmt.Printf("start get target: [%s] download url....\n", target)
 						if options.AllTags || options.Latest {
 							tagsdownloadurls, err := GetGithubTags(target, options)
 							if err != nil {
