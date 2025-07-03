@@ -17,8 +17,6 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
-	"sync"
-	"time"
 
 	gitpull "function/filedownload/githubpull"
 )
@@ -78,34 +76,13 @@ func DownRun(downloadurl, loadpath string) error {
 // 	return err
 // }
 
-func GitDownload() error {
-	var err error
-	var downurlstr string
-	var downurllist []string
-	downname := []string{"nuclei-templates", "awesome-search-queries", "docs", "proxify", "nuclei", "tlsx", "aix", "httpx", "gcache", "naabu", "notify", "ratelimit", "utils", "mapcidr", "goflags", "tinydns", "useragent", "shuffledns", "asnmap", "cdncheck", "pdtm", "subfinder", "retryabledns", "retryablehttp-go", "katana", "chaos-client", "tldfinder", "cvemap", "rawhttp", "alterx", "public-bugbounty-programs", "gologger", "cloudlist", "hmap", "interactsh-web", "clistats", "dnsx", "interactsh", "dsl", "fastdialer", "wappalyzergo", "uncover", "nuclei-action", "freeport", "networkpolicy", "actions", "goleak", "ldapserver", "ipranger", "openrisk", "templates-stats", "fuzzing-templates", "sarif", "gozero", "machineid", "martian", "gostruct", "go-smb2", "simplehttpserver", "nuclei-ai-extension", "wallpapers", "httpx-action", "tailwindcss", "js-proto-docs", "yamldoc-go", "goconfig", "blackrock", "sslcert", "roundrobin", "nuclei-docs", "eslint-config", "fdmax", "sqlc-go-builder", "nvd", "asyncsqs", "n3iwf", "mapsutil", "stringsutil", "js-yaml-source-map", "filekv", "network-fingerprint", "rdap", "cloudlist-action", "fasttemplate", "smb", "iputil", "fileutil", "reflectutil", "httputil", "cryptoutil", "folderutil", "urlutil", "executil", "sliceutil", "sqlc-builder", "notify-action", "naabu-action", "subfinder-action", "dnsx-action", "collaborator", "pd-actions", "dnsprobe", "resolvercache-go", "expirablelru", "urlfinder", "tunnelx", "nuclei-templates-ai"}
-	projectdiscovery := "https://github.com/projectdiscovery/" // 下载目标
-	for _, name := range downname {
-		downurllist = append(downurllist, projectdiscovery+name)
-	}
-	githubURL := []string{"https://github.com/Threekiii/Awesome-POC", "https://github.com/sqlmapproject/sqlmap", "https://github.com/containrrr/watchtower", "https://github.com/future-architect/vuls", "https://github.com/swisskyrepo/PayloadsAllTheThings", "https://github.com/aquasecurity/trivy", "https://github.com/The-Art-of-Hacking/h4cker", "https://github.com/chaitin/SafeLine", "https://github.com/anchore/grype", "https://github.com/google/osv-scanner", "https://github.com/shadow1ng/fscan", "https://github.com/fatedier/frp", "https://github.com/traefik/traefik", "https://github.com/mitmproxy/mitmproxy", "https://github.com/ehang-io/nps", "https://github.com/v2fly/v2ray-core", "https://github.com/XTLS/Xray-core", "https://github.com/SagerNet/sing-box", "https://github.com/snail007/goproxy", "https://github.com/Shopify/toxiproxy", "https://github.com/lqqyt2423/go-mitmproxy", "https://github.com/guardicore/monkey", "https://github.com/MrWQ/vulnerability-paper", "https://github.com/Qianlitp/crawlergo"}
-	if len(githubURL) > 0 {
-		downurllist = append(downurllist, githubURL...)
-	}
-	downurlstr = strings.Join(downurllist, ",")
-	catalog := "../" // 存储的目录
-	if err = gitpull.GithubProjectRun(downurlstr, catalog, options); err != nil {
-		fmt.Println("github download error: ", err)
-		return err
-	}
-	return err
-}
-
 var options = &gitpull.Options{}
 
 func GitHubProjectsDownload(filepath string) error {
 	var err error
 	var catalog = "../"
 	var downurllist string
+	var isdownload = make(map[string]gitpull.IsDownJson)
 	file, err := os.Open(filepath)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
@@ -132,8 +109,44 @@ func GitHubProjectsDownload(filepath string) error {
 			}
 		}
 	}
-	if err = gitpull.GithubProjectRun(downurllist, catalog, options); err != nil {
+	if options.IsDownPath != "" {
+		if isdownload, err = gitpull.GetIsDownload(options.IsDownPath); err != nil {
+			return err
+		}
+	}
+	if err = gitpull.GithubProjectRun(downurllist, catalog, options, isdownload); err != nil {
 		fmt.Println("github download error: ", err)
+	}
+	return err
+}
+
+func GitDownload() error {
+	var err error
+	var downurlstr string
+	var isdownload = make(map[string]gitpull.IsDownJson)
+	var downurllist []string
+	downname := []string{"nuclei-templates", "awesome-search-queries", "docs", "proxify", "nuclei", "tlsx", "aix", "httpx", "gcache", "naabu", "notify", "ratelimit", "utils", "mapcidr", "goflags", "tinydns", "useragent", "shuffledns", "asnmap", "cdncheck", "pdtm", "subfinder", "retryabledns", "retryablehttp-go", "katana", "chaos-client", "tldfinder", "cvemap", "rawhttp", "alterx", "public-bugbounty-programs", "gologger", "cloudlist", "hmap", "interactsh-web", "clistats", "dnsx", "interactsh", "dsl", "fastdialer", "wappalyzergo", "uncover", "nuclei-action", "freeport", "networkpolicy", "actions", "goleak", "ldapserver", "ipranger", "openrisk", "templates-stats", "fuzzing-templates", "sarif", "gozero", "machineid", "martian", "gostruct", "go-smb2", "simplehttpserver", "nuclei-ai-extension", "wallpapers", "httpx-action", "tailwindcss", "js-proto-docs", "yamldoc-go", "goconfig", "blackrock", "sslcert", "roundrobin", "nuclei-docs", "eslint-config", "fdmax", "sqlc-go-builder", "nvd", "asyncsqs", "n3iwf", "mapsutil", "stringsutil", "js-yaml-source-map", "filekv", "network-fingerprint", "rdap", "cloudlist-action", "fasttemplate", "smb", "iputil", "fileutil", "reflectutil", "httputil", "cryptoutil", "folderutil", "urlutil", "executil", "sliceutil", "sqlc-builder", "notify-action", "naabu-action", "subfinder-action", "dnsx-action", "collaborator", "pd-actions", "dnsprobe", "resolvercache-go", "expirablelru", "urlfinder", "tunnelx", "nuclei-templates-ai"}
+	projectdiscovery := "https://github.com/projectdiscovery/" // 下载目标
+	for _, name := range downname {
+		downurllist = append(downurllist, projectdiscovery+name)
+	}
+	githubURL := []string{"https://github.com/Threekiii/Awesome-POC", "https://github.com/sqlmapproject/sqlmap", "https://github.com/containrrr/watchtower", "https://github.com/future-architect/vuls", "https://github.com/swisskyrepo/PayloadsAllTheThings", "https://github.com/aquasecurity/trivy", "https://github.com/The-Art-of-Hacking/h4cker", "https://github.com/chaitin/SafeLine", "https://github.com/anchore/grype", "https://github.com/google/osv-scanner", "https://github.com/shadow1ng/fscan", "https://github.com/fatedier/frp", "https://github.com/traefik/traefik", "https://github.com/mitmproxy/mitmproxy", "https://github.com/ehang-io/nps", "https://github.com/v2fly/v2ray-core", "https://github.com/XTLS/Xray-core", "https://github.com/SagerNet/sing-box", "https://github.com/snail007/goproxy", "https://github.com/Shopify/toxiproxy", "https://github.com/lqqyt2423/go-mitmproxy", "https://github.com/guardicore/monkey", "https://github.com/MrWQ/vulnerability-paper", "https://github.com/Qianlitp/crawlergo"}
+	if len(githubURL) > 0 {
+		downurllist = append(downurllist, githubURL...)
+	}
+	downurlstr = strings.Join(downurllist, ",")
+	catalog := "../" // 存储的目录
+	if options.IsDownPath != "" {
+		if isdownload, err = gitpull.GetIsDownload(options.IsDownPath); err != nil {
+			return err
+		}
+	}
+	if err = gitpull.GithubProjectRun(downurlstr, catalog, options, isdownload); err != nil {
+		return err
+	} else if options.IsDownPath != "" {
+		if err = gitpull.WriteIsDownload(options.IsDownPath, isdownload); err != nil {
+			return err
+		}
 	}
 	return err
 }
@@ -156,33 +169,23 @@ func getParams() {
 }
 
 func GitDownloadRun() {
-	wg := sync.WaitGroup{}
-	for {
-		var err error
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			getParams()
-			if options.LocalPath != "" {
-				fmt.Println("github download start ...  1")
-				err = GitDownload() // go run main.go -dir /path/folder -master -dev -latest -alltag
-			} else {
-				fmt.Println("github download start ...  2")
-				options.Master = true
-				options.Develop = true
-				options.Latest = true
-				// options.AllTags = true
-				options.LocalPath = "/path/folder" // /home/datas/2025备份/20250623备份
-				err = GitDownload()
-			}
-		}()
-		wg.Wait()
-		if err != nil {
+	var err error
+	getParams()
+	if options.LocalPath != "" {
+		fmt.Println("github download start ...  1")
+		if err = GitDownload(); err != nil { // go run main.go -dir /path/folder -master -dev -latest -alltag
 			fmt.Println("github download error: ", err)
-			time.Sleep(time.Second * 30)
-		} else {
+		}
+	} else {
+		fmt.Println("github download start ...  2")
+		options.Master = true
+		options.Develop = true
+		options.Latest = true
+		// options.AllTags = true
+		options.IsDownPath = "githubpull/isdownload.json"
+		options.LocalPath = "/path/folder" // /home/datas/2025备份/20250623备份
+		if err = GitDownload(); err != nil {
 			fmt.Println("github download success")
-			break
 		}
 	}
 }

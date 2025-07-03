@@ -8,14 +8,17 @@ package gitpull
 import (
 	"bytes"
 	"crypto/tls"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"log"
+	"maps"
 	"net/http"
 	"net/url"
 	"os"
 	"path/filepath"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -37,6 +40,7 @@ type Options struct {
 	Latest      bool
 	ProxyDown   string
 	Proxy       string
+	IsDownPath  string
 }
 
 func ParseUrl(parseurl string) {
@@ -51,6 +55,16 @@ func ParseUrl(parseurl string) {
 	} else {
 		fmt.Println("no path segments found.")
 	}
+}
+
+type IsDownJson struct {
+	Finish     bool               `json:"finish,omitempty"`
+	IsDownload map[string]DownUrl `json:"isdownload,omitempty"`
+}
+
+type DownUrl struct {
+	Finish   bool   `json:"finish,omitempty"`
+	Filename string `json:"filename,omitempty"`
 }
 
 // 查找数组的索引
@@ -407,19 +421,41 @@ func DeletedFile(filelist []string, downurls map[string]string) map[string]strin
 }
 
 func JudgmentExist(filelist []string, file string) bool {
-	for _, f := range filelist {
-		if f == file {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(filelist, file)
 }
 
 func MergeMap(dest, src map[string]string) map[string]string {
-	for key, value := range src {
-		dest[key] = value
-	}
+	maps.Copy(dest, src)
 	return dest
+}
+
+func GetIsDownload(file string) (map[string]IsDownJson, error) {
+	var err error
+	var isDownload = make(map[string]IsDownJson)
+	data, err := os.ReadFile(file)
+	if err != nil {
+		fmt.Println("Error reading file: ", err)
+		return isDownload, err
+	}
+	if err = json.Unmarshal(data, &isDownload); err != nil { // 解析JSON数据
+		fmt.Println("Error parsing JSON: ", err)
+		return isDownload, err
+	}
+	return isDownload, nil
+}
+
+func WriteIsDownload(file string, isDownload map[string]IsDownJson) error {
+	var err error
+	f, err := os.Create(file)
+	if err != nil {
+		return err
+	}
+	data, err := json.Marshal(isDownload)
+	if err != nil {
+		return err
+	}
+	f.Write(data)
+	return nil
 }
 
 func DownloadRun(downurls map[string]string, storagedir string, options *Options) error {
@@ -444,8 +480,10 @@ func DownloadRun(downurls map[string]string, storagedir string, options *Options
 	return err
 }
 
-func GithubProjectRun(targets, storagedir string, options *Options) error {
+func GithubProjectRun(targets, storagedir string, options *Options, isdownload map[string]IsDownJson) error {
 	var err error
+	var isexec bool
+	var isfull = false
 	var downtarget []string
 	if options.Target != "" {
 		targets = options.Target
@@ -463,41 +501,97 @@ func GithubProjectRun(targets, storagedir string, options *Options) error {
 				options.BranchLog = "branches.txt"
 			}
 		}
-		for _, target := range downtarget {
-			var downdir string
-			downurlsmap := map[string]string{}
-			if target != "" {
-				parsedUrl, err := url.Parse(target)
-				if err != nil {
-					return err
+		for !isfull {
+			var flag = true
+			for _, target := range downtarget {
+				fmt.Printf("start get target: [%s] download url....\n", target)
+				downmap := make(map[string]DownUrl)
+				downurlsmap := make(map[string]string)
+				if target != "" {
+					if _, ok := downurlsmap[target]; !ok {
+						if options.AllTags || options.Latest {
+							tagsdownloadurls, err := GetGithubTags(target, options)
+							if err != nil {
+								flag = false
+								fmt.Println("get tags download url error: ", err)
+								continue
+							}
+							if len(tagsdownloadurls) > 0 {
+								downurlsmap = MergeMap(downurlsmap, tagsdownloadurls)
+							}
+						}
+						if options.AllBranch || options.Master || options.Develop {
+							branchesurls, err := GetGithubBranches(target, options)
+							if err != nil {
+								flag = false
+								fmt.Println("get github branches error: ", err)
+								continue
+							}
+							if len(branchesurls) > 0 {
+								downurlsmap = MergeMap(downurlsmap, branchesurls)
+							}
+						}
+						if len(downurlsmap) > 0 {
+							for URL, filename := range downurlsmap {
+								downmap[URL] = DownUrl{Finish: false, Filename: filename}
+							}
+							isdownload[target] = IsDownJson{Finish: false, IsDownload: downmap}
+							isexec = true
+						}
+					}
+				} else {
+					err = errors.New("target download is empty")
 				}
-				pathsegments := strings.Split(parsedUrl.Path, "/")
-				downdir = filepath.Join(storagedir, pathsegments[len(pathsegments)-1])
-				if options.AllTags || options.Latest {
-					tagsdownloadurls, err := GetGithubTags(target, options)
-					if err != nil {
-						return err
+			}
+			if flag {
+				isfull = true
+			}
+		}
+		for {
+			var isexecfinish = true
+			if len(isdownload) > 0 && isexec {
+				for target, v1 := range isdownload {
+					var finish = true
+					var downdir string
+					if !v1.Finish {
+						parsedUrl, err := url.Parse(target)
+						if err != nil {
+							return err
+						}
+						pathsegments := strings.Split(parsedUrl.Path, "/")
+						downdir = filepath.Join(storagedir, pathsegments[len(pathsegments)-1])
+						for URL, v2 := range v1.IsDownload {
+							var downurlmap = make(map[string]string)
+							if !v2.Finish {
+								fmt.Printf("target URL: [%s] start Downloading...\n", URL)
+								downurlmap[URL] = v2.Filename
+								if len(downurlmap) > 0 {
+									if err = DownloadRun(downurlmap, downdir, options); err != nil {
+										finish = false
+										continue
+									} else {
+										v2.Finish = true
+										v1.IsDownload[URL] = v2
+									}
+								}
+							}
+						}
 					}
-					if len(tagsdownloadurls) > 0 {
-						downurlsmap = MergeMap(downurlsmap, tagsdownloadurls)
+					if finish {
+						v1.Finish = true
+						isdownload[target] = v1
+					} else {
+						isexecfinish = false
+						isdownload[target] = v1
 					}
 				}
-				if options.AllBranch || options.Master || options.Develop {
-					branchesurls, err := GetGithubBranches(target, options)
-					if err != nil {
-						return err
-					}
-					if len(branchesurls) > 0 {
-						downurlsmap = MergeMap(downurlsmap, branchesurls)
-					}
-				}
-				if len(downurlsmap) > 0 {
-					if err = DownloadRun(downurlsmap, downdir, options); err != nil {
-						return err
-					}
+				if isexecfinish {
+					break
+				} else {
+					time.Sleep(30 * time.Second)
 				}
 			} else {
-				err = errors.New("target download is empty")
+				break
 			}
 		}
 	}
