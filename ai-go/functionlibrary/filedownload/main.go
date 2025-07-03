@@ -165,6 +165,7 @@ func getParams() {
 	flag.StringVar(&options.LocalPath, "dir", "", "download file path")
 	flag.StringVar(&options.Proxy, "proxy", "", "proxy download")
 	flag.StringVar(&options.ProxyDown, "proxydown", "", "proxy download")
+	flag.StringVar(&options.IsDownPath, "isdown", "", "is download path")
 	flag.Parse()
 }
 
