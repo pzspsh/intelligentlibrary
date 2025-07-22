@@ -59,7 +59,6 @@ type FileConfig struct {
 	maxFileCounts int64
 	dailyRollings bool
 	RollingFiles  bool
-	WriteFiles    bool
 	*setConfig
 }
 
@@ -72,6 +71,7 @@ type setConfig struct {
 	level            Levels
 	console          bool
 	consoleAppenders bool
+	WriteFiles       bool
 }
 
 func LoggerSet(pathfile string, args ...any) *FileConfig {
@@ -84,6 +84,7 @@ func LoggerSet(pathfile string, args ...any) *FileConfig {
 		maxFileSize:      maxFileSize,
 		level:            SUCCESSED,
 		grade:            grade,
+		WriteFiles:       true,
 		console:          true,
 		consoleAppenders: true,
 	}
@@ -113,11 +114,11 @@ func LoggerSet(pathfile string, args ...any) *FileConfig {
 	if len(options) > 0 {
 		cfg.parseOptions(options...)
 	}
-	WriteFiles := IsWriteFileSet(true)
+	cfg.IsWriteFileSet(true)
 	if cfg.rollingType == setRollingDaily {
-		return SetRolling(dir, filename, cfg, WriteFiles)
+		return SetRolling(dir, filename, cfg)
 	} else {
-		return SetRollingFileConfig(dir, filename, cfg, WriteFiles)
+		return SetRollingFileConfig(dir, filename, cfg)
 	}
 }
 
@@ -214,9 +215,9 @@ func (cfg *setConfig) parseOtherOptions(options ...any) {
 	cfg.maxFiles = maxfile
 }
 
-func SetRolling(fileDir, fileName string, cfg *setConfig, WriteFiles bool) *FileConfig {
+func SetRolling(fileDir, fileName string, cfg *setConfig) *FileConfig {
 	var logObjSet *FileConfig
-	if WriteFiles {
+	if cfg.WriteFiles {
 		now := time.Now()
 		logObjSet = &FileConfig{
 			dir:           fileDir,
@@ -225,7 +226,6 @@ func SetRolling(fileDir, fileName string, cfg *setConfig, WriteFiles bool) *File
 			mu:            new(sync.RWMutex),
 			RollingFiles:  false,
 			dailyRollings: true,
-			WriteFiles:    WriteFiles,
 			setConfig:     cfg,
 		}
 		logObjSet.mu.Lock()
@@ -239,9 +239,9 @@ func SetRolling(fileDir, fileName string, cfg *setConfig, WriteFiles bool) *File
 	return logObjSet
 }
 
-func SetRollingFileConfig(fileDir, fileName string, cfg *setConfig, WriteFiles bool) *FileConfig {
+func SetRollingFileConfig(fileDir, fileName string, cfg *setConfig) *FileConfig {
 	var logObjSet *FileConfig
-	if WriteFiles {
+	if cfg.WriteFiles {
 		now := time.Now()
 		logObjSet = &FileConfig{
 			dir:           fileDir,
@@ -252,7 +252,6 @@ func SetRollingFileConfig(fileDir, fileName string, cfg *setConfig, WriteFiles b
 			dailyRollings: false,
 			maxFileCounts: cfg.maxFiles,
 			maxFileSizes:  cfg.maxFileSize * int64(cfg.grade),
-			WriteFiles:    WriteFiles,
 			setConfig:     cfg,
 		}
 		logObjSet.mu.Lock()
@@ -333,8 +332,8 @@ func (f *FileConfig) rename() {
 	}
 }
 
-func IsWriteFileSet(isWrite bool) bool {
-	return isWrite
+func (cfg *setConfig) IsWriteFileSet(isWrite bool) {
+	cfg.WriteFiles = isWrite
 }
 
 func (f *FileConfig) fileMonitorSet() {
