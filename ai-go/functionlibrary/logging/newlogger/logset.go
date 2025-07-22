@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"runtime"
 	"strconv"
 	"strings"
 	"sync"
@@ -38,13 +37,7 @@ type (
 )
 
 var (
-	logLevels        Levels = SUCCESSED
-	maxFileSizes     int64
-	maxFileCounts    int64
-	consoleAppenders bool = true
-	dailyRollings    bool = true
-	RollingFiles     bool = true
-	WriteFiles       bool = false
+	WriteFiles bool = false
 )
 
 const (
@@ -57,24 +50,30 @@ type setRollingType int
 type SetOption func(*setConfig)
 
 type FileConfig struct {
-	dir      string
-	filename string
-	suffix   int
-	isCover  bool
-	date     time.Time
-	mu       *sync.RWMutex
-	logFile  *os.File
-	log      *log.Logger
-	level    Levels
+	dir           string
+	filename      string
+	suffix        int
+	isCover       bool
+	date          time.Time
+	mu            *sync.RWMutex
+	logFile       *os.File
+	log           *log.Logger
+	maxFileSizes  int64
+	maxFileCounts int64
+	dailyRollings bool
+	RollingFiles  bool
+	WriteFiles    bool
+	*setConfig
 }
 
 type setConfig struct {
-	rollingType setRollingType
-	maxFiles    int64
-	maxFileSize int64
-	grade       Units
-	level       Levels
-	console     bool
+	rollingType      setRollingType
+	maxFiles         int64
+	maxFileSize      int64
+	grade            Units
+	level            Levels
+	console          bool
+	consoleAppenders bool
 }
 
 func LoggerSet(pathfile string, args ...any) *FileConfig {
@@ -82,12 +81,13 @@ func LoggerSet(pathfile string, args ...any) *FileConfig {
 	var grade Units = Mb
 	var maxFileSize int64 = 10
 	var cfg = &setConfig{
-		rollingType: setRollingDaily,
-		maxFiles:    maxFiles,
-		maxFileSize: maxFileSize,
-		level:       SUCCESSED,
-		grade:       grade,
-		console:     true,
+		rollingType:      setRollingDaily,
+		maxFiles:         maxFiles,
+		maxFileSize:      maxFileSize,
+		level:            SUCCESSED,
+		grade:            grade,
+		console:          true,
+		consoleAppenders: true,
 	}
 	var options []SetOption
 	var otheroptions []any
@@ -119,7 +119,7 @@ func LoggerSet(pathfile string, args ...any) *FileConfig {
 	if cfg.rollingType == setRollingDaily {
 		return SetRolling(dir, filename)
 	} else {
-		return SetRollingFileConfig(dir, filename, cfg.maxFiles, cfg.maxFileSize, cfg.grade)
+		return SetRollingFileConfig(dir, filename, cfg)
 	}
 }
 
@@ -158,14 +158,13 @@ func WithLevelSet(levelobj any) SetOption {
 		level = levelVal
 	}
 	return func(c *setConfig) {
-		c.level = level
-		SetLevelSet(level)
+		c.SetLevelSet(level)
 	}
 }
 
 func WithConsoleSet(enable bool) SetOption {
 	return func(c *setConfig) {
-		SetConsoleAlone(enable)
+		c.SetConsoleAlone(enable)
 	}
 }
 
@@ -192,12 +191,12 @@ func (cfg *setConfig) parseOtherOptions(options ...any) {
 				cfg.rollingType = setRollingSize
 				grade = gradevalue
 			} else if level, ok := inlevelalone(value); ok {
-				SetLevelSet(level)
+				cfg.SetLevelSet(level)
 			}
 		case int:
 			maxfile = int64(value)
 		case bool:
-			SetConsoleAlone(value)
+			cfg.SetConsoleAlone(value)
 		}
 	}
 	cfg.maxFileSize = size
@@ -208,17 +207,16 @@ func (cfg *setConfig) parseOtherOptions(options ...any) {
 func SetRolling(fileDir, fileName string) *FileConfig {
 	var logObjSet *FileConfig
 	if WriteFiles {
-		RollingFiles = false
-		dailyRollings = true
 		now := time.Now()
 		logObjSet = &FileConfig{
-			dir:      fileDir,
-			filename: fileName,
-			date:     now,
-			mu:       new(sync.RWMutex),
+			dir:           fileDir,
+			filename:      fileName,
+			date:          now,
+			mu:            new(sync.RWMutex),
+			RollingFiles:  false,
+			dailyRollings: true,
 		}
 		logObjSet.mu.Lock()
-		// defer logObjSet.mu.Unlock()
 		if !logObjSet.isMustRename() {
 			logObjSet.openLogFile()
 		} else {
@@ -229,23 +227,23 @@ func SetRolling(fileDir, fileName string) *FileConfig {
 	return logObjSet
 }
 
-func SetRollingFileConfig(fileDir, fileName string, maxNumber int64, maxSize int64, _unit Units) *FileConfig {
+func SetRollingFileConfig(fileDir, fileName string, cfg *setConfig) *FileConfig {
 	var logObjSet *FileConfig
 	if WriteFiles {
-		RollingFiles = true
-		dailyRollings = false
-		maxFileCounts = maxNumber
-		maxFileSizes = maxSize * int64(_unit)
 		now := time.Now()
 		logObjSet = &FileConfig{
-			dir:      fileDir,
-			filename: fileName,
-			date:     now,
-			mu:       new(sync.RWMutex),
+			dir:           fileDir,
+			filename:      fileName,
+			date:          now,
+			mu:            new(sync.RWMutex),
+			RollingFiles:  true,
+			dailyRollings: false,
+			maxFileCounts: cfg.maxFiles,
+			maxFileSizes:  cfg.maxFileSize * int64(cfg.grade),
+			setConfig:     cfg,
 		}
 		logObjSet.mu.Lock()
-		// defer logObjSet.mu.Unlock()
-		for i := 1; i <= int(maxNumber); i++ {
+		for i := 1; i <= int(cfg.maxFiles); i++ {
 			if isExist(fileDir + "/" + fileName + "." + strconv.Itoa(i)) {
 				logObjSet.suffix = i
 			} else {
@@ -275,14 +273,14 @@ func (f *FileConfig) openLogFile() {
 }
 
 func (f *FileConfig) isMustRename() bool {
-	if dailyRollings {
+	if f.dailyRollings {
 		now := time.Now()
 		if now.Day() != f.date.Day() {
 			return true
 		}
-	} else {
-		if maxFileCounts > 1 {
-			if fileSize(f.dir+"/"+f.filename) >= maxFileSizes {
+	} else if f.RollingFiles {
+		if f.maxFileCounts > 1 {
+			if fileSize(f.dir+"/"+f.filename) >= f.maxFileSizes {
 				return true
 			}
 		}
@@ -291,11 +289,11 @@ func (f *FileConfig) isMustRename() bool {
 }
 
 func (f *FileConfig) nextSuffix() int {
-	return int(f.suffix)%int(maxFileCounts) + 1
+	return int(f.suffix)%int(f.maxFileCounts) + 1
 }
 
 func (f *FileConfig) rename() {
-	if dailyRollings {
+	if f.dailyRollings {
 		dateStr := f.date.Format(Dateformat)
 		newName := f.dir + "/" + f.filename + "." + dateStr
 		if !isExist(newName) && f.isMustRename() {
@@ -338,25 +336,19 @@ func (f *FileConfig) fileMonitorSet() {
 }
 
 func (f *FileConfig) fileCheck() {
-	defer func() {
-		if err := recover(); err != nil {
-			log.Println(err)
-		}
-	}()
 	if f != nil && f.isMustRename() {
 		f.mu.Lock()
-		// defer logObj.mu.Unlock()
 		f.rename()
 		f.mu.Unlock()
 	}
 }
 
-func SetLevelSet(level Levels) {
-	logLevels = level
+func (cfg *setConfig) SetLevelSet(level Levels) {
+	cfg.level = level
 }
 
-func SetConsoleAlone(isConsole bool) {
-	consoleAppenders = isConsole
+func (cfg *setConfig) SetConsoleAlone(isConsole bool) {
+	cfg.consoleAppenders = isConsole
 }
 
 func insizealone(grade string) (Units, bool) {
@@ -447,35 +439,34 @@ func (l *FileConfig) Trace(format string, v ...any) {
 }
 
 func (l *FileConfig) write(color uint8, level Levels, logType, data string) {
-	if dailyRollings {
+	if l.dailyRollings {
 		l.fileCheck()
 	}
 	if l.level <= level {
-		_, file, line, _ := runtime.Caller(2)
-		short := file
-		for i := len(file) - 1; i > 0; i-- {
-			if file[i] == '/' {
-				short = file[i+1:]
-			}
-		}
-		file = short
-		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, file+":"+strconv.Itoa(line), data)
-		// data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, data)
+		// _, file, line, _ := runtime.Caller(2)
+		// short := file
+		// for i := len(file) - 1; i > 0; i-- {
+		// 	if file[i] == '/' {
+		// 		short = file[i+1:]
+		// 	}
+		// }
+		// file = short
+		// data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, file+":"+strconv.Itoa(line), data)
+		data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, data)
 		if WriteFiles {
 			defer catchError()
 			l.mu.RLock()
-			// defer l.mu.RUnlock()
 			if l.log != nil {
 				l.log.Output(3, data)
 			}
 			l.mu.RUnlock()
 		}
-		consolealone(color, data)
+		l.consolealone(color, data)
 	}
 }
 
-func consolealone(color uint8, data string) {
-	if consoleAppenders {
+func (l *FileConfig) consolealone(color uint8, data string) {
+	if l.consoleAppenders {
 		fmt.Printf("\x1b[%dm%s\x1b[0m\n", color, data)
 	}
 }

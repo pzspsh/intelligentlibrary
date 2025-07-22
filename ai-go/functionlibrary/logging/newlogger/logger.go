@@ -311,7 +311,7 @@ func (f *File) isMustRename() bool {
 		if now.Day() != f.date.Day() {
 			return true
 		}
-	} else {
+	} else if RollingFile {
 		if maxFileCount > 1 {
 			if fileSize(f.dir+"/"+f.filename) >= maxFileSize {
 				return true
