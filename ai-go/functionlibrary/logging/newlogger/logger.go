@@ -219,6 +219,7 @@ func (cfg *config) parseOtherOptions(options ...any) {
 	var size int64 = 1
 	var grade Unit = MB
 	var maxfile int64 = 5
+	var boolnum = 0
 	for _, opt := range options {
 		switch value := opt.(type) {
 		case string:
@@ -237,7 +238,12 @@ func (cfg *config) parseOtherOptions(options ...any) {
 		case int:
 			maxfile = int64(value)
 		case bool:
-			SetConsole(value)
+			boolnum++
+			if boolnum == 1 {
+				SetConsole(value)
+			} else if boolnum == 2 {
+				SetSourcePath(value)
+			}
 		}
 	}
 	cfg.maxFileSize = size

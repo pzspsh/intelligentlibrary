@@ -162,13 +162,13 @@ func WithLevelSet(levelobj any) SetOption {
 		level = levelVal
 	}
 	return func(c *setConfig) {
-		c.SetLevelSet(level)
+		c.SetLevel(level)
 	}
 }
 
 func WithConsoleSet(enable bool) SetOption {
 	return func(c *setConfig) {
-		c.SetConsoleAlone(enable)
+		c.SetConsole(enable)
 	}
 }
 
@@ -182,6 +182,7 @@ func (cfg *setConfig) parseOtherOptions(options ...any) {
 	var size int64 = 1
 	var grade Units = Mb
 	var maxfile int64 = 5
+	var boolnum = 0
 	for _, opt := range options {
 		switch value := opt.(type) {
 		case string:
@@ -195,12 +196,17 @@ func (cfg *setConfig) parseOtherOptions(options ...any) {
 				cfg.rollingType = setRollingSize
 				grade = gradevalue
 			} else if level, ok := inlevelalone(value); ok {
-				cfg.SetLevelSet(level)
+				cfg.SetLevel(level)
 			}
 		case int:
 			maxfile = int64(value)
 		case bool:
-			cfg.SetConsoleAlone(value)
+			boolnum++
+			if boolnum == 1 {
+				cfg.SetConsole(value)
+			} else if boolnum == 2 {
+				cfg.SetSourcePath(value)
+			}
 		}
 	}
 	cfg.maxFileSize = size
@@ -350,12 +356,16 @@ func (f *FileConfig) fileCheck() {
 	}
 }
 
-func (cfg *setConfig) SetLevelSet(level Levels) {
+func (cfg *setConfig) SetLevel(level Levels) {
 	cfg.level = level
 }
 
-func (cfg *setConfig) SetConsoleAlone(isConsole bool) {
+func (cfg *setConfig) SetConsole(isConsole bool) {
 	cfg.consoleAppenders = isConsole
+}
+
+func (cfg *setConfig) SetSourcePath(enable bool) {
+	isSourcePath = enable
 }
 
 func insizealone(grade string) (Units, bool) {
