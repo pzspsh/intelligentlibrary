@@ -38,7 +38,7 @@ type (
 )
 
 var (
-	logLevels        Levels = 1
+	logLevels        Levels = SUCCESSED
 	maxFileSizes     int64
 	maxFileCounts    int64
 	consoleAppenders bool = true
@@ -218,12 +218,13 @@ func SetRolling(fileDir, fileName string) *FileConfig {
 			mu:       new(sync.RWMutex),
 		}
 		logObjSet.mu.Lock()
-		defer logObjSet.mu.Unlock()
+		// defer logObjSet.mu.Unlock()
 		if !logObjSet.isMustRename() {
 			logObjSet.openLogFile()
 		} else {
 			logObjSet.rename()
 		}
+		logObjSet.mu.Unlock()
 	}
 	return logObjSet
 }
@@ -243,7 +244,7 @@ func SetRollingFileConfig(fileDir, fileName string, maxNumber int64, maxSize int
 			mu:       new(sync.RWMutex),
 		}
 		logObjSet.mu.Lock()
-		defer logObjSet.mu.Unlock()
+		// defer logObjSet.mu.Unlock()
 		for i := 1; i <= int(maxNumber); i++ {
 			if isExist(fileDir + "/" + fileName + "." + strconv.Itoa(i)) {
 				logObjSet.suffix = i
@@ -256,6 +257,7 @@ func SetRollingFileConfig(fileDir, fileName string, maxNumber int64, maxSize int
 		} else {
 			logObjSet.rename()
 		}
+		logObjSet.mu.Unlock()
 		go logObjSet.fileMonitorSet()
 	}
 	return logObjSet
@@ -341,10 +343,11 @@ func (f *FileConfig) fileCheck() {
 			log.Println(err)
 		}
 	}()
-	if logObj != nil && logObj.isMustRename() {
-		logObj.mu.Lock()
-		defer logObj.mu.Unlock()
-		logObj.rename()
+	if f != nil && f.isMustRename() {
+		f.mu.Lock()
+		// defer logObj.mu.Unlock()
+		f.rename()
+		f.mu.Unlock()
 	}
 }
 
@@ -461,10 +464,11 @@ func (l *FileConfig) write(color uint8, level Levels, logType, data string) {
 		if WriteFiles {
 			defer catchError()
 			l.mu.RLock()
-			defer l.mu.RUnlock()
+			// defer l.mu.RUnlock()
 			if l.log != nil {
 				l.log.Output(3, data)
 			}
+			l.mu.RUnlock()
 		}
 		consolealone(color, data)
 	}

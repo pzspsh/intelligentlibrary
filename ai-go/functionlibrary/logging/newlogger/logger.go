@@ -251,12 +251,13 @@ func SetRollingDaily(fileDir, fileName string) {
 			mu:       new(sync.RWMutex),
 		}
 		logObj.mu.Lock()
-		defer logObj.mu.Unlock()
+		// defer logObj.mu.Unlock()
 		if !logObj.isMustRename() {
 			logObj.openLogFile()
 		} else {
 			logObj.rename()
 		}
+		logObj.mu.Unlock()
 	}
 }
 
@@ -275,7 +276,7 @@ func SetRollingFile(fileDir, fileName string, maxNumber int64, maxSize int64, _u
 			mu:       new(sync.RWMutex),
 		}
 		logObj.mu.Lock()
-		defer logObj.mu.Unlock()
+		// defer logObj.mu.Unlock()
 		for i := 1; i <= int(maxNumber); i++ {
 			if isExist(fileDir + "/" + fileName + "." + strconv.Itoa(i)) {
 				logObj.suffix = i
@@ -288,6 +289,7 @@ func SetRollingFile(fileDir, fileName string, maxNumber int64, maxSize int64, _u
 		} else {
 			logObj.rename()
 		}
+		logObj.mu.Unlock()
 		go fileMonitor()
 	}
 }
@@ -382,15 +384,16 @@ func fileMonitor() {
 }
 
 func fileCheck() {
-	defer func() {
-		if err := recover(); err != nil {
-			log.Println(err)
-		}
-	}()
+	// defer func() {
+	// 	if err := recover(); err != nil {
+	// 		log.Println(err)
+	// 	}
+	// }()
 	if logObj != nil && logObj.isMustRename() {
 		logObj.mu.Lock()
-		defer logObj.mu.Unlock()
+		// defer logObj.mu.Unlock()
 		logObj.rename()
+		logObj.mu.Unlock()
 	}
 }
 
@@ -533,12 +536,12 @@ func write(color uint8, level Level, logType, data string) {
 		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, file+":"+strconv.Itoa(line), data)
 		// data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, data)
 		if WriteFile {
-			defer catchError()
+			// defer catchError()
 			logObj.mu.RLock()
-			defer logObj.mu.RUnlock()
 			if logObj.log != nil {
 				logObj.log.Output(3, data)
 			}
+			logObj.mu.RUnlock()
 		}
 		console(color, data)
 	}
