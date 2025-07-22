@@ -73,6 +73,7 @@ var (
 	logLevel        Level = SUCCESS
 	maxFileSize     int64
 	maxFileCount    int64
+	isSourcePath    bool = false
 	dailyRolling    bool = true
 	consoleAppender bool = true
 	RollingFile     bool = true
@@ -186,6 +187,12 @@ func WithMaxFiles(n int64) Option {
 	}
 }
 
+func WithSourcePath(enable bool) Option {
+	return func(c *config) {
+		SetSourcePath(enable)
+	}
+}
+
 func WithLevel(levelobj any) Option {
 	var level Level = SUCCESS
 	if levelVal, ok := inlevel(levelobj); ok {
@@ -238,7 +245,6 @@ func (cfg *config) parseOtherOptions(options ...any) {
 	cfg.maxFiles = maxfile
 }
 
-// 设置按天滚动
 func SetRollingDaily(fileDir, fileName string) {
 	if WriteFile {
 		RollingFile = false
@@ -261,7 +267,6 @@ func SetRollingDaily(fileDir, fileName string) {
 	}
 }
 
-// 设置按大小滚动
 func SetRollingFile(fileDir, fileName string, maxNumber int64, maxSize int64, _unit Unit) {
 	if WriteFile {
 		RollingFile = true
@@ -405,6 +410,10 @@ func SetLevel(level Level) {
 	logLevel = level
 }
 
+func SetSourcePath(enable bool) {
+	isSourcePath = enable
+}
+
 func SetWriteFile(enable bool) {
 	WriteFile = enable
 }
@@ -525,16 +534,19 @@ func write(color uint8, level Level, logType, data string) {
 		fileCheck()
 	}
 	if logLevel <= level {
-		_, file, line, _ := runtime.Caller(2)
-		short := file
-		for i := len(file) - 1; i > 0; i-- {
-			if file[i] == '/' {
-				short = file[i+1:]
+		if isSourcePath {
+			_, file, line, _ := runtime.Caller(2)
+			short := file
+			for i := len(file) - 1; i > 0; i-- {
+				if file[i] == '/' {
+					short = file[i+1:]
+				}
 			}
+			file = short
+			data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, file+":"+strconv.Itoa(line), data)
+		} else {
+			data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, data)
 		}
-		file = short
-		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, file+":"+strconv.Itoa(line), data)
-		// data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, data)
 		if WriteFile {
 			// defer catchError()
 			logObj.mu.RLock()

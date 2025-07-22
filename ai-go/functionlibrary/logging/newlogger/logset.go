@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
 	"sync"
@@ -36,10 +37,6 @@ type (
 	Levels int32
 )
 
-var (
-	WriteFiles bool = false
-)
-
 const (
 	setRollingDaily setRollingType = iota // 按天滚动
 	setRollingSize                        // 按大小滚动
@@ -67,6 +64,7 @@ type FileConfig struct {
 }
 
 type setConfig struct {
+	isSourcePath     bool
 	rollingType      setRollingType
 	maxFiles         int64
 	maxFileSize      int64
@@ -115,11 +113,11 @@ func LoggerSet(pathfile string, args ...any) *FileConfig {
 	if len(options) > 0 {
 		cfg.parseOptions(options...)
 	}
-	IsWriteFileSet(true)
+	WriteFiles := IsWriteFileSet(true)
 	if cfg.rollingType == setRollingDaily {
-		return SetRolling(dir, filename)
+		return SetRolling(dir, filename, cfg, WriteFiles)
 	} else {
-		return SetRollingFileConfig(dir, filename, cfg)
+		return SetRollingFileConfig(dir, filename, cfg, WriteFiles)
 	}
 }
 
@@ -149,6 +147,12 @@ func WithMaxFileSizeSet(sizeobj any) SetOption {
 func WithMaxFilesSet(n int64) SetOption {
 	return func(c *setConfig) {
 		c.maxFiles = n
+	}
+}
+
+func WithSourcePathSet(enable bool) SetOption {
+	return func(c *setConfig) {
+		c.isSourcePath = enable
 	}
 }
 
@@ -204,7 +208,7 @@ func (cfg *setConfig) parseOtherOptions(options ...any) {
 	cfg.maxFiles = maxfile
 }
 
-func SetRolling(fileDir, fileName string) *FileConfig {
+func SetRolling(fileDir, fileName string, cfg *setConfig, WriteFiles bool) *FileConfig {
 	var logObjSet *FileConfig
 	if WriteFiles {
 		now := time.Now()
@@ -215,6 +219,8 @@ func SetRolling(fileDir, fileName string) *FileConfig {
 			mu:            new(sync.RWMutex),
 			RollingFiles:  false,
 			dailyRollings: true,
+			WriteFiles:    WriteFiles,
+			setConfig:     cfg,
 		}
 		logObjSet.mu.Lock()
 		if !logObjSet.isMustRename() {
@@ -227,7 +233,7 @@ func SetRolling(fileDir, fileName string) *FileConfig {
 	return logObjSet
 }
 
-func SetRollingFileConfig(fileDir, fileName string, cfg *setConfig) *FileConfig {
+func SetRollingFileConfig(fileDir, fileName string, cfg *setConfig, WriteFiles bool) *FileConfig {
 	var logObjSet *FileConfig
 	if WriteFiles {
 		now := time.Now()
@@ -240,6 +246,7 @@ func SetRollingFileConfig(fileDir, fileName string, cfg *setConfig) *FileConfig 
 			dailyRollings: false,
 			maxFileCounts: cfg.maxFiles,
 			maxFileSizes:  cfg.maxFileSize * int64(cfg.grade),
+			WriteFiles:    WriteFiles,
 			setConfig:     cfg,
 		}
 		logObjSet.mu.Lock()
@@ -320,8 +327,8 @@ func (f *FileConfig) rename() {
 	}
 }
 
-func IsWriteFileSet(isWrite bool) {
-	WriteFiles = isWrite
+func IsWriteFileSet(isWrite bool) bool {
+	return isWrite
 }
 
 func (f *FileConfig) fileMonitorSet() {
@@ -438,22 +445,38 @@ func (l *FileConfig) Trace(format string, v ...any) {
 	l.write(color_blue, TRACEED, trace, fmt.Sprintf(format, v...))
 }
 
+func (l *FileConfig) Print(format string, v ...any) {
+	_, file, line, _ := runtime.Caller(1)
+	short := file
+	for i := len(file) - 1; i > 0; i-- {
+		if file[i] == '/' {
+			short = file[i+1:]
+		}
+	}
+	file = short
+	data := fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), trace, file+":"+strconv.Itoa(line), fmt.Sprintf(format, v...))
+	l.consolealone(color_white, data)
+}
+
 func (l *FileConfig) write(color uint8, level Levels, logType, data string) {
 	if l.dailyRollings {
 		l.fileCheck()
 	}
 	if l.level <= level {
-		// _, file, line, _ := runtime.Caller(2)
-		// short := file
-		// for i := len(file) - 1; i > 0; i-- {
-		// 	if file[i] == '/' {
-		// 		short = file[i+1:]
-		// 	}
-		// }
-		// file = short
-		// data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, file+":"+strconv.Itoa(line), data)
-		data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, data)
-		if WriteFiles {
+		if l.isSourcePath {
+			_, file, line, _ := runtime.Caller(2)
+			short := file
+			for i := len(file) - 1; i > 0; i-- {
+				if file[i] == '/' {
+					short = file[i+1:]
+				}
+			}
+			file = short
+			data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, file+":"+strconv.Itoa(line), data)
+		} else {
+			data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), logType, data)
+		}
+		if l.WriteFiles {
 			defer catchError()
 			l.mu.RLock()
 			if l.log != nil {
