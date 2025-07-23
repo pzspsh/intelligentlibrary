@@ -523,15 +523,20 @@ func Trace(format string, v ...any) {
 }
 
 func Print(format string, v ...any) {
-	_, file, line, _ := runtime.Caller(1)
-	short := file
-	for i := len(file) - 1; i > 0; i-- {
-		if file[i] == '/' {
-			short = file[i+1:]
+	var data string
+	if isSourcePath {
+		_, file, line, _ := runtime.Caller(1)
+		short := file
+		for i := len(file) - 1; i > 0; i-- {
+			if file[i] == '/' {
+				short = file[i+1:]
+			}
 		}
+		file = short
+		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), trace, file+":"+strconv.Itoa(line), fmt.Sprintf(format, v...))
+	} else {
+		data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), trace, fmt.Sprintf(format, v...))
 	}
-	file = short
-	data := fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), trace, file+":"+strconv.Itoa(line), fmt.Sprintf(format, v...))
 	console(color_white, data)
 }
 
