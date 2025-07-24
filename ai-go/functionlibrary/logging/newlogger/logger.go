@@ -533,9 +533,9 @@ func Print(format string, v ...any) {
 			}
 		}
 		file = short
-		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), trace, file+":"+strconv.Itoa(line), fmt.Sprintf(format, v...))
+		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), info, file+":"+strconv.Itoa(line), fmt.Sprintf(format, v...))
 	} else {
-		data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), trace, fmt.Sprintf(format, v...))
+		data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), info, fmt.Sprintf(format, v...))
 	}
 	console(color_white, data)
 }
