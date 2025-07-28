@@ -526,6 +526,11 @@ func Trace(format string, v ...any) {
 	write(color_blue, TRACE, trace, fmt.Sprintf(format, v...))
 }
 
+func Off(format string, v ...any) {
+	write(color_white, OFF, err, fmt.Sprintf(format, v...))
+	os.Exit(0)
+}
+
 func Print(format string, v ...any) {
 	var data string
 	if isSourcePath {
