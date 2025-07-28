@@ -454,6 +454,11 @@ func (l *FileConfig) Trace(format string, v ...any) {
 	l.write(color_blue, TRACEED, trace, fmt.Sprintf(format, v...))
 }
 
+func (l *FileConfig) Off(format string, v ...any) {
+	l.write(color_white, OFFING, err, fmt.Sprintf(format, v...))
+	os.Exit(1)
+}
+
 func (l *FileConfig) Print(format string, v ...any) {
 	var data string
 	if l.isSourcePath {

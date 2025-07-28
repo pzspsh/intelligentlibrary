@@ -528,7 +528,7 @@ func Trace(format string, v ...any) {
 
 func Off(format string, v ...any) {
 	write(color_white, OFF, err, fmt.Sprintf(format, v...))
-	os.Exit(0)
+	os.Exit(1)
 }
 
 func Print(format string, v ...any) {
