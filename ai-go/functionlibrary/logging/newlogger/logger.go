@@ -62,6 +62,10 @@ const (
 	MB
 	GB
 	TB
+	PB
+	EB
+	// ZB // 注释掉 ZB 和 YB，避免 int64 溢出
+	// YB
 )
 
 type (
