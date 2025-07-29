@@ -40,6 +40,7 @@ const (
 	fatal   = "FATAL"
 	debug   = "DEBUG"
 	info    = "INFO"
+	off     = "OFF"
 )
 
 // 日志级别
@@ -527,7 +528,7 @@ func Trace(format string, v ...any) {
 }
 
 func Off(format string, v ...any) {
-	write(color_white, OFF, err, fmt.Sprintf(format, v...))
+	write(color_white, OFF, off, fmt.Sprintf(format, v...))
 	os.Exit(1)
 }
 

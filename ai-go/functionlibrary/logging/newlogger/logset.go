@@ -455,7 +455,7 @@ func (l *FileConfig) Trace(format string, v ...any) {
 }
 
 func (l *FileConfig) Off(format string, v ...any) {
-	l.write(color_white, OFFING, err, fmt.Sprintf(format, v...))
+	l.write(color_white, OFFING, off, fmt.Sprintf(format, v...))
 	os.Exit(1)
 }
 
