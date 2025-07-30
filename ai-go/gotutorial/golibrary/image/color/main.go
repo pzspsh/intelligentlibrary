@@ -92,8 +92,8 @@ func fzImage(m image.Image) *image.RGBA {
 	dx := bounds.Dx()
 	dy := bounds.Dy()
 	newRgba := image.NewRGBA(bounds)
-	for i := 0; i < dx; i++ {
-		for j := 0; j < dy; j++ {
+	for i := range dx {
+		for j := range dy {
 			colorRgb := m.At(i, j)
 			r, g, b, a := colorRgb.RGBA()
 			r_uint8 := uint8(r >> 8)
@@ -115,8 +115,8 @@ func hdImage(m image.Image) *image.RGBA {
 	dx := bounds.Dx()
 	dy := bounds.Dy()
 	newRgba := image.NewRGBA(bounds)
-	for i := 0; i < dx; i++ {
-		for j := 0; j < dy; j++ {
+	for i := range dx {
+		for j := range dy {
 			colorRgb := m.At(i, j)
 			_, g, _, a := colorRgb.RGBA()
 			g_uint8 := uint8(g >> 8)
@@ -154,8 +154,8 @@ func ascllimage(m image.Image, target string) {
 		return
 	}
 	defer dstFile.Close()
-	for i := 0; i < dy; i++ {
-		for j := 0; j < dx; j++ {
+	for i := range dy {
+		for j := range dx {
 			colorRgb := m.At(j, i)
 			_, g, _, _ := colorRgb.RGBA()
 			avg := uint8(g >> 8)

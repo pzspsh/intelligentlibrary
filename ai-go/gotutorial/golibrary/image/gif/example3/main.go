@@ -22,10 +22,10 @@ func main() {
 	)
 	phase := 0
 	anim := gif.GIF{LoopCount: nframes}
-	for i := 0; i < nframes; i++ {
+	for range nframes {
 		rect := image.Rect(0, 0, size+1, size+1)
 		img := image.NewPaletted(rect, palette)
-		for t := 0; t < size; t++ {
+		for t := range size {
 			x := phase
 			y := t
 			img.SetColorIndex(x, y, 1)

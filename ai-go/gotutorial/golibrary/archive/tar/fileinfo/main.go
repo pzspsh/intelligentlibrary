@@ -22,7 +22,7 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(h.AccessTime, h.ChangeTime, h.Devmajor, h.Devminor, h.Gid, h.Gname, h.Linkname, h.ModTime, h.Mode, h.Name, h.Size, h.Typeflag, h.Uid, h.Uname, h.Xattrs)
+	fmt.Println(h.AccessTime, h.ChangeTime, h.Devmajor, h.Devminor, h.Gid, h.Gname, h.Linkname, h.ModTime, h.Mode, h.Name, h.Size, h.Typeflag, h.Uid, h.Uname, h.PAXRecords)
 
 	// FileInfo
 	fileinfo2 := h.FileInfo()

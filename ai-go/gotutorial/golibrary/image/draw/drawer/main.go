@@ -18,8 +18,8 @@ func main() {
 	const height = 50
 
 	im := image.NewGray(image.Rectangle{Max: image.Point{X: width, Y: height}})
-	for x := 0; x < width; x++ {
-		for y := 0; y < height; y++ {
+	for x := range width {
+		for y := range height {
 			dist := math.Sqrt(math.Pow(float64(x-width/2), 2)/3+math.Pow(float64(y-height/2), 2)) / (height / 1.5) * 255
 			var gray uint8
 			if dist > 255 {

@@ -35,8 +35,8 @@ func main() {
 	}
 	defer file.Close()
 	rgba := image.NewRGBA(image.Rect(0, 0, dx, dy))
-	for x := 0; x < dx; x++ {
-		for y := 0; y < dy; y++ {
+	for x := range dx {
+		for y := range dy {
 			rgba.Set(x, y, color.RGBA{uint8(x * y % 255), uint8(x * y % 255), 0, 255})
 		}
 	}

@@ -60,7 +60,7 @@ func main() {
 
 		nrgba.Set(x, y, color.RGBA{uint8(x), uint8(y), 0, 255})
 	})
-	for y := 0; y < dy; y++ {
+	for y := range dy {
 		nrgba.Set(1, y, color.White)
 		nrgba.Set(dx-1, y, color.White)
 	}

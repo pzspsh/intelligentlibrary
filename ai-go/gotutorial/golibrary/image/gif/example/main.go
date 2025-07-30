@@ -42,8 +42,8 @@ func main() {
 	var disposals []byte
 	var hw, hh float64 = float64(w / 2), float64(h / 2)
 	// circles := []*Circle{&Circle{}, &Circle{}, &Circle{}}
-	circles := []*Circle{&Circle{}, &Circle{}, &Circle{}}
-	for step := 0; step < frameN; step++ {
+	circles := []*Circle{{}, {}, {}}
+	for step := range frameN {
 		img := image.NewPaletted(image.Rect(0, 0, w, h), palette)
 		images = append(images, img)
 		delays = append(delays, delay)
@@ -55,8 +55,8 @@ func main() {
 			circle.Y = hh - 30*math.Cos(θ0) - 30*math.Cos(θ0+θ)
 			circle.R = R
 		}
-		for x := 0; x < w; x++ {
-			for y := 0; y < h; y++ {
+		for x := range w {
+			for y := range h {
 				cr := circles[0].Brightness(float64(x), float64(y))
 				cg := circles[1].Brightness(float64(x), float64(y))
 				cb := circles[2].Brightness(float64(x), float64(y))

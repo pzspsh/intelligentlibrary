@@ -46,6 +46,7 @@ require (
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa
 	golang.org/x/image v0.14.0
 	golang.org/x/oauth2 v0.14.0
+	golang.org/x/sync v0.5.0
 	golang.org/x/sys v0.30.0
 	golang.org/x/text v0.14.0
 	google.golang.org/grpc v1.57.0
@@ -133,7 +134,6 @@ require (
 	go.mongodb.org/mongo-driver v1.5.2 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	golang.org/x/arch v0.3.0 // indirect
-	golang.org/x/sync v0.5.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230726155614-23370e0ffb3e // indirect
 	google.golang.org/protobuf v1.31.0 // indirect

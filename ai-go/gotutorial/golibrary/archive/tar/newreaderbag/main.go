@@ -13,7 +13,6 @@ import (
 )
 
 func main() {
-
 	f, err := os.Open("path/test.tar")
 	if err != nil {
 		fmt.Println(err)

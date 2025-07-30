@@ -239,7 +239,7 @@ func getRandomString(lenght int) string {
 	bytesLen := len(bytes)
 	result := []byte{}
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	for i := 0; i < lenght; i++ {
+	for range lenght {
 		result = append(result, bytes[r.Intn(bytesLen)])
 	}
 	return string(result)

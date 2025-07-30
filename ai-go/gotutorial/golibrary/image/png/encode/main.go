@@ -19,8 +19,8 @@ func main() {
 	// Create a colored image of the given width and height.
 	img := image.NewNRGBA(image.Rect(0, 0, width, height))
 
-	for y := 0; y < height; y++ {
-		for x := 0; x < width; x++ {
+	for y := range height {
+		for x := range width {
 			img.Set(x, y, color.NRGBA{
 				R: uint8((x + y) & 255),
 				G: uint8((x + y) << 1 & 255),
