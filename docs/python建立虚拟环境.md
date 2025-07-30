@@ -4,7 +4,11 @@
 $ python3 -m venv .env  # .env虚拟环境的名称，可以随意更改
 $ cd .env/ # 切换到.env
 # $ source .env/bin/activate
-$ source .env/bin/activate
+$ source .env/bin/activate  # 激活虚拟环境
+
+# 如果是windows系统，则执行以下操作：
+切换到 cd .env/Scripts目录下并执行:
+$ activate # 就可以激活虚拟环境
 $ pip freeze
 
 3、关闭虚拟环境
