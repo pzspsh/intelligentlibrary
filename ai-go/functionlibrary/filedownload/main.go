@@ -131,7 +131,7 @@ func GitDownload() error {
 		downurllist = append(downurllist, projectdiscovery+name)
 	}
 	githubURL := []string{"https://github.com/Threekiii/Awesome-POC", "https://github.com/sqlmapproject/sqlmap", "https://github.com/containrrr/watchtower", "https://github.com/future-architect/vuls", "https://github.com/swisskyrepo/PayloadsAllTheThings", "https://github.com/aquasecurity/trivy", "https://github.com/The-Art-of-Hacking/h4cker", "https://github.com/chaitin/SafeLine", "https://github.com/anchore/grype", "https://github.com/google/osv-scanner", "https://github.com/shadow1ng/fscan", "https://github.com/fatedier/frp", "https://github.com/traefik/traefik", "https://github.com/mitmproxy/mitmproxy", "https://github.com/ehang-io/nps", "https://github.com/v2fly/v2ray-core", "https://github.com/XTLS/Xray-core", "https://github.com/SagerNet/sing-box", "https://github.com/snail007/goproxy", "https://github.com/Shopify/toxiproxy", "https://github.com/lqqyt2423/go-mitmproxy", "https://github.com/guardicore/monkey", "https://github.com/MrWQ/vulnerability-paper", "https://github.com/Qianlitp/crawlergo"}
-	// githubURL = []string{}
+	githubURL = []string{}
 	if len(githubURL) > 0 {
 		downurllist = append(downurllist, githubURL...)
 	}
