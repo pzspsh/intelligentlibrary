@@ -39,7 +39,7 @@ func getLength(x io.Reader) (int64, error) {
 	return len, err
 }
 
-func getReusableBodyandContentLength(rawBody interface{}) (*readerutil.ReusableReadCloser, int64, error) {
+func getReusableBodyandContentLength(rawBody any) (*readerutil.ReusableReadCloser, int64, error) {
 
 	var bodyReader *readerutil.ReusableReadCloser
 	var contentLength int64

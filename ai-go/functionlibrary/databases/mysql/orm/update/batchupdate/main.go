@@ -53,7 +53,7 @@ func BatchUpdate2() {
 	// 或者使用Updates方法来更新多个字段
 	db.Model(&User{}).Where("age > ?", 18).Updates(User{Name: "Adult", Age: 0}) // 注意：这会把年龄设为0，可能不是你想要的
 	// 更安全的做法是指定要更新的字段
-	db.Model(&User{}).Where("age > ?", 18).Updates(map[string]interface{}{"name": "Adult"})
+	db.Model(&User{}).Where("age > ?", 18).Updates(map[string]any{"name": "Adult"})
 
 	fmt.Println("Batch update completed.")
 }
@@ -89,7 +89,7 @@ func BatchUpdateUsers(db *gorm.DB, users []User) error {
 		return nil
 	}
 
-	var ids []interface{}
+	var ids []any
 	var cases []string
 	for _, user := range users {
 		ids = append(ids, user.ID)
@@ -105,7 +105,7 @@ func BatchUpdateUsers(db *gorm.DB, users []User) error {
 	return db.Exec(sql).Error
 }
 
-func joinInts(ints []interface{}) string {
+func joinInts(ints []any) string {
 	var buffer bytes.Buffer
 	buffer.WriteString("(")
 	for i, val := range ints {

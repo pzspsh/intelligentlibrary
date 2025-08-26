@@ -58,7 +58,7 @@ func HGetOperate(client *redis.Client) (string, error) {
 
 // hmset key field1 value1 field2 value2：批量添加多个hash类型key的field值
 func MapMSet(client *redis.Client) error {
-	usaMap := map[string]interface{}{"name": "dsb", "name2": "robber"}
+	usaMap := map[string]any{"name": "dsb", "name2": "robber"}
 	err := client.HMSet("USA", usaMap).Err()
 	if err != nil {
 		return err
@@ -68,7 +68,7 @@ func MapMSet(client *redis.Client) error {
 }
 
 // hmget key field1 field2：批量获取hash类型key多个field的value值
-func MGet(client *redis.Client) []interface{} {
+func MGet(client *redis.Client) []any {
 	result := client.HMGet("USA", "name2", "name").Val()
 	return result
 }

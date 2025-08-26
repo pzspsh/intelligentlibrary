@@ -2139,7 +2139,7 @@ func main() {
 3、switch 条件语句
 ```go 
 问题举例：
-func SwitchDemo(inter interface{}) {
+func SwitchDemo(inter any) {
 	switch inter.(type) {
 		case string:
 			return inter.(string)
@@ -2159,7 +2159,7 @@ func SwitchDemo(inter interface{}) {
 }
 
 正确形式：
-func SwitchDemo(inter interface{}) string {
+func SwitchDemo(inter any) string {
 	switch inter := inter.(type) {
 	   case string:
 		   return inter

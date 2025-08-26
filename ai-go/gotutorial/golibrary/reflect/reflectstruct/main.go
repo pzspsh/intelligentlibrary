@@ -22,8 +22,8 @@ func (u User) Hello() {
 	fmt.Println("Hello")
 }
 
-// 传入interface{}
-func Poni(o interface{}) {
+// 传入any
+func Poni(o any) {
 	t := reflect.TypeOf(o)
 	fmt.Println("类型：", t)
 	fmt.Println("字符串类型：", t.Name())

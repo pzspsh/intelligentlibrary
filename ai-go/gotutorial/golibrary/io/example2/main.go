@@ -107,8 +107,8 @@ func main() {
 	// 示例6。
 	fmt.Println("New a synchronous in-memory pipe ...")
 	pReader, pWriter := io.Pipe()
-	_ = interface{}(pReader).(io.ReadCloser)
-	_ = interface{}(pWriter).(io.WriteCloser)
+	_ = any(pReader).(io.ReadCloser)
+	_ = any(pWriter).(io.WriteCloser)
 
 	comments := [][]byte{
 		[]byte("Pipe creates a synchronous in-memory pipe."),

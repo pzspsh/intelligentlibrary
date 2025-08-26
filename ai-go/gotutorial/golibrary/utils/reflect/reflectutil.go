@@ -25,16 +25,16 @@ var TitleUnderscore ToMapKey = func(raw string) string {
 }
 
 // ToMapWithDefault settings
-func ToMapWithDefault(v interface{}) (map[string]interface{}, error) {
+func ToMapWithDefault(v any) (map[string]any, error) {
 	return ToMap(v, nil, false)
 }
 
-// ToMap converts exported fields of a struct to map[string]interface{} - non exported fields are converted to string
-func ToMap(v interface{}, tomapkey ToMapKey, unexported bool) (map[string]interface{}, error) {
+// ToMap converts exported fields of a struct to map[string]any - non exported fields are converted to string
+func ToMap(v any, tomapkey ToMapKey, unexported bool) (map[string]any, error) {
 	if tomapkey == nil {
 		tomapkey = TitleUnderscore
 	}
-	kv := make(map[string]interface{})
+	kv := make(map[string]any)
 	typ := reflect.TypeOf(v)
 	val := reflect.ValueOf(v)
 	switch typ.Kind() {
@@ -49,7 +49,7 @@ func ToMap(v interface{}, tomapkey ToMapKey, unexported bool) (map[string]interf
 		field := typ.Field(i)
 		fieldName := tomapkey(field.Name)
 		fieldvalue := val.Field(i)
-		var fieldValueItf interface{}
+		var fieldValueItf any
 		if fieldvalue.CanInterface() {
 			fieldValueItf = fieldvalue.Interface()
 		} else if unexported {
@@ -63,33 +63,33 @@ func ToMap(v interface{}, tomapkey ToMapKey, unexported bool) (map[string]interf
 }
 
 // we are not particularly interested to preserve the type, so just return the value as string
-func getUnexportedField(field reflect.Value) interface{} {
+func getUnexportedField(field reflect.Value) any {
 	return fmt.Sprint(field)
 }
 
 // GetStructField obtains a reference to a field of a pointer to a struct
-func GetStructField(structInstance interface{}, fieldname string) reflect.Value {
+func GetStructField(structInstance any, fieldname string) reflect.Value {
 	return reflect.ValueOf(structInstance).Elem().FieldByName(fieldname)
 }
 
 // GetUnexportedField unwraps an unexported field with pointer to struct and field name
-func GetUnexportedField(structInstance interface{}, fieldname string) interface{} {
+func GetUnexportedField(structInstance any, fieldname string) any {
 	field := GetStructField(structInstance, fieldname)
 	return UnwrapUnexportedField(field)
 }
 
 // UnwrapUnexportedField unwraps an unexported field
-func UnwrapUnexportedField(field reflect.Value) interface{} {
+func UnwrapUnexportedField(field reflect.Value) any {
 	return reflect.NewAt(field.Type(), unsafe.Pointer(field.UnsafeAddr())).Elem().Interface()
 }
 
 // SetUnexportedField sets (pointer to) struct's field with the specified value
-func SetUnexportedField(structInstance interface{}, fieldname string, value interface{}) {
+func SetUnexportedField(structInstance any, fieldname string, value any) {
 	field := GetStructField(structInstance, fieldname)
 	setUnexportedField(field, value)
 }
 
-func setUnexportedField(field reflect.Value, value interface{}) {
+func setUnexportedField(field reflect.Value, value any) {
 	reflect.NewAt(field.Type(), unsafe.Pointer(field.UnsafeAddr())).
 		Elem().
 		Set(reflect.ValueOf(value))

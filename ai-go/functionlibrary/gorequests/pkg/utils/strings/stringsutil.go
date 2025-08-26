@@ -74,7 +74,7 @@ func TrimSuffixAny(s string, suffixes ...string) string {
 	return s
 }
 
-func Join(elems []interface{}, sep string) string {
+func Join(elems []any, sep string) string {
 	switch len(elems) {
 	case 0:
 		return ""

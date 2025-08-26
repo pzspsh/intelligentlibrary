@@ -16,16 +16,16 @@ import (
 )
 
 func TestMergeMaps(t *testing.T) {
-	m1Str := map[string]interface{}{"a": 1, "b": 2}
-	m2Str := map[string]interface{}{"b": 2, "c": 3}
-	rStr := map[string]interface{}{"a": 1, "b": 2, "c": 3}
+	m1Str := map[string]any{"a": 1, "b": 2}
+	m2Str := map[string]any{"b": 2, "c": 3}
+	rStr := map[string]any{"a": 1, "b": 2, "c": 3}
 	rrStr := Merge(m1Str, m2Str)
 	require.EqualValues(t, rStr, rrStr)
 
-	m1Int := map[int]interface{}{1: 1, 2: 2}
-	m2Int := map[int]interface{}{1: 1, 2: 2, 3: 3, 4: 4}
-	m3Int := map[int]interface{}{1: 1, 5: 5}
-	rInt := map[int]interface{}{1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
+	m1Int := map[int]any{1: 1, 2: 2}
+	m2Int := map[int]any{1: 1, 2: 2, 3: 3, 4: 4}
+	m3Int := map[int]any{1: 1, 5: 5}
+	rInt := map[int]any{1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
 	rrInt := Merge(m1Int, m2Int, m3Int)
 	require.EqualValues(t, rInt, rrInt)
 }
@@ -114,67 +114,67 @@ func TestHTTPResponseToMap(t *testing.T) {
 
 func TestGetKeys(t *testing.T) {
 	t.Run("GetKeys(empty)", func(t *testing.T) {
-		got := GetKeys(map[string]interface{}{})
+		got := GetKeys(map[string]any{})
 		require.Empty(t, got)
 	})
 
 	t.Run("GetKeys(string)", func(t *testing.T) {
-		got := GetKeys(map[string]interface{}{"a": "a", "b": "b"})
+		got := GetKeys(map[string]any{"a": "a", "b": "b"})
 		require.ElementsMatch(t, []string{"a", "b"}, got)
 	})
 
 	t.Run("GetKeys(int)", func(t *testing.T) {
-		got := GetKeys(map[int]interface{}{1: "a", 2: "b"})
+		got := GetKeys(map[int]any{1: "a", 2: "b"})
 		require.ElementsMatch(t, []int{1, 2}, got)
 	})
 
 	t.Run("GetKeys(bool)", func(t *testing.T) {
-		got := GetKeys(map[bool]interface{}{true: "a", false: "b"})
+		got := GetKeys(map[bool]any{true: "a", false: "b"})
 		require.ElementsMatch(t, []bool{true, false}, got)
 	})
 }
 
 func TestGetValues(t *testing.T) {
 	t.Run("GetValues(empty)", func(t *testing.T) {
-		got := GetValues(map[string]interface{}{})
+		got := GetValues(map[string]any{})
 		require.Empty(t, got)
 	})
 
 	t.Run("GetValues(string)", func(t *testing.T) {
-		got := GetValues(map[string]interface{}{"a": "a", "b": "b"})
-		require.ElementsMatch(t, []interface{}{"a", "b"}, got)
+		got := GetValues(map[string]any{"a": "a", "b": "b"})
+		require.ElementsMatch(t, []any{"a", "b"}, got)
 	})
 
 	t.Run("GetValues(int)", func(t *testing.T) {
-		got := GetValues(map[string]interface{}{"a": 1, "b": 2})
-		require.ElementsMatch(t, []interface{}{1, 2}, got)
+		got := GetValues(map[string]any{"a": 1, "b": 2})
+		require.ElementsMatch(t, []any{1, 2}, got)
 	})
 
 	t.Run("GetValues(bool)", func(t *testing.T) {
-		got := GetValues(map[string]interface{}{"a": true, "b": false})
-		require.ElementsMatch(t, []interface{}{true, false}, got)
+		got := GetValues(map[string]any{"a": true, "b": false})
+		require.ElementsMatch(t, []any{true, false}, got)
 	})
 }
 
 func TestDifference(t *testing.T) {
 	t.Run("Difference(empty)", func(t *testing.T) {
-		got := Difference(map[string]interface{}{}, []string{}...)
-		require.ElementsMatch(t, map[string]interface{}{}, got)
+		got := Difference(map[string]any{}, []string{}...)
+		require.ElementsMatch(t, map[string]any{}, got)
 	})
 
 	t.Run("Difference(string)", func(t *testing.T) {
-		got := Difference(map[string]interface{}{"a": 1, "b": 2, "c": 3}, []string{"a"}...)
-		require.EqualValues(t, map[string]interface{}{"b": 2, "c": 3}, got)
+		got := Difference(map[string]any{"a": 1, "b": 2, "c": 3}, []string{"a"}...)
+		require.EqualValues(t, map[string]any{"b": 2, "c": 3}, got)
 	})
 
 	t.Run("Difference(int)", func(t *testing.T) {
-		got := Difference(map[int]interface{}{1: "a", 2: "b", 3: "c"}, []int{1}...)
-		require.EqualValues(t, map[int]interface{}{2: "b", 3: "c"}, got)
+		got := Difference(map[int]any{1: "a", 2: "b", 3: "c"}, []int{1}...)
+		require.EqualValues(t, map[int]any{2: "b", 3: "c"}, got)
 	})
 
 	t.Run("Difference(bool)", func(t *testing.T) {
-		got := Difference(map[bool]interface{}{true: 1, false: 2}, []bool{true}...)
-		require.EqualValues(t, map[bool]interface{}{false: 2}, got)
+		got := Difference(map[bool]any{true: 1, false: 2}, []bool{true}...)
+		require.EqualValues(t, map[bool]any{false: 2}, got)
 	})
 }
 
@@ -251,7 +251,7 @@ func TestFlatten(t *testing.T) {
 		testData := []string{"item", "item1", "item2"}
 		expected := GetKeys(map[string]any{"item.item": 0, "item1.item1": 1, "item2.item2": 2})
 		for i, v := range testData {
-			child := make(map[string]interface{})
+			child := make(map[string]any)
 			child[v] = i
 			input[v] = child
 		}
@@ -262,13 +262,13 @@ func TestFlatten(t *testing.T) {
 
 func TestWalk(t *testing.T) {
 	t.Run("Walk (flat-map)", func(t *testing.T) {
-		input := make(map[string]interface{})
+		input := make(map[string]any)
 		expected := []string{"item", "item1", "item2"}
 		for i, v := range expected {
 			input[v] = i
 		}
 		var got []string
-		Walk(input, func(k string, v interface{}) {
+		Walk(input, func(k string, v any) {
 			got = append(got, k)
 		})
 		require.Equal(t, len(expected), len(got))
@@ -277,12 +277,12 @@ func TestWalk(t *testing.T) {
 		input := make(map[string]any)
 		expected := []string{"item", "item1", "item2"}
 		for i, v := range expected {
-			child := make(map[string]interface{})
+			child := make(map[string]any)
 			child[v] = i
 			input[v] = child
 		}
 		var got []string
-		Walk(input, func(k string, v interface{}) {
+		Walk(input, func(k string, v any) {
 			got = append(got, k)
 		})
 		require.Equal(t, len(expected), len(got))

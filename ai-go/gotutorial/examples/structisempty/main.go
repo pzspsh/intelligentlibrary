@@ -25,11 +25,11 @@ type MyStruct struct {
 	Field2 string
 }
 
-func IsStructZeroValue(s interface{}) bool {
+func IsStructZeroValue(s any) bool {
 	return reflect.DeepEqual(s, reflect.Zero(reflect.TypeOf(s)).Interface())
 }
 
-func isEmpty(s interface{}) bool {
+func isEmpty(s any) bool {
 	v := reflect.ValueOf(s)
 	if v.Kind() == reflect.Ptr {
 		v = v.Elem()

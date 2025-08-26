@@ -87,7 +87,7 @@ type File struct {
 	log      *log.Logger
 }
 
-func Logger(pathfile string, args ...interface{}) {
+func Logger(pathfile string, args ...any) {
 	var maxNumber int64
 	var maxSize int64
 	var isrolling bool
@@ -336,35 +336,35 @@ func extract(data string) (int64, string, bool) {
 	return 0, "", false
 }
 
-func Debug(format string, v ...interface{}) {
+func Debug(format string, v ...any) {
 	write(color_darkgreen, DEBUG, debug, fmt.Sprintf(format, v...))
 }
 
-func Info(format string, v ...interface{}) {
+func Info(format string, v ...any) {
 	write(color_white, INFO, info, fmt.Sprintf(format, v...))
 }
 
-func Warning(format string, v ...interface{}) {
+func Warning(format string, v ...any) {
 	write(color_yellow, WARN, warning, fmt.Sprintf(format, v...))
 }
 
-func Error(format string, v ...interface{}) {
+func Error(format string, v ...any) {
 	write(color_red, ERROR, err, fmt.Sprintf(format, v...))
 }
 
-func Fatal(format string, v ...interface{}) {
+func Fatal(format string, v ...any) {
 	write(color_purple, FATAL, fatal, fmt.Sprintf(format, v...))
 }
 
-func Success(format string, v ...interface{}) {
+func Success(format string, v ...any) {
 	write(color_green, SUCCESS, success, fmt.Sprintf(format, v...))
 }
 
-func Trace(format string, v ...interface{}) {
+func Trace(format string, v ...any) {
 	write(color_blue, TRACE, trace, fmt.Sprintf(format, v...))
 }
 
-func Print(format string, v ...interface{}) {
+func Print(format string, v ...any) {
 	_, file, line, _ := runtime.Caller(1)
 	short := file
 	for i := len(file) - 1; i > 0; i-- {

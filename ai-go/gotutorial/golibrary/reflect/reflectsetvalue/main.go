@@ -11,7 +11,7 @@ import (
 )
 
 // 反射修改值
-func reflect_set_value(a interface{}) {
+func reflect_set_value(a any) {
 	v := reflect.ValueOf(a)
 	k := v.Kind()
 	switch k {

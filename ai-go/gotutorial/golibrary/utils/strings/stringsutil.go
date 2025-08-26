@@ -84,7 +84,7 @@ func TrimSuffixAny(s string, suffixes ...string) string {
 
 // Join concatenates the elements of its first argument to create a single string. The separator
 // string sep is placed between elements in the resulting string.
-func Join(elems []interface{}, sep string) string {
+func Join(elems []any, sep string) string {
 	switch len(elems) {
 	case 0:
 		return ""

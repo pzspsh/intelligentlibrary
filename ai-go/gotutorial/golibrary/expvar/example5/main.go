@@ -32,43 +32,43 @@ func main() {
 }
 
 var CuMemoryPtr *map[string]string
-var BTCMemoryPtr *map[string]interface{}
+var BTCMemoryPtr *map[string]any
 
 // 开始时间
 var start = time.Now()
 
 // calculateUptime 计算运行时间
-func calculateUptime() interface{} {
+func calculateUptime() any {
 	return time.Since(start).String()
 }
 
 // currentGoVersion 当前 Golang 版本
-func currentGoVersion() interface{} {
+func currentGoVersion() any {
 	return runtime.Version()
 }
 
 // getNumCPUs 获取 CPU 核心数量
-func getNumCPUs() interface{} {
+func getNumCPUs() any {
 	return runtime.NumCPU()
 }
 
 // getGoOS 当前系统类型
-func getGoOS() interface{} {
+func getGoOS() any {
 	return runtime.GOOS
 }
 
 // getNumGoroutins 当前 goroutine 数量
-func getNumGoroutins() interface{} {
+func getNumGoroutins() any {
 	return runtime.NumGoroutine()
 }
 
 // getNumCgoCall CGo 调用次数
-func getNumCgoCall() interface{} {
+func getNumCgoCall() any {
 	return runtime.NumCgoCall()
 }
 
 // 业务特定的内存数据
-func getCuMemoryMap() interface{} {
+func getCuMemoryMap() any {
 	if CuMemoryPtr == nil {
 		return 0
 	} else {
@@ -77,7 +77,7 @@ func getCuMemoryMap() interface{} {
 }
 
 // 业务特定的内存数据
-func getBTCMemoryMap() interface{} {
+func getBTCMemoryMap() any {
 	if BTCMemoryPtr == nil {
 		return 0
 	} else {
@@ -88,7 +88,7 @@ func getBTCMemoryMap() interface{} {
 var lastPause uint32
 
 // getLastGCPauseTime 获取上次 GC 的暂停时间
-func getLastGCPauseTime() interface{} {
+func getLastGCPauseTime() any {
 	var gcPause uint64
 	ms := new(runtime.MemStats)
 
@@ -110,7 +110,7 @@ func GetCurrentRunningStats(c *gin.Context) {
 	c.Writer.Header().Set("Content-Type", "application/json; charset=utf-8")
 
 	first := true
-	report := func(key string, value interface{}) {
+	report := func(key string, value any) {
 		if !first {
 			fmt.Fprintf(c.Writer, ",\n")
 		}

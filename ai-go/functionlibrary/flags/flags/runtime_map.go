@@ -12,7 +12,7 @@ const (
 
 // RuntimeMap is a runtime only map of interfaces
 type RuntimeMap struct {
-	kv map[string]interface{}
+	kv map[string]any
 }
 
 func (runtimeMap RuntimeMap) String() string {
@@ -31,7 +31,7 @@ func (runtimeMap RuntimeMap) String() string {
 // Set inserts a value to the map. Format: key=value
 func (runtimeMap *RuntimeMap) Set(value string) error {
 	if runtimeMap.kv == nil {
-		runtimeMap.kv = make(map[string]interface{})
+		runtimeMap.kv = make(map[string]any)
 	}
 	var k, v string
 	if idxSep := strings.Index(value, kvSep); idxSep > 0 {
@@ -62,6 +62,6 @@ func (runtimeMap *RuntimeMap) IsEmpty() bool {
 }
 
 // AsMap returns the internal map as reference - changes are allowed
-func (runtimeMap *RuntimeMap) AsMap() map[string]interface{} {
+func (runtimeMap *RuntimeMap) AsMap() map[string]any {
 	return runtimeMap.kv
 }

@@ -15,7 +15,7 @@ import (
 )
 
 var (
-	eventCh     = make(chan interface{}, 1024)
+	eventCh     = make(chan any, 1024)
 	ctx, cancel = context.WithCancel(context.Background())
 )
 

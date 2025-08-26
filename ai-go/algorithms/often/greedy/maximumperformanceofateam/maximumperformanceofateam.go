@@ -104,11 +104,11 @@ func MaxPerformance(n int, speed []int, efficiency []int, k int) int {
 
 type speedHeap []int
 
-func (h speedHeap) Less(i, j int) bool  { return h[i] < h[j] }
-func (h speedHeap) Swap(i, j int)       { h[i], h[j] = h[j], h[i] }
-func (h speedHeap) Len() int            { return len(h) }
-func (h *speedHeap) Push(x interface{}) { *h = append(*h, x.(int)) }
-func (h *speedHeap) Pop() interface{} {
+func (h speedHeap) Less(i, j int) bool { return h[i] < h[j] }
+func (h speedHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h speedHeap) Len() int           { return len(h) }
+func (h *speedHeap) Push(x any)        { *h = append(*h, x.(int)) }
+func (h *speedHeap) Pop() any {
 	res := (*h)[len(*h)-1]
 	*h = (*h)[:h.Len()-1]
 	return res

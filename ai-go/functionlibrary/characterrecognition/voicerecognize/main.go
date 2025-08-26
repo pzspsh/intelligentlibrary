@@ -144,8 +144,8 @@ func httpDemo() {
 	// ======================================================
 	// 调用语言模型1
 	pinyinResult := []string{}
-	for i := 0; i < len(result.Result.([]interface{})); i += 1 {
-		pinyinResult = append(pinyinResult, result.Result.([]interface{})[i].(string))
+	for i := 0; i < len(result.Result.([]any)); i += 1 {
+		pinyinResult = append(pinyinResult, result.Result.([]any)[i].(string))
 	}
 
 	result, err = sr.RecogniteLanguage(pinyinResult)

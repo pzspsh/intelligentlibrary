@@ -58,7 +58,7 @@ func main() {
 
 	// 首先必须为encoder何decoder注册一个具体的类型
 	// 随后该具体的类型将发送一个生命去实现该接口
-	// func Register(value interface{})
+	// func Register(value any)
 	gob.Register(Point{})
 
 	// 创建一个encoder并发送数据

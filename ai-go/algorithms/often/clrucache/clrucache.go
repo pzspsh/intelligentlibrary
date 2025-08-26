@@ -30,13 +30,13 @@ type CLRUCache struct {
 	bucketMask  uint32
 	deletePairs chan *list.Element
 	movePairs   chan *list.Element
-	control     chan interface{}
+	control     chan any
 }
 
 // Pair define
 type Pair struct {
 	key   string
-	value interface{}
+	value any
 	cmd   command
 }
 
@@ -58,7 +58,7 @@ func New(capacity int) *CLRUCache {
 }
 
 // Get define
-func (c *CLRUCache) Get(key string) interface{} {
+func (c *CLRUCache) Get(key string) any {
 	el := c.bucket(key).get(key)
 	if el == nil {
 		return nil
@@ -68,7 +68,7 @@ func (c *CLRUCache) Get(key string) interface{} {
 }
 
 // Put define
-func (c *CLRUCache) Put(key string, value interface{}) {
+func (c *CLRUCache) Put(key string, value any) {
 	el, exist := c.bucket(key).set(key, value)
 	if exist != nil {
 		c.deletePairs <- exist
@@ -123,7 +123,7 @@ func (c *CLRUCache) Stop() {
 func (c *CLRUCache) restart() {
 	c.deletePairs = make(chan *list.Element, 128)
 	c.movePairs = make(chan *list.Element, 128)
-	c.control = make(chan interface{})
+	c.control = make(chan any)
 	go c.worker()
 }
 

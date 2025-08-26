@@ -74,7 +74,7 @@ func SearchList(db *gorm.DB) (bool, *[]Table_demo) {
 	}
 }
 
-func Select(db *gorm.DB, obj interface{}, selectobj, target string) (interface{}, error) {
+func Select(db *gorm.DB, obj any, selectobj, target string) (any, error) {
 	err := db.Where(selectobj+" = ?", target).First(obj).Error
 	if err != nil {
 		return nil, err
@@ -82,7 +82,7 @@ func Select(db *gorm.DB, obj interface{}, selectobj, target string) (interface{}
 	return obj, nil
 }
 
-func Select1(db *gorm.DB, obj interface{}, selectobj, target, column string) (interface{}, error) {
+func Select1(db *gorm.DB, obj any, selectobj, target, column string) (any, error) {
 	err := db.Select(column).Where(selectobj+" = ?", target).Find(obj).Error
 	if err != nil {
 		return nil, err
@@ -110,7 +110,7 @@ func GetLdkData[T *Table_demo | *Table2](table []T, db *gorm.DB) ([]T, error) {
 }
 
 // HasData 函数用于判断表是否有数据
-func HasData(db *gorm.DB, model interface{}) bool {
+func HasData(db *gorm.DB, model any) bool {
 	var count int64
 	db.Model(model).Count(&count)
 	return count > 0

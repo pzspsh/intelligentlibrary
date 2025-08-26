@@ -14,11 +14,11 @@ import (
 	"time"
 )
 
-var on = func(int, string, *interface{}, []byte, int) {}
+var on = func(int, string, *any, []byte, int) {}
 
 var inst = NewLRUCache(1, 1, time.Second)
 
-func iface(i interface{}) *interface{} { return &i }
+func iface(i any) *any { return &i }
 
 type Elem struct {
 	key string
@@ -278,7 +278,7 @@ func Test_walk(t *testing.T) {
 
 	e := l.Front()
 	c.walk(
-		func(key string, iface *interface{}, b []byte, expireAt int64) bool {
+		func(key string, iface *any, b []byte, expireAt int64) bool {
 			v := e.Value.(*Elem)
 			if key != v.key {
 				t.Error("case 1.1 failed: ", key, v.key)
@@ -296,7 +296,7 @@ func Test_walk(t *testing.T) {
 
 	e = l.Front()
 	c.walk(
-		func(key string, iface *interface{}, b []byte, expireAt int64) bool {
+		func(key string, iface *any, b []byte, expireAt int64) bool {
 			v := e.Value.(*Elem)
 			if key != v.key {
 				t.Error("case 1.1 failed: ", key, v.key)
@@ -397,7 +397,7 @@ func TestWalk(t *testing.T) {
 	m["5"] = "5"
 	lc.Put("6", "6")
 	m["6"] = "6"
-	lc.Walk(func(key string, iface *interface{}, b []byte, expireAt int64) bool {
+	lc.Walk(func(key string, iface *any, b []byte, expireAt int64) bool {
 		if m[key] != (*iface).(string) {
 			t.Error("case failed")
 		}
@@ -507,7 +507,7 @@ func TestLRU2Cache(t *testing.T) {
 	}
 
 	toCheck := "1"
-	lc.Inspect(func(action int, key string, iface *interface{}, b []byte, ok int) {
+	lc.Inspect(func(action int, key string, iface *any, b []byte, ok int) {
 		if action == DEL && iface != nil && *iface != toCheck {
 			t.Error("case 4 failed")
 		}
@@ -586,7 +586,7 @@ func TestConcurrentLRU2(t *testing.T) {
 
 func TestInspect(t *testing.T) {
 	lc := NewLRUCache(1, 3, 1*time.Second)
-	lc.Inspect(func(action int, key string, iface *interface{}, b []byte, ok int) {
+	lc.Inspect(func(action int, key string, iface *any, b []byte, ok int) {
 		if iface != nil {
 			fmt.Println(action, key, *iface, ok)
 		} else {

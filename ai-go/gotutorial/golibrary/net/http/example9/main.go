@@ -17,7 +17,7 @@ func main() {
 	http.HandleFunc("/", func(resp http.ResponseWriter, req *http.Request) {
 		//io.Copy(os.Stdout, req.Body) //读取请求头的数据,流只能解析一次
 		decoder := json.NewDecoder(req.Body) //解析流
-		var info map[string]interface{}
+		var info map[string]any
 		decoder.Decode(&info) //将解析的coder对象放在map中（里面可以放任意接口）
 		fmt.Println(info)
 		fmt.Println(info["a"])

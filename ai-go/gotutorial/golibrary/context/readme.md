@@ -152,7 +152,7 @@ type Context interface {
     Deadline() (deadline time.Time, ok bool)
     Done() <-chan struct{}
     Err() error
-    Value(key interface{}) interface{}
+    Value(key any) any
 }
 ```
 
@@ -181,7 +181,7 @@ Value 返回 context 存储的键值对中当前 key 对应的值，如果没有
 ### valueCtx 结构体
 
 ```go
-type valueCtx struct{ Context key, val interface{} }
+type valueCtx struct{ Context key, val any }
 ```
 
 valueCtx 利用 Context 的变量来表示父节点 context，所以当前 context 继承了父 context 的所有信息
@@ -192,7 +192,7 @@ valueCtx 还可以存储键值。
 可以向 context 添加键值
 
 ```go
-func WithValue(parent Context, key, val interface{}) Context {
+func WithValue(parent Context, key, val any) Context {
     if key == nil {
         panic("nil key")
     }
@@ -208,7 +208,7 @@ func WithValue(parent Context, key, val interface{}) Context {
 ### Value 向 context 取值
 
 ```go
-func (c *valueCtx) Value(key interface{}) interface{} {
+func (c *valueCtx) Value(key any) any {
     if c.key == key {
         return c.val
     }

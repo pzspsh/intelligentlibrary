@@ -66,7 +66,7 @@ func (fh fileHandler) createFile(f file) (string, error) {
 
 func (fh fileHandler) updateFile(f file) error {
 	var query []string
-	var param []interface{}
+	var param []any
 	if f.offset != nil {
 		of := `file_offset = $1`
 		ofp := f.offset

@@ -13,7 +13,7 @@ import (
 	"function/traffichijacking/packet"
 )
 
-var eventCh = make(chan interface{}, 1024)
+var eventCh = make(chan any, 1024)
 
 func main() {
 	// device :=

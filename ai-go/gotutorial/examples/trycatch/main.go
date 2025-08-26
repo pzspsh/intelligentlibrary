@@ -14,7 +14,7 @@ type ExceptionStruct struct {
 	Catch   func(Exception)
 	Finally func()
 }
-type Exception interface{}
+type Exception any
 
 func Throw(up Exception) {
 	panic(up)

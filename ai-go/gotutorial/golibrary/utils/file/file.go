@@ -282,7 +282,7 @@ const (
 	JSON
 )
 
-func Unmarshal(encodeType EncodeType, data []byte, obj interface{}) error {
+func Unmarshal(encodeType EncodeType, data []byte, obj any) error {
 	switch {
 	case FileExists(string(data)):
 		dataFile, err := os.Open(string(data))
@@ -296,7 +296,7 @@ func Unmarshal(encodeType EncodeType, data []byte, obj interface{}) error {
 	}
 }
 
-func UnmarshalFromReader(encodeType EncodeType, r io.Reader, obj interface{}) error {
+func UnmarshalFromReader(encodeType EncodeType, r io.Reader, obj any) error {
 	switch encodeType {
 	case YAML:
 		return yaml.NewDecoder(r).Decode(obj)
@@ -307,7 +307,7 @@ func UnmarshalFromReader(encodeType EncodeType, r io.Reader, obj interface{}) er
 	}
 }
 
-func Marshal(encodeType EncodeType, data []byte, obj interface{}) error {
+func Marshal(encodeType EncodeType, data []byte, obj any) error {
 	isFilePath, _ := govalidator.IsFilePath(string(data))
 	switch {
 	case isFilePath:
@@ -322,7 +322,7 @@ func Marshal(encodeType EncodeType, data []byte, obj interface{}) error {
 	}
 }
 
-func MarshalToWriter(encodeType EncodeType, r io.Writer, obj interface{}) error {
+func MarshalToWriter(encodeType EncodeType, r io.Writer, obj any) error {
 	switch encodeType {
 	case YAML:
 		return yaml.NewEncoder(r).Encode(obj)

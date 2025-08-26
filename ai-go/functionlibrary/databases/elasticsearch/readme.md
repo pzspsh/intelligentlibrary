@@ -108,9 +108,9 @@ func Selectindex(es *elastic.Client, db *gorm.DB) *[]IndexArgs {
 		scrollid := indexes.ScrollId
 		for {
 			if len(indexes.Hits.Hits) > 0 {
-				indexdata := make(map[string]interface{})
+				indexdata := make(map[string]any)
 				for _, item := range indexes.Each(reflect.TypeOf(indexdata)) {
-					number := item.(map[string]interface{})["number"]
+					number := item.(map[string]any)["number"]
 					fmt.Println(number)
 				}
 			} else {
@@ -138,13 +138,13 @@ func Selectindex(es *elastic.Client, db *gorm.DB) *[]IndexArgs {
 			// 	fmt.Println(string(hit.Source))
 			// index = append(index, string(hit.Source))
 			// }
-			indexdata := make(map[string]interface{})
+			indexdata := make(map[string]any)
 			for _, item := range res.Each(reflect.TypeOf(indexdata)) {
-				number := item.(map[string]interface{})["number"]
-				// number := item.(map[string]interface{})["number"]
-				// createTime := item.(map[string]interface{})["createTime"]
-				// level := item.(map[string]interface{})["level"]
-				// lastTime := item.(map[string]interface{})["lastTime"]
+				number := item.(map[string]any)["number"]
+				// number := item.(map[string]any)["number"]
+				// createTime := item.(map[string]any)["createTime"]
+				// level := item.(map[string]any)["level"]
+				// lastTime := item.(map[string]any)["lastTime"]
 				fmt.Println(number)
 			}
 		} else {
@@ -296,9 +296,9 @@ func SelectIndex(es *elastic.Client, db *gorm.DB) *[]IndexArgs {
 			continue
 		}
 		if len(indexes.Hits.Hits) > 0 {
-			indexdata := make(map[string]interface{})
+			indexdata := make(map[string]any)
 			for _, item := range indexes.Each(reflect.TypeOf(indexdata)) {
-				number := item.(map[string]interface{})["number"]
+				number := item.(map[string]any)["number"]
 				fmt.Println(number)
 				logger.Info("index number:%v", number)
 				indexcount = append(indexcount, number.(string))
@@ -313,9 +313,9 @@ func SelectIndex(es *elastic.Client, db *gorm.DB) *[]IndexArgs {
 	// 	logger.Error("demo index args search error:%v", err)
 	// }
 	// if len(indexes.Hits.Hits) > 0 {
-	// 	indexdata := make(map[string]interface{})
+	// 	indexdata := make(map[string]any)
 	// 	for _, item := range indexes.Each(reflect.TypeOf(indexdata)) {
-	// 		number := item.(map[string]interface{})["number"]
+	// 		number := item.(map[string]any)["number"]
 	// 		fmt.Println(number)
 	// 		logger.Info("index number:%v", number)
 	// 		indexcount = append(indexcount, number.(string))
@@ -334,9 +334,9 @@ func SelectIndex(es *elastic.Client, db *gorm.DB) *[]IndexArgs {
 	// 	// scrollid := indexes.ScrollId
 	// 	for {
 	// 		if len(indexes.Hits.Hits) > 0 {
-	// 			indexdata := make(map[string]interface{})
+	// 			indexdata := make(map[string]any)
 	// 			for _, item := range indexes.Each(reflect.TypeOf(indexdata)) {
-	// 				number := item.(map[string]interface{})["number"]
+	// 				number := item.(map[string]any)["number"]
 	// 				fmt.Println(number)
 	// 				logger.Info("index number:%v", number)
 	// 				indexcount = append(indexcount, number.(string))
@@ -496,9 +496,9 @@ func SelectTask(es *elastic.Client, db *gorm.DB) *[]IndexArgs {
 	// 	}
 	// 	fmt.Println(indexes.Hits.Hits)
 	// 	if len(indexes.Hits.Hits) > 0 {
-	// 		indexdata := make(map[string]interface{})
+	// 		indexdata := make(map[string]any)
 	// 		for _, item := range indexes.Each(reflect.TypeOf(indexdata)) {
-	// 			number := item.(map[string]interface{})["number"]
+	// 			number := item.(map[string]any)["number"]
 	// 			logger.Info("Number:%v index Number:%v", aft.Number, number)
 	// 			indexcount = append(indexcount, number.(string))
 	// 		}
@@ -516,9 +516,9 @@ func SelectTask(es *elastic.Client, db *gorm.DB) *[]IndexArgs {
 		scrollid := indexes.ScrollId
 		for {
 			if len(indexes.Hits.Hits) > 0 {
-				indexdata := make(map[string]interface{})
+				indexdata := make(map[string]any)
 				for _, item := range indexes.Each(reflect.TypeOf(indexdata)) {
-					number := item.(map[string]interface{})["number"]
+					number := item.(map[string]any)["number"]
 					logger.Info("Number:%v index Number:%v", aft.Number, number)
 					indexcount = append(indexcount, number.(string))
 				}
@@ -651,13 +651,13 @@ func SelectTarget(es *elastic.Client, redata []map[string]string) {
 		}
 		scrollid := indexes.ScrollId
 		for {
-			indexdata := make(map[string]interface{})
+			indexdata := make(map[string]any)
 			if len(indexes.Hits.Hits) > 0 {
 				for _, item := range indexes.Each(reflect.TypeOf(indexdata)) {
-					number := item.(map[string]interface{})["number"]
-					index := item.(map[string]interface{})["index"]
-					createTime := item.(map[string]interface{})["createTime"]
-					lastTime := item.(map[string]interface{})["lastTime"]
+					number := item.(map[string]any)["number"]
+					index := item.(map[string]any)["index"]
+					createTime := item.(map[string]any)["createTime"]
+					lastTime := item.(map[string]any)["lastTime"]
 					argsData.Number = number.(string)
 					argsData.Target = index.(string)
 					argsData.RNumber = Number
@@ -745,20 +745,20 @@ func SelectDemo(es *elastic.Client, taskdata []map[string]string) {
 		scrollid := demotest.ScrollId
 		for {
 			if len(demotest.Hits.Hits) > 0 {
-				demodatas := make(map[string]interface{})
+				demodatas := make(map[string]any)
 				for _, item := range demotest.Each(reflect.TypeOf(demodatas)) {
 					demodata := DemoData{}
-					number := item.(map[string]interface{})["number"]
-					name := item.(map[string]interface{})["name"]
-					title := item.(map[string]interface{})["title"]
-					port := item.(map[string]interface{})["port"]
-					alive := item.(map[string]interface{})["alive"]
-					createTime := item.(map[string]interface{})["createTime"]
-					lastTime := item.(map[string]interface{})["lastTime"]
+					number := item.(map[string]any)["number"]
+					name := item.(map[string]any)["name"]
+					title := item.(map[string]any)["title"]
+					port := item.(map[string]any)["port"]
+					alive := item.(map[string]any)["alive"]
+					createTime := item.(map[string]any)["createTime"]
+					lastTime := item.(map[string]any)["lastTime"]
 					createtime, _ := time.ParseInLocation("2006-01-02T15:04:05", createTime.(string), time.Local)
 					lasttime, _ := time.ParseInLocation("2006-01-02T15:04:05", lastTime.(string), time.Local)
-					fingerprint := item.(map[string]interface{})["fingerprint"]
-					waf := item.(map[string]interface{})["waf"]
+					fingerprint := item.(map[string]any)["fingerprint"]
+					waf := item.(map[string]any)["waf"]
 					demodata.Number = number.(string)
 					demodata.Name = name.(string)
 					demodata.Tile = title.(string)
@@ -778,7 +778,7 @@ func SelectDemo(es *elastic.Client, taskdata []map[string]string) {
 						case string:
 							demodata.Fingerprint = []string{fingerprint}
 						default:
-							demodata.Fingerprint = TostringArray(fingerprint.([]interface{}))
+							demodata.Fingerprint = TostringArray(fingerprint.([]any))
 						}
 					}
 					if waf != "" {
@@ -786,7 +786,7 @@ func SelectDemo(es *elastic.Client, taskdata []map[string]string) {
 						case string:
 							demodata.Waf = []string{waf}
 						default:
-							demodata.Waf = utils.TostringArray(waf.([]interface{}))
+							demodata.Waf = utils.TostringArray(waf.([]any))
 						}
 					}
 					fmt.Println("demoData Data Info:", demodata)

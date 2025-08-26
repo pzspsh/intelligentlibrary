@@ -16,7 +16,7 @@ func sayHello(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Printf("parse file failed err := %v", err)
 	}
-	mp := map[string]interface{}{
+	mp := map[string]any{
 		"name": "张三",
 		"sex":  "男",
 	}

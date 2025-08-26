@@ -10,7 +10,7 @@ import (
 )
 
 type KeyPressReader struct {
-	originalMode interface{}
+	originalMode any
 	Timeout      time.Duration
 	datachan     chan []byte
 	Once         *sync.Once

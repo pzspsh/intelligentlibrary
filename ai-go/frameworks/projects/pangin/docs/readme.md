@@ -78,7 +78,7 @@ import (
 func main() {
 	r := gin.Default()
 
-	// gin.H 是 map[string]interface{} 的一种快捷方式
+	// gin.H 是 map[string]any 的一种快捷方式
 	r.GET("/someJSON", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "hey", "status": http.StatusOK})
 	})
@@ -246,7 +246,7 @@ import (
 func main() {
 	r := gin.Default()
 	r.GET("/JSONP", func(c *gin.Context) {
-		data := map[string]interface{}{
+		data := map[string]any{
 			"foo": "bar",
 		}
 		// /JSONP?callback=x
@@ -275,7 +275,7 @@ func main() {
 	r := gin.Default()
 
 	r.GET("/someJSON", func(c *gin.Context) {
-		data := map[string]interface{}{
+		data := map[string]any{
 			"lang": "GO语言",
 			"tag":  "<br>",
 		}
@@ -784,7 +784,7 @@ func main() {
 	ginServer.POST("/json", func(ctx *gin.Context) {
 		// request.body
 		data, _ := ctx.GetRawData()
-		var m map[string]interface{} // Go语言中object一般用空接口来表示，可以接收anything
+		var m map[string]any // Go语言中object一般用空接口来表示，可以接收anything
 		// 顺带一提，1.18以上，interface可以直接改成any
 		_ = json.Unmarshal(data, &m)
 		ctx.JSON(http.StatusOK, m)

@@ -23,7 +23,7 @@ type employee struct {
 	country string
 }
 
-func createQuery(q interface{}) {
+func createQuery(q any) {
 	if reflect.ValueOf(q).Kind() == reflect.Struct {
 		t := reflect.TypeOf(q).Name()
 		query := fmt.Sprintf("insert into %s values(", t)

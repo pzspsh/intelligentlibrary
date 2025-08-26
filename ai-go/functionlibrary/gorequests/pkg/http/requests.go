@@ -196,12 +196,12 @@ func FromRequestWithTrace(r *http.Request) (*Request, error) {
 }
 
 // NewRequest creates a new wrapped request.
-func NewRequestFromURL(method string, urlx *urlutil.URL, body interface{}) (*Request, error) {
+func NewRequestFromURL(method string, urlx *urlutil.URL, body any) (*Request, error) {
 	return NewRequestFromURLWithContext(context.Background(), method, urlx, body)
 }
 
 // NewRequestWithContext creates a new wrapped request with context
-func NewRequestFromURLWithContext(ctx context.Context, method string, urlx *urlutil.URL, body interface{}) (*Request, error) {
+func NewRequestFromURLWithContext(ctx context.Context, method string, urlx *urlutil.URL, body any) (*Request, error) {
 	bodyReader, contentLength, err := getReusableBodyandContentLength(body)
 	if err != nil {
 		return nil, err
@@ -225,7 +225,7 @@ func NewRequestFromURLWithContext(ctx context.Context, method string, urlx *urlu
 }
 
 // NewRequest creates a new wrapped request
-func NewRequest(method, url string, body interface{}) (*Request, error) {
+func NewRequest(method, url string, body any) (*Request, error) {
 	urlx, err := urlutil.Parse(url)
 	if err != nil {
 		return nil, err
@@ -234,7 +234,7 @@ func NewRequest(method, url string, body interface{}) (*Request, error) {
 }
 
 // NewRequest creates a new wrapped request with given context
-func NewRequestWithContext(ctx context.Context, method, url string, body interface{}) (*Request, error) {
+func NewRequestWithContext(ctx context.Context, method, url string, body any) (*Request, error) {
 	urlx, err := urlutil.Parse(url)
 	if err != nil {
 		return nil, err

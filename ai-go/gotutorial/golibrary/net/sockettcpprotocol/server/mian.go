@@ -49,7 +49,7 @@ func handleConnection(conn net.Conn) {
 }
 
 // 日志处理
-func Log(v ...interface{}) {
+func Log(v ...any) {
 	log.Println(v...)
 }
 

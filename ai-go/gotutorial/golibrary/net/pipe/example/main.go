@@ -44,7 +44,7 @@ func echoHandle(conn net.Conn) {
 }
 
 func main() {
-	exitCh := make(chan interface{})
+	exitCh := make(chan any)
 	cli, serv := net.Pipe()
 	go echoHandle(serv)
 

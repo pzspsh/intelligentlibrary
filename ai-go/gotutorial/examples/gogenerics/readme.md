@@ -203,7 +203,7 @@ helloworld
 - 使用相同类型的值为这些变量赋值。
 - 将这些类型的变量以实参形式传给函数或从作为函数返回值。
 - 取这些变量的地址。
-- 将这些类型的值转换或赋值给 interface{}类型变量。
+- 将这些类型的值转换或赋值给 any类型变量。
 - 通过类型断言将一个接口值赋值给这类类型的变量。
 - 在 type switch 块中作为一个 case 分支。
 - 定义和使用由该类型组成的复合类型，比如：元素类型为该类型的切片。
@@ -242,7 +242,7 @@ import (
 )
 
 type Addable interface {
-    type int,interface{}
+    type int,any
 }
 
 
@@ -356,7 +356,7 @@ func main() {
 [1 2 3 4 5]
 ```
 
-代码中我们声明了 MyStringer 接口，并且使用 StringInt 和 myString 类型实现了此接口；在范型方法中，我们声明了范型的类型为：任意实现了 MyStringer 接口的类型；只要实现了这个接口，那么你就可以直接使用，在现在某些需要传 interface{}作为参数的函数里面，可以直接指定类型了。当你改为如下代码时
+代码中我们声明了 MyStringer 接口，并且使用 StringInt 和 myString 类型实现了此接口；在范型方法中，我们声明了范型的类型为：任意实现了 MyStringer 接口的类型；只要实现了这个接口，那么你就可以直接使用，在现在某些需要传 any作为参数的函数里面，可以直接指定类型了。当你改为如下代码时
 
 ```go
 func main() {
@@ -409,7 +409,7 @@ func printSlice[T any](s []T) {
 }
 
 func main() {
-    // note1: cannot use generic type slice[T interface{}] without instantiation
+    // note1: cannot use generic type slice[T any] without instantiation
     // note2: cannot use generic type slice[T any] without instantiation
     vs := slice[int]{5, 4, 2, 1}
     printSlice(vs)
@@ -1279,7 +1279,7 @@ ws := WowStruct[int, []float32]{
    type NewType2 [T (int)] []T
    ```
 
-   为了避免这种误解，解决办法就是给类型约束包上 `interface{}` 或加上逗号消除歧义（关于接口具体的用法会在后半篇提及）
+   为了避免这种误解，解决办法就是给类型约束包上 `any` 或加上逗号消除歧义（关于接口具体的用法会在后半篇提及）
 
    ```go
    type NewType[T interface{*int}] []T
@@ -1292,7 +1292,7 @@ ws := WowStruct[int, []float32]{
    type NewType4[T *int|*float32,] []T
    ```
 
-   因为上面逗号的用法限制比较大，这里推荐统一用 interface{} 解决问题
+   因为上面逗号的用法限制比较大，这里推荐统一用 any 解决问题
 
 ## 3.4 特殊的泛型类型
 
@@ -1459,7 +1459,7 @@ func (s MySlice[int]) Sum() int {
 
 ```go
 // 这里类型约束使用了空接口，代表的意思是所有类型都可以用来实例化泛型类型 Queue[T] (关于接口在后半部分会详细介绍）
-type Queue[T interface{}] struct {
+type Queue[T any] struct {
     elements []T
 }
 
@@ -1519,7 +1519,7 @@ var q6 Queue[io.Reader] // 可存放接口的队列
 使用接口的时候经常会用到类型断言或 type swith 来确定接口具体的类型，然后对不同类型做出不同的处理，如：
 
 ```go
-var i interface{} = 123
+var i any = 123
 i.(int) // 类型断言
 
 // type switch
@@ -1943,7 +1943,7 @@ type Bad interface {
 
 ### 6.2.5 空接口和 any
 
-上面说了空集，接下来说一个特殊的类型集——`空接口 interface{}` 。因为，Go1.18 开始接口的定义发生了改变，所以 `interface{}` 的定义也发生了一些变更：
+上面说了空集，接下来说一个特殊的类型集——`空接口 any` 。因为，Go1.18 开始接口的定义发生了改变，所以 `any` 的定义也发生了一些变更：
 
 > 空接口代表了所有类型的集合
 
@@ -1955,42 +1955,42 @@ type Bad interface {
 
    ```go
    // 空接口代表所有类型的集合。写入类型约束意味着所有类型都可拿来做类型实参
-   type Slice[T interface{}] []T
+   type Slice[T any] []T
 
    var s1 Slice[int]    // 正确
    var s2 Slice[map[string]string]  // 正确
    var s3 Slice[chan int]  // 正确
-   var s4 Slice[interface{}]  // 正确
+   var s4 Slice[any]  // 正确
    ```
 
-因为空接口是一个包含了所有类型的类型集，所以我们经常会用到它。于是，Go1.18 开始提供了一个和空接口 `interface{}` 等价的新关键词 `any` ，用来使代码更简单：
+因为空接口是一个包含了所有类型的类型集，所以我们经常会用到它。于是，Go1.18 开始提供了一个和空接口 `any` 等价的新关键词 `any` ，用来使代码更简单：
 
 ```go
-type Slice[T any] []T // 代码等价于 type Slice[T interface{}] []T
+type Slice[T any] []T // 代码等价于 type Slice[T any] []T
 ```
 
 实际上 `any` 的定义就位于 Go 语言的 `builtin.go` 文件中（参考如下）， `any` 实际上就是 `interaface{}` 的别名(alias)，两者完全等价
 
 ```go
-// any is an alias for interface{} and is equivalent to interface{} in all ways.
-type any = interface{}
+// any is an alias for any and is equivalent to any in all ways.
+type any = any
 ```
 
 所以从 Go 1.18 开始，所有可以用到空接口的地方其实都可以直接替换为 any，如：
 
 ```go
-var s []any // 等价于 var s []interface{}
-var m map[string]any // 等价于 var m map[string]interface{}
+var s []any // 等价于 var s []any
+var m map[string]any // 等价于 var m map[string]any
 
 func MyPrint(value any){
     fmt.Println(value)
 }
 ```
 
-如果你高兴的话，项目迁移到 Go1.18 之后可以使用下面这行命令直接把整个项目中的空接口全都替换成 any。当然因为并不强制，所以到底是用 `interface{}` 还是 `any` 全看自己喜好
+如果你高兴的话，项目迁移到 Go1.18 之后可以使用下面这行命令直接把整个项目中的空接口全都替换成 any。当然因为并不强制，所以到底是用 `any` 还是 `any` 全看自己喜好
 
 ```go
-gofmt -w -r 'interface{} -> any' ./...
+gofmt -w -r 'any -> any' ./...
 ```
 
 > 💡 Go 语言项目中就曾经有人提出过把 Go 语言中所有 interface{ }替换成 any 的 [issue](https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fgolang%2Fgo%2Fissues%2F49884)，然后因为影响范围过大过而且影响因素不确定，理所当然被驳回了
@@ -2162,7 +2162,7 @@ type DataProcessor[T any] interface {
 }
 
 type DataProcessor2[T any] interface {
-    int | ~struct{ Data interface{} }
+    int | ~struct{ Data any }
 
     Process(data T) (newData T)
     Save(data T) error
@@ -2212,7 +2212,7 @@ DataProcessor2[string]
 
 // 实例化后的接口定义可视为
 type DataProcessor2[T string] interface {
-    int | ~struct{ Data interface{} }
+    int | ~struct{ Data any }
 
     Process(data string) (newData string)
     Save(data string) error
@@ -2221,7 +2221,7 @@ type DataProcessor2[T string] interface {
 
 `DataProcessor2[string]` 因为带有类型并集所以它是 **一般接口(General interface)**，所以实例化之后的这个接口代表的意思是：
 
-1. 只有实现了 `Process(string) string` 和 `Save(string) error` 这两个方法，并且以 `int` 或 `struct{ Data interface{} }` 为底层类型的类型才算实现了这个接口
+1. 只有实现了 `Process(string) string` 和 `Save(string) error` 这两个方法，并且以 `int` 或 `struct{ Data any }` 为底层类型的类型才算实现了这个接口
 2. **一般接口(General interface)** 不能用于变量定义只能用于类型约束，所以接口 `DataProcessor2[string]` 只是定义了一个用于类型约束的类型集
 
 ```go
@@ -2236,9 +2236,9 @@ func (c XMLProcessor) Save(oriData string) error {
 
 }
 
-// JsonProcessor 实现了接口 DataProcessor2[string] 的两个方法，同时底层类型是 struct{ Data interface{} }。所以实现了接口 DataProcessor2[string]
+// JsonProcessor 实现了接口 DataProcessor2[string] 的两个方法，同时底层类型是 struct{ Data any }。所以实现了接口 DataProcessor2[string]
 type JsonProcessor struct {
-    Data interface{}
+    Data any
 }
 
 func (c JsonProcessor) Process(oriData string) (newData string) {
@@ -2480,7 +2480,7 @@ UpdateAt: 2023-02-22
 
   ```golang
   func RemoveDuplicate[T string | int | float64](duplicateSlice []T) []T {
-          set := map[T]interface{}{}
+          set := map[T]any{}
           res := []T{}
           for _, item := range duplicateSlice {
                   _, ok := set[item]
@@ -2510,12 +2510,12 @@ UpdateAt: 2023-02-22
           return &Student{Name: name, Age: age}
   }
 
-  func DefaultFilter(item interface{}) (uniqueKey interface{}) {
+  func DefaultFilter(item any) (uniqueKey any) {
           return item.(*Student).Name
   }
 
-  func RemoveDuplicateWithFilter[T comparable](compareSlice []T, filterFunc func(item interface{}) (key interface{})) []T {
-          set := map[interface{}]interface{}{}
+  func RemoveDuplicateWithFilter[T comparable](compareSlice []T, filterFunc func(item any) (key any)) []T {
+          set := map[any]any{}
           res := []T{}
           for _, item := range compareSlice {
                   i := filterFunc(item)
@@ -2575,7 +2575,7 @@ UpdateAt: 2023-02-22
   type KeepItem bool
 
   // 若需要保留的item 则返回true 即可
-  type FilterFunc func(item interface{}) KeepItem
+  type FilterFunc func(item any) KeepItem
 
   type PageList[T any] struct {
           Total int `json:"total"`
@@ -2660,7 +2660,7 @@ UpdateAt: 2023-02-22
   // test
   func main () {
   	page := NewPager[int]([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10})
-          list := page.Offset(1).Limit(3).Filter(func(item interface{}) KeepItem {
+          list := page.Offset(1).Limit(3).Filter(func(item any) KeepItem {
   	if *item.(*int)%2 == 1 {
   		return true
   	}
@@ -2742,7 +2742,7 @@ UpdateAt: 2023-02-22
   )
 
   // InterfaceToSlice interface类型转slice
-  func InterfaceToSlice[T any](i interface{}) ([]T, error) {
+  func InterfaceToSlice[T any](i any) ([]T, error) {
           s := make([]T, 0)
           marshal, err := json.Marshal(i)
           if err != nil {
@@ -2755,7 +2755,7 @@ UpdateAt: 2023-02-22
   }
 
   // InterfaceToStruct interface  类型转 struct
-  func InterfaceToStruct[T any](i interface{}) (*T, error) {
+  func InterfaceToStruct[T any](i any) (*T, error) {
           marshal, err := json.Marshal(i)
           if err != nil {
                   return nil, fmt.Errorf("convert interface to struct error. %s", err.Error())
@@ -2769,7 +2769,7 @@ UpdateAt: 2023-02-22
   }
 
   // InterfaceToMap interface 转 map
-  func InterfaceToMap[K comparable, V any](i interface{}) (map[K]V, error) {
+  func InterfaceToMap[K comparable, V any](i any) (map[K]V, error) {
           marshal, err := json.Marshal(i)
           if err != nil {
                   return nil, fmt.Errorf("convert interface to map error. %s", err.Error())
@@ -2782,7 +2782,7 @@ UpdateAt: 2023-02-22
   }
 
   // MapToStruct map to struct
-  func MapToStruct[T any](m map[string]interface{}) (*T, error) {
+  func MapToStruct[T any](m map[string]any) (*T, error) {
           t := new(T)
           marshal, err := json.Marshal(m)
           if err != nil {
@@ -2796,7 +2796,7 @@ UpdateAt: 2023-02-22
   }
 
   // StructToMap struct to map
-  func StructToMap[K comparable, V any](s interface{}) (map[K]V, error) {
+  func StructToMap[K comparable, V any](s any) (map[K]V, error) {
           m := make(map[K]V, 0)
           marshal, err := json.Marshal(s)
           if err != nil {

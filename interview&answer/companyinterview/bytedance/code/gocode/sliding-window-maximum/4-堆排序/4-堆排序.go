@@ -47,17 +47,17 @@ func (i IntHeap) Less(x, y int) bool {
 func (i IntHeap) Swap(x, y int) {
 	i[x], i[y] = i[y], i[x]
 }
-func (i *IntHeap) Push(v interface{}) {
+func (i *IntHeap) Push(v any) {
 	*i = append(*i, v.(int))
 }
 
-func (i *IntHeap) Pop() interface{} {
+func (i *IntHeap) Pop() any {
 	value := (*i)[len(*i)-1]
 	*i = (*i)[:len(*i)-1]
 	return value
 }
 
-func (i *IntHeap) Remove(x interface{}) {
+func (i *IntHeap) Remove(x any) {
 	for j := 0; j < len(*i); j++ {
 		if (*i)[j] == x {
 			*i = append((*i)[:j], (*i)[j+1:]...)

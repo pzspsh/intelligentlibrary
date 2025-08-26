@@ -39,7 +39,7 @@ func main() {
 	}
 
 	// 可以用于类型判断
-	whatAmI := func(i interface{}) {
+	whatAmI := func(i any) {
 		switch t := i.(type) {
 		case bool:
 			fmt.Println("I'm a bool")

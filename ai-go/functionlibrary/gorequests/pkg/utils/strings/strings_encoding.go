@@ -40,7 +40,7 @@ const (
 
 var detector *chardet.Detector = chardet.NewTextDetector()
 
-func DetectEncodingType(data interface{}) (EncodingType, error) {
+func DetectEncodingType(data any) (EncodingType, error) {
 	var (
 		enc *chardet.Result
 		err error

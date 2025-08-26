@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	vvsmap := make(map[string]interface{}) // 使用make初始化
+	vvsmap := make(map[string]any) // 使用make初始化
 	key := "key"
 	value := 1
 	go func() {
@@ -31,6 +31,6 @@ func main() {
 	}
 }
 
-func add(key string, value int, vvsmap map[string]interface{}) {
+func add(key string, value int, vvsmap map[string]any) {
 	vvsmap[fmt.Sprintf("%s%d", key, value)] = value
 }

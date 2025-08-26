@@ -43,7 +43,7 @@ type FlagData struct {
 	short        string
 	long         string
 	group        string // unused unless set later
-	defaultValue interface{}
+	defaultValue any
 	skipMarshal  bool
 	field        flag.Value
 }
@@ -133,7 +133,7 @@ func (flagSet *FlagSet) generateDefaultConfig() []byte {
 
 	// Attempts to marshal natively if proper flag is set, in case of errors fallback to normal mechanism
 	if flagSet.Marshal {
-		flagsToMarshall := make(map[string]interface{})
+		flagsToMarshall := make(map[string]any)
 
 		flagSet.flagKeys.forEach(func(key string, data *FlagData) {
 			if !data.skipMarshal {
@@ -195,7 +195,7 @@ func (flagSet *FlagSet) readConfigFile(filePath string) error {
 	}
 	defer file.Close()
 
-	data := make(map[string]interface{})
+	data := make(map[string]any)
 	err = yaml.NewDecoder(file).Decode(&data)
 	if err != nil {
 		return err
@@ -214,7 +214,7 @@ func (flagSet *FlagSet) readConfigFile(filePath string) error {
 				_ = fl.Value.Set(strconv.Itoa(itemValue))
 			case time.Duration:
 				_ = fl.Value.Set(itemValue.String())
-			case []interface{}:
+			case []any:
 				for _, v := range itemValue {
 					vStr, ok := v.(string)
 					if ok {
@@ -241,7 +241,7 @@ func (flagSet *FlagSet) readConfigFile(filePath string) error {
 				_ = fl.Value.Set(strconv.FormatBool(data))
 			case int:
 				_ = fl.Value.Set(strconv.Itoa(data))
-			case []interface{}:
+			case []any:
 				for _, v := range data {
 					vStr, ok := v.(string)
 					if ok {
@@ -657,11 +657,11 @@ func (flagSet *FlagSet) displaySingleFlagUsageFunc(name string, data *FlagData, 
 }
 
 type uniqueDeduper struct {
-	hashes map[string]interface{}
+	hashes map[string]any
 }
 
 func newUniqueDeduper() *uniqueDeduper {
-	return &uniqueDeduper{hashes: make(map[string]interface{})}
+	return &uniqueDeduper{hashes: make(map[string]any)}
 }
 
 // isUnique returns true if the flag is unique during iteration

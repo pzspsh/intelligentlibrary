@@ -35,7 +35,7 @@ func Update(db *gorm.DB) error {
 	err := db.Model(&student).Update("number", "10002")
 	// 更新操作： 更新多个字段
 	// err := db.Model(&student).Updates(Student{Number: "10003", Title: "hello pan"}) // non-zero fields
-	// err := db.Model(&student).Updates(map[string]interface{}{"Number": "10004", "Title": "hello end"})
+	// err := db.Model(&student).Updates(map[string]any{"Number": "10004", "Title": "hello end"})
 	if err != nil {
 		return err.Error
 	} else {
@@ -87,7 +87,7 @@ func BatchUpdateMain() {
 		}
 
 		// 批量更新操作
-		db.Model(&User{}).Where("id IN ?", ids).Updates(map[string]interface{}{"age": 0})
+		db.Model(&User{}).Where("id IN ?", ids).Updates(map[string]any{"age": 0})
 
 		// 注意：‌由于Gorm的限制，‌我们不能直接在Updates中使用切片进行批量更新每个用户的不同年龄。‌
 		// 因此，‌我们需要对每个用户单独进行更新操作。‌

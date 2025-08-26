@@ -70,11 +70,11 @@ type User struct {
 // 定义一个UpdateMap结构体表示需要更新的字段和对应的值
 type UpdateMap struct {
 	Field string
-	Value interface{}
+	Value any
 }
 
 // 执行批量更新操作
-func BatchUpdate(db *gorm.DB, table string, condition interface{}, updateMapList []UpdateMap) error {
+func BatchUpdate(db *gorm.DB, table string, condition any, updateMapList []UpdateMap) error {
 	return db.Table(table).Where(condition).Updates(updateMapList).Error
 }
 

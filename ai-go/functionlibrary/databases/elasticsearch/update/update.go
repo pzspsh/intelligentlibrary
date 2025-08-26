@@ -29,7 +29,7 @@ func (e *Elastic) ESConn() (*elastic.Client, error) {
 }
 
 // 修改  Upsert()表示不存在则插入,去掉Upsert()的话就指修改
-func Update(es *elastic.Client, index string, ID string, data map[string]interface{}) error {
+func Update(es *elastic.Client, index string, ID string, data map[string]any) error {
 	res, err := es.Update().Index(index).Id(ID).Doc(data).Upsert(data).Refresh("true").Do(context.Background())
 	if err != nil {
 		fmt.Printf("update data err:%v", err)
@@ -40,7 +40,7 @@ func Update(es *elastic.Client, index string, ID string, data map[string]interfa
 }
 
 // 批量修改 Upsert()表示不存在则插入
-func UpdateBulk(es *elastic.Client, index string, ids []string, docs []interface{}) error {
+func UpdateBulk(es *elastic.Client, index string, ids []string, docs []any) error {
 	buld := es.Bulk().Index(index)
 	for i, id := range ids {
 		doc := elastic.NewBulkUpdateRequest().Id(id).Doc(docs[i]).Upsert(docs[i])
@@ -65,7 +65,7 @@ func main() {
 		fmt.Println("连接es 失败:", err)
 	}
 	fmt.Println("连接es 成功：", ES)
-	data := map[string]interface{}{"age": "100"}
+	data := map[string]any{"age": "100"}
 	err = Update(ES, "createdemo", "2", data)
 	if err != nil {
 		fmt.Printf("update fail:%v", err)

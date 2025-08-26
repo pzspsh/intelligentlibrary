@@ -128,7 +128,7 @@ func insert(db *sql.DB, p product) error {
 func multipleInsert(db *sql.DB, products []product) error {
 	query := "INSERT INTO product(product_name, product_price) VALUES "
 	var inserts []string
-	var params []interface{}
+	var params []any
 	for _, v := range products {
 		inserts = append(inserts, "(?, ?)")
 		params = append(params, v.name, v.price)

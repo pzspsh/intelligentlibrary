@@ -15,35 +15,35 @@ import (
 func main() {
 	// 示例1。
 	builder := new(strings.Builder)
-	_ = interface{}(builder).(io.Writer)
-	_ = interface{}(builder).(io.ByteWriter)
-	_ = interface{}(builder).(fmt.Stringer)
+	_ = any(builder).(io.Writer)
+	_ = any(builder).(io.ByteWriter)
+	_ = any(builder).(fmt.Stringer)
 
 	// 示例2。
 	reader := strings.NewReader("")
-	_ = interface{}(reader).(io.Reader)
-	_ = interface{}(reader).(io.ReaderAt)
-	_ = interface{}(reader).(io.ByteReader)
-	_ = interface{}(reader).(io.RuneReader)
-	_ = interface{}(reader).(io.Seeker)
-	_ = interface{}(reader).(io.ByteScanner)
-	_ = interface{}(reader).(io.RuneScanner)
-	_ = interface{}(reader).(io.WriterTo)
+	_ = any(reader).(io.Reader)
+	_ = any(reader).(io.ReaderAt)
+	_ = any(reader).(io.ByteReader)
+	_ = any(reader).(io.RuneReader)
+	_ = any(reader).(io.Seeker)
+	_ = any(reader).(io.ByteScanner)
+	_ = any(reader).(io.RuneScanner)
+	_ = any(reader).(io.WriterTo)
 
 	// 示例3。
 	buffer := bytes.NewBuffer([]byte{})
-	_ = interface{}(buffer).(io.Reader)
-	_ = interface{}(buffer).(io.ByteReader)
-	_ = interface{}(buffer).(io.RuneReader)
-	_ = interface{}(buffer).(io.ByteScanner)
-	_ = interface{}(buffer).(io.RuneScanner)
-	_ = interface{}(buffer).(io.WriterTo)
+	_ = any(buffer).(io.Reader)
+	_ = any(buffer).(io.ByteReader)
+	_ = any(buffer).(io.RuneReader)
+	_ = any(buffer).(io.ByteScanner)
+	_ = any(buffer).(io.RuneScanner)
+	_ = any(buffer).(io.WriterTo)
 
-	_ = interface{}(buffer).(io.Writer)
-	_ = interface{}(buffer).(io.ByteWriter)
-	_ = interface{}(buffer).(io.ReaderFrom)
+	_ = any(buffer).(io.Writer)
+	_ = any(buffer).(io.ByteWriter)
+	_ = any(buffer).(io.ReaderFrom)
 
-	_ = interface{}(buffer).(fmt.Stringer)
+	_ = any(buffer).(fmt.Stringer)
 
 	// 示例4。
 	src := strings.NewReader(

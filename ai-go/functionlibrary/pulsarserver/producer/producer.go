@@ -31,7 +31,7 @@ func ProducerCert() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	var target = make(map[string]interface{})
+	var target = make(map[string]any)
 	for i := 0; i < 9; i++ {
 		target["target"] = "http://127.0.0.1:7001"
 		b, _ := json.Marshal(target)
@@ -59,7 +59,7 @@ func Producer() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	var target = make(map[string]interface{})
+	var target = make(map[string]any)
 	for i := 0; i < 9; i++ {
 		target["target"] = "http://127.0.0.1:7001"
 		b, _ := json.Marshal(target)

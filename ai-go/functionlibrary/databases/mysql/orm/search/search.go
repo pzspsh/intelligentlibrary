@@ -60,7 +60,7 @@ func Search(db *gorm.DB, goal string) (*StudentInfo, error) {
 	// db.Where("updated > ?", lastWeek).Find(&StudentInfo{}) // SELECT * FROM studentinfo WHERE updated > '2000-01-01 00:00:00';
 
 	// Map
-	// db.Where(map[string]interface{}{"username": "jinzhu", "age": 20}).Find(&StudentInfo{}) // SELECT * FROM studentinfo WHERE usersname = "jinzhu" AND age = 20;
+	// db.Where(map[string]any{"username": "jinzhu", "age": 20}).Find(&StudentInfo{}) // SELECT * FROM studentinfo WHERE usersname = "jinzhu" AND age = 20;
 
 	// Slice of primary keys
 	// db.Where([]int64{20, 21, 22}).Find(&StudentInfo{}) // SELECT * FROM studentinfo WHERE id IN (20, 21, 22);

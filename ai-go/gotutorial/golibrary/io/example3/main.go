@@ -18,30 +18,30 @@ func main() {
 
 	// 示例1。
 	reader1 := io.LimitReader(basicReader, 98)
-	_ = interface{}(reader1).(io.Reader)
+	_ = any(reader1).(io.Reader)
 
 	// 示例2。
 	reader2 := io.NewSectionReader(basicReader, 98, 89)
-	_ = interface{}(reader2).(io.Reader)
-	_ = interface{}(reader2).(io.ReaderAt)
-	_ = interface{}(reader2).(io.Seeker)
+	_ = any(reader2).(io.Reader)
+	_ = any(reader2).(io.ReaderAt)
+	_ = any(reader2).(io.Seeker)
 
 	// 示例3。
 	reader3 := io.TeeReader(basicReader, basicWriter)
-	_ = interface{}(reader3).(io.Reader)
+	_ = any(reader3).(io.Reader)
 
 	// 示例4。
 	reader4 := io.MultiReader(reader1)
-	_ = interface{}(reader4).(io.Reader)
+	_ = any(reader4).(io.Reader)
 
 	// 示例5。
 	writer1 := io.MultiWriter(basicWriter)
-	_ = interface{}(writer1).(io.Writer)
+	_ = any(writer1).(io.Writer)
 
 	// 示例6。
 	pReader, pWriter := io.Pipe()
-	_ = interface{}(pReader).(io.Reader)
-	_ = interface{}(pReader).(io.Closer)
-	_ = interface{}(pWriter).(io.Writer)
-	_ = interface{}(pWriter).(io.Closer)
+	_ = any(pReader).(io.Reader)
+	_ = any(pReader).(io.Closer)
+	_ = any(pWriter).(io.Writer)
+	_ = any(pWriter).(io.Closer)
 }

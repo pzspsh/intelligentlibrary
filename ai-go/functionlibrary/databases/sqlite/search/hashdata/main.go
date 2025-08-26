@@ -37,7 +37,7 @@ func main() {
 }
 
 // HasData 函数用于判断表是否有数据
-func HasData(db *gorm.DB, model interface{}) bool {
+func HasData(db *gorm.DB, model any) bool {
 	var count int64
 	db.Model(model).Count(&count)
 	return count > 0

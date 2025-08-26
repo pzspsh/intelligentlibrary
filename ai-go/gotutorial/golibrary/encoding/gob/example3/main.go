@@ -35,12 +35,12 @@ func main() {
 	   //NewDecoder初始化一个decoder对象，返回空的Decoder结构体
 	   func NewDecoder(r io.Reader) *Decoder
 	   // Decoder结构体方法
-	   func (dec *Decoder) Decode(e interface{}) error
+	   func (dec *Decoder) Decode(e any) error
 	   func (*Decoder) DecodeValue
 	   //NewEncoder初始化一个encoder对象，并返回Encoder机构体
 	   func NewEncoder(w io.Writer) *Encoder
 	   // Encoder结构体方法
-	   func (enc *Encoder) Encode(e interface{}) error
+	   func (enc *Encoder) Encode(e any) error
 	   func (enc *Encoder) EncodeValue(value reflect.Value) error
 	*/
 	// 使用enc进行发送一些编码的数据

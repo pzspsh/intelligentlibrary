@@ -30,8 +30,8 @@ func Merge[K comparable, V any](maps ...map[K]V) (result map[K]V) {
 const defaultFormat = "%s"
 
 // HTTPToMap Converts HTTP to Matcher Map
-func HTTPToMap(resp *http.Response, body, headers string, duration time.Duration, format string) (m map[string]interface{}) {
-	m = make(map[string]interface{})
+func HTTPToMap(resp *http.Response, body, headers string, duration time.Duration, format string) (m map[string]any) {
+	m = make(map[string]any)
 
 	if format == "" {
 		format = defaultFormat
@@ -59,8 +59,8 @@ func HTTPToMap(resp *http.Response, body, headers string, duration time.Duration
 }
 
 // DNSToMap Converts DNS to Matcher Map
-func DNSToMap(msg *dns.Msg, format string) (m map[string]interface{}) {
-	m = make(map[string]interface{})
+func DNSToMap(msg *dns.Msg, format string) (m map[string]any) {
+	m = make(map[string]any)
 
 	if format == "" {
 		format = defaultFormat
@@ -102,8 +102,8 @@ func DNSToMap(msg *dns.Msg, format string) (m map[string]interface{}) {
 }
 
 // HTTPRequestToMap Converts HTTP Request to Matcher Map
-func HTTPRequestToMap(req *http.Request) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
+func HTTPRequestToMap(req *http.Request) (map[string]any, error) {
+	m := make(map[string]any)
 	var headers string
 	for k, v := range req.Header {
 		k = strings.ToLower(strings.TrimSpace(strings.ReplaceAll(k, "-", "_")))
@@ -133,8 +133,8 @@ func HTTPRequestToMap(req *http.Request) (map[string]interface{}, error) {
 }
 
 // HTTPResponseToMap Converts HTTP Response to Matcher Map
-func HTTPResponseToMap(resp *http.Response) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
+func HTTPResponseToMap(resp *http.Response) (map[string]any, error) {
+	m := make(map[string]any)
 
 	m["content_length"] = resp.ContentLength
 	m["status_code"] = resp.StatusCode

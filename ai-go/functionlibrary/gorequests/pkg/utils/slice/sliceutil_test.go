@@ -149,7 +149,7 @@ func TestMergeItems(t *testing.T) {
 func TestFirstNonZeroInt(t *testing.T) {
 	testCases := []struct {
 		Input          []int
-		ExpectedOutput interface{}
+		ExpectedOutput any
 		ExpectedFound  bool
 	}{
 		{
@@ -174,7 +174,7 @@ func TestFirstNonZeroInt(t *testing.T) {
 func TestFirstNonZeroString(t *testing.T) {
 	testCases := []struct {
 		Input          []string
-		ExpectedOutput interface{}
+		ExpectedOutput any
 		ExpectedFound  bool
 	}{
 		{
@@ -199,7 +199,7 @@ func TestFirstNonZeroString(t *testing.T) {
 func TestFirstNonZeroFloat(t *testing.T) {
 	testCases := []struct {
 		Input          []float64
-		ExpectedOutput interface{}
+		ExpectedOutput any
 		ExpectedFound  bool
 	}{
 		{
@@ -224,7 +224,7 @@ func TestFirstNonZeroFloat(t *testing.T) {
 func TestFirstNonZeroBool(t *testing.T) {
 	testCases := []struct {
 		Input          []bool
-		ExpectedOutput interface{}
+		ExpectedOutput any
 		ExpectedFound  bool
 	}{
 		{

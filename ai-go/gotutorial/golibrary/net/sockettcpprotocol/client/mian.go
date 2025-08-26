@@ -30,7 +30,7 @@ func sender(conn net.Conn) {
 }
 
 // 日志
-func Log(v ...interface{}) {
+func Log(v ...any) {
 	log.Println(v...)
 }
 

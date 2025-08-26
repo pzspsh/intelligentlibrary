@@ -17,7 +17,7 @@ func main() {
 	var hasValue bool
 	updatech := make(chan int, 1)
 	m.Store("key1", 100) // 写入键值对
-	// m.Store("key2", "hello world") // 支持任意类型 (interface{})
+	// m.Store("key2", "hello world") // 支持任意类型 (any)
 	m.Store("key3", 300)
 	m.Range(func(key, value any) bool { // 遍历所有键值对
 		wg.Add(1)

@@ -16,4 +16,4 @@ limitations under the License.
 
 package types
 
-type AnyType interface{}
+type AnyType any

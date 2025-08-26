@@ -21,9 +21,9 @@ type YamlConfig struct {
 }
 
 type Requests struct {
-	Operator Operator               `yaml:",inline"`
-	Raw      []string               `yaml:"raw,omitempty"`
-	Payloads map[string]interface{} `yaml:"payloads,omitempty"`
+	Operator Operator       `yaml:",inline"`
+	Raw      []string       `yaml:"raw,omitempty"`
+	Payloads map[string]any `yaml:"payloads,omitempty"`
 }
 
 type Info struct {

@@ -6,11 +6,11 @@ import (
 
 var (
 	// GetMode from file descriptor
-	GetMode func(std *os.File) (interface{}, error)
+	GetMode func(std *os.File) (any, error)
 	// SetMode to file descriptor
-	SetMode func(std *os.File, mode interface{}) error
+	SetMode func(std *os.File, mode any) error
 	// SetRawMode to file descriptor enriching existign mode with raw console flags
-	SetRawMode func(std *os.File, mode interface{}) error
+	SetRawMode func(std *os.File, mode any) error
 	// Read from file descriptor to buffer
 	Read func(std *os.File, buf []byte) (int, error)
 

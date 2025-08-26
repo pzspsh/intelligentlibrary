@@ -18,7 +18,7 @@ type User struct {
 }
 
 // 修改结构体值
-func SetValue(o interface{}) {
+func SetValue(o any) {
 	v := reflect.ValueOf(o)
 	// 获取指针指向的元素
 	v = v.Elem()

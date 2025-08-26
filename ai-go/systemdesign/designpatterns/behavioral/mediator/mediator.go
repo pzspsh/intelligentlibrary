@@ -96,7 +96,7 @@ func GetMediatorInstance() *Mediator {
 	return mediator
 }
 
-func (m *Mediator) changed(i interface{}) {
+func (m *Mediator) changed(i any) {
 	switch inst := i.(type) {
 	case *CDDriver:
 		m.CPU.Process(inst.Data)

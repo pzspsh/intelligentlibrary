@@ -16,7 +16,7 @@ import (
 
 func main() {
 	// 1.
-	payload, err := json.Marshal(map[string]interface{}{
+	payload, err := json.Marshal(map[string]any{
 		"title":     "my simple todo",
 		"completed": false,
 	})

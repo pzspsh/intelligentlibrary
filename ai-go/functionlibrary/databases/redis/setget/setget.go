@@ -67,8 +67,8 @@ func GetOperate(client *redis.Client) (string, error) {
 }
 
 // 批量Get操作
-func MGetOperate(client *redis.Client) ([]interface{}, error) {
-	var result []interface{}
+func MGetOperate(client *redis.Client) ([]any, error) {
+	var result []any
 	var err error
 	result, err = client.MGet("golang", "c", "java", "python").Result()
 	for i, value := range result {

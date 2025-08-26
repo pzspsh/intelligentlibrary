@@ -59,7 +59,7 @@ func InsertOne(ctx context.Context, collection *mongo.Collection) (*mongo.Insert
 }
 
 func InsertMany(ctx context.Context, collection *mongo.Collection) (*mongo.InsertManyResult, error) {
-	docs := []interface{}{StudentInfo{Name: "pan", Age: 19, Score: 99}, FoodInfo{Sweet: 90.1, Spices: 90.8, Salty: 1000.3}}
+	docs := []any{StudentInfo{Name: "pan", Age: 19, Score: 99}, FoodInfo{Sweet: 90.1, Spices: 90.8, Salty: 1000.3}}
 	result, err := collection.InsertMany(ctx, docs)
 	if err != nil {
 		return nil, err

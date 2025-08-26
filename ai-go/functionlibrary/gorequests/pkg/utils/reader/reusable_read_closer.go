@@ -18,7 +18,7 @@ type ReusableReadCloser struct {
 }
 
 // NewReusableReadCloser is returned for any type of input
-func NewReusableReadCloser(raw interface{}) (*ReusableReadCloser, error) {
+func NewReusableReadCloser(raw any) (*ReusableReadCloser, error) {
 	readBuf := bytes.Buffer{}
 	backBuf := bytes.Buffer{}
 	if raw != nil {

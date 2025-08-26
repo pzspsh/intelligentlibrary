@@ -10,11 +10,11 @@ import (
 )
 
 func init() {
-	GetMode = func(std *os.File) (interface{}, error) {
+	GetMode = func(std *os.File) (any, error) {
 		return getMode(std)
 	}
 
-	SetMode = func(std *os.File, mode interface{}) error {
+	SetMode = func(std *os.File, mode any) error {
 		m, ok := mode.(*syscall.Termios)
 		if !ok {
 			return errors.New("invalid syscall.Termios")
@@ -22,7 +22,7 @@ func init() {
 		return setMode(std, m)
 	}
 
-	SetRawMode = func(std *os.File, mode interface{}) error {
+	SetRawMode = func(std *os.File, mode any) error {
 		m, ok := mode.(*syscall.Termios)
 		if !ok {
 			return errors.New("invalid syscall.Termios")

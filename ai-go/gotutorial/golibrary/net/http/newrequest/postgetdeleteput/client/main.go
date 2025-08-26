@@ -28,7 +28,7 @@ func postJsonData() {
 	fmt.Println("------------------- post json data --------------------------")
 
 	//数据格式化
-	data := map[string]interface{}{
+	data := map[string]any{
 		"name": "alnk2",
 		"age":  18,
 	}
@@ -199,7 +199,7 @@ func put() {
 	fmt.Println("-------------------- put --------------------")
 
 	//数据格式化
-	data := map[string]interface{}{
+	data := map[string]any{
 		"name": "alnk2",
 		"age":  18,
 	}

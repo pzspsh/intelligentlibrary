@@ -130,7 +130,7 @@ func (c *Conn) Send(b string) error {
 // in case of single line responses, or a help message followed by multiple lines of actual response
 // data in case of multiline responses.
 // See https://www.shellhacks.com/retrieve-email-pop3-server-command-line/ for examples.
-func (c *Conn) Cmd(cmd string, isMulti bool, args ...interface{}) (*bytes.Buffer, error) {
+func (c *Conn) Cmd(cmd string, isMulti bool, args ...any) (*bytes.Buffer, error) {
 	var cmdLine string
 
 	// Repeat a %v to format each arg.

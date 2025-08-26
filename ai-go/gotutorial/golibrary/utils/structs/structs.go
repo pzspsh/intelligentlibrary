@@ -11,8 +11,8 @@ import "reflect"
 type CallbackFunc func(reflect.Value, reflect.StructField)
 
 // Walk traverses a struct and executes a callback function on each field in the struct.
-// The interface{} passed to the function should be a pointer to a struct
-func Walk(s interface{}, callback CallbackFunc) {
+// The any passed to the function should be a pointer to a struct
+func Walk(s any, callback CallbackFunc) {
 	structValue := reflect.ValueOf(s)
 	if structValue.Kind() == reflect.Ptr {
 		structValue = structValue.Elem()

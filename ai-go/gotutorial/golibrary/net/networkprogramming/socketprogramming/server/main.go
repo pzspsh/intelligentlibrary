@@ -42,7 +42,7 @@ func handleConnection(conn net.Conn) {
 	}
 }
 
-func Log(v ...interface{}) {
+func Log(v ...any) {
 	log.Println(v...)
 }
 

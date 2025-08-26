@@ -11,7 +11,7 @@ import (
 )
 
 func TestReusableReader(t *testing.T) {
-	testcases := []interface{}{
+	testcases := []any{
 		strings.NewReader("test"),
 		bytes.NewBuffer([]byte("test")),
 		bytes.NewBufferString("test"),

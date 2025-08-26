@@ -25,7 +25,7 @@ func (b *bucket) get(key string) *list.Element {
 	return nil
 }
 
-func (b *bucket) set(key string, value interface{}) (*list.Element, *list.Element) {
+func (b *bucket) set(key string, value any) (*list.Element, *list.Element) {
 	el := &list.Element{Value: Pair{key: key, value: value, cmd: PushFront}}
 	b.Lock()
 	exist := b.keys[key]

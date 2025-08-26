@@ -64,11 +64,11 @@ func newSliceRouterContext(rw http.ResponseWriter, req *http.Request, r *SliceRo
 	return c
 }
 
-func (c *SliceRouterContext) Get(key interface{}) interface{} {
+func (c *SliceRouterContext) Get(key any) any {
 	return c.Ctx.Value(key)
 }
 
-func (c *SliceRouterContext) Set(key, val interface{}) {
+func (c *SliceRouterContext) Set(key, val any) {
 	c.Ctx = context.WithValue(c.Ctx, key, val)
 }
 

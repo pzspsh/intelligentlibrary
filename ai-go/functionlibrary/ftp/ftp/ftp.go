@@ -563,7 +563,7 @@ func (c *ServerConn) openDataConn() (net.Conn, error) {
 
 // cmd is a helper function to execute a command and check for the expected FTP
 // return code
-func (c *ServerConn) cmd(expected int, format string, args ...interface{}) (int, string, error) {
+func (c *ServerConn) cmd(expected int, format string, args ...any) (int, string, error) {
 	_, err := c.conn.Cmd(format, args...)
 	if err != nil {
 		return 0, "", err
@@ -574,7 +574,7 @@ func (c *ServerConn) cmd(expected int, format string, args ...interface{}) (int,
 
 // cmdDataConnFrom executes a command which require a FTP data connection.
 // Issues a REST FTP command to specify the number of bytes to skip for the transfer.
-func (c *ServerConn) cmdDataConnFrom(offset uint64, format string, args ...interface{}) (net.Conn, error) {
+func (c *ServerConn) cmdDataConnFrom(offset uint64, format string, args ...any) (net.Conn, error) {
 	// If server requires PRET send the PRET command to warm it up
 	// See: https://tools.ietf.org/html/draft-dd-pret-00
 	if c.usePRET {

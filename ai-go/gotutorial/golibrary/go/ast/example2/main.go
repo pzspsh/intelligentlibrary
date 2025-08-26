@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-func Match(exprRule string, sourceData map[string]interface{}) (bool, error) {
+func Match(exprRule string, sourceData map[string]any) (bool, error) {
 	if len(exprRule) == 0 {
 		return false, errors.New("empty exprRule")
 	}
@@ -36,7 +36,7 @@ func Match(exprRule string, sourceData map[string]interface{}) (bool, error) {
 }
 
 // 递归解析ast
-func judge(expr ast.Expr, sourceData map[string]interface{}) (bool, error) {
+func judge(expr ast.Expr, sourceData map[string]any) (bool, error) {
 
 	switch t := expr.(type) {
 	case *ast.BinaryExpr:
@@ -83,7 +83,7 @@ const (
 	funcInArray = "in_array"
 )
 
-func matchFunc(expr *ast.CallExpr, sourceData map[string]interface{}) (bool, error) {
+func matchFunc(expr *ast.CallExpr, sourceData map[string]any) (bool, error) {
 	funIdent, ok := expr.Fun.(*ast.Ident)
 	if !ok {
 		return false, fmt.Errorf("CallExpr node error, node info: %v", expr)
@@ -97,7 +97,7 @@ func matchFunc(expr *ast.CallExpr, sourceData map[string]interface{}) (bool, err
 	}
 }
 
-func InOp(args []ast.Expr, sourceData map[string]interface{}) (bool, error) {
+func InOp(args []ast.Expr, sourceData map[string]any) (bool, error) {
 	if len(args) != 2 {
 		return false, fmt.Errorf("in_data args length error")
 	}
@@ -127,10 +127,10 @@ func InOp(args []ast.Expr, sourceData map[string]interface{}) (bool, error) {
 
 	return false, nil
 }
-func cmpBinary(expr *ast.BinaryExpr, sourceData map[string]interface{}) (bool, error) {
+func cmpBinary(expr *ast.BinaryExpr, sourceData map[string]any) (bool, error) {
 	var (
 		xName string
-		xVal  interface{}
+		xVal  any
 	)
 
 	xName = expr.X.(*ast.Ident).Name
@@ -192,7 +192,7 @@ func cmpInt64(x, y int64, op token.Token) (bool, error) {
 	// return false, fmt.Errorf("not support number op: %v", op)
 }
 
-func convToInt64(v interface{}) (int64, error) {
+func convToInt64(v any) (int64, error) {
 	switch v := v.(type) {
 	case int64:
 		return v, nil
@@ -207,7 +207,7 @@ func convToInt64(v interface{}) (int64, error) {
 	return int64(0), fmt.Errorf("data: %v convert to int64 err", v)
 }
 
-func convToString(v interface{}) (string, error) {
+func convToString(v any) (string, error) {
 	switch v := v.(type) {
 	case string:
 		return v, nil
@@ -227,36 +227,36 @@ func trimQuotes(str string) string {
 }
 
 type rule struct {
-	data map[string]interface{}
+	data map[string]any
 	rule string
 	res  bool
 }
 
 func main() {
-	   ruleList := []rule{
-      {
-         data: map[string]interface{}{
-            "name": "cooper",
-            "age":  11,
-            "sex":  2,
-         },
-         rule: `(age > 10 && in_data("name", "cooper|jack")) || sex == 1`,
-         res:  true,
-      },
-      {
-         data: map[string]interface{}{
-            "sex":  11,
-            "addr": "aaa",
-         },
-         rule: `addr == "aaa" && sex == 1`,
-         res:  false,
-      },
-   }
+	ruleList := []rule{
+		{
+			data: map[string]any{
+				"name": "cooper",
+				"age":  11,
+				"sex":  2,
+			},
+			rule: `(age > 10 && in_data("name", "cooper|jack")) || sex == 1`,
+			res:  true,
+		},
+		{
+			data: map[string]any{
+				"sex":  11,
+				"addr": "aaa",
+			},
+			rule: `addr == "aaa" && sex == 1`,
+			res:  false,
+		},
+	}
 
-   for _, ca := range ruleList {
-      res, err := Match(ca.rule, ca.data)
-      if err != nil && res != ca.res {
-         fmt.Printf("res: %v, err: %v", ca.res, err)
-      }
-   }
+	for _, ca := range ruleList {
+		res, err := Match(ca.rule, ca.data)
+		if err != nil && res != ca.res {
+			fmt.Printf("res: %v, err: %v", ca.res, err)
+		}
+	}
 }

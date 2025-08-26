@@ -248,24 +248,24 @@ func DemoMigrate(es *elastic.Client, db *gorm.DB) {
 	scrollid := demo.ScrollId
 	for {
 		if len(demo.Hits.Hits) > 0 {
-			demodata := make(map[string]interface{})
+			demodata := make(map[string]any)
 			for _, item := range demo.Each(reflect.TypeOf(demodata)) {
 				demotest := DemoTest{}
 				mapport := []Port{}
-				number, ok := item.(map[string]interface{})["number"]
+				number, ok := item.(map[string]any)["number"]
 				if ok {
 					demotest.Number = number.(string)
 					fmt.Println("aaaaaaaaaa", number)
 				} else {
 					continue
 				}
-				ip := item.(map[string]interface{})["ip"].(string)
-				target := item.(map[string]interface{})["target"].(string)
-				ports := item.(map[string]interface{})["port"]
-				portlist := ports.([]interface{})
+				ip := item.(map[string]any)["ip"].(string)
+				target := item.(map[string]any)["target"].(string)
+				ports := item.(map[string]any)["port"]
+				portlist := ports.([]any)
 				for _, portinfo := range portlist {
 					port := Port{}
-					portmap := portinfo.(map[string]interface{})
+					portmap := portinfo.(map[string]any)
 					sport := portmap["port"]
 					switch sport.(type) {
 					case string:
@@ -286,7 +286,7 @@ func DemoMigrate(es *elastic.Client, db *gorm.DB) {
 					fingers, ok := portmap["fingers"]
 					if ok {
 						switch fingers := fingers.(type) {
-						case []interface{}:
+						case []any:
 							port.Fingers = TostringArray(fingers)
 						case []string:
 							port.Fingers = fingers
@@ -329,7 +329,7 @@ func (ms MapStrings) Value() (driver.Value, error) {
 	return string(b), err
 }
 
-func TostringArray(ss []interface{}) []string {
+func TostringArray(ss []any) []string {
 	var slicestring []string
 	for _, value := range ss {
 		slicestring = append(slicestring, value.(string))

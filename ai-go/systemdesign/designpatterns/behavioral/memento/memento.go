@@ -47,7 +47,7 @@ Caretaker只能看到备忘录的窄接口，他只能将备忘录传递给其�
 
 	3.Caretaker(管理者):负责备忘录Memento，不能对Memento的内容进行访问或者操作。
 */
-type Memento interface{}
+type Memento any
 
 type Game struct {
 	hp, mp int

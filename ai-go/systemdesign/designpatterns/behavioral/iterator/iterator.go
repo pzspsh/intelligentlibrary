@@ -57,7 +57,7 @@ type Aggregate interface {
 type Iterator interface {
 	First()
 	IsDone() bool
-	Next() interface{}
+	Next() any
 }
 
 type Numbers struct {
@@ -92,7 +92,7 @@ func (i *NumbersIterator) IsDone() bool {
 	return i.next > i.numbers.end
 }
 
-func (i *NumbersIterator) Next() interface{} {
+func (i *NumbersIterator) Next() any {
 	if !i.IsDone() {
 		next := i.next
 		i.next++

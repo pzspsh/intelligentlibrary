@@ -29,7 +29,7 @@ func NewStreamDataBlock(bytes []byte, seen time.Time) *StreamDataBlock {
 // StreamReader read data from tcp stream
 type StreamReader struct {
 	src      chan *StreamDataBlock
-	stopCh   chan interface{}
+	stopCh   chan any
 	buffer   *bytes.Buffer
 	lastSeen time.Time
 }
@@ -37,7 +37,7 @@ type StreamReader struct {
 // NewStreamReader create a new StreamReader.
 func NewStreamReader() *StreamReader {
 	r := new(StreamReader)
-	r.stopCh = make(chan interface{})
+	r.stopCh = make(chan any)
 	r.buffer = bytes.NewBuffer([]byte(""))
 	r.src = make(chan *StreamDataBlock, 32)
 	return r

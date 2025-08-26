@@ -40,8 +40,8 @@ func AppendDemo() {
 	s4 := append(s3[3:6], s3[2:]...)
 
 	// 空接口切片
-	var t []interface{}
-	// t == []interface{}{100, 6.8, "test"}
+	var t []any
+	// t == []any{100, 6.8, "test"}
 	t = append(t, 100, 6.8, "test")
 
 	var b []byte

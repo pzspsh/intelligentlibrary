@@ -14,13 +14,13 @@ import (
 
 type Server struct {
 	listener net.Listener
-	quit     chan interface{}
+	quit     chan any
 	wg       sync.WaitGroup
 }
 
 func NewServer(addr string) *Server {
 	s := &Server{
-		quit: make(chan interface{}),
+		quit: make(chan any),
 	}
 	l, err := net.Listen("tcp", addr)
 	if err != nil {

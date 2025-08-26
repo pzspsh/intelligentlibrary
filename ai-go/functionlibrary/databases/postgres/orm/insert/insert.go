@@ -52,7 +52,7 @@ func (t *Table_demo) Insert(db *gorm.DB) error {
 	}
 }
 
-func Insert(db *gorm.DB, obj interface{}) error {
+func Insert(db *gorm.DB, obj any) error {
 	err := db.Create(obj).Error
 	if err != nil {
 		return err

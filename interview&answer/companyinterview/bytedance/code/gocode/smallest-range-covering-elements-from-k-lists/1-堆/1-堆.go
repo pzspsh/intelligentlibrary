@@ -62,11 +62,11 @@ func (h NodeHeap) Swap(i, j int) {
 	h[i], h[j] = h[j], h[i]
 }
 
-func (h *NodeHeap) Push(x interface{}) {
+func (h *NodeHeap) Push(x any) {
 	*h = append(*h, x.(Node))
 }
 
-func (h *NodeHeap) Pop() interface{} {
+func (h *NodeHeap) Pop() any {
 	value := (*h)[len(*h)-1]
 	*h = (*h)[:len(*h)-1]
 	return value

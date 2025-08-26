@@ -55,8 +55,8 @@ func GetData(q QueryData, db *sql.DB) (map[string]string, error) {
 	if err != nil {
 		return result, err
 	}
-	values := make([]interface{}, len(columns))
-	valueptrs := make([]interface{}, len(columns))
+	values := make([]any, len(columns))
+	valueptrs := make([]any, len(columns))
 	for i := range columns {
 		valueptrs[i] = &values[i]
 	}
@@ -65,7 +65,7 @@ func GetData(q QueryData, db *sql.DB) (map[string]string, error) {
 			return result, err
 		}
 		for i, col := range columns {
-			var v interface{}
+			var v any
 			val := values[i]
 			b, ok := val.([]byte)
 			if ok {
@@ -82,7 +82,7 @@ func GetData(q QueryData, db *sql.DB) (map[string]string, error) {
 func UpdateData(db *sql.DB, table string, id int, updates map[string]string) (sql.Result, error) {
 	// 构建更新字段的 SQL 片段和参数切片
 	var setClause []string
-	var args []interface{}
+	var args []any
 	args = append(args, id) // 首先添加 ID 参数
 	for field, value := range updates {
 		setClause = append(setClause, fmt.Sprintf("%s = $%d", field, len(args)+1))

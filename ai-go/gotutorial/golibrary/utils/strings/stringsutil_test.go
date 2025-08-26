@@ -63,7 +63,7 @@ func TestAfter(t *testing.T) {
 type prefixsuffixtest struct {
 	Prefixes []string
 	Suffixes []string
-	Result   interface{}
+	Result   any
 }
 
 func TestHasPrefixAny(t *testing.T) {
@@ -119,17 +119,17 @@ func TestTrimSuffixAny(t *testing.T) {
 }
 
 type jointest struct {
-	Items     []interface{}
+	Items     []any
 	Separator string
 	Result    string
 }
 
 func TestJoin(t *testing.T) {
 	tests := []jointest{
-		{Items: []interface{}{"a"}, Separator: "", Result: "a"},
-		{Items: []interface{}{"a", "b"}, Separator: ",", Result: "a,b"},
-		{Items: []interface{}{"a", "b", 1}, Separator: ",", Result: "a,b,1"},
-		{Items: []interface{}{2, "b", 1}, Separator: "", Result: "2b1"},
+		{Items: []any{"a"}, Separator: "", Result: "a"},
+		{Items: []any{"a", "b"}, Separator: ",", Result: "a,b"},
+		{Items: []any{"a", "b", 1}, Separator: ",", Result: "a,b,1"},
+		{Items: []any{2, "b", 1}, Separator: "", Result: "2b1"},
 	}
 	for _, test := range tests {
 		res := Join(test.Items, test.Separator)
@@ -230,7 +230,7 @@ func TestEqualFoldAny(t *testing.T) {
 type attest struct {
 	After  int
 	Search string
-	Result interface{}
+	Result any
 }
 
 func TestIndexAt(t *testing.T) {
@@ -248,7 +248,7 @@ func TestIndexAt(t *testing.T) {
 
 type splitanytest struct {
 	Splitset []string
-	Result   interface{}
+	Result   any
 }
 
 func TestSplitAny(t *testing.T) {

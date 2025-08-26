@@ -28,13 +28,13 @@ func (h *myHeap) Len() int {
 }
 
 // 实现了heap.Interface的Pop方法
-func (h *myHeap) Pop() (v interface{}) {
+func (h *myHeap) Pop() (v any) {
 	*h, v = (*h)[:h.Len()-1], (*h)[h.Len()-1]
 	return
 }
 
 // 实现了heap.Interface的Push方法
-func (h *myHeap) Push(v interface{}) {
+func (h *myHeap) Push(v any) {
 	*h = append(*h, v.(int))
 }
 

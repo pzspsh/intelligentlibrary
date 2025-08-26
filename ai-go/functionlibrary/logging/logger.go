@@ -293,31 +293,31 @@ func console(color uint8, data string) {
 	}
 }
 
-func Debug(format string, v ...interface{}) {
+func Debug(format string, v ...any) {
 	Write(color_darkgreen, DEBUG, debug, fmt.Sprintf(format, v...))
 }
 
-func Info(format string, v ...interface{}) {
+func Info(format string, v ...any) {
 	Write(color_white, INFO, info, fmt.Sprintf(format, v...))
 }
 
-func Warning(format string, v ...interface{}) {
+func Warning(format string, v ...any) {
 	Write(color_yellow, WARN, warning, fmt.Sprintf(format, v...))
 }
 
-func Error(format string, v ...interface{}) {
+func Error(format string, v ...any) {
 	Write(color_red, ERROR, err, fmt.Sprintf(format, v...))
 }
 
-func Fatal(format string, v ...interface{}) {
+func Fatal(format string, v ...any) {
 	Write(color_purple, FATAL, fatal, fmt.Sprintf(format, v...))
 }
 
-func Success(format string, v ...interface{}) {
+func Success(format string, v ...any) {
 	Write(color_green, SUCCESS, success, fmt.Sprintf(format, v...))
 }
 
-func Trace(format string, v ...interface{}) {
+func Trace(format string, v ...any) {
 	Write(color_blue, TRACE, trace, fmt.Sprintf(format, v...))
 }
 

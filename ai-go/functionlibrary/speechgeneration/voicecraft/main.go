@@ -62,17 +62,17 @@ func main() {
 
 	defer conn.Close()
 
-	frameData := map[string]interface{}{
-		"common": map[string]interface{}{
+	frameData := map[string]any{
+		"common": map[string]any{
 			"app_id": appid, //appid 必须带上，只需第一帧发送
 		},
-		"business": map[string]interface{}{ //business 参数，只需一帧发送
+		"business": map[string]any{ //business 参数，只需一帧发送
 			"vcn":   "xiaoyan",
 			"aue":   "raw",
 			"speed": 50,
 			"tte":   "UTF8",
 		},
-		"data": map[string]interface{}{
+		"data": map[string]any{
 			"status":   STATUS_LAST_FRAME,
 			"encoding": "UTF8",
 			"text":     base64.StdEncoding.EncodeToString([]byte(srcText)),

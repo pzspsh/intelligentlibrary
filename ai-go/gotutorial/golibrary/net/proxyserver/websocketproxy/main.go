@@ -152,7 +152,7 @@ func SetLogger(l *log.Logger) Options {
 
 var (
 	byteSlicePool = sync.Pool{
-		New: func() interface{} {
+		New: func() any {
 			return []byte{}
 		},
 	}
@@ -193,10 +193,10 @@ func auth(r *http.Request) error {
 
 func main() {
 	tlsc := tls.Config{InsecureSkipVerify: true}
-		wp, err := NewProxy("ws://www.baidu.com:80/ajaxchattest", auth, SetTLSConfig(&tlsc))
-		if err != nil {
-			fmt.Println(err)
-		}
+	wp, err := NewProxy("ws://www.baidu.com:80/ajaxchattest", auth, SetTLSConfig(&tlsc))
+	if err != nil {
+		fmt.Println(err)
+	}
 	http.HandleFunc("/wsproxy", wp.Proxy)
 	http.ListenAndServe(":9696", nil)
 }

@@ -58,11 +58,11 @@ type httpStreamPair struct {
 
 	requestSeq uint
 	connSeq    uint
-	eventChan  chan<- interface{}
+	eventChan  chan<- any
 }
 
 // newHTTPStreamPair 实例化httpStreamPair.
-func newHTTPStreamPair(seq uint, eventChan chan<- interface{}) *httpStreamPair {
+func newHTTPStreamPair(seq uint, eventChan chan<- any) *httpStreamPair {
 	pair := new(httpStreamPair)
 	pair.connSeq = seq
 	pair.eventChan = eventChan

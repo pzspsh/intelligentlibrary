@@ -115,7 +115,7 @@ func CanExtend(hosts ...string) bool {
 }
 
 // IsIPv4 checks if the string is an IP version 4.
-func IsIPv4(ips ...interface{}) bool {
+func IsIPv4(ips ...any) bool {
 	for _, ip := range ips {
 		switch ipv := ip.(type) {
 		case string:
@@ -177,7 +177,7 @@ func IsInIpv6List(str string) bool {
 }
 
 // IsIPv6 checks if the string is an IP version 6.
-func IsIPv6(ips ...interface{}) bool {
+func IsIPv6(ips ...any) bool {
 	for _, ip := range ips {
 		switch ipv := ip.(type) {
 		case string:

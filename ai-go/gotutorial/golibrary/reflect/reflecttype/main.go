@@ -12,7 +12,7 @@ import (
 
 //反射获取interface类型信息
 
-func reflect_type(a interface{}) {
+func reflect_type(a any) {
 	t := reflect.TypeOf(a)
 	fmt.Println("类型是：", t)
 	// kind()可以获取具体类型

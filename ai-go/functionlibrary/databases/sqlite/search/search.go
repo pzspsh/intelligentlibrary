@@ -29,9 +29,9 @@ func SqliteConn(dbpath string) (*sql.DB, error) {
 	return db, err
 }
 
-func Search(db *sql.DB) ([][]interface{}, error) {
-	result := make([][]interface{}, 0)
-	data := make([]interface{}, 0)
+func Search(db *sql.DB) ([][]any, error) {
+	result := make([][]any, 0)
+	data := make([]any, 0)
 	rows, err := db.Query("select * from users")
 	if err != nil {
 		fmt.Printf("search query data err:%v", err)

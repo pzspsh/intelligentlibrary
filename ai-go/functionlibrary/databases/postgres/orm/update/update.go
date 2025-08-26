@@ -62,7 +62,7 @@ func (t *Table_demo) Updates(db gorm.DB, id string) {
 	}
 }
 
-func Update(db *gorm.DB, obj, target string, table interface{}) error {
+func Update(db *gorm.DB, obj, target string, table any) error {
 	err := db.Where(obj+" = ?", target).Updates(table)
 	if err.Error != nil {
 		return err.Error

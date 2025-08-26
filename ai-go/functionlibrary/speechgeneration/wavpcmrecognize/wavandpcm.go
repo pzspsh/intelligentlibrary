@@ -87,16 +87,16 @@ func main() {
 			}
 			switch status {
 			case STATUS_FIRST_FRAME: //发送第一帧音频，带business 参数
-				frameData := map[string]interface{}{
-					"common": map[string]interface{}{
+				frameData := map[string]any{
+					"common": map[string]any{
 						"app_id": appid, //appid 必须带上，只需第一帧发送
 					},
-					"business": map[string]interface{}{ //business 参数，只需一帧发送
+					"business": map[string]any{ //business 参数，只需一帧发送
 						"language": "zh_cn",
 						"domain":   "iat",
 						"accent":   "mandarin",
 					},
-					"data": map[string]interface{}{
+					"data": map[string]any{
 						"status":   STATUS_FIRST_FRAME,
 						"format":   "audio/L16;rate=16000",
 						"audio":    base64.StdEncoding.EncodeToString(buffer[:len]),
@@ -107,8 +107,8 @@ func main() {
 				conn.WriteJSON(frameData)
 				status = STATUS_CONTINUE_FRAME
 			case STATUS_CONTINUE_FRAME:
-				frameData := map[string]interface{}{
-					"data": map[string]interface{}{
+				frameData := map[string]any{
+					"data": map[string]any{
 						"status":   STATUS_CONTINUE_FRAME,
 						"format":   "audio/L16;rate=16000",
 						"audio":    base64.StdEncoding.EncodeToString(buffer[:len]),
@@ -117,8 +117,8 @@ func main() {
 				}
 				conn.WriteJSON(frameData)
 			case STATUS_LAST_FRAME:
-				frameData := map[string]interface{}{
-					"data": map[string]interface{}{
+				frameData := map[string]any{
+					"data": map[string]any{
 						"status":   STATUS_LAST_FRAME,
 						"format":   "audio/L16;rate=16000",
 						"audio":    base64.StdEncoding.EncodeToString(buffer[:len]),

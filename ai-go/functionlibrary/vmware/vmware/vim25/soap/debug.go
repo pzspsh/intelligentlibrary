@@ -27,7 +27,7 @@ type debugRoundTrip struct {
 	cs  []io.Closer    // Files that need closing when done
 }
 
-func (d *debugRoundTrip) logf(format string, a ...interface{}) {
+func (d *debugRoundTrip) logf(format string, a ...any) {
 	now := time.Now().Format("2006-01-02T15-04-05.000000000")
 	fmt.Fprintf(d.log, "%s - %04d: ", now, d.rn)
 	fmt.Fprintf(d.log, format, a...)

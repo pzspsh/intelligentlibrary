@@ -20,7 +20,7 @@ import (
 	"time"
 )
 
-func pubKey(priv interface{}) interface{} {
+func pubKey(priv any) any {
 	switch k := priv.(type) {
 	case *rsa.PrivateKey:
 		return &k.PublicKey
@@ -38,7 +38,7 @@ func Generate(options Options) (privateKey, publicKey []byte, err error) {
 		return nil, nil, errors.New("Empty host value")
 	}
 
-	var priv interface{}
+	var priv any
 	switch options.EcdsaCurve {
 	case "":
 		if options.Ed25519Key {

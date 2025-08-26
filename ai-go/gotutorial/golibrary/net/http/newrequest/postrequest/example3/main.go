@@ -16,7 +16,7 @@ import (
 func httpPost(requestUrl string) (err error) {
 	client := &http.Client{}
 
-	data := make(map[string]interface{})
+	data := make(map[string]any)
 	data["name"] = "seemmo"
 	data["passwd"] = "da123qwe"
 	jsonData, _ := json.Marshal(data)

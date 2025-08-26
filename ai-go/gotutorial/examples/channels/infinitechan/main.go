@@ -12,18 +12,18 @@ import (
 )
 
 type DynamicChannel struct {
-	ch     chan interface{}
+	ch     chan any
 	mu     sync.Mutex
 	closed bool
 }
 
 func NewDynamicChannel(initialCap int) *DynamicChannel {
 	return &DynamicChannel{
-		ch: make(chan interface{}, initialCap),
+		ch: make(chan any, initialCap),
 	}
 }
 
-func (dc *DynamicChannel) Send(value interface{}) {
+func (dc *DynamicChannel) Send(value any) {
 	dc.mu.Lock()
 	defer dc.mu.Unlock()
 
@@ -34,7 +34,7 @@ func (dc *DynamicChannel) Send(value interface{}) {
 	// 如果channel满了，‌就扩容
 	if len(dc.ch) == cap(dc.ch) {
 		newCap := cap(dc.ch) * 2
-		newCh := make(chan interface{}, newCap)
+		newCh := make(chan any, newCap)
 		for value := range dc.ch {
 			newCh <- value
 		}
@@ -44,7 +44,7 @@ func (dc *DynamicChannel) Send(value interface{}) {
 	dc.ch <- value
 }
 
-func (dc *DynamicChannel) Receive() interface{} {
+func (dc *DynamicChannel) Receive() any {
 	dc.mu.Lock()
 	defer dc.mu.Unlock()
 

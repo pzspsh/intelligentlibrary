@@ -41,7 +41,7 @@ func getAccessToken(apiKey string, secretKey string) (string, error) {
 		return "", err
 	}
 
-	var jsonResp map[string]interface{}
+	var jsonResp map[string]any
 	err = resp.JSON(&jsonResp)
 	if err != nil {
 		return "", err
@@ -69,17 +69,17 @@ func recognizeText(imageURL string, accessToken string) (string, error) {
 		return "", err
 	}
 
-	var jsonResp map[string]interface{}
+	var jsonResp map[string]any
 	err = resp.JSON(&jsonResp)
 	if err != nil {
 		return "", err
 	}
 
-	wordsResults := jsonResp["words_result"].([]interface{})
+	wordsResults := jsonResp["words_result"].([]any)
 	result := ""
 
 	for _, word := range wordsResults {
-		result += word.(map[string]interface{})["words"].(string) + " "
+		result += word.(map[string]any)["words"].(string) + " "
 	}
 
 	return result, nil

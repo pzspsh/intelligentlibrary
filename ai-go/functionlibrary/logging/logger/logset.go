@@ -61,7 +61,7 @@ type FileConfig struct {
 	log      *log.Logger
 }
 
-func LoggerSet(pathfile string, args ...interface{}) *FileConfig {
+func LoggerSet(pathfile string, args ...any) *FileConfig {
 	var maxNumber int64
 	var maxSize int64
 	var isrolling bool
@@ -282,31 +282,31 @@ func inlevelalone(level string) (Levels, bool) {
 	}
 }
 
-func (l *FileConfig) Debug(format string, v ...interface{}) {
+func (l *FileConfig) Debug(format string, v ...any) {
 	l.write(color_darkgreen, DEBUGING, debug, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Info(format string, v ...interface{}) {
+func (l *FileConfig) Info(format string, v ...any) {
 	l.write(color_white, INFOING, info, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Warning(format string, v ...interface{}) {
+func (l *FileConfig) Warning(format string, v ...any) {
 	l.write(color_yellow, WARNING, warning, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Error(format string, v ...interface{}) {
+func (l *FileConfig) Error(format string, v ...any) {
 	l.write(color_red, ERRORING, err, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Fatal(format string, v ...interface{}) {
+func (l *FileConfig) Fatal(format string, v ...any) {
 	l.write(color_purple, FATALED, fatal, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Success(format string, v ...interface{}) {
+func (l *FileConfig) Success(format string, v ...any) {
 	l.write(color_green, SUCCESSED, success, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Trace(format string, v ...interface{}) {
+func (l *FileConfig) Trace(format string, v ...any) {
 	l.write(color_blue, TRACEED, trace, fmt.Sprintf(format, v...))
 }
 

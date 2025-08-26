@@ -50,7 +50,7 @@ func (c *ClientHttp) Head(url string) (*http.Response, error) {
 	return c.Do(req)
 }
 
-func (c *ClientHttp) Post(url string, bodyType string, body interface{}) (*http.Response, error) {
+func (c *ClientHttp) Post(url string, bodyType string, body any) (*http.Response, error) {
 	req, err := NewRequest(http.MethodPost, url, body)
 	if err != nil {
 		return nil, err

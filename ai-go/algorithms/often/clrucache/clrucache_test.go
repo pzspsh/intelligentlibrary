@@ -38,10 +38,10 @@ func Test_CLRUCache(t *testing.T) {
 	assert.Equal(t, 4, param1)
 }
 
-func MList2Ints(lru *CLRUCache) [][]interface{} {
-	res := [][]interface{}{}
+func MList2Ints(lru *CLRUCache) [][]any {
+	res := [][]any{}
 	for head := lru.list.Front(); head != nil; head = head.Next() {
-		tmp := []interface{}{head.Value.(Pair).key, head.Value.(Pair).value}
+		tmp := []any{head.Value.(Pair).key, head.Value.(Pair).value}
 		res = append(res, tmp)
 	}
 	return res
@@ -84,7 +84,7 @@ func NewLRUCache(capacity int) Cache {
 	}
 }
 
-func (c *Cache) Get(key string) interface{} {
+func (c *Cache) Get(key string) any {
 	c.Lock()
 	if el, ok := c.Keys[key]; ok {
 		c.List.MoveToFront(el)

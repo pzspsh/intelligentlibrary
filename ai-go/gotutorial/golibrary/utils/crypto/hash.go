@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 )
 
-func SHA256Sum(data interface{}) string {
+func SHA256Sum(data any) string {
 	hasher := sha256.New()
 	if v, ok := data.([]byte); ok {
 		hasher.Write(v)

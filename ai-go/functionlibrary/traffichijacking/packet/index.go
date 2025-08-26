@@ -18,18 +18,18 @@ type (
 	}
 	EventFunc func(req *http.Request, resp *http.Response)
 	Handle    struct {
-		ctx          context.Context  // 上下文.
-		cardName     string           // 网卡名称.
-		bpf          string           // 过滤器规则.
-		promisc      bool             // 是否混杂模式.
-		eventCh      chan interface{} // 事件通道.
-		goroutineNum int              // 协程数量.
-		eventHandle  EventFunc        // 事件处理.
-		flushTime    time.Duration    // 清理缓存时间.
+		ctx          context.Context // 上下文.
+		cardName     string          // 网卡名称.
+		bpf          string          // 过滤器规则.
+		promisc      bool            // 是否混杂模式.
+		eventCh      chan any        // 事件通道.
+		goroutineNum int             // 协程数量.
+		eventHandle  EventFunc       // 事件处理.
+		flushTime    time.Duration   // 清理缓存时间.
 	}
 )
 
-func NewPacketHandle(ctx context.Context, cardName string, eventCh chan interface{}) *Handle {
+func NewPacketHandle(ctx context.Context, cardName string, eventCh chan any) *Handle {
 	return &Handle{
 		ctx:       ctx,
 		cardName:  cardName,

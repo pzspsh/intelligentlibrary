@@ -14,7 +14,7 @@ import (
 	"reflect"
 )
 
-func extractKeyValuePairs(data interface{}, parentKey string, result map[string]interface{}) {
+func extractKeyValuePairs(data any, parentKey string, result map[string]any) {
 	/*
 		extractKeyValuePairs 递归地提取所有键值对
 	*/
@@ -67,9 +67,9 @@ func extractKeyValuePairs(data interface{}, parentKey string, result map[string]
 }
 func main() {
 	var err error
-	var data map[string]interface{}           // 使用 map[string]interface{} 解析 JSON 数据
-	var result = make(map[string]interface{}) // 存储所有键值对的结果
-	file, err := os.Open("/path/data.json")   // 打开 JSON 文件
+	var data map[string]any                 // 使用 map[string]any 解析 JSON 数据
+	var result = make(map[string]any)       // 存储所有键值对的结果
+	file, err := os.Open("/path/data.json") // 打开 JSON 文件
 	if err != nil {
 		log.Fatalf("Failed to open file: %s", err)
 	}

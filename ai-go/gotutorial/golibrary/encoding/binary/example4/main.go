@@ -23,7 +23,7 @@ type Message struct {
 // 封包函数
 func Pack(len uint32, id uint32, data []byte) ([]byte, error) {
 	var bufferPool = sync.Pool{
-		New: func() interface{} {
+		New: func() any {
 			return new(bytes.Buffer)
 		},
 	}

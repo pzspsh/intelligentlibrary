@@ -56,7 +56,7 @@ func main() {
 
 	byt := []byte(`{"num":6.13,"strs":["a","b"]}`)
 
-	var dat map[string]interface{}
+	var dat map[string]any
 
 	if err := json.Unmarshal(byt, &dat); err != nil {
 		panic(err)
@@ -66,7 +66,7 @@ func main() {
 	num := dat["num"].(float64)
 	fmt.Println(num)
 
-	strs := dat["strs"].([]interface{})
+	strs := dat["strs"].([]any)
 	str1 := strs[0].(string)
 	fmt.Println(str1)
 

@@ -34,14 +34,14 @@ func SelectAll(es *elastic.Client) {
 		fmt.Println("scroll error:", err)
 	}
 	fmt.Println(vulnes.TotalHits())
-	var dataAll []map[string]interface{}
+	var dataAll []map[string]any
 	scrollid := vulnes.ScrollId
 	for {
 		if len(vulnes.Hits.Hits) > 0 {
-			vulndata := make(map[string]interface{})
+			vulndata := make(map[string]any)
 			for _, item := range vulnes.Each(reflect.TypeOf(vulndata)) {
 				fmt.Println(item)
-				dataAll = append(dataAll, item.(map[string]interface{}))
+				dataAll = append(dataAll, item.(map[string]any))
 			}
 		} else {
 			break

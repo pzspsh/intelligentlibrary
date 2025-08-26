@@ -5,6 +5,6 @@
 */
 package thinkphp
 
-func PocExec(...interface{}) {
+func PocExec(...any) {
 
 }

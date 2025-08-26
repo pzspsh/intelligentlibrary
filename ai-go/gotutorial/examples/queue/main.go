@@ -12,22 +12,22 @@ import (
 
 type Queue struct {
 	sync.Mutex
-	queue []interface{}
+	queue []any
 }
 
 func NewQueue() *Queue {
 	return &Queue{
-		queue: make([]interface{}, 0),
+		queue: make([]any, 0),
 	}
 }
 
-func (q *Queue) Enqueue(data interface{}) {
+func (q *Queue) Enqueue(data any) {
 	q.Lock()
 	defer q.Unlock()
 	q.queue = append(q.queue, data)
 }
 
-func (q *Queue) Dequeue() interface{} {
+func (q *Queue) Dequeue() any {
 	q.Lock()
 	defer q.Unlock()
 	if len(q.queue) == 0 {

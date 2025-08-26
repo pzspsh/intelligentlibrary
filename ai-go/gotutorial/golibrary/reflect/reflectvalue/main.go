@@ -12,7 +12,7 @@ import (
 
 //反射获取interface值信息
 
-func reflect_value(a interface{}) {
+func reflect_value(a any) {
 	v := reflect.ValueOf(a)
 	fmt.Println(v)
 	k := v.Kind()

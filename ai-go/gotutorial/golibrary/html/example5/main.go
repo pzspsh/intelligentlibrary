@@ -42,7 +42,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	_ = htmlTplEngine.ExecuteTemplate(
 		w,
 		"index/index",
-		map[string]interface{}{"PageTitle": "首页", "Name": "sqrt_cat", "Age": 25},
+		map[string]any{"PageTitle": "首页", "Name": "sqrt_cat", "Age": 25},
 	)
 }
 
@@ -51,7 +51,7 @@ func NewsHandler(w http.ResponseWriter, r *http.Request) {
 	_ = htmlTplEngine.ExecuteTemplate(
 		w,
 		"news/index",
-		map[string]interface{}{
+		map[string]any{
 			"PageTitle": "新闻",
 			"List": []struct {
 				Title     string

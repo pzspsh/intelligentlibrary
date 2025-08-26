@@ -5,7 +5,7 @@ import (
 )
 
 // IsValid checks if a port is valid
-func IsValid(v interface{}) bool {
+func IsValid(v any) bool {
 	switch p := v.(type) {
 	case string:
 		return IsValidWithString(p)

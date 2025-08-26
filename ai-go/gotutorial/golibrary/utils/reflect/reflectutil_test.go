@@ -24,13 +24,13 @@ func TestToMap(t *testing.T) {
 	// testing normal fields
 	tomap, err := ToMap(testStruct, nil, false)
 	require.Nilf(t, err, "error while parsing: %s", err)
-	m := map[string]interface{}{"first_option": "test", "second_option": 10}
+	m := map[string]any{"first_option": "test", "second_option": 10}
 	require.EqualValues(t, m, tomap, "objects are not equal")
 
 	// testing with non exported ones
 	tomap, err = ToMap(testStruct, nil, true)
 	require.Nilf(t, err, "error while parsing: %s", err)
-	m = map[string]interface{}{"first_option": "test", "second_option": 10, "private_option3": "ignored"}
+	m = map[string]any{"first_option": "test", "second_option": 10, "private_option3": "ignored"}
 	require.EqualValues(t, m, tomap, "objects are not equal")
 
 	// testing with custom stringify function
@@ -39,7 +39,7 @@ func TestToMap(t *testing.T) {
 	}
 	tomap, err = ToMap(testStruct, fu, false)
 	require.Nilf(t, err, "error while parsing: %s", err)
-	m = map[string]interface{}{"firstoption": "test", "secondoption": 10}
+	m = map[string]any{"firstoption": "test", "secondoption": 10}
 	require.EqualValues(t, m, tomap, "objects are not equal")
 }
 

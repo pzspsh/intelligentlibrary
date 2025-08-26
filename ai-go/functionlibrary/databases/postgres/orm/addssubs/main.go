@@ -38,7 +38,7 @@ func main() {
 
 	// 使用GORM的Updates方法，结合SQL的EXCLUDED关键字
 	// 注意：不同的数据库可能对更新前的值有不同的关键字，例如MySQL是`OLD`
-	db.Model(&User{}).Where("id = ?", userId).Updates(map[string]interface{}{
+	db.Model(&User{}).Where("id = ?", userId).Updates(map[string]any{
 		"balance": gorm.Expr("balance + ?", balanceIncrement),
 		"score":   gorm.Expr("score - ?", scoreDecrement),
 	})

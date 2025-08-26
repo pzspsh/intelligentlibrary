@@ -55,7 +55,7 @@ func GetWeekRange(dateStr string) (start, end time.Time, err error) { // 获取�
 	return start, end, nil
 }
 
-func GetDaysInYear(value interface{}) int { // 获取某年的天数
+func GetDaysInYear(value any) int { // 获取某年的天数
 	var year int
 	switch v := value.(type) {
 	case int:
