@@ -125,7 +125,31 @@ func GitDownload() error {
 	var downurlstr string
 	var isdownload = make(map[string]gitpull.IsDownJson)
 	var downurllist []string
-	downname := []string{"nuclei-templates", "awesome-search-queries", "docs", "proxify", "nuclei", "tlsx", "aix", "httpx", "gcache", "naabu", "notify", "ratelimit", "utils", "mapcidr", "goflags", "tinydns", "useragent", "shuffledns", "asnmap", "cdncheck", "pdtm", "subfinder", "retryabledns", "retryablehttp-go", "katana", "chaos-client", "tldfinder", "cvemap", "rawhttp", "alterx", "public-bugbounty-programs", "gologger", "cloudlist", "hmap", "interactsh-web", "clistats", "dnsx", "interactsh", "dsl", "fastdialer", "wappalyzergo", "uncover", "nuclei-action", "freeport", "networkpolicy", "actions", "goleak", "ldapserver", "ipranger", "openrisk", "templates-stats", "fuzzing-templates", "sarif", "gozero", "machineid", "martian", "gostruct", "go-smb2", "simplehttpserver", "nuclei-ai-extension", "wallpapers", "httpx-action", "tailwindcss", "js-proto-docs", "yamldoc-go", "goconfig", "blackrock", "sslcert", "roundrobin", "nuclei-docs", "eslint-config", "fdmax", "sqlc-go-builder", "nvd", "asyncsqs", "n3iwf", "mapsutil", "stringsutil", "js-yaml-source-map", "filekv", "network-fingerprint", "rdap", "cloudlist-action", "fasttemplate", "smb", "iputil", "fileutil", "reflectutil", "httputil", "cryptoutil", "folderutil", "urlutil", "executil", "sliceutil", "sqlc-builder", "notify-action", "naabu-action", "subfinder-action", "dnsx-action", "collaborator", "pd-actions", "dnsprobe", "resolvercache-go", "expirablelru", "urlfinder", "tunnelx", "nuclei-templates-ai"}
+	/* abcdefghijklmnopqrstuvwxyz */
+	downname := []string{
+		"aix", "asnmap", "alterx", "awesome-search-queries", "actions", "asyncsqs",
+		"blackrock",
+		"cdncheck", "cvemap", "cryptoutil", "collaborator", "clistats", "cloudlist", "chaos-client", "cloudlist-action", "cleanhttp",
+		"docs", "dsl", "dnsprobe", "dnsx-action", "dnsx",
+		"eslint-config", "expirablelru", "executil",
+		"fileutil", "freeport", "filekv", "folderutil", "fdmax", "fasttemplate", "fastdialer", "fuzzing-templates",
+		"gcache", "gologger", "goflags", "gozero", "gostruct", "go-smb2", "goconfig", "goleak",
+		"httpx", "httpx-action", "httputil", "hmap",
+		"interactsh-web", "interactsh", "ipranger", "iputil",
+		"js-yaml-source-map", "js-proto-docs",
+		"katana",
+		"ldapserver",
+		"mapsutil", "machineid", "mapcidr", "martian",
+		"nuclei", "nuclei-templates-ai", "nuclei-templates", "naabu", "notify", "nuclei-action", "nuclei-ai-extension", "networkpolicy", "n3iwf", "nvd", "network-fingerprint", "nuclei-docs", "notify-action", "naabu-action",
+		"openrisk",
+		"proxify", "pdtm", "public-bugbounty-programs", "pd-actions",
+		"retryablehttp-go", "ratelimit", "retryabledns", "rawhttp", "roundrobin", "rdap", "resolvercache-go", "reflectutil",
+		"shuffledns", "subfinder", "simplehttpserver", "sarif", "sqlc-go-builder", "stringsutil", "sliceutil", "smb", "sslcert", "sqlc-builder", "subfinder-action",
+		"tlsx", "tinydns", "tldfinder", "tailwindcss", "templates-stats", "tunnelx",
+		"utils", "useragent", "uncover", "urlutil", "urlfinder",
+		"wappalyzergo", "wallpapers",
+		"yamldoc-go",
+	}
 	projectdiscovery := "https://github.com/projectdiscovery/" // 下载目标
 	for _, name := range downname {
 		downurllist = append(downurllist, projectdiscovery+name)
