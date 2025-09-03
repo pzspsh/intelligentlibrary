@@ -4,6 +4,9 @@ netstat -ano | findstr :8080 # 查找并停止占用端口的应用
 sfc /scannow # 管理员身份打开终端命令，输入命令并按回车等待扫描和修复过程完成。
 regedit # 注册表编辑器
 Ctrl+Shift+Esc # 打开任务管理器
+
+powercfg -h off # 关闭休眠功能
+powercfg -h on # 开启休眠功能
 ```
 
 #### 干净引导启动Windows
