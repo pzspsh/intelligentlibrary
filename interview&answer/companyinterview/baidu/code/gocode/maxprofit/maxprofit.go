@@ -1,8 +1,3 @@
-/*
-@File   : maxprofit.go
-@Author : pan
-@Time   : 2023-05-23 10:28:42
-*/
 package main
 
 import "fmt"

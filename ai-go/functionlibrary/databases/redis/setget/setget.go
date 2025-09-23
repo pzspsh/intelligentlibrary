@@ -1,8 +1,3 @@
-/*
-@File   : setget.go
-@Author : pan
-@Time   : 2023-06-13 16:31:38
-*/
 package main
 
 import (

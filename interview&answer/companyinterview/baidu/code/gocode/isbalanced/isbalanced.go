@@ -1,8 +1,3 @@
-/*
-@File   : isbalanced.go
-@Author : pan
-@Time   : 2023-05-19 12:57:10
-*/
 package main
 
 import "fmt"

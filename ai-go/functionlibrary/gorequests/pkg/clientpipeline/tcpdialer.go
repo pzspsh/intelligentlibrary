@@ -1,8 +1,3 @@
-/*
-@File   : tcpdialer.go
-@Author : pan
-@Time   : 2023-08-24 13:12:40
-*/
 package clientpipeline
 
 import (

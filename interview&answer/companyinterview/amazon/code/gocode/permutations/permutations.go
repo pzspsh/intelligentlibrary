@@ -1,8 +1,3 @@
-/*
-@File   : permutations.go
-@Author : pan
-@Time   : 2023-05-18 14:03:40
-*/
 package main
 
 import "fmt"

@@ -1,8 +1,3 @@
-/*
-@File   : deletedumplicates.go
-@Author : pan
-@Time   : 2023-05-25 10:12:13
-*/
 package main
 
 import "fmt"

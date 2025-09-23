@@ -1,8 +1,3 @@
-/*
-@File   : filedownload.go
-@Author : pan
-@Time   : 2023-06-06 14:37:21
-*/
 package filedownload
 
 import (

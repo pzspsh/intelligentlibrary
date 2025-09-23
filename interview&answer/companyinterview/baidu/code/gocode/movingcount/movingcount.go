@@ -1,8 +1,3 @@
-/*
-@File   : movingcount.go
-@Author : pan
-@Time   : 2023-05-25 09:55:44
-*/
 package main
 
 import "fmt"

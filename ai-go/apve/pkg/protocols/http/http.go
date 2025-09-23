@@ -1,8 +1,3 @@
-/*
-@File   : http.go
-@Author : pan
-@Time   : 2023-06-17 17:39:29
-*/
 package http
 
 type Ruquest struct {

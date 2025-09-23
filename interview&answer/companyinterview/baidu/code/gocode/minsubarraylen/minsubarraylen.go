@@ -1,8 +1,3 @@
-/*
-@File   : minsubarraylen.go
-@Author : pan
-@Time   : 2023-05-24 10:20:58
-*/
 package main
 
 import (

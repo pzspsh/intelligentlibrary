@@ -1,8 +1,3 @@
-/*
-@File   : timer.go
-@Author : pan
-@Time   : 2024-09-20 13:52:50
-*/
 package timer
 
 import (

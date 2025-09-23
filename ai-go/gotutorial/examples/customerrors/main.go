@@ -1,8 +1,3 @@
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2024-01-08 12:16:24
-*/
 package main
 
 // 自定义错误

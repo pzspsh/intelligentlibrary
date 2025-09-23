@@ -1,8 +1,3 @@
-/*
-@File   : ismatch.go
-@Author : pan
-@Time   : 2023-05-22 09:33:07
-*/
 package main
 
 import "fmt"

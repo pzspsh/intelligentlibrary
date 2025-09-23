@@ -1,8 +1,3 @@
-/*
-@File   : restoreipaddress.go
-@Author : pan
-@Time   : 2023-05-23 10:30:45
-*/
 package main
 
 import (

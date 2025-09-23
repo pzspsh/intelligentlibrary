@@ -1,8 +1,3 @@
-/*
-@File   : mysqrt.go
-@Author : pan
-@Time   : 2023-05-23 10:12:26
-*/
 package main
 
 import (

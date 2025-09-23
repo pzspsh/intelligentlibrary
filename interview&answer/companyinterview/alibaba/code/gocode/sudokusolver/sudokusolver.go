@@ -1,8 +1,3 @@
-/*
-@File   : sudokusolver.go
-@Author : pan
-@Time   : 2023-05-18 13:44:14
-*/
 package main
 
 import "fmt"

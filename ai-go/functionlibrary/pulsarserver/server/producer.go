@@ -1,8 +1,3 @@
-/*
-@File   : producer.go
-@Author : pan
-@Time   : 2024-06-03 10:40:04
-*/
 package server
 
 import (

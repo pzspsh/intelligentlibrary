@@ -1,8 +1,3 @@
-/*
-@File   : selectsort.go
-@Author : pan
-@Time   : 2023-05-15 10:22:31
-*/
 package selectsort
 
 /*

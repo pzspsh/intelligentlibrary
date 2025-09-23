@@ -1,8 +1,3 @@
-/*
-@File   : subsets.go
-@Author : pan
-@Time   : 2023-05-18 14:13:09
-*/
 package main
 
 import "fmt"

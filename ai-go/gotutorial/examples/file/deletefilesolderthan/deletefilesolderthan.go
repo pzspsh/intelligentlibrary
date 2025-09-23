@@ -1,8 +1,3 @@
-/*
-@File   : deletefilesolderthan.go
-@Author : pan
-@Time   : 2023-06-21 11:13:11
-*/
 package main
 
 import (

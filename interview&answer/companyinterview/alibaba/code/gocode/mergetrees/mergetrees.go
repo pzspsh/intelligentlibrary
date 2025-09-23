@@ -1,8 +1,3 @@
-/*
-@File   : mergetrees.go
-@Author : pan
-@Time   : 2023-05-19 13:52:49
-*/
 package main
 
 import "fmt"

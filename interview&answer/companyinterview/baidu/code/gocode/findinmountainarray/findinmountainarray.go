@@ -1,8 +1,3 @@
-/*
-@File   : findinmountainarray.go
-@Author : pan
-@Time   : 2023-05-24 11:18:09
-*/
 package main
 
 import "fmt"

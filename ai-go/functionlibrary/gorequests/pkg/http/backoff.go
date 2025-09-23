@@ -1,8 +1,3 @@
-/*
-@File   : backoff.go
-@Author : pan
-@Time   : 2023-08-24 15:38:44
-*/
 package http
 
 import (

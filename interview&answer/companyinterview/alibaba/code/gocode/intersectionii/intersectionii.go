@@ -1,8 +1,3 @@
-/*
-@File   : intersectionii.go
-@Author : pan
-@Time   : 2023-05-19 13:29:06
-*/
 package main
 
 import "fmt"

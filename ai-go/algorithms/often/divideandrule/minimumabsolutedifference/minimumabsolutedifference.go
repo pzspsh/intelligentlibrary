@@ -1,8 +1,3 @@
-/*
-@File   : minimumabsolutedifference.go
-@Author : pan
-@Time   : 2023-05-15 10:49:34
-*/
 package minimumabsolutedifference
 
 /*

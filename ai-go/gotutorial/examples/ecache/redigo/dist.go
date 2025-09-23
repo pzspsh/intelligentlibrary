@@ -1,8 +1,3 @@
-/*
-@File   : dist.go
-@Author : pan
-@Time   : 2023-12-28 11:25:16
-*/
 package dist
 
 import (
@@ -17,7 +12,7 @@ import (
 
 const topic = "orca-zhang/ecache"
 
-// `RedisCli`` interface used by `dist` component
+// `RedisCli“ interface used by `dist` component
 type RedisCli interface {
 	// if the redis client is ready
 	OK() bool

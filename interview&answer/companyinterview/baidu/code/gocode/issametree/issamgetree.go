@@ -1,8 +1,3 @@
-/*
-@File   : issamgetree.go
-@Author : pan
-@Time   : 2023-05-25 10:14:12
-*/
 package main
 
 import "fmt"

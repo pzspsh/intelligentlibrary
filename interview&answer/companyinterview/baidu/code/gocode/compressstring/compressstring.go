@@ -1,8 +1,3 @@
-/*
-@File   : compressstring.go
-@Author : pan
-@Time   : 2023-05-23 10:07:03
-*/
 package main
 
 import (

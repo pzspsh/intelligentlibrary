@@ -1,8 +1,3 @@
-/*
-@File   : reader.go
-@Author : pan
-@Time   : 2023-08-24 11:45:30
-*/
 package client
 
 import (

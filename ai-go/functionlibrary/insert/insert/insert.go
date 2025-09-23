@@ -1,8 +1,3 @@
-/*
-@File   : insert.go
-@Author : pan
-@Time   : 2023-06-06 14:42:10
-*/
 package insert
 
 /*

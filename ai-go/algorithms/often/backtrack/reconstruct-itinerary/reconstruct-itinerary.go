@@ -1,8 +1,3 @@
-/*
-@File   : reconstruct-itinerary.go
-@Author : pan
-@Time   : 2023-05-15 11:42:45
-*/
 package itinerary
 
 import "fmt"

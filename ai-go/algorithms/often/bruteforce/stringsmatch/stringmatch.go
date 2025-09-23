@@ -1,8 +1,3 @@
-/*
-@File   : stringmatch.go
-@Author : pan
-@Time   : 2023-05-15 10:23:20
-*/
 package stringsmatch
 
 import (
@@ -35,7 +30,7 @@ func RepeatedStringMatch(A string, B string) int {
 	//判断s和t的长度，将s长度扩展为N*S(刚大于t)+S
 	multi := int(math.Ceil(float64(len(t))/float64(len(s)))) + 1
 	finS := ""
-	for i := 0; i < multi; i++ {
+	for range multi {
 		finS = finS + s
 	}
 	startIndex := KMPCompare(finS, t)

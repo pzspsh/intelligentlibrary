@@ -1,8 +1,3 @@
-/*
-@File   : lfucache.go
-@Author : pan
-@Time   : 2023-05-22 09:52:29
-*/
 package main
 
 import "container/list"

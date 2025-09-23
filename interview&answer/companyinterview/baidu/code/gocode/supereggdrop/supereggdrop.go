@@ -1,8 +1,3 @@
-/*
-@File   : supereggdrop.go
-@Author : pan
-@Time   : 2023-05-25 10:11:02
-*/
 package main
 
 import "fmt"

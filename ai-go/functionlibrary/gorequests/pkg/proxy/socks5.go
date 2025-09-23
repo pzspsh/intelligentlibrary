@@ -1,8 +1,3 @@
-/*
-@File   : socks5.go
-@Author : pan
-@Time   : 2023-08-24 11:47:58
-*/
 package proxy
 
 import (

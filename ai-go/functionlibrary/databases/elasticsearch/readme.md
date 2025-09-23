@@ -1,11 +1,6 @@
 ### ElasticSearch Go
 
 ```go
-/*
-@File   : index.go
-@Author : pan
-@Time   : 2023-09-08 12:52:53
-*/
 package demo
 
 import (
@@ -387,11 +382,6 @@ func (a *IndexStatistic) Update() {
 ```
 
 ```go
-/*
-@File   : index.go
-@Author : pan
-@Time   : 2023-09-08 12:52:53
-*/
 package demo
 
 import (
@@ -575,11 +565,6 @@ func (a *IndexStatistic) Update() {
 ```
 
 ```go
-/*
-@File   : demo.go
-@Author : pan
-@Time   : 2023-09-08 12:48:31
-*/
 package demo
 
 import (

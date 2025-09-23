@@ -1,9 +1,3 @@
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2024-02-29 14:22:52
-*/
-
 package main
 
 import "fmt"

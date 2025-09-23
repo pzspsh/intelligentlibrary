@@ -1,8 +1,3 @@
-/*
-@File   : server.go
-@Author : pan
-@Time   : 2023-11-09 14:40:50
-*/
 package httpproxy
 
 import (

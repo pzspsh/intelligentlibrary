@@ -1,8 +1,3 @@
-/*
-@File   : delete.go
-@Author : pan
-@Time   : 2023-06-06 14:35:12
-*/
 package delete
 
 /*

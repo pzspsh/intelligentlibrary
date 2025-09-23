@@ -1,8 +1,3 @@
-/*
-@File   : client.go
-@Author : pan
-@Time   : 2023-08-24 13:10:17
-*/
 package clientpipeline
 
 import (

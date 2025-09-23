@@ -1,8 +1,3 @@
-/*
-@File   : eightqueenslcci.go
-@Author : pan
-@Time   : 2023-05-15 11:42:22
-*/
 package eightqueenslcci
 
 import (

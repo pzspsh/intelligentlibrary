@@ -1,8 +1,3 @@
-/*
-@File   : goodspairs.go
-@Author : pan
-@Time   : 2023-05-15 10:28:00
-*/
 package goodspairs
 
 /*

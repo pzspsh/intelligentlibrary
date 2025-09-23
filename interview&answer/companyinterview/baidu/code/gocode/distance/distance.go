@@ -1,8 +1,3 @@
-/*
-@File   : distance.go
-@Author : pan
-@Time   : 2023-05-18 14:10:45
-*/
 package main
 
 import "fmt"

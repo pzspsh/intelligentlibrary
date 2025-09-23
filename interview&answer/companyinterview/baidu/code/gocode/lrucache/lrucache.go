@@ -1,8 +1,3 @@
-/*
-@File   : lrucache.go
-@Author : pan
-@Time   : 2023-05-20 20:54:19
-*/
 package main
 
 import "fmt"

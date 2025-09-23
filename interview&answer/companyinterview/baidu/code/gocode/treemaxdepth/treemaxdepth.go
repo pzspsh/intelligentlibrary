@@ -1,8 +1,3 @@
-/*
-@File   : treemaxdepth.go
-@Author : pan
-@Time   : 2023-05-23 10:10:32
-*/
 package main
 
 import (

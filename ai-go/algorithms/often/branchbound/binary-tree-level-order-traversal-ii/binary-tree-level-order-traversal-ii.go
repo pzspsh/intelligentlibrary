@@ -1,8 +1,3 @@
-/*
-@File   : binary-tree-level-order-traversal-ii.go
-@Author : pan
-@Time   : 2023-05-15 11:48:19
-*/
 package ii
 
 import "container/list"

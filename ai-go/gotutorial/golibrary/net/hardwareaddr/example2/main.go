@@ -1,10 +1,5 @@
 //go:build windows
 
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2023-12-03 16:14:19
-*/
 package main
 
 import (

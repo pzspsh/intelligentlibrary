@@ -1,8 +1,3 @@
-/*
-@File   : majorityelement.go
-@Author : pan
-@Time   : 2023-05-25 10:19:19
-*/
 package main
 
 import "fmt"

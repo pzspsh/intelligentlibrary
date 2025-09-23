@@ -1,8 +1,3 @@
-/*
-@File   : sumoftwonums.go
-@Author : pan
-@Time   : 2023-05-15 10:26:48
-*/
 package sumoftwonums
 
 /*

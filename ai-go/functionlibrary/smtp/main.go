@@ -1,8 +1,3 @@
-/*
-@File   : smtp.go
-@Author : pan
-@Time   : 2023-06-01 15:55:58
-*/
 package main
 
 import (

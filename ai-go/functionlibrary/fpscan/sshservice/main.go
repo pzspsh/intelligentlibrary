@@ -1,8 +1,3 @@
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2024-06-07 15:09:18
-*/
 package main
 
 import (
@@ -14,7 +9,7 @@ import (
 
 func detectSSHService(target string, port string) (string, error) {
 	// 连接到目标端口
-	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%s", target, port))
+	conn, err := net.Dial("tcp", net.JoinHostPort(target, port))
 	if err != nil {
 		return "", err
 	}

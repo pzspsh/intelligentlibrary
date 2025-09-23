@@ -1,8 +1,3 @@
-/*
-@File   : polymorphism.go
-@Author : pan
-@Time   : 2023-05-16 15:36:38
-*/
 package main
 
 import "fmt"

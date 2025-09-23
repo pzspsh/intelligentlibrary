@@ -1,8 +1,3 @@
-/*
-@File   : detectcyclelist.go
-@Author : pan
-@Time   : 2023-05-23 09:35:44
-*/
 package main
 
 import "fmt"

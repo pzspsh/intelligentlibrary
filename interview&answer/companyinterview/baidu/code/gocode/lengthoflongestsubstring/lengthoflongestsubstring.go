@@ -1,8 +1,3 @@
-/*
-@File   : lengthoflongestsubstring.go
-@Author : pan
-@Time   : 2023-05-20 20:52:31
-*/
 package main
 
 import "fmt"

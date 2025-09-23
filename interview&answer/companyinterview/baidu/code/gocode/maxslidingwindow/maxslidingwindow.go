@@ -1,8 +1,3 @@
-/*
-@File   : maxslidingwindow.go
-@Author : pan
-@Time   : 2023-05-25 09:50:18
-*/
 package main
 
 import (

@@ -1,8 +1,3 @@
-/*
-@File   : subsort.go
-@Author : pan
-@Time   : 2023-05-15 10:44:21
-*/
 package subsort
 
 /*

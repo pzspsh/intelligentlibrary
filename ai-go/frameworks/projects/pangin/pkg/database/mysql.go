@@ -1,8 +1,3 @@
-/*
-@File   : mysql.go
-@Author : pan
-@Time   : 2024-01-08 17:20:45
-*/
 package database
 
 import (

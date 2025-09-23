@@ -1,8 +1,3 @@
-/*
-@File   : kthsmallestnumber.go
-@Author : pan
-@Time   : 2023-05-15 11:05:24
-*/
 package kthsmallestnumber
 
 /*

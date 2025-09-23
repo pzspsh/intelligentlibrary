@@ -1,8 +1,3 @@
-/*
-@File   : calculate.go
-@Author : pan
-@Time   : 2023-05-22 09:35:21
-*/
 package main
 
 import (

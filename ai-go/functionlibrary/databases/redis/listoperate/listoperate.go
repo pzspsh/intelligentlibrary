@@ -1,8 +1,3 @@
-/*
-@File   : listoperate.go
-@Author : pan
-@Time   : 2023-06-13 16:51:08
-*/
 package main
 
 import (

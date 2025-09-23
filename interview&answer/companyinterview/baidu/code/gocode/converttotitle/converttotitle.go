@@ -1,8 +1,3 @@
-/*
-@File   : converttotitle.go
-@Author : pan
-@Time   : 2023-05-24 11:06:13
-*/
 package main
 
 import "fmt"

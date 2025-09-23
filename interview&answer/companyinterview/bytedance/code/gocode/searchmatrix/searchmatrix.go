@@ -1,8 +1,3 @@
-/*
-@File   : searchmatrix.go
-@Author : pan
-@Time   : 2023-05-29 22:23:51
-*/
 package main
 
 import "fmt"

@@ -1,8 +1,3 @@
-/*
-@File   : streamreader.go
-@Author : pan
-@Time   : 2025-01-07 11:16:27
-*/
 package packet
 
 import (

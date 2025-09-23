@@ -1,8 +1,3 @@
-/*
-@File   : hammingweight.go
-@Author : pan
-@Time   : 2023-05-23 10:19:16
-*/
 package main
 
 import "fmt"

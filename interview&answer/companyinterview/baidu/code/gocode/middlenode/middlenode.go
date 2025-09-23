@@ -1,8 +1,3 @@
-/*
-@File   : middlenode.go
-@Author : pan
-@Time   : 2023-05-25 10:16:00
-*/
 package main
 
 import "fmt"

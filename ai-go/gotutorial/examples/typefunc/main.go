@@ -1,8 +1,3 @@
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2024-12-24 15:59:24
-*/
 package main
 
 // type func 类型函数的使用教程

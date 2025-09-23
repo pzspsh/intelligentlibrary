@@ -1,8 +1,3 @@
-/*
-@File   : zigzaglevleorder.go
-@Author : pan
-@Time   : 2023-05-24 11:22:35
-*/
 package main
 
 import "fmt"

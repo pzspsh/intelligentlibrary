@@ -1,8 +1,3 @@
-/*
-@File   : zsetoperate.go
-@Author : pan
-@Time   : 2023-06-13 17:14:04
-*/
 package main
 
 import (

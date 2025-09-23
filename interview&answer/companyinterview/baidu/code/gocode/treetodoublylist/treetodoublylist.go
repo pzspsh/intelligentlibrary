@@ -1,8 +1,3 @@
-/*
-@File   : treetodoublylist.go
-@Author : pan
-@Time   : 2023-05-24 10:52:30
-*/
 package main
 
 func main() {

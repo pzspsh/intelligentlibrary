@@ -1,8 +1,3 @@
-/*
-@File   : prefixtree.go
-@Author : pan
-@Time   : 2023-05-25 09:41:32
-*/
 package main
 
 func main() {

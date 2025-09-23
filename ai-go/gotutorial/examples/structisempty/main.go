@@ -1,8 +1,3 @@
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2024-09-10 15:09:26
-*/
 package main
 
 // 判断结构体是否为空

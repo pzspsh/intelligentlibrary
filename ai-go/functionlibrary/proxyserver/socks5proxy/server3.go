@@ -1,8 +1,3 @@
-/*
-@File   : server3.go
-@Author : pan
-@Time   : 2023-11-09 14:25:31
-*/
 package socket5proxy
 
 import (
@@ -103,7 +98,7 @@ func Socks5Connect(client net.Conn) (net.Conn, error) {
 		return nil, errors.New("read port: " + err.Error())
 	}
 	port := binary.BigEndian.Uint16(buf[:2])
-	destAddrPort := fmt.Sprintf("%s:%d", addr, port)
+	destAddrPort := net.JoinHostPort(addr, fmt.Sprintf("%d", port))
 	dest, err := net.Dial("tcp", destAddrPort)
 	if err != nil {
 		return nil, errors.New("dial dst: " + err.Error())

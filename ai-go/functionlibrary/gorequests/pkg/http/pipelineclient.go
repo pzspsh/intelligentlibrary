@@ -1,8 +1,3 @@
-/*
-@File   : pipelineclient.go
-@Author : pan
-@Time   : 2023-08-25 09:49:40
-*/
 package http
 
 import (

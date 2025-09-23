@@ -1,8 +1,3 @@
-/*
-@File   : conn.go
-@Author : pan
-@Time   : 2023-08-24 17:00:39
-*/
 package http
 
 import (

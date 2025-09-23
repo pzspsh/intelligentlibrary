@@ -1,8 +1,3 @@
-/*
-@File   : encapsulation.go
-@Author : pan
-@Time   : 2023-05-16 15:33:51
-*/
 package main
 
 import "fmt"

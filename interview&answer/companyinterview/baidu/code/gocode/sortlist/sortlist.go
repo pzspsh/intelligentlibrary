@@ -1,8 +1,3 @@
-/*
-@File   : sortlist.go
-@Author : pan
-@Time   : 2023-05-24 11:08:18
-*/
 package main
 
 import "fmt"

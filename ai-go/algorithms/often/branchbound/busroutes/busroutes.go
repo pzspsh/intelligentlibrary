@@ -1,8 +1,3 @@
-/*
-@File   : busroutes.go
-@Author : pan
-@Time   : 2023-05-15 11:48:49
-*/
 package busroutes
 
 import "fmt"

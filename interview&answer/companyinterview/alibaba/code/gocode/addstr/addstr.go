@@ -1,8 +1,3 @@
-/*
-@File   : addstr.go
-@Author : pan
-@Time   : 2023-05-19 13:30:10
-*/
 package main
 
 import "fmt"

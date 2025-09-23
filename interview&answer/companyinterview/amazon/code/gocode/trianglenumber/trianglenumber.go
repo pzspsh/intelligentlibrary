@@ -1,8 +1,3 @@
-/*
-@File   : trianglenumber.go
-@Author : pan
-@Time   : 2023-05-22 09:57:16
-*/
 package main
 
 import (

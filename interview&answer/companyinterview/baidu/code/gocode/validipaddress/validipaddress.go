@@ -1,8 +1,3 @@
-/*
-@File   : validipaddress.go
-@Author : pan
-@Time   : 2023-05-24 10:16:59
-*/
 package main
 
 import (

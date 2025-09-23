@@ -1,8 +1,3 @@
-/*
-@File   : threesum.go
-@Author : pan
-@Time   : 2023-05-18 13:58:48
-*/
 package main
 
 import (

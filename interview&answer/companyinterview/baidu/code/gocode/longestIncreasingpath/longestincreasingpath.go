@@ -1,8 +1,3 @@
-/*
-@File   : longestincreasingpath.go
-@Author : pan
-@Time   : 2023-05-25 10:01:12
-*/
 package main
 
 import (

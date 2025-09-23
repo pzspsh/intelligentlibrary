@@ -1,8 +1,3 @@
-/*
-@File   : tokenbucket.go
-@Author : pan
-@Time   : 2023-09-20 15:15:33
-*/
 package main
 
 import (

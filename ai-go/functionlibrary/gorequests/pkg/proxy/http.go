@@ -1,8 +1,3 @@
-/*
-@File   : http.go
-@Author : pan
-@Time   : 2023-08-24 11:47:40
-*/
 package proxy
 
 import (

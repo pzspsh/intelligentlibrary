@@ -1,8 +1,3 @@
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2023-12-06 14:03:45
-*/
 package main
 
 import (
@@ -57,7 +52,7 @@ func main() {
 	if err != nil {
 		panic(readResp(resp) + err.Error())
 	} else if resp.StatusCode != 101 {
-		panic(readResp(resp) + err.Error())
+		panic(readResp(resp))
 	}
 
 	defer conn.Close()

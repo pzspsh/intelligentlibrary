@@ -1,8 +1,3 @@
-/*
-@File   : permutations.go
-@Author : pan
-@Time   : 2023-05-15 10:16:16
-*/
 package permutations
 
 /*
@@ -29,14 +24,14 @@ func Permute(nums []int) [][]int {
 	length := len(nums)
 	totalArray := 1
 	oldA := make([][]int, 1)
-	for n := 0; n < 1; n++ {
+	for n := range 1 {
 		oldA[n] = make([]int, 1)
 	}
 	oldA[0][0] = nums[0]
 	for i := 1; i < length; i++ { //代表n，一直到最后一个值
 		nextTotalArray := totalArray * (i + 1) //(n)!
 		newA := make([][]int, nextTotalArray)
-		for n := 0; n < nextTotalArray; n++ {
+		for n := range nextTotalArray {
 			newA[n] = make([]int, i+1)
 		}
 		for j := 0; j < totalArray; j++ { //代表(n-1)!里的每一个数组

@@ -1,8 +1,3 @@
-/*
-@File   : mirrortree.go
-@Author : pan
-@Time   : 2023-05-19 14:07:40
-*/
 package main
 
 import "fmt"

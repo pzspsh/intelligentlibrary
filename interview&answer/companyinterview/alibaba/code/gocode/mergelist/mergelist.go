@@ -1,8 +1,3 @@
-/*
-@File   : mergelist.go
-@Author : pan
-@Time   : 2023-05-18 14:17:15
-*/
 package main
 
 import (

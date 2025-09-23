@@ -1,8 +1,3 @@
-/*
-@File   : partitionequalsubsetsum.go
-@Author : pan
-@Time   : 2023-05-15 11:41:44
-*/
 package partitionequalsubsetsum
 
 import "fmt"

@@ -1,8 +1,3 @@
-/*
-@File   : findnumberin2darray.go
-@Author : pan
-@Time   : 2023-05-24 10:46:06
-*/
 package main
 
 import "fmt"

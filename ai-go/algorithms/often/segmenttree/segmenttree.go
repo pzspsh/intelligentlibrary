@@ -193,7 +193,7 @@ func (st *SegmentCountTree) Init(nums []int, oper func(i, j int) int) {
 	st.merge = oper
 
 	data, tree := make([]int, len(nums)), make([]int, 4*len(nums))
-	for i := 0; i < len(nums); i++ {
+	for i := range nums {
 		data[i] = nums[i]
 	}
 	st.data, st.tree = data, tree

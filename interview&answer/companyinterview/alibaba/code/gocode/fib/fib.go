@@ -1,8 +1,3 @@
-/*
-@File   : fib.go
-@Author : pan
-@Time   : 2023-05-19 13:46:16
-*/
 package main
 
 import "fmt"

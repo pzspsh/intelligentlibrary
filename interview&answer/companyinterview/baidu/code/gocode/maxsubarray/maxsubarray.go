@@ -1,8 +1,3 @@
-/*
-@File   : maxsubarray.go
-@Author : pan
-@Time   : 2023-05-18 14:06:07
-*/
 package main
 
 import "fmt"

@@ -1,8 +1,3 @@
-/*
-@File   : lossnumber.go
-@Author : pan
-@Time   : 2023-05-15 11:05:49
-*/
 package lossnumber
 
 /*

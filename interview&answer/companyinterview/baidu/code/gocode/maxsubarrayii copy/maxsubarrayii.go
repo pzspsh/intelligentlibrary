@@ -1,8 +1,3 @@
-/*
-@File   : maxsubarrayii.go
-@Author : pan
-@Time   : 2023-05-19 14:11:04
-*/
 package main
 
 import "fmt"

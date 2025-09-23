@@ -1,8 +1,3 @@
-/*
-@File   : createfolders.go
-@Author : pan
-@Time   : 2023-06-21 15:00:53
-*/
 package main
 
 import (

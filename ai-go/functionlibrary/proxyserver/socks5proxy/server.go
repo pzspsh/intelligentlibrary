@@ -1,8 +1,3 @@
-/*
-@File   : server.go
-@Author : pan
-@Time   : 2023-11-09 11:10:23
-*/
 package socket5proxy
 
 import (

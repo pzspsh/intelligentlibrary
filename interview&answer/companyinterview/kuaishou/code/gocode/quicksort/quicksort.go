@@ -1,8 +1,3 @@
-/*
-@File   : quicksort.go
-@Author : pan
-@Time   : 2023-05-17 10:56:08
-*/
 package gocode
 
 // 快速排序

@@ -1,8 +1,3 @@
-/*
-@File   : stringtoreadcloser.go
-@Author : pan
-@Time   : 2023-06-21 15:26:46
-*/
 package main
 
 import (

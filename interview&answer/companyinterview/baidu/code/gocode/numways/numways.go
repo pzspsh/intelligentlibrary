@@ -1,8 +1,3 @@
-/*
-@File   : numways.go
-@Author : pan
-@Time   : 2023-05-23 10:33:02
-*/
 package main
 
 import "fmt"

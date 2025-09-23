@@ -1,8 +1,3 @@
-/*
-@File   : searchmaxtrix.go
-@Author : pan
-@Time   : 2023-05-15 10:46:46
-*/
 package searchmatrix
 
 /*

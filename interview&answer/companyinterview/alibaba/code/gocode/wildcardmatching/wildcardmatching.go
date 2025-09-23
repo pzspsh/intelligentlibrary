@@ -1,8 +1,3 @@
-/*
-@File   : wildcardmatching.go
-@Author : pan
-@Time   : 2023-05-18 14:00:23
-*/
 package main
 
 import "fmt"

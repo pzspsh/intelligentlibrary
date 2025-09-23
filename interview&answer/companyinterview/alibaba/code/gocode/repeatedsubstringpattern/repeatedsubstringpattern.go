@@ -1,8 +1,3 @@
-/*
-@File   : repeatedsubstringpattern.go
-@Author : pan
-@Time   : 2023-05-19 13:32:00
-*/
 package main
 
 import (

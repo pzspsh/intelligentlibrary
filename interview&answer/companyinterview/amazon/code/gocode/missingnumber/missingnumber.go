@@ -1,8 +1,3 @@
-/*
-@File   : missingnumber.go
-@Author : pan
-@Time   : 2023-05-22 09:40:03
-*/
 package main
 
 import "fmt"

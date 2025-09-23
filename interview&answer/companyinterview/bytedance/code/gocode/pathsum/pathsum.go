@@ -1,8 +1,3 @@
-/*
-@File   : pathsum.go
-@Author : pan
-@Time   : 2023-05-29 22:30:37
-*/
 package main
 
 import "fmt"

@@ -2,11 +2,6 @@
 
 #### 1、git project download 
 ```go
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2024-08-19 11:57:20
-*/
 package main
 
 import (

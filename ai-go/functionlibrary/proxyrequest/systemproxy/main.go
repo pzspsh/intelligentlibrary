@@ -1,8 +1,3 @@
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2024-05-30 17:40:28
-*/
 package main
 
 import (
@@ -18,9 +13,9 @@ func main() {
 		os.Exit(1)
 	}
 	transport := &http.Transport{Proxy: http.ProxyURL(proxyURL)} // 创建代理传输设置
-	client := &http.Client{Transport: transport} // 创建使用代理的客户端
-	targetURL := "http://www.example.com" // 请求的目标URL
-	resp, err := client.Get(targetURL) // 发送GET请求
+	client := &http.Client{Transport: transport}                 // 创建使用代理的客户端
+	targetURL := "http://www.example.com"                        // 请求的目标URL
+	resp, err := client.Get(targetURL)                           // 发送GET请求
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error sending request: %v\n", err)
 		os.Exit(1)

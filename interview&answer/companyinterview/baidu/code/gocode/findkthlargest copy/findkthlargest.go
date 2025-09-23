@@ -1,8 +1,3 @@
-/*
-@File   : findkthlargest.go
-@Author : pan
-@Time   : 2023-05-19 13:11:34
-*/
 package main
 
 import (

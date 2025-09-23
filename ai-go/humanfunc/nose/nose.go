@@ -1,8 +1,3 @@
-/*
-@File   : nose.go
-@Author : pan
-@Time   : 2023-05-11 15:41:14
-*/
 package nose
 
 /*

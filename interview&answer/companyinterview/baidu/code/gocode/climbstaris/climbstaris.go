@@ -1,8 +1,3 @@
-/*
-@File   : climbstaris.go
-@Author : pan
-@Time   : 2023-05-18 14:09:18
-*/
 package main
 
 import "fmt"

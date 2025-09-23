@@ -1,8 +1,3 @@
-/*
-@File   : status.go
-@Author : pan
-@Time   : 2023-08-24 11:51:28
-*/
 package client
 
 import "fmt"

@@ -1,8 +1,3 @@
-/*
-@File   : ecache.go
-@Author : pan
-@Time   : 2023-12-28 11:22:10
-*/
 package ecache
 
 import (

@@ -1,8 +1,3 @@
-/*
-@File   : setoperate.go
-@Author : pan
-@Time   : 2023-06-13 17:13:34
-*/
 package main
 
 import (

@@ -1,8 +1,3 @@
-/*
-@File   : smallestk.go
-@Author : pan
-@Time   : 2023-05-15 11:06:50
-*/
 package smallestk
 
 /*

@@ -1,8 +1,3 @@
-/*
-@File   : numislands.go
-@Author : pan
-@Time   : 2023-05-22 09:31:44
-*/
 package main
 
 import "fmt"

@@ -1,8 +1,3 @@
-/*
-@File   : preordertraversal.go
-@Author : pan
-@Time   : 2023-05-19 13:07:14
-*/
 package main
 
 import "fmt"

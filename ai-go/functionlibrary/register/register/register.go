@@ -1,8 +1,3 @@
-/*
-@File   : register.go
-@Author : pan
-@Time   : 2023-06-06 14:52:29
-*/
 package register
 
 /*

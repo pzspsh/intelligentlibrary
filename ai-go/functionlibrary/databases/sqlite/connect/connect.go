@@ -1,8 +1,3 @@
-/*
-@File   : connect.go
-@Author : pan
-@Time   : 2023-06-12 16:08:34
-*/
 package main
 
 import (

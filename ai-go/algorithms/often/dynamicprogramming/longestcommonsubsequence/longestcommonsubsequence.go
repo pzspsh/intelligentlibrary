@@ -1,8 +1,3 @@
-/*
-@File   : longestcommonsubsequence.go
-@Author : pan
-@Time   : 2023-05-15 11:13:12
-*/
 package longestcommonsubsequence
 
 /*

@@ -1,8 +1,3 @@
-/*
-@File   : handle.go
-@Author : pan
-@Time   : 2025-01-07 11:14:22
-*/
 package packet
 
 // EventHandle 设置goroutine进行消息处理.

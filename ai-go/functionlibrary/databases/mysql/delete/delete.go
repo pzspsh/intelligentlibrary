@@ -1,8 +1,3 @@
-/*
-@File   : delete.go
-@Author : pan
-@Time   : 2023-06-13 10:42:42
-*/
 package main
 
 import (

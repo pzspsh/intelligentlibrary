@@ -1,8 +1,3 @@
-/*
-@File   : issymmetric.go
-@Author : pan
-@Time   : 2023-05-24 11:49:32
-*/
 package main
 
 import "fmt"

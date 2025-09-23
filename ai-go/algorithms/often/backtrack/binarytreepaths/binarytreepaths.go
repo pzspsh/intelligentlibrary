@@ -1,8 +1,3 @@
-/*
-@File   : binarytreepaths.go
-@Author : pan
-@Time   : 2023-05-15 11:42:02
-*/
 package binarytreepaths
 
 import (

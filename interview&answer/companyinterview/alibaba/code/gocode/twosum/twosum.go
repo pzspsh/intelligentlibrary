@@ -1,8 +1,3 @@
-/*
-@File   : towsum.go
-@Author : pan
-@Time   : 2023-05-18 13:49:22
-*/
 package main
 
 import "fmt"

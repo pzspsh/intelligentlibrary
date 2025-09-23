@@ -1,8 +1,3 @@
-/*
-@File   : rightsideview.go
-@Author : pan
-@Time   : 2023-05-23 09:32:53
-*/
 package main
 
 import "fmt"

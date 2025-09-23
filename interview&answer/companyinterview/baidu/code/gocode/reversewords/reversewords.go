@@ -1,8 +1,3 @@
-/*
-@File   : reversewords.go
-@Author : pan
-@Time   : 2023-05-24 10:22:10
-*/
 package main
 
 import (

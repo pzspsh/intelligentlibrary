@@ -1,8 +1,3 @@
-/*
-@File   : swapnumbers.go
-@Author : pan
-@Time   : 2023-05-24 10:43:33
-*/
 package main
 
 import "fmt"

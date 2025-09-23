@@ -1,8 +1,3 @@
-/*
-@File   : integerbreak.go
-@Author : pan
-@Time   : 2023-05-22 09:36:26
-*/
 package main
 
 import (

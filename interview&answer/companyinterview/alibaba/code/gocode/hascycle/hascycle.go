@@ -1,8 +1,3 @@
-/*
-@File   : hascycle.go
-@Author : pan
-@Time   : 2023-05-19 13:03:43
-*/
 package main
 
 import "fmt"

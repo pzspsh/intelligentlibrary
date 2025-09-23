@@ -1,8 +1,3 @@
-/*
-@File   : myatoi.go
-@Author : pan
-@Time   : 2023-05-22 09:41:57
-*/
 package main
 
 import (

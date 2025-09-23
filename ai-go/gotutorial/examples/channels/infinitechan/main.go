@@ -1,8 +1,3 @@
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2024-09-03 16:23:03
-*/
 package main
 
 // 无限缓存的channel实现

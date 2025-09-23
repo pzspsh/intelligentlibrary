@@ -1,8 +1,3 @@
-/*
-@File   : options.go
-@Author : pan
-@Time   : 2023-08-24 15:02:01
-*/
 package http
 
 import (

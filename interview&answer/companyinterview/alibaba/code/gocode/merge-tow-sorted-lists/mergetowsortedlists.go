@@ -1,8 +1,3 @@
-/*
-@File   : mergetowsortedlists.go
-@Author : pan
-@Time   : 2023-05-18 13:51:48
-*/
 package main
 
 import "fmt"

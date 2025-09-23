@@ -1,8 +1,3 @@
-/*
-@File   : findduplicate.go
-@Author : pan
-@Time   : 2023-05-24 11:14:48
-*/
 package main
 
 import (

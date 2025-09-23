@@ -1,8 +1,3 @@
-/*
-@File   : retry.go
-@Author : pan
-@Time   : 2023-08-24 15:37:28
-*/
 package http
 
 import (

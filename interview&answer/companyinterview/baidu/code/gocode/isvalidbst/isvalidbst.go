@@ -1,8 +1,3 @@
-/*
-@File   : isvalidbst.go
-@Author : pan
-@Time   : 2023-05-24 11:54:40
-*/
 package main
 
 import (

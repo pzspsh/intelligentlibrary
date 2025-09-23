@@ -1,8 +1,3 @@
-/*
-@File   : back.go
-@Author : pan
-@Time   : 2024-08-09 16:27:09
-*/
 package output
 
 import "fmt"

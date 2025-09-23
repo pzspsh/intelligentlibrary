@@ -1,8 +1,3 @@
-/*
-@File   : subsets.go
-@Author : pan
-@Time   : 2023-05-15 10:15:52
-*/
 package subsets
 
 import (
@@ -70,7 +65,7 @@ func Subsets(nums []int) [][]int {
 	totalArray := int(math.Pow(2, float64(length)))
 	//申请二维数组
 	res := make([][]int, totalArray)
-	for i := 0; i < totalArray; i++ {
+	for i := range totalArray {
 		//计算比特串
 		bitString := convertToBin(i)
 		//计算出子串中1的数量

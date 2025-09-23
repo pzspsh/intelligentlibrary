@@ -1,8 +1,3 @@
-/*
-@File   : nthuglynumber.go
-@Author : pan
-@Time   : 2023-05-29 22:28:49
-*/
 package main
 
 import "fmt"

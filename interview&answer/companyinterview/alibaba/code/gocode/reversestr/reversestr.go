@@ -1,8 +1,3 @@
-/*
-@File   : reversestr.go
-@Author : pan
-@Time   : 2023-05-19 13:27:14
-*/
 package main
 
 import "fmt"

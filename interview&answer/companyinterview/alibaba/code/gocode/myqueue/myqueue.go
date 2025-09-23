@@ -1,8 +1,3 @@
-/*
-@File   : myqueue.go
-@Author : pan
-@Time   : 2023-05-19 13:15:00
-*/
 package main
 
 import "fmt"

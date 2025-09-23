@@ -1,8 +1,3 @@
-/*
-@File   : bstFromPreoder.go
-@Author : pan
-@Time   : 2023-07-04 23:29:42
-*/
 package main
 
 import "fmt"

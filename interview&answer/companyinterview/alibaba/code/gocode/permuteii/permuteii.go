@@ -1,8 +1,3 @@
-/*
-@File   : permuteii.go
-@Author : pan
-@Time   : 2023-05-18 14:05:03
-*/
 package main
 
 import "fmt"

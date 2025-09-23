@@ -1,8 +1,3 @@
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2023-12-21 16:53:11
-*/
 package main
 
 import (
@@ -11,7 +6,7 @@ import (
 	"strconv"
 )
 
-//os包中关于文件的操作函数
+// os包中关于文件的操作函数
 func main() {
 	//创建文件，返回一个文件指针
 	f3, _ := os.Create("./3.txt")

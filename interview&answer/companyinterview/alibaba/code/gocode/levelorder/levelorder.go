@@ -1,8 +1,3 @@
-/*
-@File   : levelorder.go
-@Author : pan
-@Time   : 2023-05-19 12:55:14
-*/
 package main
 
 import "fmt"

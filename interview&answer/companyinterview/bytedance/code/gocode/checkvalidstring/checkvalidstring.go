@@ -1,8 +1,3 @@
-/*
-@File   : checkvalidstring.go
-@Author : pan
-@Time   : 2023-05-29 22:21:33
-*/
 package main
 
 import (

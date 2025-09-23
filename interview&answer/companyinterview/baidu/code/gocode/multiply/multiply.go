@@ -1,8 +1,3 @@
-/*
-@File   : multiply.go
-@Author : pan
-@Time   : 2023-05-23 10:20:23
-*/
 package main
 
 import "fmt"

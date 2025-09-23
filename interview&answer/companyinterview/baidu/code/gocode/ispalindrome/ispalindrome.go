@@ -1,8 +1,3 @@
-/*
-@File   : ispalindrome.go
-@Author : pan
-@Time   : 2023-05-24 10:23:08
-*/
 package main
 
 import "fmt"

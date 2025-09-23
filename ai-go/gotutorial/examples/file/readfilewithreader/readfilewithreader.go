@@ -1,8 +1,3 @@
-/*
-@File   : readfilewithreader.go
-@Author : pan
-@Time   : 2023-06-21 15:07:29
-*/
 package main
 
 import (

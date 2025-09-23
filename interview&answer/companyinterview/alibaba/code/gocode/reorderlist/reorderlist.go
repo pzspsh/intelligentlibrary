@@ -1,8 +1,3 @@
-/*
-@File   : reorderlist.go
-@Author : pan
-@Time   : 2023-05-19 13:04:40
-*/
 package main
 
 import "fmt"

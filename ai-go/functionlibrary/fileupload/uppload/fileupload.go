@@ -1,8 +1,3 @@
-/*
-@File   : fileupload.go
-@Author : pan
-@Time   : 2023-06-06 14:38:22
-*/
 package fileupload
 
 /*

@@ -1,8 +1,3 @@
-/*
-@File   : countnodes.go
-@Author : pan
-@Time   : 2023-05-24 10:18:55
-*/
 package main
 
 import "fmt"

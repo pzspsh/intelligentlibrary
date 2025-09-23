@@ -1,8 +1,3 @@
-/*
-@File   : inherit.go
-@Author : pan
-@Time   : 2023-05-16 15:35:42
-*/
 package main
 
 import "fmt"

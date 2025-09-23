@@ -1,8 +1,3 @@
-/*
-@File   : codec.go
-@Author : pan
-@Time   : 2023-05-19 13:22:19
-*/
 package main
 
 import (

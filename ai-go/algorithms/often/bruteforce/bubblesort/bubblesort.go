@@ -1,8 +1,3 @@
-/*
-@File   : bubblesort.go
-@Author : pan
-@Time   : 2023-05-15 10:17:22
-*/
 package bubblesort
 
 /*
@@ -27,7 +22,7 @@ func Exchange(nums []int) []int {
 	length := len(nums)
 	exchange := length - 1
 	oddeven := make([]int, length)
-	for i := 0; i < length; i++ {
+	for i := range length {
 		if nums[i]%2 == 0 {
 			oddeven[i] = 0
 		} else {
@@ -37,7 +32,7 @@ func Exchange(nums []int) []int {
 	for exchange != 0 {
 		boundary := exchange
 		exchange = 0
-		for j := 0; j < boundary; j++ {
+		for j := range boundary {
 			if oddeven[j] == 0 && oddeven[j+1] != 0 {
 				nums[j], nums[j+1] = nums[j+1], nums[j]
 				oddeven[j], oddeven[j+1] = oddeven[j+1], oddeven[j]

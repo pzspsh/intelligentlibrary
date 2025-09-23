@@ -1,8 +1,3 @@
-/*
-@File   : utils.go
-@Author : pan
-@Time   : 2023-09-18 14:17:05
-*/
 package test
 
 import (

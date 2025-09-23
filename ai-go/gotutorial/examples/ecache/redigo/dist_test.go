@@ -1,8 +1,3 @@
-/*
-@File   : dist_test.go
-@Author : pan
-@Time   : 2023-12-28 11:26:29
-*/
 package dist
 
 import (

@@ -1,8 +1,3 @@
-/*
-@File   : majorityelement.go
-@Author : pan
-@Time   : 2023-05-19 14:08:32
-*/
 package main
 
 import (

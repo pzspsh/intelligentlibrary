@@ -1,8 +1,3 @@
-/*
-@File   : maxProduct.go
-@Author : pan
-@Time   : 2023-07-04 23:25:41
-*/
 package main
 
 import (

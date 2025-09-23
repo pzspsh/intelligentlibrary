@@ -1,8 +1,3 @@
-/*
-@File   : hashoperate.go
-@Author : pan
-@Time   : 2023-06-13 17:01:07
-*/
 package main
 
 import (

@@ -1,8 +1,3 @@
-/*
-@File   : search.go
-@Author : pan
-@Time   : 2023-06-13 15:53:13
-*/
 package main
 
 import (

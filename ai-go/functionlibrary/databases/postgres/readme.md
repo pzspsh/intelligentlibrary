@@ -1,10 +1,5 @@
 # postgres数据库
 ```go
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2024-12-17 16:31:27
-*/
 package main
 
 import (

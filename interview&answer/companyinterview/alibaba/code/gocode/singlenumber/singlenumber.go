@@ -1,8 +1,3 @@
-/*
-@File   : singlenumber.go
-@Author : pan
-@Time   : 2023-05-19 12:58:54
-*/
 package main
 
 import "fmt"

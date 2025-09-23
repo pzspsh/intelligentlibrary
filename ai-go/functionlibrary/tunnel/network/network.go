@@ -1,8 +1,3 @@
-/*
-@File   : network.go
-@Author : pan
-@Time   : 2024-08-01 11:50:52
-*/
 package network
 
 import (

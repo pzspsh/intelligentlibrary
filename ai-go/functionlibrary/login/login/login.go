@@ -1,8 +1,3 @@
-/*
-@File   : login.go
-@Author : pan
-@Time   : 2023-06-06 14:43:57
-*/
 package login
 
 /*

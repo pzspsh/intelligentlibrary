@@ -1,8 +1,3 @@
-/*
-@File   : lowestcommonancestor.go
-@Author : pan
-@Time   : 2023-05-23 10:31:52
-*/
 package main
 
 import "fmt"

@@ -1,8 +1,3 @@
-/*
-@File   : twostackqueue.go
-@Author : pan
-@Time   : 2023-05-19 14:00:20
-*/
 package main
 
 func main() {

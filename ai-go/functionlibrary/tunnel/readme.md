@@ -62,11 +62,6 @@ image-20200408232311358
 3. 将一个 TCP-A 连接的数据写入另一个 TCP-B 连接，将 TCP-B 连接返回的数据写入 TCP-A 的连接中 `Join2Conn` （别看这短短 10 几行代码，这就是核心了）
 
 ```go
-/*
-@File   : network.go
-@Author : pan
-@Time   : 2024-08-01 11:50:52
-*/
 package network
 
 import (
@@ -130,11 +125,6 @@ func joinConn(local *net.TCPConn, remote *net.TCPConn) {
 3. 收到建立连接的消息时，将本地服务和远端隧道建立连接（这里就要用到我们的工具方法了）
 
 ```go
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2024-08-01 11:50:38
-*/
 package main
 
 import (
@@ -225,11 +215,6 @@ func connectRemote() *net.TCPConn {
 4. 监听隧道通道，接收来自客户端的连接请求，将客户端的连接与用户的连接建立起来（也是用工具方法）
 
 ```go
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2024-08-01 11:50:38
-*/
 package main
 
 import (

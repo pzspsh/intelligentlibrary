@@ -1,8 +1,3 @@
-/*
-@File   : findmediansortedarray.go
-@Author : pan
-@Time   : 2023-05-22 09:56:19
-*/
 package main
 
 import (

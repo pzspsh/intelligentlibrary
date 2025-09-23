@@ -1,8 +1,3 @@
-/*
-@File   : fileorfolderexists.go
-@Author : pan
-@Time   : 2023-06-21 11:09:28
-*/
 package fileorfolderexists
 
 import "os"

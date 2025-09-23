@@ -1,8 +1,3 @@
-/*
-@File   : slidingtimewindow.go
-@Author : pan
-@Time   : 2023-09-20 15:18:08
-*/
 package main
 
 import (

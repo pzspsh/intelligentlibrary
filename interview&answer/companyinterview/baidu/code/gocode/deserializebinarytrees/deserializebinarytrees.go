@@ -1,8 +1,3 @@
-/*
-@File   : deserializebinarytrees.go
-@Author : pan
-@Time   : 2023-05-23 10:14:56
-*/
 package main
 
 import (

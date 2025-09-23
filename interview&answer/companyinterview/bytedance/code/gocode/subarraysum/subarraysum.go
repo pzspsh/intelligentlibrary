@@ -1,8 +1,3 @@
-/*
-@File   : subarraysum.go
-@Author : pan
-@Time   : 2023-05-29 22:32:03
-*/
 package main
 
 import "fmt"

@@ -1,8 +1,3 @@
-/*
-@File   : httpstream.go
-@Author : pan
-@Time   : 2025-01-07 11:14:57
-*/
 package packet
 
 import (

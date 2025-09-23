@@ -1,8 +1,3 @@
-/*
-@File   : threestepsproblem.go
-@Author : pan
-@Time   : 2023-05-15 11:12:09
-*/
 package threestepsproblem
 
 /*

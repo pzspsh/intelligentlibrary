@@ -1,8 +1,3 @@
-/*
-@File   : kthsmallest.go
-@Author : pan
-@Time   : 2023-05-22 09:41:01
-*/
 package main
 
 import (

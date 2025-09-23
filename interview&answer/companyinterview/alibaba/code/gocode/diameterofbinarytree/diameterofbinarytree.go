@@ -1,8 +1,3 @@
-/*
-@File   : diameterofbinarytree.go
-@Author : pan
-@Time   : 2023-05-19 13:50:11
-*/
 package main
 
 import "fmt"

@@ -1,8 +1,3 @@
-/*
-@File   : requests.go
-@Author : pan
-@Time   : 2023-08-24 14:04:40
-*/
 package http
 
 import (

@@ -1,8 +1,3 @@
-/*
-@File   : pipeconns.go
-@Author : pan
-@Time   : 2023-08-24 13:13:13
-*/
 package clientpipeline
 
 import (

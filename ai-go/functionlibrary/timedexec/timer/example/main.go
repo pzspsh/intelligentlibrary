@@ -1,8 +1,3 @@
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2024-09-20 15:16:32
-*/
 package main
 
 import (

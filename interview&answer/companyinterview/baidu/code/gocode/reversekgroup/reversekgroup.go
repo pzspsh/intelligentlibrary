@@ -1,8 +1,3 @@
-/*
-@File   : reversekgroup.go
-@Author : pan
-@Time   : 2023-05-24 10:41:32
-*/
 package main
 
 import "fmt"

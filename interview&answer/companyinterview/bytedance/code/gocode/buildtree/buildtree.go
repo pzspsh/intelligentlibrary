@@ -1,8 +1,3 @@
-/*
-@File   : buildtree.go
-@Author : pan
-@Time   : 2023-05-29 22:25:38
-*/
 package main
 
 import "fmt"

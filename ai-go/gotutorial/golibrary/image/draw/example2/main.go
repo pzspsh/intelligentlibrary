@@ -1,21 +1,17 @@
-/*
-@File   : main.go
-@Author : pan
-@Time   : 2023-12-01 11:48:37
-*/
 package main
 
 import (
 	"bufio"
 	"flag"
-	"github.com/golang/freetype"
-	"golang.org/x/image/font"
 	"image"
 	"image/color"
 	"image/draw"
 	"image/png"
 	"log"
 	"os"
+
+	"github.com/golang/freetype"
+	"golang.org/x/image/font"
 )
 
 func Drawing(text, text1, text2 []string) {

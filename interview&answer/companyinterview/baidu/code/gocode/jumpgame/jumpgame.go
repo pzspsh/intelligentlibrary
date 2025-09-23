@@ -1,8 +1,3 @@
-/*
-@File   : jumpgame.go
-@Author : pan
-@Time   : 2023-05-23 10:35:15
-*/
 package main
 
 import "fmt"

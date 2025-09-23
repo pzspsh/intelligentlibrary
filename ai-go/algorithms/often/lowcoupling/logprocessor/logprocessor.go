@@ -1,8 +1,3 @@
-/*
-@File   : logprocessor.go
-@Author : pan
-@Time   : 2024-07-16 11:07:25
-*/
 package logprocessor
 
 import (

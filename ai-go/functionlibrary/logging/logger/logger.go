@@ -1,8 +1,3 @@
-/*
-@File   : logger.go
-@Author : pan
-@Time   : 2023-10-20 15:28:29
-*/
 package logger
 
 import (

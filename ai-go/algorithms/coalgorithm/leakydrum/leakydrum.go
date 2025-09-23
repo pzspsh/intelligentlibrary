@@ -1,8 +1,3 @@
-/*
-@File   : leakydrum.go
-@Author : pan
-@Time   : 2023-09-20 15:13:33
-*/
 package main
 
 import (
