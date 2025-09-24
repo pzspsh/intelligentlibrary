@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -52,7 +53,7 @@ func main() {
 	if err != nil {
 		panic(readResp(resp) + err.Error())
 	} else if resp.StatusCode != 101 {
-		panic(readResp(resp))
+		panic(readResp(resp) + " status code:" + strconv.Itoa(resp.StatusCode))
 	}
 
 	defer conn.Close()
