@@ -555,14 +555,14 @@ func Tracef(format string, v ...any) {
 	write(color_blue, TRACE, trace, fmt.Sprintf(format, v...))
 }
 
-func Off(v ...any) {
+func Off(q int, v ...any) {
 	write(color_white, OFF, off, fmt.Sprint(v...))
-	os.Exit(1)
+	os.Exit(q)
 }
 
-func Offf(format string, v ...any) {
+func Offf(q int, format string, v ...any) {
 	write(color_white, OFF, off, fmt.Sprintf(format, v...))
-	os.Exit(1)
+	os.Exit(q)
 }
 
 func Print(v ...any) {

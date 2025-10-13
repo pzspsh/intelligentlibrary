@@ -482,14 +482,14 @@ func (l *FileConfig) Tracef(format string, v ...any) {
 	l.write(color_blue, TRACEED, trace, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Off(v ...any) {
+func (l *FileConfig) Off(q int, v ...any) {
 	l.write(color_white, OFFING, off, fmt.Sprint(v...))
-	os.Exit(1)
+	os.Exit(q)
 }
 
-func (l *FileConfig) Offf(format string, v ...any) {
+func (l *FileConfig) Offf(q int, format string, v ...any) {
 	l.write(color_white, OFFING, off, fmt.Sprintf(format, v...))
-	os.Exit(1)
+	os.Exit(q)
 }
 
 func (l *FileConfig) Print(v ...any) {
