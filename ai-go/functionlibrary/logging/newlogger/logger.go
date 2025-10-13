@@ -499,40 +499,73 @@ func extract(data string) (int64, string, bool) {
 	return 0, "", false
 }
 
-func Debug(format string, v ...any) {
+func Debug(v ...any) {
+	write(color_darkgreen, DEBUG, debug, fmt.Sprint(v...))
+}
+
+func Debugf(format string, v ...any) {
 	write(color_darkgreen, DEBUG, debug, fmt.Sprintf(format, v...))
 }
 
-func Info(format string, v ...any) {
+func Info(v ...any) {
+	write(color_white, INFO, info, fmt.Sprint(v...))
+}
+
+func Infof(format string, v ...any) {
 	write(color_white, INFO, info, fmt.Sprintf(format, v...))
 }
 
-func Warning(format string, v ...any) {
+func Warning(v ...any) {
+	write(color_yellow, WARN, warning, fmt.Sprint(v...))
+}
+
+func Warningf(format string, v ...any) {
 	write(color_yellow, WARN, warning, fmt.Sprintf(format, v...))
 }
 
-func Error(format string, v ...any) {
+func Error(v ...any) {
+	write(color_red, ERROR, err, fmt.Sprint(v...))
+}
+
+func Errorf(format string, v ...any) {
 	write(color_red, ERROR, err, fmt.Sprintf(format, v...))
 }
 
-func Fatal(format string, v ...any) {
+func Fatal(v ...any) {
+	write(color_purple, FATAL, fatal, fmt.Sprint(v...))
+}
+
+func Fatalf(format string, v ...any) {
 	write(color_purple, FATAL, fatal, fmt.Sprintf(format, v...))
 }
 
-func Success(format string, v ...any) {
+func Success(v ...any) {
+	write(color_green, SUCCESS, success, fmt.Sprint(v...))
+}
+
+func Successf(format string, v ...any) {
 	write(color_green, SUCCESS, success, fmt.Sprintf(format, v...))
 }
 
-func Trace(format string, v ...any) {
+func Trace(v ...any) {
+	write(color_blue, TRACE, trace, fmt.Sprint(v...))
+}
+
+func Tracef(format string, v ...any) {
 	write(color_blue, TRACE, trace, fmt.Sprintf(format, v...))
 }
 
-func Off(format string, v ...any) {
+func Off(v ...any) {
+	write(color_white, OFF, off, fmt.Sprint(v...))
+	os.Exit(1)
+}
+
+func Offf(format string, v ...any) {
 	write(color_white, OFF, off, fmt.Sprintf(format, v...))
 	os.Exit(1)
 }
 
-func Print(format string, v ...any) {
+func Print(v ...any) {
 	var data string
 	if isSourcePath {
 		_, file, line, _ := runtime.Caller(1)
@@ -543,9 +576,27 @@ func Print(format string, v ...any) {
 			}
 		}
 		file = short
-		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), info, file+":"+strconv.Itoa(line), fmt.Sprintf(format, v...))
+		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), info, file+":"+strconv.Itoa(line), fmt.Sprint(v...))
 	} else {
-		data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), info, fmt.Sprintf(format, v...))
+		data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), info, fmt.Sprint(v...))
+	}
+	console(color_white, data)
+}
+
+func Printf(format string, v ...any) {
+	var data string
+	if isSourcePath {
+		_, file, line, _ := runtime.Caller(1)
+		short := file
+		for i := len(file) - 1; i > 0; i-- {
+			if file[i] == '/' {
+				short = file[i+1:]
+			}
+		}
+		file = short
+		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), trace, file+":"+strconv.Itoa(line), fmt.Sprintf(format, v...))
+	} else {
+		data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), trace, fmt.Sprintf(format, v...))
 	}
 	console(color_white, data)
 }

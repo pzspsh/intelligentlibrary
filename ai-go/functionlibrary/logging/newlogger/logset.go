@@ -426,40 +426,73 @@ func inlevelalone(levelobj any) (Levels, bool) {
 	return SUCCESSED, false
 }
 
-func (l *FileConfig) Debug(format string, v ...any) {
+func (l *FileConfig) Debug(v ...any) {
+	l.write(color_darkgreen, DEBUGING, debug, fmt.Sprint(v...))
+}
+
+func (l *FileConfig) Debugf(format string, v ...any) {
 	l.write(color_darkgreen, DEBUGING, debug, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Info(format string, v ...any) {
+func (l *FileConfig) Info(v ...any) {
+	l.write(color_white, INFOING, info, fmt.Sprint(v...))
+}
+
+func (l *FileConfig) Infof(format string, v ...any) {
 	l.write(color_white, INFOING, info, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Warning(format string, v ...any) {
+func (l *FileConfig) Warning(v ...any) {
+	l.write(color_yellow, WARNING, warning, fmt.Sprint(v...))
+}
+
+func (l *FileConfig) Warningf(format string, v ...any) {
 	l.write(color_yellow, WARNING, warning, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Error(format string, v ...any) {
+func (l *FileConfig) Error(v ...any) {
+	l.write(color_red, ERRORING, err, fmt.Sprint(v...))
+}
+
+func (l *FileConfig) Errorf(format string, v ...any) {
 	l.write(color_red, ERRORING, err, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Fatal(format string, v ...any) {
+func (l *FileConfig) Fatal(v ...any) {
+	l.write(color_purple, FATALED, fatal, fmt.Sprint(v...))
+}
+
+func (l *FileConfig) Fatalf(format string, v ...any) {
 	l.write(color_purple, FATALED, fatal, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Success(format string, v ...any) {
+func (l *FileConfig) Success(v ...any) {
+	l.write(color_green, SUCCESSED, success, fmt.Sprint(v...))
+}
+
+func (l *FileConfig) Successf(format string, v ...any) {
 	l.write(color_green, SUCCESSED, success, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Trace(format string, v ...any) {
+func (l *FileConfig) Trace(v ...any) {
+	l.write(color_blue, TRACEED, trace, fmt.Sprint(v...))
+}
+
+func (l *FileConfig) Tracef(format string, v ...any) {
 	l.write(color_blue, TRACEED, trace, fmt.Sprintf(format, v...))
 }
 
-func (l *FileConfig) Off(format string, v ...any) {
+func (l *FileConfig) Off(v ...any) {
+	l.write(color_white, OFFING, off, fmt.Sprint(v...))
+	os.Exit(1)
+}
+
+func (l *FileConfig) Offf(format string, v ...any) {
 	l.write(color_white, OFFING, off, fmt.Sprintf(format, v...))
 	os.Exit(1)
 }
 
-func (l *FileConfig) Print(format string, v ...any) {
+func (l *FileConfig) Print(v ...any) {
 	var data string
 	if l.isSourcePath {
 		_, file, line, _ := runtime.Caller(1)
@@ -470,9 +503,27 @@ func (l *FileConfig) Print(format string, v ...any) {
 			}
 		}
 		file = short
-		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), info, file+":"+strconv.Itoa(line), fmt.Sprintf(format, v...))
+		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), trace, file+":"+strconv.Itoa(line), fmt.Sprint(v...))
 	} else {
-		data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), info, fmt.Sprintf(format, v...))
+		data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), trace, fmt.Sprint(v...))
+	}
+	l.consolealone(color_white, data)
+}
+
+func (l *FileConfig) Printf(format string, v ...any) {
+	var data string
+	if l.isSourcePath {
+		_, file, line, _ := runtime.Caller(1)
+		short := file
+		for i := len(file) - 1; i > 0; i-- {
+			if file[i] == '/' {
+				short = file[i+1:]
+			}
+		}
+		file = short
+		data = fmt.Sprintf("[%v] [%v] [%v] >>> %v", time.Now().Format(Timeformat), trace, file+":"+strconv.Itoa(line), fmt.Sprintf(format, v...))
+	} else {
+		data = fmt.Sprintf("[%v] [%v] >>> %v", time.Now().Format(Timeformat), trace, fmt.Sprintf(format, v...))
 	}
 	l.consolealone(color_white, data)
 }
