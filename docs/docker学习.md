@@ -1,3 +1,72 @@
+## Docker
+### 安装 Docker
+```bash
+# 添加 GPG 密钥
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+# 添加仓库（注意：这里使用 jammy，不是 $(lsb_release -cs)）
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+apt update
+apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+sudo mkdir -p /etc/docker
+vi /etc/docker/daemon.json
+{
+  "registry-mirrors": [
+    "https://docker.mirrors.ustc.edu.cn",
+    "https://hub-mirror.c.163.com",
+    "https://mirror.baidubce.com"
+  ]
+}
+
+# 重启 Docker 服务
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+# 启动 Docker 服务
+sudo systemctl start docker
+
+# 设置开机自启
+sudo systemctl enable docker
+
+# 检查 Docker 版本
+docker --version
+
+# 检查 Docker 服务状态
+sudo systemctl status docker
+
+# 运行测试容器
+sudo docker run hello-world
+
+# 查看 Docker 系统信息
+docker info
+
+# 查看运行中的容器
+docker ps
+
+# 查看所有容器（包括停止的）
+docker ps -a
+
+# 拉取镜像
+docker pull <image-name>
+
+# 运行容器
+docker run <image-name>
+
+# 停止容器
+docker stop <container-id>
+
+# 删除容器
+docker rm <container-id>
+
+# 删除镜像
+docker rmi <image-id>
+
+timedatectl set-timezone Asia/Shanghai
+```
+
 ## 如何用 docker 来打包镜像
 
 ### 如何用 docker 来打包镜像
