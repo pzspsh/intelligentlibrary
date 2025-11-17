@@ -9,6 +9,7 @@ python -m http.server port --bind ip
 pip install requests -i https://pypi.douban.com/simple --trusted-host pypi.douban.com
 pip install --timeout 60 your-package # 增加超时时间
 pip config set global.timeout 60 # 配置中设置全局超时
+pip install your-package --ignore-requires-python # 后面添加--ignore-requires-python忽略版本
 ```
 
 ### Python下载包源
