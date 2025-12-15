@@ -14,11 +14,13 @@ apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docke
 sudo mkdir -p /etc/docker
 vi /etc/docker/daemon.json
 {
-  "registry-mirrors": [
-    "https://docker.mirrors.ustc.edu.cn",
-    "https://hub-mirror.c.163.com",
-    "https://mirror.baidubce.com"
-  ]
+    "registry-mirrors": [
+        "https://dockerproxy.com",
+        "https://docker.1ms.run",
+        "https://docker.m.daocloud.io",
+        "https://dockerhub.icu",
+        "https://docker.chenby.cn"
+    ]
 }
 
 # 重启 Docker 服务
@@ -592,15 +594,18 @@ vim /etc/docker/daemon.json 添加国内镜像
 ```shell
 {
     "registry-mirrors": [
-        "https://registry.hub.docker.com",
-        "http://hub-mirror.c.163.com",
-        "https://docker.mirrors.ustc.edu.cn",
-        "https://registry.docker-cn.com"
+        "https://dockerproxy.com",
+        "https://docker.1ms.run",
+        "https://docker.m.daocloud.io",
+        "https://dockerhub.icu",
+        "https://docker.chenby.cn"
     ]
 }
 
 添加完源然后重启docker, 命令如下:
 systemctl restart docker.service
+systemctl daemon-reload
+systemctl restart docker
 ```
 
 docker 进入容器 root 权限
