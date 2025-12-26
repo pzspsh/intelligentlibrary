@@ -66,8 +66,8 @@ func main() {
 	}
 	client, err := r.RedisConn()
 	if err != nil {
-		fmt.Printf("redis conn err:%v", err)
+		fmt.Printf("redis conn err:%v\n", err)
 	} else {
-		fmt.Printf("redis conn successful:%v", client)
+		fmt.Printf("redis conn successful:%v\n", client)
 	}
 }

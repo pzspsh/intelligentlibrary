@@ -14,6 +14,9 @@ OK
 redis> GET key
 "value"
 
+redis> DEL key
+(integer) 1
+
 对已存在的键进行设置：
 redis> SET key "new-value"
 OK

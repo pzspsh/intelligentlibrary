@@ -33,6 +33,14 @@ Redis>redis-cli
 3、通过命令设置密码：
 127.0.0.1:6379>config set requirepass 你设置的密码
 
+redis 8.4.0版本设置密码：
+启动redis服务，进入redis执行终端：
+> redis-cli
+127.0.0.1:6379> ACL SETUSER default on >填写要设置的密码
+OK
+127.0.0.1:6379>exit
+> redis-cli
+> auth 设置的密码
 4、 设置密码后退出，再次登录:
 方式一：
 Redis>redis-cli -p 6379 -a 你的密码
