@@ -1,13 +1,15 @@
 #### go 官网下载
 
 ```shell
-https://golang.google.cn/dl/
+https://go.dev/dl/ # 官方下载
+https://golang.google.cn/dl/ # 国内官网
+https://mirrors.aliyun.com/golang # 阿里云镜像
 ```
 
 ## windows 环境
 
 ```shell
-1、先下载go文件包 https://golang.google.cn/dl/go1.20.3.windows-amd64.zip
+1、先下载go文件包 https://golang.google.cn/dl/go1.26.0.linux-amd64.tar.gz
 2、解压go文件包
 3、把解压的go文件包路径：go文件包路径/bin设置到window系统环境变量中
 4、开发环境例如新建文件夹go:该目录下有文件夹bin文件、pkg文件、src文件。
@@ -67,9 +69,10 @@ GO环境下载包代理设置：
 
 ```shell
 以go1.20.3版本为例：
-wget https://golang.google.cn/dl/go1.20.3.linux-amd64.tar.gz # 先下载go文件包
+wget https://golang.google.cn/dl/go1.26.0.linux-amd64.tar.gz # 先下载go文件包
+wget https://mirrors.aliyun.com/golang/go1.26.0.linux-amd64.tar.gz # 从阿里云下载go文件包
 
-rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.3.linux-amd64.tar.gz # 如果之前安装库go环境，则直接执行该命令
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.26.0.linux-amd64.tar.gz # 如果之前安装库go环境，则直接执行该命令
 # 之前没安装过，直接解压go文件包，把go文件包迁移到/usr/local目录下
 
 
@@ -87,9 +90,9 @@ $ go version # 查看go版本
 ##### 原因：VS Code或gopls加载不到GOPATH
 ##### 解放办法1：
 ```bash
-先下载好1.20.3.linux-amd64.tar.gz文件包
+先下载好go1.26.0.linux-amd64.tar.gz文件包
 1、安装Go运行环境的
-rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.3.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.26.0.linux-amd64.tar.gz
 
 2、安装好go编译环境，VS Code连接进入服务器，工作区是/home目录执行go version命令可查看已经安装好Go编译环境，如果工作区是/root时执行go versin命令会显示Go编译环境不可用，则需要设置全局编译环境把GOROOT添加到shell的配置文件/etc/profile或~/.bashrc文件，将编辑的内容添加到文件末尾例如下：
 export GOROOT=/usr/local/go
